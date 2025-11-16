@@ -2,6 +2,8 @@ package com.portfolio.api.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.api.model.dto.request.SimulationRequest;
+import com.portfolio.api.model.entity.Product;
+import com.portfolio.api.repository.ProductRepository;
 import com.portfolio.api.security.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,11 +35,26 @@ class SimulationIntegrationTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     private String token;
 
     @BeforeEach
     void setUp() {
         token = jwtTokenProvider.generateToken("testuser");
+
+        Product cdb = new Product();
+        cdb.setNome("CDB Test Product");
+        cdb.setTipo("CDB");
+        cdb.setRentabilidade(new BigDecimal("0.12"));
+        cdb.setRisco("Baixo");
+        cdb.setValorMinimo(new BigDecimal("5000.00"));
+        cdb.setPrazoMinimoMeses(6);
+        cdb.setPrazoMaximoMeses(24);
+        cdb.setPerfilAdequado("Conservador");
+        cdb.setAtivo(true);
+        productRepository.save(cdb);
     }
 
     @Test
