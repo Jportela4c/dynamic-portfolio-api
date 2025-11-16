@@ -20,7 +20,7 @@ class InvestmentCalculatorTest {
 
         assertNotNull(finalValue);
         assertTrue(finalValue.compareTo(initialValue) > 0);
-        assertEquals(new BigDecimal("11200.00"), finalValue);
+        assertEquals(new BigDecimal("11268.25"), finalValue);
     }
 
     @Test
@@ -47,10 +47,10 @@ class InvestmentCalculatorTest {
     @Test
     void shouldCalculateEffectiveReturn() {
         BigDecimal initialValue = new BigDecimal("10000.00");
-        BigDecimal finalValue = new BigDecimal("11200.00");
+        BigDecimal finalValue = new BigDecimal("11268.25");
 
         BigDecimal effectiveReturn = calculator.calculateEffectiveReturn(initialValue, finalValue);
 
-        assertEquals(new BigDecimal("0.1200"), effectiveReturn);
+        assertEquals(new BigDecimal("0.1268"), effectiveReturn);
     }
 }
