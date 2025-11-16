@@ -1,26 +1,26 @@
 -- Conservative Products
 INSERT INTO produtos (nome, tipo, rentabilidade, risco, valor_minimo, prazo_minimo_meses, prazo_maximo_meses, perfil_adequado, ativo)
 VALUES
-('CDB Caixa 2026', 'CDB', 0.12, 'Baixo', 1000.00, 6, 60, 'Conservador', TRUE),
-('LCI Premium', 'LCI', 0.10, 'Baixo', 5000.00, 12, 36, 'Conservador', TRUE),
-('LCA Agro Invest', 'LCA', 0.11, 'Baixo', 3000.00, 12, 48, 'Conservador', TRUE),
-('Tesouro Selic 2027', 'Tesouro Direto', 0.13, 'Baixo', 100.00, 3, 120, 'Conservador', TRUE);
+('CDB Caixa 2026', 'CDB', 0.12, 'Baixo', 1000.00, 6, 60, 'Conservador', 1),
+('LCI Premium', 'LCI', 0.10, 'Baixo', 5000.00, 12, 36, 'Conservador', 1),
+('LCA Agro Invest', 'LCA', 0.11, 'Baixo', 3000.00, 12, 48, 'Conservador', 1),
+('Tesouro Selic 2027', 'Tesouro Direto', 0.13, 'Baixo', 100.00, 3, 120, 'Conservador', 1);
 
 -- Moderate Products
 INSERT INTO produtos (nome, tipo, rentabilidade, risco, valor_minimo, prazo_minimo_meses, prazo_maximo_meses, perfil_adequado, ativo)
 VALUES
-('CDB Prefixado Plus', 'CDB', 0.15, 'Médio', 2000.00, 12, 36, 'Moderado', TRUE),
-('Fundo Renda Fixa Moderado', 'Fundo', 0.14, 'Médio', 1000.00, 6, NULL, 'Moderado', TRUE),
-('Tesouro IPCA+ 2035', 'Tesouro Direto', 0.16, 'Médio', 100.00, 12, 180, 'Moderado', TRUE),
-('LCI Moderada', 'LCI', 0.13, 'Médio', 3000.00, 12, 36, 'Moderado', TRUE);
+('CDB Prefixado Plus', 'CDB', 0.15, 'Médio', 2000.00, 12, 36, 'Moderado', 1),
+('Fundo Renda Fixa Moderado', 'Fundo', 0.14, 'Médio', 1000.00, 6, NULL, 'Moderado', 1),
+('Tesouro IPCA+ 2035', 'Tesouro Direto', 0.16, 'Médio', 100.00, 12, 180, 'Moderado', 1),
+('LCI Moderada', 'LCI', 0.13, 'Médio', 3000.00, 12, 36, 'Moderado', 1);
 
 -- Aggressive Products
 INSERT INTO produtos (nome, tipo, rentabilidade, risco, valor_minimo, prazo_minimo_meses, prazo_maximo_meses, perfil_adequado, ativo)
 VALUES
-('Fundo Multimercado Agressivo', 'Fundo', 0.20, 'Alto', 5000.00, 12, NULL, 'Agressivo', TRUE),
-('CDB Alto Rendimento', 'CDB', 0.18, 'Alto', 10000.00, 24, 60, 'Agressivo', TRUE),
-('Fundo Ações Brasil', 'Fundo', 0.25, 'Alto', 2000.00, 6, NULL, 'Agressivo', TRUE),
-('Fundo Imobiliário FII Premium', 'Fundo', 0.22, 'Alto', 1000.00, 12, NULL, 'Agressivo', TRUE);
+('Fundo Multimercado Agressivo', 'Fundo', 0.20, 'Alto', 5000.00, 12, NULL, 'Agressivo', 1),
+('CDB Alto Rendimento', 'CDB', 0.18, 'Alto', 10000.00, 24, 60, 'Agressivo', 1),
+('Fundo Ações Brasil', 'Fundo', 0.25, 'Alto', 2000.00, 6, NULL, 'Agressivo', 1),
+('Fundo Imobiliário FII Premium', 'Fundo', 0.22, 'Alto', 1000.00, 12, NULL, 'Agressivo', 1);
 
 -- Sample client investments for risk profiling
 INSERT INTO investimentos (cliente_id, tipo, valor, rentabilidade, data)
