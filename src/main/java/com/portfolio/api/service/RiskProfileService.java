@@ -6,9 +6,9 @@ import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
 import com.portfolio.api.scorer.ProductRiskScorer;
 import com.portfolio.api.scorer.VolumeScorer;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class RiskProfileService {
@@ -57,33 +57,19 @@ public class RiskProfileService {
         String profile = classifyProfile(totalScore);
         String description = getProfileDescription(profile);
 
-        Map<String, Integer> factors = new HashMap<>();
-        factors.put("volume", volumeScore);
-        factors.put("frequencia", frequencyScore);
-        factors.put("riscoProdutos", productRiskScore);
-        factors.put("liquidez", liquidityScore);
-        factors.put("horizonte", horizonScore);
-
         return RiskProfileResponse.builder()
                 .clienteId(clienteId)
                 .perfil(profile)
                 .pontuacao(totalScore)
                 .descricao(description)
-                .fatores(factors)
                 .build();
     }
 
     private String classifyProfile(int score) {
-        if (score <= 20) {
-            return "Ultra Conservador";
-        } else if (score <= 40) {
+        if (score <= 40) {
             return "Conservador";
-        } else if (score <= 55) {
-            return "Moderado Conservador";
         } else if (score <= 70) {
             return "Moderado";
-        } else if (score <= 85) {
-            return "Moderado Agressivo";
         } else {
             return "Agressivo";
         }
@@ -91,11 +77,8 @@ public class RiskProfileService {
 
     private String getProfileDescription(String profile) {
         return switch (profile) {
-            case "Ultra Conservador" -> "Perfil extremamente conservador, prioriza segurança máxima e liquidez imediata.";
             case "Conservador" -> "Perfil de baixo risco, focado em segurança e liquidez.";
-            case "Moderado Conservador" -> "Perfil que prioriza segurança mas aceita riscos muito baixos.";
             case "Moderado" -> "Perfil equilibrado entre segurança e rentabilidade.";
-            case "Moderado Agressivo" -> "Perfil que busca rentabilidade mas mantém alguma segurança.";
             case "Agressivo" -> "Perfil de alto risco, focado em alta rentabilidade.";
             default -> "Perfil não identificado.";
         };
