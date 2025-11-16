@@ -1,0 +1,61 @@
+package com.portfolio.api.integration;
+
+import com.portfolio.api.security.JwtTokenProvider;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@Transactional
+class RiskProfileIntegrationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    private String token;
+
+    @BeforeEach
+    void setUp() {
+        token = jwtTokenProvider.generateToken("testuser");
+    }
+
+    @Test
+    void shouldGetRiskProfile() throws Exception {
+        mockMvc.perform(get("/perfil-risco/123")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.clienteId").value(123))
+                .andExpect(jsonPath("$.perfil").exists())
+                .andExpect(jsonPath("$.pontuacao").exists())
+                .andExpect(jsonPath("$.descricao").exists());
+    }
+
+    @Test
+    void shouldGetRecommendedProducts() throws Exception {
+        mockMvc.perform(get("/produtos-recomendados/Moderado")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    void shouldGetInvestmentHistory() throws Exception {
+        mockMvc.perform(get("/investimentos/123")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+}
