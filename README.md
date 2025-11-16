@@ -154,25 +154,60 @@ A API se conectará ao container SQL Server em `localhost:1433`.
 - `GET /simulacoes/por-produto-dia` - Obter agregações diárias por produto
 - `GET /telemetria` - Obter métricas de telemetria do serviço
 
-## Documentação da API
+## Testando a API
 
-Uma vez que a aplicação esteja rodando, acesse a UI Swagger em:
+### 1. Acesse a Documentação Swagger (Sem Autenticação)
+
+Uma vez que a aplicação esteja rodando, abra a interface Swagger no navegador:
 
 ```
 http://localhost:8080/swagger-ui.html
 ```
 
-Especificação OpenAPI disponível em:
+ou diretamente:
+
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+**Swagger não requer autenticação** - você pode explorar todos os endpoints da API diretamente pelo navegador.
+
+Especificação OpenAPI também disponível em:
 
 ```
 http://localhost:8080/api-docs
 ```
 
-## Autenticação
+### 2. Credenciais de Teste
 
-Todos os endpoints exceto `/auth/login` requerem autenticação JWT.
+Use estas credenciais para testar os endpoints autenticados:
 
-### Obtendo um Token
+**Usuário:** `demo`
+**Senha:** não necessária (simplificado para demonstração)
+
+### 3. Testando pelo Swagger UI
+
+**Instruções passo a passo:**
+
+1. Abra http://localhost:8080/swagger-ui.html
+2. Expanda `POST /auth/login`
+3. Clique em "Try it out"
+4. Use o corpo da requisição:
+   ```json
+   {
+     "username": "demo"
+   }
+   ```
+5. Clique em "Execute"
+6. Copie o valor do campo `token` da resposta
+7. Clique no botão **"Authorize"** no topo da página
+8. Cole o token no campo "Value" (no formato: `Bearer SEU_TOKEN`)
+9. Clique em "Authorize" e depois em "Close"
+10. Agora você pode testar todos os endpoints autenticados!
+
+### 4. Testando via cURL
+
+#### Obtendo um Token
 
 ```bash
 curl -X POST http://localhost:8080/auth/login \
@@ -180,7 +215,19 @@ curl -X POST http://localhost:8080/auth/login \
   -d '{"username":"demo"}'
 ```
 
-### Usando o Token
+Resposta:
+```json
+{
+  "success": true,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9...",
+    "username": "demo"
+  },
+  "message": "Login successful"
+}
+```
+
+#### Usando o Token
 
 ```bash
 curl -X GET http://localhost:8080/perfil-risco/123 \
