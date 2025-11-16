@@ -35,7 +35,7 @@ Investment simulation system for Brazilian financial products including CDBs, LC
 3. Start the application:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 The API will be available at `http://localhost:8080`
@@ -49,7 +49,7 @@ The database will be automatically created and seeded with sample data.
 Start SQL Server container:
 
 ```bash
-docker-compose up sqlserver -d
+docker compose up sqlserver -d
 ```
 
 ### Run Application
@@ -183,13 +183,13 @@ curl http://localhost:8080/actuator/health
 ## Stopping the Application
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 To remove volumes:
 
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
 
 ## Testing

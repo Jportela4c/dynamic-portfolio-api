@@ -45,3 +45,7 @@ Thumbs.db
 *.tmp
 *.temp
 *.swp
+
+# Environment
+.envrc
+.envrc.local
