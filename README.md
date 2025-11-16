@@ -30,7 +30,7 @@ Sistema de simulação de investimentos para produtos financeiros brasileiros in
 ### Para Desenvolvimento Local
 - Java 21
 - Maven 3.9+
-- **Recomendado**: Use [SDKMAN](https://sdkman.io/) para instalação facilitada
+- **Recomendado**: Use [SDKMAN](https://sdkman.io/) para instalação fácil
 
 #### Configuração Rápida com SDKMAN
 
@@ -40,7 +40,7 @@ curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 ```
 
-Instalar Java e Maven (o projeto inclui `.sdkmanrc`):
+Instalar Java e Maven (projeto inclui `.sdkmanrc`):
 ```bash
 sdk env install
 ```
@@ -51,42 +51,71 @@ sdk install java 21.0.8-amzn
 sdk install maven 3.9.9
 ```
 
-## Início Rápido com Docker
+## Início Rápido (Configuração Automatizada)
 
-1. Clone o repositório
-2. Navegue até o diretório do projeto
-3. Inicie a aplicação:
+**Forma mais fácil - comando único:**
+
+```bash
+./setup.sh && task setup
+```
+
+Isso automaticamente:
+- Instala Task (executor de tarefas multiplataforma)
+- Verifica todas as dependências
+- Opcionalmente instala ferramentas de desenvolvimento (Java, Maven)
+- Inicia todos os serviços Docker
+
+A API estará disponível em `http://localhost:8080`
+
+### Início Manual com Docker
+
+Alternativamente, inicie os serviços manualmente:
 
 ```bash
 docker compose up -d
 ```
 
-A API estará disponível em `http://localhost:8080`
-
 **O que acontece durante a inicialização:**
-1. Container do SQL Server inicia com verificações de saúde
+1. Container SQL Server inicia com verificações de saúde
 2. Container de inicialização cria o banco de dados `portfoliodb`
-3. Container do Flyway executa todas as migrações do banco de dados
-4. Container da API inicia após a conclusão bem-sucedida das migrações
+3. Container Flyway executa todas as migrações do banco de dados
+4. Container da API inicia após as migrações serem concluídas com sucesso
 
-O banco de dados é criado, migrado e populado com dados de exemplo automaticamente.
+O banco de dados é automaticamente criado, migrado e populado com dados de exemplo.
+
+### Comandos Task
+
+Após executar `./setup.sh`, use estes comandos:
+
+```bash
+task setup         # Configuração completa do projeto
+task docker-up     # Iniciar todos os serviços
+task docker-down   # Parar todos os serviços
+task logs          # Visualizar todos os logs
+task status        # Verificar status dos containers
+task health        # Verificar saúde da API
+task test          # Executar testes
+task help          # Mostrar todos os comandos
+```
+
+Execute `task --list` para ver todas as tarefas disponíveis.
 
 ## Desenvolvimento Local
 
 ### Configuração do Banco de Dados
 
-Inicie o SQL Server e execute as migrações:
+Iniciar SQL Server e executar migrações:
 
 ```bash
 # Iniciar SQL Server
 docker compose up sqlserver -d
 
-# Aguarde o SQL Server ficar saudável, então execute init e migrações
+# Aguardar SQL Server estar saudável, então executar init e migrações
 docker compose up sqlserver-init
 docker compose up flyway
 ```
 
-Ou use o banco de dados da stack completa do Docker Compose:
+Ou usar o banco de dados do stack completo Docker Compose:
 ```bash
 docker compose up sqlserver sqlserver-init flyway -d
 ```
@@ -104,7 +133,7 @@ Sem SDKMAN:
 mvn spring-boot:run
 ```
 
-A API se conectará ao container do SQL Server em `localhost:1433`.
+A API se conectará ao container SQL Server em `localhost:1433`.
 
 ## Endpoints da API
 
@@ -127,7 +156,7 @@ A API se conectará ao container do SQL Server em `localhost:1433`.
 
 ## Documentação da API
 
-Com a aplicação em execução, acesse o Swagger UI em:
+Uma vez que a aplicação esteja rodando, acesse a UI Swagger em:
 
 ```
 http://localhost:8080/swagger-ui.html
@@ -192,25 +221,25 @@ curl -X GET http://localhost:8080/produtos-recomendados/Moderado \
 
 O sistema classifica clientes em três perfis de risco:
 
-- **Conservador**: Baixa tolerância ao risco, foco em liquidez
-- **Moderado**: Tolerância equilibrada ao risco
-- **Agressivo**: Alta tolerância ao risco, foco em rentabilidade
+- **Conservador**: Baixa tolerância ao risco, focado em liquidez
+- **Moderado**: Tolerância ao risco balanceada
+- **Agressivo**: Alta tolerância ao risco, focado em retornos
 
 A classificação é baseada em:
-- Volume total de investimentos
+- Volume total de investimento
 - Frequência de transações
 - Preferências de produtos de investimento
 
-## Esquema do Banco de Dados
+## Schema do Banco de Dados
 
-A aplicação usa Flyway para migrações de banco de dados. O esquema é criado automaticamente na inicialização via container dedicado do Flyway.
+A aplicação usa Flyway para migrações de banco de dados. O schema é automaticamente criado na inicialização via container Flyway dedicado.
 
 **Processo de Migração:**
 1. `V1__create_products_table.sql` - Tabela de produtos
 2. `V2__create_simulations_table.sql` - Tabela de simulações
 3. `V3__create_investments_table.sql` - Tabela de investimentos
 4. `V4__create_telemetry_table.sql` - Tabela de telemetria
-5. `V5__seed_sample_products.sql` - Dados de exemplo de produtos
+5. `V5__seed_sample_products.sql` - Dados de produtos de exemplo
 
 Tabelas principais:
 - `produtos` - Produtos de investimento (CDB, LCI, LCA, Tesouro Direto, Fundos)
@@ -279,9 +308,9 @@ src/test/java/
 └── util/           - Testes unitários de classes utilitárias
 ```
 
-## Compilando do Código-fonte
+## Construindo a Partir do Código Fonte
 
-### Compilar com Testes
+### Construir com Testes
 
 ```bash
 mvn clean package
@@ -289,23 +318,23 @@ mvn clean package
 
 O arquivo JAR será criado em `target/dynamic-portfolio-api-1.0.0.jar`
 
-### Compilar sem Testes
+### Construir sem Testes
 
 ```bash
 mvn clean package -DskipTests
 ```
 
-### Executar JAR Compilado
+### Executar JAR Construído
 
 ```bash
 java -jar target/dynamic-portfolio-api-1.0.0.jar
 ```
 
-**Nota**: Certifique-se de que o banco de dados está em execução e as variáveis de ambiente estão configuradas antes de executar o JAR.
+**Nota**: Certifique-se de que o banco de dados está rodando e as variáveis de ambiente estão configuradas antes de executar o JAR.
 
 ## Arquitetura Docker
 
-A configuração do Docker Compose usa um processo de inicialização multi-estágio:
+O setup Docker Compose usa um processo de inicialização multi-estágio:
 
 ```
 ┌─────────────────┐
@@ -314,7 +343,7 @@ A configuração do Docker Compose usa um processo de inicialização multi-est�
          │
          ▼
 ┌─────────────────┐
-│ sqlserver-init  │ ◄── Cria o banco de dados portfoliodb
+│ sqlserver-init  │ ◄── Cria banco de dados portfoliodb
 └────────┬────────┘
          │
          ▼
@@ -324,7 +353,7 @@ A configuração do Docker Compose usa um processo de inicialização multi-est�
          │
          ▼
 ┌─────────────────┐
-│      API        │ ◄── Inicia após conclusão das migrações
+│      API        │ ◄── Inicia após migrações completarem
 └─────────────────┘
 ```
 
@@ -338,7 +367,7 @@ A configuração do Docker Compose usa um processo de inicialização multi-est�
 
 ### Problemas com Docker
 
-**Containers não iniciam:**
+**Containers não iniciando:**
 ```bash
 # Verificar logs dos containers
 docker compose logs
@@ -357,9 +386,9 @@ docker compose ps
 # Deve mostrar status "healthy" para portfolio-sqlserver
 ```
 
-**Falhas de migração do Flyway:**
+**Falhas de migração Flyway:**
 ```bash
-# Verificar logs do Flyway
+# Verificar logs Flyway
 docker compose logs flyway
 
 # Resetar banco de dados e tentar novamente
@@ -369,7 +398,7 @@ docker compose up -d
 
 ### Problemas de Desenvolvimento Local
 
-**Falha na compilação Maven:**
+**Falha no build Maven:**
 ```bash
 # Garantir versão correta do Java
 java -version  # Deve ser 21

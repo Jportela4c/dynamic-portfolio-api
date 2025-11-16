@@ -1,0 +1,227 @@
+version: '3'
+
+vars:
+  PROJECT_NAME: dynamic-portfolio-api
+  DOCKER_MIN_VERSION: "20.10"
+  DOCKER_COMPOSE_MIN_VERSION: "2.0"
+
+tasks:
+  default:
+    desc: Show available tasks
+    cmds:
+      - task --list
+
+  setup:
+    desc: Complete project setup (checks dependencies, installs tools, starts services)
+    cmds:
+      - task: check-dependencies
+      - task: install-tools
+      - task: docker-up
+      - echo "✅ Setup complete! API is available at http://localhost:8080"
+      - echo "📖 Access API docs at http://localhost:8080/swagger-ui.html"
+
+  check-dependencies:
+    desc: Check if required dependencies are installed
+    cmds:
+      - task: check-docker
+      - task: check-docker-compose
+      - echo "✅ All dependencies satisfied"
+
+  check-docker:
+    desc: Verify Docker is installed and version is sufficient
+    cmds:
+      - |
+        if ! command -v docker >/dev/null 2>&1; then
+          echo "❌ Docker is not installed"
+          echo "📥 Install from: https://docs.docker.com/get-docker/"
+          exit 1
+        fi
+        echo "✅ Docker found: $(docker --version)"
+    silent: false
+
+  check-docker-compose:
+    desc: Verify Docker Compose is installed
+    cmds:
+      - |
+        if ! docker compose version >/dev/null 2>&1; then
+          echo "❌ Docker Compose is not available"
+          echo "📥 Install Docker Desktop or Docker Compose plugin"
+          exit 1
+        fi
+        echo "✅ Docker Compose found: $(docker compose version)"
+    silent: false
+
+  install-tools:
+    desc: Install optional development tools (Java, Maven) via SDKMAN
+    cmds:
+      - |
+        if command -v sdk >/dev/null 2>&1; then
+          echo "📦 SDKMAN detected, installing Java and Maven..."
+          sdk env install || echo "⚠️  Tools may already be installed"
+        else
+          echo "⚠️  SDKMAN not found - skipping local development tools"
+          echo "💡 For local development, install SDKMAN: https://sdkman.io/"
+          echo "💡 Or ensure Java 21 and Maven 3.9+ are installed manually"
+        fi
+
+  docker-up:
+    desc: Start all Docker containers
+    cmds:
+      - echo "🚀 Starting Docker containers..."
+      - docker compose up -d
+      - echo "⏳ Waiting for services to be healthy..."
+      - task: wait-healthy
+      - echo "✅ All services are running"
+
+  docker-down:
+    desc: Stop all Docker containers
+    cmds:
+      - echo "🛑 Stopping Docker containers..."
+      - docker compose down
+
+  docker-clean:
+    desc: Stop containers and remove volumes (clean slate)
+    cmds:
+      - echo "🧹 Cleaning up containers and volumes..."
+      - docker compose down -v
+      - echo "✅ Clean up complete"
+
+  wait-healthy:
+    desc: Wait for Docker containers to be healthy
+    cmds:
+      - |
+        echo "Checking container health..."
+        for i in $(seq 1 30); do
+          if docker compose ps | grep "healthy" > /dev/null 2>&1; then
+            echo "✅ Services are healthy"
+            exit 0
+          fi
+          echo "Waiting... ($i/30)"
+          sleep 2
+        done
+        echo "❌ Timeout waiting for services to become healthy"
+        docker compose ps
+        exit 1
+
+  logs:
+    desc: Show logs from all containers
+    cmds:
+      - docker compose logs -f
+
+  logs-api:
+    desc: Show API container logs
+    cmds:
+      - docker compose logs -f api
+
+  logs-db:
+    desc: Show database container logs
+    cmds:
+      - docker compose logs -f sqlserver
+
+  logs-flyway:
+    desc: Show Flyway migration logs
+    cmds:
+      - docker compose logs flyway
+
+  status:
+    desc: Show status of all containers
+    cmds:
+      - docker compose ps
+
+  test:
+    desc: Run all tests (requires Java and Maven)
+    cmds:
+      - |
+        if command -v mvn >/dev/null 2>&1; then
+          mvn test
+        else
+          echo "❌ Maven not found. Install via SDKMAN or manually."
+          exit 1
+        fi
+
+  build:
+    desc: Build the application (requires Java and Maven)
+    cmds:
+      - |
+        if command -v mvn >/dev/null 2>&1; then
+          mvn clean package
+        else
+          echo "❌ Maven not found. Install via SDKMAN or manually."
+          exit 1
+        fi
+
+  dev:
+    desc: Run application locally (requires database running)
+    cmds:
+      - task: ensure-db-running
+      - |
+        if command -v mvn >/dev/null 2>&1; then
+          mvn spring-boot:run
+        else
+          echo "❌ Maven not found. Install via SDKMAN or manually."
+          exit 1
+        fi
+
+  ensure-db-running:
+    desc: Ensure database is running
+    internal: true
+    cmds:
+      - |
+        if docker compose ps sqlserver | grep "healthy" > /dev/null 2>&1; then
+          echo "✅ Database already running"
+        else
+          echo "🚀 Starting database services..."
+          docker compose up sqlserver sqlserver-init flyway -d
+          sleep 10
+        fi
+
+  db-console:
+    desc: Connect to SQL Server console
+    cmds:
+      - |
+        docker compose exec sqlserver /opt/mssql-tools18/bin/sqlcmd \
+          -S localhost -U sa -P YourStrong@Passw0rd -C
+
+  health:
+    desc: Check API health endpoint
+    cmds:
+      - curl -s http://localhost:8080/actuator/health | jq . || curl http://localhost:8080/actuator/health
+
+  clean-build:
+    desc: Clean Maven build artifacts
+    cmds:
+      - |
+        if command -v mvn >/dev/null 2>&1; then
+          mvn clean
+        else
+          echo "Removing target directory..."
+          rm -rf target/
+        fi
+
+  help:
+    desc: Show detailed help information
+    cmds:
+      - echo "═══════════════════════════════════════════════════════"
+      - echo "  {{.PROJECT_NAME}} - Task Runner Commands"
+      - echo "═══════════════════════════════════════════════════════"
+      - echo ""
+      - echo "🚀 Quick Start:"
+      - echo "   task setup          - Complete project setup"
+      - echo "   task docker-up      - Start all services"
+      - echo "   task docker-down    - Stop all services"
+      - echo ""
+      - echo "📋 Development:"
+      - echo "   task dev            - Run locally (needs DB)"
+      - echo "   task test           - Run tests"
+      - echo "   task build          - Build JAR"
+      - echo ""
+      - echo "🔍 Monitoring:"
+      - echo "   task status         - Container status"
+      - echo "   task logs           - All logs"
+      - echo "   task health         - API health check"
+      - echo ""
+      - echo "🧹 Cleanup:"
+      - echo "   task docker-clean   - Remove all containers & volumes"
+      - echo ""
+      - echo "💡 Run 'task --list' to see all available tasks"
+      - echo "═══════════════════════════════════════════════════════"
