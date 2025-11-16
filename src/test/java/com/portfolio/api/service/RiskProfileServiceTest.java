@@ -127,8 +127,8 @@ class RiskProfileServiceTest {
         assertNotNull(response.getPontuacao());
         assertNotNull(response.getDescricao());
 
-        // Weighted score: 50*0.25 + 60*0.20 + 70*0.30 + 40*0.15 + 30*0.10 = 57
-        assertEquals(57, response.getPontuacao());
+        // Weighted score: 50*0.25 + 60*0.20 + 70*0.30 + 40*0.15 + 30*0.10 = 12.5 + 12 + 21 + 6 + 3 = 54.5 → 55
+        assertEquals(55, response.getPontuacao());
         assertEquals("Moderado", response.getPerfil());
     }
 }
