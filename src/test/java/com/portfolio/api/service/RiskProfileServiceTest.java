@@ -28,21 +28,17 @@ class RiskProfileServiceTest {
     @InjectMocks
     private RiskProfileService riskProfileService;
 
-    @BeforeEach
-    void setUp() {
+    @Test
+    void shouldCalculateRiskProfile() {
+        when(investmentRepository.countByClienteId(123L)).thenReturn(5L);
+        when(investmentRepository.sumValorByClienteId(123L))
+                .thenReturn(new BigDecimal("50000"));
         when(riskProfileCalculator.calculateScore(new BigDecimal("50000"), 5L))
                 .thenReturn(50);
         when(riskProfileCalculator.classifyProfile(50))
                 .thenReturn("Moderado");
         when(riskProfileCalculator.getProfileDescription("Moderado"))
                 .thenReturn("Perfil equilibrado entre segurança e rentabilidade.");
-    }
-
-    @Test
-    void shouldCalculateRiskProfile() {
-        when(investmentRepository.countByClienteId(123L)).thenReturn(5L);
-        when(investmentRepository.sumValorByClienteId(123L))
-                .thenReturn(new BigDecimal("50000"));
 
         RiskProfileResponse response = riskProfileService.calculateRiskProfile(123L);
 
