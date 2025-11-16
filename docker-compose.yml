@@ -22,7 +22,8 @@ services:
     restart: "no"
     command: >
       bash -c "
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P YourStrong@Passw0rd -Q 'CREATE DATABASE portfoliodb' || true
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P YourStrong@Passw0rd -Q
+      'IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'"'"'portfoliodb'"'"') CREATE DATABASE portfoliodb'
       "
     depends_on:
       sqlserver:
@@ -31,7 +32,7 @@ services:
   flyway:
     image: flyway/flyway:latest
     restart: "no"
-    command: -connectRetries=60 migrate
+    command: -connectRetries=60 -locations=filesystem:/flyway/sql migrate
     environment:
       - FLYWAY_URL=jdbc:sqlserver://sqlserver:1433;databaseName=portfoliodb;encrypt=true;trustServerCertificate=true
       - FLYWAY_USER=sa

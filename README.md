@@ -1,149 +1,149 @@
-# Dynamic Portfolio API
+# API de Portfólio Dinâmico
 
-Investment simulation system for Brazilian financial products including CDBs, LCIs, LCAs, Treasury Direct, and investment funds.
+Sistema de simulação de investimentos para produtos financeiros brasileiros incluindo CDBs, LCIs, LCAs, Tesouro Direto e fundos de investimento.
 
-## Features
+## Funcionalidades
 
-- Investment simulation with product validation
-- Dynamic risk profiling based on client behavior
-- Product recommendations by risk profile
-- Investment history tracking
-- Telemetry and performance metrics
-- JWT authentication
-- RESTful API with OpenAPI documentation
+- Simulação de investimentos com validação de produtos
+- Perfilamento dinâmico de risco baseado no comportamento do cliente
+- Recomendação de produtos por perfil de risco
+- Histórico de investimentos
+- Telemetria e métricas de desempenho
+- Autenticação JWT
+- API RESTful com documentação OpenAPI
 
-## Technology Stack
+## Stack Tecnológico
 
 - Java 21
 - Spring Boot 3.4.11
 - SQL Server 2022
 - Docker & Docker Compose
-- Flyway for database migrations
-- JWT for authentication
-- Swagger/OpenAPI for API documentation
+- Flyway para migrações de banco de dados
+- JWT para autenticação
+- Swagger/OpenAPI para documentação da API
 
-## Prerequisites
+## Pré-requisitos
 
-### For Docker (Recommended)
-- Docker and Docker Compose installed
+### Para Docker (Recomendado)
+- Docker 20.10+ e Docker Compose 2.0+
 
-### For Local Development
+### Para Desenvolvimento Local
 - Java 21
 - Maven 3.9+
-- **Recommended**: Use [SDKMAN](https://sdkman.io/) for easy setup
+- **Recomendado**: Use [SDKMAN](https://sdkman.io/) para instalação facilitada
 
-#### Quick Setup with SDKMAN
+#### Configuração Rápida com SDKMAN
 
-Install SDKMAN:
+Instalar SDKMAN:
 ```bash
 curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 ```
 
-Install Java and Maven (project includes `.sdkmanrc`):
+Instalar Java e Maven (o projeto inclui `.sdkmanrc`):
 ```bash
 sdk env install
 ```
 
-Or install manually:
+Ou instalar manualmente:
 ```bash
 sdk install java 21.0.8-amzn
 sdk install maven 3.9.9
 ```
 
-## Quick Start with Docker
+## Início Rápido com Docker
 
-1. Clone the repository
-2. Navigate to project directory
-3. Start the application:
+1. Clone o repositório
+2. Navegue até o diretório do projeto
+3. Inicie a aplicação:
 
 ```bash
 docker compose up -d
 ```
 
-The API will be available at `http://localhost:8080`
+A API estará disponível em `http://localhost:8080`
 
-**What happens during startup:**
-1. SQL Server container starts with health checks
-2. Database initialization container creates `portfoliodb` database
-3. Flyway migration container runs all database migrations
-4. API container starts after migrations complete successfully
+**O que acontece durante a inicialização:**
+1. Container do SQL Server inicia com verificações de saúde
+2. Container de inicialização cria o banco de dados `portfoliodb`
+3. Container do Flyway executa todas as migrações do banco de dados
+4. Container da API inicia após a conclusão bem-sucedida das migrações
 
-The database is automatically created, migrated, and seeded with sample data.
+O banco de dados é criado, migrado e populado com dados de exemplo automaticamente.
 
-## Local Development
+## Desenvolvimento Local
 
-### Database Setup
+### Configuração do Banco de Dados
 
-Start SQL Server and run migrations:
+Inicie o SQL Server e execute as migrações:
 
 ```bash
-# Start SQL Server
+# Iniciar SQL Server
 docker compose up sqlserver -d
 
-# Wait for SQL Server to be healthy, then run init and migrations
+# Aguarde o SQL Server ficar saudável, então execute init e migrações
 docker compose up sqlserver-init
 docker compose up flyway
 ```
 
-Or use the database from the full Docker Compose stack:
+Ou use o banco de dados da stack completa do Docker Compose:
 ```bash
 docker compose up sqlserver sqlserver-init flyway -d
 ```
 
-### Run Application Locally
+### Executar Aplicação Localmente
 
-With SDKMAN (automatically uses correct versions):
+Com SDKMAN (usa automaticamente as versões corretas):
 ```bash
 sdk env
 mvn spring-boot:run
 ```
 
-Without SDKMAN:
+Sem SDKMAN:
 ```bash
 mvn spring-boot:run
 ```
 
-The API will connect to the SQL Server container on `localhost:1433`.
+A API se conectará ao container do SQL Server em `localhost:1433`.
 
-## API Endpoints
+## Endpoints da API
 
-### Authentication
+### Autenticação
 
-- `POST /auth/login` - Generate JWT token
+- `POST /auth/login` - Gerar token JWT
 
-### Investment Operations
+### Operações de Investimento
 
-- `POST /simular-investimento` - Simulate investment
-- `GET /perfil-risco/{clienteId}` - Get client risk profile
-- `GET /produtos-recomendados/{perfil}` - Get recommended products by profile
-- `GET /investimentos/{clienteId}` - Get client investment history
+- `POST /simular-investimento` - Simular investimento
+- `GET /perfil-risco/{clienteId}` - Obter perfil de risco do cliente
+- `GET /produtos-recomendados/{perfil}` - Obter produtos recomendados por perfil
+- `GET /investimentos/{clienteId}` - Obter histórico de investimentos do cliente
 
-### Metrics and Reports
+### Métricas e Relatórios
 
-- `GET /simulacoes` - Get all simulations
-- `GET /simulacoes/por-produto-dia` - Get daily aggregations by product
-- `GET /telemetria` - Get service telemetry metrics
+- `GET /simulacoes` - Obter todas as simulações
+- `GET /simulacoes/por-produto-dia` - Obter agregações diárias por produto
+- `GET /telemetria` - Obter métricas de telemetria do serviço
 
-## API Documentation
+## Documentação da API
 
-Once the application is running, access the Swagger UI at:
+Com a aplicação em execução, acesse o Swagger UI em:
 
 ```
 http://localhost:8080/swagger-ui.html
 ```
 
-OpenAPI specification available at:
+Especificação OpenAPI disponível em:
 
 ```
 http://localhost:8080/api-docs
 ```
 
-## Authentication
+## Autenticação
 
-All endpoints except `/auth/login` require JWT authentication.
+Todos os endpoints exceto `/auth/login` requerem autenticação JWT.
 
-### Getting a Token
+### Obtendo um Token
 
 ```bash
 curl -X POST http://localhost:8080/auth/login \
@@ -151,21 +151,21 @@ curl -X POST http://localhost:8080/auth/login \
   -d '{"username":"demo"}'
 ```
 
-### Using the Token
+### Usando o Token
 
 ```bash
 curl -X GET http://localhost:8080/perfil-risco/123 \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+  -H "Authorization: Bearer SEU_TOKEN_JWT"
 ```
 
-## Example Requests
+## Exemplos de Requisições
 
-### Simulate Investment
+### Simular Investimento
 
 ```bash
 curl -X POST http://localhost:8080/simular-investimento \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Authorization: Bearer SEU_TOKEN" \
   -d '{
     "clienteId": 123,
     "valor": 10000.00,
@@ -174,220 +174,220 @@ curl -X POST http://localhost:8080/simular-investimento \
   }'
 ```
 
-### Get Risk Profile
+### Obter Perfil de Risco
 
 ```bash
 curl -X GET http://localhost:8080/perfil-risco/123 \
-  -H "Authorization: Bearer YOUR_TOKEN"
+  -H "Authorization: Bearer SEU_TOKEN"
 ```
 
-### Get Recommended Products
+### Obter Produtos Recomendados
 
 ```bash
 curl -X GET http://localhost:8080/produtos-recomendados/Moderado \
-  -H "Authorization: Bearer YOUR_TOKEN"
+  -H "Authorization: Bearer SEU_TOKEN"
 ```
 
-## Risk Profiles
+## Perfis de Risco
 
-The system classifies clients into three risk profiles:
+O sistema classifica clientes em três perfis de risco:
 
-- **Conservador**: Low risk tolerance, focused on liquidity
-- **Moderado**: Balanced risk tolerance
-- **Agressivo**: High risk tolerance, focused on returns
+- **Conservador**: Baixa tolerância ao risco, foco em liquidez
+- **Moderado**: Tolerância equilibrada ao risco
+- **Agressivo**: Alta tolerância ao risco, foco em rentabilidade
 
-Classification is based on:
-- Total investment volume
-- Transaction frequency
-- Investment product preferences
+A classificação é baseada em:
+- Volume total de investimentos
+- Frequência de transações
+- Preferências de produtos de investimento
 
-## Database Schema
+## Esquema do Banco de Dados
 
-The application uses Flyway for database migrations. Schema is automatically created on startup via a dedicated Flyway container.
+A aplicação usa Flyway para migrações de banco de dados. O esquema é criado automaticamente na inicialização via container dedicado do Flyway.
 
-**Migration Process:**
-1. `V1__create_products_table.sql` - Products table
-2. `V2__create_simulations_table.sql` - Simulations table
-3. `V3__create_investments_table.sql` - Investments table
-4. `V4__create_telemetry_table.sql` - Telemetry table
-5. `V5__seed_sample_products.sql` - Sample product data
+**Processo de Migração:**
+1. `V1__create_products_table.sql` - Tabela de produtos
+2. `V2__create_simulations_table.sql` - Tabela de simulações
+3. `V3__create_investments_table.sql` - Tabela de investimentos
+4. `V4__create_telemetry_table.sql` - Tabela de telemetria
+5. `V5__seed_sample_products.sql` - Dados de exemplo de produtos
 
-Main tables:
-- `produtos` - Investment products (CDB, LCI, LCA, Tesouro Direto, Fundos)
-- `simulacoes` - Simulation history
-- `investimentos` - Client investment history
-- `telemetria` - Performance metrics
+Tabelas principais:
+- `produtos` - Produtos de investimento (CDB, LCI, LCA, Tesouro Direto, Fundos)
+- `simulacoes` - Histórico de simulações
+- `investimentos` - Histórico de investimentos do cliente
+- `telemetria` - Métricas de desempenho
 
-All migrations are located in `src/main/resources/db/migration/`.
+Todas as migrações estão localizadas em `src/main/resources/db/migration/`.
 
-## Environment Variables
+## Variáveis de Ambiente
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| DB_HOST | Database host | localhost |
-| DB_PORT | Database port | 1433 |
-| DB_NAME | Database name | portfoliodb |
-| DB_USER | Database user | sa |
-| DB_PASSWORD | Database password | YourStrong@Passw0rd |
-| JWT_SECRET | JWT signing key | (base64 encoded default) |
+| Variável | Descrição | Padrão |
+|----------|-----------|--------|
+| DB_HOST | Host do banco de dados | localhost |
+| DB_PORT | Porta do banco de dados | 1433 |
+| DB_NAME | Nome do banco de dados | portfoliodb |
+| DB_USER | Usuário do banco de dados | sa |
+| DB_PASSWORD | Senha do banco de dados | YourStrong@Passw0rd |
+| JWT_SECRET | Chave de assinatura JWT | (padrão codificado em base64) |
 
-## Health Check
+## Verificação de Saúde
 
 ```bash
 curl http://localhost:8080/actuator/health
 ```
 
-## Stopping the Application
+## Parando a Aplicação
 
 ```bash
 docker compose down
 ```
 
-To remove volumes:
+Para remover volumes:
 
 ```bash
 docker compose down -v
 ```
 
-## Testing
+## Testes
 
-The project includes comprehensive test coverage:
+O projeto inclui cobertura abrangente de testes:
 
-### Run All Tests
+### Executar Todos os Testes
 
 ```bash
 mvn test
 ```
 
-### Test Coverage
+### Cobertura de Testes
 
-- **Unit Tests**: Service layer, utilities, and business logic
-- **Integration Tests**: API endpoints with Spring Boot Test
-- **Test Framework**: JUnit 5 + Mockito
-- **Coverage**: Critical business logic including:
-  - Investment calculations
-  - Risk profile algorithm
-  - Product validation
-  - API endpoints with authentication
+- **Testes Unitários**: Camada de serviço, utilitários e lógica de negócio
+- **Testes de Integração**: Endpoints da API com Spring Boot Test
+- **Framework de Testes**: JUnit 5 + Mockito
+- **Cobertura**: Lógica de negócio crítica incluindo:
+  - Cálculos de investimento
+  - Algoritmo de perfil de risco
+  - Validação de produtos
+  - Endpoints da API com autenticação
 
-### Test Structure
+### Estrutura de Testes
 
 ```
 src/test/java/
-├── integration/    - Full API integration tests
-├── service/        - Service layer unit tests
-└── util/           - Utility class unit tests
+├── integration/    - Testes de integração completos da API
+├── service/        - Testes unitários da camada de serviço
+└── util/           - Testes unitários de classes utilitárias
 ```
 
-## Building from Source
+## Compilando do Código-fonte
 
-### Build with Tests
+### Compilar com Testes
 
 ```bash
 mvn clean package
 ```
 
-The JAR file will be created in `target/dynamic-portfolio-api-1.0.0.jar`
+O arquivo JAR será criado em `target/dynamic-portfolio-api-1.0.0.jar`
 
-### Build without Tests
+### Compilar sem Testes
 
 ```bash
 mvn clean package -DskipTests
 ```
 
-### Run Built JAR
+### Executar JAR Compilado
 
 ```bash
 java -jar target/dynamic-portfolio-api-1.0.0.jar
 ```
 
-**Note**: Ensure database is running and environment variables are set before running the JAR.
+**Nota**: Certifique-se de que o banco de dados está em execução e as variáveis de ambiente estão configuradas antes de executar o JAR.
 
-## Docker Architecture
+## Arquitetura Docker
 
-The Docker Compose setup uses a multi-stage initialization process:
+A configuração do Docker Compose usa um processo de inicialização multi-estágio:
 
 ```
 ┌─────────────────┐
-│  SQL Server     │ ◄── Health checks ensure ready state
+│  SQL Server     │ ◄── Verificações de saúde garantem estado pronto
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│ sqlserver-init  │ ◄── Creates portfoliodb database
+│ sqlserver-init  │ ◄── Cria o banco de dados portfoliodb
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│    Flyway       │ ◄── Runs all migrations (V1-V5)
+│    Flyway       │ ◄── Executa todas as migrações (V1-V5)
 └────────┬────────┘
          │
          ▼
 ┌─────────────────┐
-│      API        │ ◄── Starts after migrations complete
+│      API        │ ◄── Inicia após conclusão das migrações
 └─────────────────┘
 ```
 
 **Containers:**
-- `portfolio-sqlserver` - SQL Server 2022 (persistent)
-- `sqlserver-init` - Database creation (runs once)
-- `flyway` - Migration runner (runs once)
-- `portfolio-api` - Spring Boot application (persistent)
+- `portfolio-sqlserver` - SQL Server 2022 (persistente)
+- `sqlserver-init` - Criação do banco de dados (executa uma vez)
+- `flyway` - Executor de migrações (executa uma vez)
+- `portfolio-api` - Aplicação Spring Boot (persistente)
 
-## Troubleshooting
+## Solução de Problemas
 
-### Docker Issues
+### Problemas com Docker
 
-**Containers not starting:**
+**Containers não iniciam:**
 ```bash
-# Check container logs
+# Verificar logs dos containers
 docker compose logs
 
-# Check specific service
+# Verificar serviço específico
 docker compose logs sqlserver
 docker compose logs flyway
 docker compose logs api
 ```
 
-**Database connection issues:**
+**Problemas de conexão com banco de dados:**
 ```bash
-# Verify SQL Server is healthy
+# Verificar se SQL Server está saudável
 docker compose ps
 
-# Should show "healthy" status for portfolio-sqlserver
+# Deve mostrar status "healthy" para portfolio-sqlserver
 ```
 
-**Flyway migration failures:**
+**Falhas de migração do Flyway:**
 ```bash
-# Check Flyway logs
+# Verificar logs do Flyway
 docker compose logs flyway
 
-# Reset database and retry
+# Resetar banco de dados e tentar novamente
 docker compose down -v
 docker compose up -d
 ```
 
-### Local Development Issues
+### Problemas de Desenvolvimento Local
 
-**Maven build fails:**
+**Falha na compilação Maven:**
 ```bash
-# Ensure correct Java version
-java -version  # Should be 21
+# Garantir versão correta do Java
+java -version  # Deve ser 21
 
-# With SDKMAN
+# Com SDKMAN
 sdk env
 mvn clean install
 ```
 
-**Port already in use:**
+**Porta já em uso:**
 ```bash
-# Check what's using port 8080
+# Verificar o que está usando a porta 8080
 lsof -i :8080
 
-# Or use different port
+# Ou usar porta diferente
 SERVER_PORT=8081 mvn spring-boot:run
 ```
 
-## License
+## Licença
 
-This project is for educational and demonstration purposes.
+Este projeto é para fins educacionais e de demonstração.
