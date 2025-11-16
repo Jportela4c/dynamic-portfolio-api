@@ -1,6 +1,7 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.repository.InvestmentRepository;
+import com.portfolio.api.scorer.VolumeScorer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,13 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class InvestmentVolumeCalculatorTest {
+class VolumeScorerTest {
 
     @Mock
     private InvestmentRepository investmentRepository;
 
     @InjectMocks
-    private InvestmentVolumeCalculator calculator;
+    private VolumeScorer calculator;
 
     @Test
     void shouldReturnZeroForNoVolume() {

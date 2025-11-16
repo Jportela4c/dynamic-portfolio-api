@@ -1,4 +1,4 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.repository.InvestmentRepository;
 import org.springframework.stereotype.Component;
@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class InvestmentVolumeCalculator {
+public class VolumeScorer {
 
     private final InvestmentRepository investmentRepository;
 
-    public InvestmentVolumeCalculator(InvestmentRepository investmentRepository) {
+    public VolumeScorer(InvestmentRepository investmentRepository) {
         this.investmentRepository = investmentRepository;
     }
 

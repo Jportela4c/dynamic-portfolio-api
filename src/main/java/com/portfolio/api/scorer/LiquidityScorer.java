@@ -1,4 +1,4 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Simulation;
 import com.portfolio.api.repository.SimulationRepository;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class LiquidityPreferenceCalculator {
+public class LiquidityScorer {
 
     private final SimulationRepository simulationRepository;
 
-    public LiquidityPreferenceCalculator(SimulationRepository simulationRepository) {
+    public LiquidityScorer(SimulationRepository simulationRepository) {
         this.simulationRepository = simulationRepository;
     }
 

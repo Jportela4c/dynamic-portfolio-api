@@ -1,7 +1,8 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Simulation;
 import com.portfolio.api.repository.SimulationRepository;
+import com.portfolio.api.scorer.LiquidityScorer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,13 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class LiquidityPreferenceCalculatorTest {
+class LiquidityScorerTest {
 
     @Mock
     private SimulationRepository simulationRepository;
 
     @InjectMocks
-    private LiquidityPreferenceCalculator calculator;
+    private LiquidityScorer calculator;
 
     @Test
     void shouldReturn50ForNoSimulations() {

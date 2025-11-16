@@ -1,4 +1,4 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Investment;
 import com.portfolio.api.repository.InvestmentRepository;
@@ -9,11 +9,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Component
-public class InvestmentHorizonCalculator {
+public class HorizonScorer {
 
     private final InvestmentRepository investmentRepository;
 
-    public InvestmentHorizonCalculator(InvestmentRepository investmentRepository) {
+    public HorizonScorer(InvestmentRepository investmentRepository) {
         this.investmentRepository = investmentRepository;
     }
 

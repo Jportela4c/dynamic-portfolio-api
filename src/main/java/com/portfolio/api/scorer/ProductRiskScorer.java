@@ -1,4 +1,4 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Investment;
 import com.portfolio.api.repository.InvestmentRepository;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class ProductRiskPreferenceCalculator {
+public class ProductRiskScorer {
 
     private static final Map<String, Integer> PRODUCT_RISK_LEVELS = Map.of(
             "Tesouro Direto", 2,
@@ -23,7 +23,7 @@ public class ProductRiskPreferenceCalculator {
 
     private final InvestmentRepository investmentRepository;
 
-    public ProductRiskPreferenceCalculator(InvestmentRepository investmentRepository) {
+    public ProductRiskScorer(InvestmentRepository investmentRepository) {
         this.investmentRepository = investmentRepository;
     }
 

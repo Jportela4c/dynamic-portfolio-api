@@ -1,7 +1,8 @@
-package com.portfolio.api.util;
+package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Investment;
 import com.portfolio.api.repository.InvestmentRepository;
+import com.portfolio.api.scorer.FrequencyScorer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,13 +19,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class TransactionFrequencyCalculatorTest {
+class FrequencyScorerTest {
 
     @Mock
     private InvestmentRepository investmentRepository;
 
     @InjectMocks
-    private TransactionFrequencyCalculator calculator;
+    private FrequencyScorer calculator;
 
     @Test
     void shouldReturnZeroForNoTransactions() {
