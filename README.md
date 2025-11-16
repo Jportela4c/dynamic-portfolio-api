@@ -59,6 +59,8 @@ sdk install maven 3.9.9
 ./setup.sh && task setup
 ```
 
+**Nota para Windows:** Use Git Bash ou WSL para executar o script de setup.
+
 Isso automaticamente:
 - Instala Task (executor de tarefas multiplataforma)
 - Verifica todas as dependências
@@ -210,9 +212,7 @@ Use estas credenciais para testar os endpoints autenticados:
 #### Obtendo um Token
 
 ```bash
-curl -X POST http://localhost:8080/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"demo"}'
+curl -X POST http://localhost:8080/auth/login -H "Content-Type: application/json" -d "{\"username\":\"demo\"}"
 ```
 
 Resposta:
@@ -230,8 +230,7 @@ Resposta:
 #### Usando o Token
 
 ```bash
-curl -X GET http://localhost:8080/perfil-risco/123 \
-  -H "Authorization: Bearer SEU_TOKEN_JWT"
+curl -X GET http://localhost:8080/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN_JWT"
 ```
 
 ## Exemplos de Requisições
@@ -239,29 +238,19 @@ curl -X GET http://localhost:8080/perfil-risco/123 \
 ### Simular Investimento
 
 ```bash
-curl -X POST http://localhost:8080/simular-investimento \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer SEU_TOKEN" \
-  -d '{
-    "clienteId": 123,
-    "valor": 10000.00,
-    "prazoMeses": 12,
-    "tipoProduto": "CDB"
-  }'
+curl -X POST http://localhost:8080/simular-investimento -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN" -d "{\"clienteId\":123,\"valor\":10000.00,\"prazoMeses\":12,\"tipoProduto\":\"CDB\"}"
 ```
 
 ### Obter Perfil de Risco
 
 ```bash
-curl -X GET http://localhost:8080/perfil-risco/123 \
-  -H "Authorization: Bearer SEU_TOKEN"
+curl -X GET http://localhost:8080/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN"
 ```
 
 ### Obter Produtos Recomendados
 
 ```bash
-curl -X GET http://localhost:8080/produtos-recomendados/Moderado \
-  -H "Authorization: Bearer SEU_TOKEN"
+curl -X GET http://localhost:8080/produtos-recomendados/Moderado -H "Authorization: Bearer SEU_TOKEN"
 ```
 
 ## Perfis de Risco
@@ -456,12 +445,26 @@ mvn clean install
 ```
 
 **Porta já em uso:**
+
+**Linux/macOS:**
 ```bash
 # Verificar o que está usando a porta 8080
 lsof -i :8080
 
-# Ou usar porta diferente
+# Usar porta diferente
 SERVER_PORT=8081 mvn spring-boot:run
+```
+
+**Windows:**
+```cmd
+# Verificar o que está usando a porta 8080
+netstat -ano | findstr :8080
+
+# Usar porta diferente (CMD)
+set SERVER_PORT=8081 && mvn spring-boot:run
+
+# Ou PowerShell
+$env:SERVER_PORT=8081; mvn spring-boot:run
 ```
 
 ## Licença
