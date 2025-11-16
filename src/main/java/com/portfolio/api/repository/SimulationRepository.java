@@ -14,6 +14,8 @@ public interface SimulationRepository extends JpaRepository<Simulation, Long> {
 
     List<Simulation> findByClienteId(Long clienteId);
 
+    List<Simulation> findByClienteIdOrderByDataSimulacaoDesc(Long clienteId);
+
     @Query("""
             SELECT s.produtoNome as produto,
                    CAST(s.dataSimulacao AS date) as data,
