@@ -192,6 +192,36 @@ To remove volumes:
 docker-compose down -v
 ```
 
+## Testing
+
+The project includes comprehensive test coverage:
+
+### Run All Tests
+
+```bash
+mvn test
+```
+
+### Test Coverage
+
+- **Unit Tests**: Service layer, utilities, and business logic
+- **Integration Tests**: API endpoints with Spring Boot Test
+- **Test Framework**: JUnit 5 + Mockito
+- **Coverage**: Critical business logic including:
+  - Investment calculations
+  - Risk profile algorithm
+  - Product validation
+  - API endpoints with authentication
+
+### Test Structure
+
+```
+src/test/java/
+├── integration/    - Full API integration tests
+├── service/        - Service layer unit tests
+└── util/           - Utility class unit tests
+```
+
 ## Building from Source
 
 ```bash
@@ -199,6 +229,18 @@ mvn clean package
 ```
 
 The JAR file will be created in `target/` directory.
+
+Run with tests:
+
+```bash
+mvn clean package
+```
+
+Skip tests (not recommended):
+
+```bash
+mvn clean package -DskipTests
+```
 
 ## License
 
