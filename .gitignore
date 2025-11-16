@@ -1,0 +1,47 @@
+# IDE
+/.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.vs/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+target/
+build/
+out/
+bin/
+
+# .NET
+obj/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.cache
+*.csproj.user
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.temp
+*.swp
