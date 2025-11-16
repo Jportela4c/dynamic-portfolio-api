@@ -1,6 +1,5 @@
 package com.portfolio.api.model.dto.response;
 
-import com.fasterxml.jackson.annotation.format.DateTimeFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
