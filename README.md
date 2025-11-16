@@ -15,7 +15,7 @@ Investment simulation system for Brazilian financial products including CDBs, LC
 ## Technology Stack
 
 - Java 21
-- Spring Boot 3.2.0
+- Spring Boot 3.4.11
 - SQL Server 2022
 - Docker & Docker Compose
 - Flyway for database migrations
@@ -24,9 +24,32 @@ Investment simulation system for Brazilian financial products including CDBs, LC
 
 ## Prerequisites
 
+### For Docker (Recommended)
 - Docker and Docker Compose installed
-- Java 21 (for local development)
-- Maven 3.9+ (for local development)
+
+### For Local Development
+- Java 21
+- Maven 3.9+
+- **Recommended**: Use [SDKMAN](https://sdkman.io/) for easy setup
+
+#### Quick Setup with SDKMAN
+
+Install SDKMAN:
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+```
+
+Install Java and Maven (project includes `.sdkmanrc`):
+```bash
+sdk env install
+```
+
+Or install manually:
+```bash
+sdk install java 21.0.8-amzn
+sdk install maven 3.9.9
+```
 
 ## Quick Start with Docker
 
@@ -40,23 +63,48 @@ docker compose up -d
 
 The API will be available at `http://localhost:8080`
 
-The database will be automatically created and seeded with sample data.
+**What happens during startup:**
+1. SQL Server container starts with health checks
+2. Database initialization container creates `portfoliodb` database
+3. Flyway migration container runs all database migrations
+4. API container starts after migrations complete successfully
+
+The database is automatically created, migrated, and seeded with sample data.
 
 ## Local Development
 
 ### Database Setup
 
-Start SQL Server container:
+Start SQL Server and run migrations:
 
 ```bash
+# Start SQL Server
 docker compose up sqlserver -d
+
+# Wait for SQL Server to be healthy, then run init and migrations
+docker compose up sqlserver-init
+docker compose up flyway
 ```
 
-### Run Application
+Or use the database from the full Docker Compose stack:
+```bash
+docker compose up sqlserver sqlserver-init flyway -d
+```
 
+### Run Application Locally
+
+With SDKMAN (automatically uses correct versions):
+```bash
+sdk env
+mvn spring-boot:run
+```
+
+Without SDKMAN:
 ```bash
 mvn spring-boot:run
 ```
+
+The API will connect to the SQL Server container on `localhost:1433`.
 
 ## API Endpoints
 
@@ -155,13 +203,22 @@ Classification is based on:
 
 ## Database Schema
 
-The application uses Flyway for database migrations. Schema is automatically created on startup.
+The application uses Flyway for database migrations. Schema is automatically created on startup via a dedicated Flyway container.
+
+**Migration Process:**
+1. `V1__create_products_table.sql` - Products table
+2. `V2__create_simulations_table.sql` - Simulations table
+3. `V3__create_investments_table.sql` - Investments table
+4. `V4__create_telemetry_table.sql` - Telemetry table
+5. `V5__seed_sample_products.sql` - Sample product data
 
 Main tables:
-- `produtos` - Investment products
+- `produtos` - Investment products (CDB, LCI, LCA, Tesouro Direto, Fundos)
 - `simulacoes` - Simulation history
 - `investimentos` - Client investment history
 - `telemetria` - Performance metrics
+
+All migrations are located in `src/main/resources/db/migration/`.
 
 ## Environment Variables
 
@@ -224,22 +281,111 @@ src/test/java/
 
 ## Building from Source
 
-```bash
-mvn clean package
-```
-
-The JAR file will be created in `target/` directory.
-
-Run with tests:
+### Build with Tests
 
 ```bash
 mvn clean package
 ```
 
-Skip tests (not recommended):
+The JAR file will be created in `target/dynamic-portfolio-api-1.0.0.jar`
+
+### Build without Tests
 
 ```bash
 mvn clean package -DskipTests
+```
+
+### Run Built JAR
+
+```bash
+java -jar target/dynamic-portfolio-api-1.0.0.jar
+```
+
+**Note**: Ensure database is running and environment variables are set before running the JAR.
+
+## Docker Architecture
+
+The Docker Compose setup uses a multi-stage initialization process:
+
+```
+┌─────────────────┐
+│  SQL Server     │ ◄── Health checks ensure ready state
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ sqlserver-init  │ ◄── Creates portfoliodb database
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│    Flyway       │ ◄── Runs all migrations (V1-V5)
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│      API        │ ◄── Starts after migrations complete
+└─────────────────┘
+```
+
+**Containers:**
+- `portfolio-sqlserver` - SQL Server 2022 (persistent)
+- `sqlserver-init` - Database creation (runs once)
+- `flyway` - Migration runner (runs once)
+- `portfolio-api` - Spring Boot application (persistent)
+
+## Troubleshooting
+
+### Docker Issues
+
+**Containers not starting:**
+```bash
+# Check container logs
+docker compose logs
+
+# Check specific service
+docker compose logs sqlserver
+docker compose logs flyway
+docker compose logs api
+```
+
+**Database connection issues:**
+```bash
+# Verify SQL Server is healthy
+docker compose ps
+
+# Should show "healthy" status for portfolio-sqlserver
+```
+
+**Flyway migration failures:**
+```bash
+# Check Flyway logs
+docker compose logs flyway
+
+# Reset database and retry
+docker compose down -v
+docker compose up -d
+```
+
+### Local Development Issues
+
+**Maven build fails:**
+```bash
+# Ensure correct Java version
+java -version  # Should be 21
+
+# With SDKMAN
+sdk env
+mvn clean install
+```
+
+**Port already in use:**
+```bash
+# Check what's using port 8080
+lsof -i :8080
+
+# Or use different port
+SERVER_PORT=8081 mvn spring-boot:run
 ```
 
 ## License
