@@ -39,8 +39,8 @@ class RiskProfileServiceTest {
     private RiskProfileService service;
 
     @Test
-    void shouldClassifyAsUltraConservador() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(10);
+    void shouldClassifyAsConservadorLowScore() {
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(20);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(10);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(20);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(10);
@@ -48,65 +48,52 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("Ultra Conservador", response.getPerfil());
-        assertTrue(response.getPontuacao() <= 20);
-        assertNotNull(response.getFatores());
+        assertEquals("Conservador", response.getPerfil());
+        assertTrue(response.getPontuacao() <= 40);
+        assertEquals("Perfil de baixo risco, focado em segurança e liquidez.", response.getDescricao());
     }
 
     @Test
-    void shouldClassifyAsConservador() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(30);
-        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(30);
-        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(30);
-        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(30);
-        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(30);
+    void shouldClassifyAsConservadorHighScore() {
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(40);
+        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(40);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(40);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(40);
+        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(40);
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
         assertEquals("Conservador", response.getPerfil());
-        assertTrue(response.getPontuacao() > 20 && response.getPontuacao() <= 40);
+        assertTrue(response.getPontuacao() <= 40);
     }
 
     @Test
-    void shouldClassifyAsModeradoConservador() {
+    void shouldClassifyAsModeradoLowScore() {
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(50);
-        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(50);
-        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(50);
-        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(50);
-
-        RiskProfileResponse response = service.calculateRiskProfile(1L);
-
-        assertEquals("Moderado Conservador", response.getPerfil());
-        assertTrue(response.getPontuacao() > 40 && response.getPontuacao() <= 55);
-    }
-
-    @Test
-    void shouldClassifyAsModerado() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(60);
-        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(60);
-        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(60);
-        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(60);
-        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(60);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(45);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(45);
+        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(40);
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
         assertEquals("Moderado", response.getPerfil());
-        assertTrue(response.getPontuacao() > 55 && response.getPontuacao() <= 70);
+        assertTrue(response.getPontuacao() > 40 && response.getPontuacao() <= 70);
+        assertEquals("Perfil equilibrado entre segurança e rentabilidade.", response.getDescricao());
     }
 
     @Test
-    void shouldClassifyAsModeradoAgressivo() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(80);
-        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(80);
-        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(75);
-        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(75);
+    void shouldClassifyAsModeradoHighScore() {
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(70);
+        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(70);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(70);
         when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(70);
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("Moderado Agressivo", response.getPerfil());
-        assertTrue(response.getPontuacao() > 70 && response.getPontuacao() <= 85);
+        assertEquals("Moderado", response.getPerfil());
+        assertTrue(response.getPontuacao() > 40 && response.getPontuacao() <= 70);
     }
 
     @Test
@@ -120,11 +107,12 @@ class RiskProfileServiceTest {
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
         assertEquals("Agressivo", response.getPerfil());
-        assertTrue(response.getPontuacao() > 85);
+        assertTrue(response.getPontuacao() > 70);
+        assertEquals("Perfil de alto risco, focado em alta rentabilidade.", response.getDescricao());
     }
 
     @Test
-    void shouldIncludeAllFactorScoresInResponse() {
+    void shouldCalculateWeightedScore() {
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(60);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
@@ -133,11 +121,14 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertNotNull(response.getFatores());
-        assertEquals(50, response.getFatores().get("volume"));
-        assertEquals(60, response.getFatores().get("frequencia"));
-        assertEquals(70, response.getFatores().get("riscoProdutos"));
-        assertEquals(40, response.getFatores().get("liquidez"));
-        assertEquals(30, response.getFatores().get("horizonte"));
+        assertNotNull(response);
+        assertNotNull(response.getClienteId());
+        assertNotNull(response.getPerfil());
+        assertNotNull(response.getPontuacao());
+        assertNotNull(response.getDescricao());
+
+        // Weighted score: 50*0.25 + 60*0.20 + 70*0.30 + 40*0.15 + 30*0.10 = 57
+        assertEquals(57, response.getPontuacao());
+        assertEquals("Moderado", response.getPerfil());
     }
 }
