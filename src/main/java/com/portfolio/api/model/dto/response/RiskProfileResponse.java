@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +15,4 @@ public class RiskProfileResponse {
     private String perfil;
     private Integer pontuacao;
     private String descricao;
-    private Map<String, Integer> fatores;
 }

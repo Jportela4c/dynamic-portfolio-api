@@ -1,41 +1,103 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
-import com.portfolio.api.repository.InvestmentRepository;
-import com.portfolio.api.util.RiskProfileCalculator;
+import com.portfolio.api.scorer.FrequencyScorer;
+import com.portfolio.api.scorer.HorizonScorer;
+import com.portfolio.api.scorer.LiquidityScorer;
+import com.portfolio.api.scorer.ProductRiskScorer;
+import com.portfolio.api.scorer.VolumeScorer;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 public class RiskProfileService {
 
-    private final InvestmentRepository investmentRepository;
-    private final RiskProfileCalculator riskProfileCalculator;
+    private static final Map<String, Double> FACTOR_WEIGHTS = Map.of(
+            "volume", 0.25,
+            "frequency", 0.20,
+            "product_risk", 0.30,
+            "liquidity", 0.15,
+            "horizon", 0.10
+    );
 
-    public RiskProfileService(InvestmentRepository investmentRepository,
-                              RiskProfileCalculator riskProfileCalculator) {
-        this.investmentRepository = investmentRepository;
-        this.riskProfileCalculator = riskProfileCalculator;
+    private final VolumeScorer volumeCalculator;
+    private final FrequencyScorer frequencyCalculator;
+    private final ProductRiskScorer productRiskCalculator;
+    private final LiquidityScorer liquidityCalculator;
+    private final HorizonScorer horizonCalculator;
+
+    public RiskProfileService(VolumeScorer volumeCalculator,
+                                      FrequencyScorer frequencyCalculator,
+                                      ProductRiskScorer productRiskCalculator,
+                                      LiquidityScorer liquidityCalculator,
+                                      HorizonScorer horizonCalculator) {
+        this.volumeCalculator = volumeCalculator;
+        this.frequencyCalculator = frequencyCalculator;
+        this.productRiskCalculator = productRiskCalculator;
+        this.liquidityCalculator = liquidityCalculator;
+        this.horizonCalculator = horizonCalculator;
     }
 
     public RiskProfileResponse calculateRiskProfile(Long clienteId) {
-        Long transactionCount = investmentRepository.countByClienteId(clienteId);
-        BigDecimal totalVolume = investmentRepository.sumValorByClienteId(clienteId);
+        int volumeScore = volumeCalculator.calculateVolumeScore(clienteId);
+        int frequencyScore = frequencyCalculator.calculateFrequencyScore(clienteId);
+        int productRiskScore = productRiskCalculator.calculateProductRiskScore(clienteId);
+        int liquidityScore = liquidityCalculator.calculateLiquidityScore(clienteId);
+        int horizonScore = horizonCalculator.calculateHorizonScore(clienteId);
 
-        if (totalVolume == null) {
-            totalVolume = BigDecimal.ZERO;
-        }
+        int totalScore = (int) Math.round(
+                volumeScore * FACTOR_WEIGHTS.get("volume") +
+                frequencyScore * FACTOR_WEIGHTS.get("frequency") +
+                productRiskScore * FACTOR_WEIGHTS.get("product_risk") +
+                liquidityScore * FACTOR_WEIGHTS.get("liquidity") +
+                horizonScore * FACTOR_WEIGHTS.get("horizon")
+        );
 
-        int score = riskProfileCalculator.calculateScore(totalVolume, transactionCount);
-        String profile = riskProfileCalculator.classifyProfile(score);
-        String description = riskProfileCalculator.getProfileDescription(profile);
+        String profile = classifyProfile(totalScore);
+        String description = getProfileDescription(profile);
+
+        Map<String, Integer> factors = new HashMap<>();
+        factors.put("volume", volumeScore);
+        factors.put("frequencia", frequencyScore);
+        factors.put("riscoProdutos", productRiskScore);
+        factors.put("liquidez", liquidityScore);
+        factors.put("horizonte", horizonScore);
 
         return RiskProfileResponse.builder()
                 .clienteId(clienteId)
                 .perfil(profile)
-                .pontuacao(score)
+                .pontuacao(totalScore)
                 .descricao(description)
+                .fatores(factors)
                 .build();
+    }
+
+    private String classifyProfile(int score) {
+        if (score <= 20) {
+            return "Ultra Conservador";
+        } else if (score <= 40) {
+            return "Conservador";
+        } else if (score <= 55) {
+            return "Moderado Conservador";
+        } else if (score <= 70) {
+            return "Moderado";
+        } else if (score <= 85) {
+            return "Moderado Agressivo";
+        } else {
+            return "Agressivo";
+        }
+    }
+
+    private String getProfileDescription(String profile) {
+        return switch (profile) {
+            case "Ultra Conservador" -> "Perfil extremamente conservador, prioriza segurança máxima e liquidez imediata.";
+            case "Conservador" -> "Perfil de baixo risco, focado em segurança e liquidez.";
+            case "Moderado Conservador" -> "Perfil que prioriza segurança mas aceita riscos muito baixos.";
+            case "Moderado" -> "Perfil equilibrado entre segurança e rentabilidade.";
+            case "Moderado Agressivo" -> "Perfil que busca rentabilidade mas mantém alguma segurança.";
+            case "Agressivo" -> "Perfil de alto risco, focado em alta rentabilidade.";
+            default -> "Perfil não identificado.";
+        };
     }
 }
