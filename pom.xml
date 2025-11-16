@@ -94,6 +94,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Apache Commons Math for statistical functions -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
