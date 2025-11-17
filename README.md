@@ -9,7 +9,7 @@ Sistema de simulação de investimentos para produtos financeiros brasileiros in
 **Execute isso e está pronto (funciona em qualquer sistema operacional):**
 
 ```bash
-./setup.cmd
+./run.cmd
 ```
 
 Pronto! A API estará rodando em `http://localhost:8080`
@@ -38,7 +38,7 @@ Pronto! A API estará rodando em `http://localhost:8080`
 ### Opção 1: Comando Único (Mais Simples)
 
 ```bash
-./setup.cmd
+./run.cmd
 ```
 
 Este comando funciona em:
