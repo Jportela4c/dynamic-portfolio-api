@@ -51,28 +51,18 @@ docker compose down -v
 
 ### Opção 2: Setup Automático com Task
 
-**Linux/macOS:**
+**Todos os sistemas (um único comando):**
+
 ```bash
-./setup.sh && task setup
+./setup.cmd && task setup
 ```
 
-**Windows (PowerShell):**
-```powershell
-# Se necessário, permita execução de scripts:
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-.\setup.ps1; task setup
-```
-
-**Windows (CMD):**
+**Windows CMD:**
 ```cmd
-setup.bat && task setup
+setup.cmd && task setup
 ```
 
-**Windows (Git Bash):**
-```bash
-./setup.sh && task setup
-```
+Este script funciona nativamente em Linux, macOS, Windows CMD, Windows PowerShell e Git Bash.
 
 Isso instala tudo automaticamente e inicia a aplicação.
 
