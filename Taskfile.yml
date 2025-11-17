@@ -204,9 +204,8 @@ tasks:
           -e postman/environments/local-docker.postman_environment.json \
           --reporters cli,htmlextra \
           --reporter-htmlextra-export reports/newman-local-report.html \
-          --color on \
-          || (echo "❌ Newman tests failed! Check reports/newman-local-report.html" && exit 1)
-      - echo "✅ All Newman tests passed! Report: reports/newman-local-report.html"
+          --color on || (echo "❌ Newman tests failed! Check reports/newman-local-report.html" && exit 1)
+        echo "✅ All Newman tests passed! Report: reports/newman-local-report.html"
 
   newman:test:
     desc: Run Newman API tests against test environment (port 8081)
@@ -219,9 +218,8 @@ tasks:
           -e postman/environments/test.postman_environment.json \
           --reporters cli,htmlextra \
           --reporter-htmlextra-export reports/newman-test-report.html \
-          --color on \
-          || (echo "❌ Newman tests failed! Check reports/newman-test-report.html" && exit 1)
-      - echo "✅ All Newman tests passed! Report: reports/newman-test-report.html"
+          --color on || (echo "❌ Newman tests failed! Check reports/newman-test-report.html" && exit 1)
+        echo "✅ All Newman tests passed! Report: reports/newman-test-report.html"
 
   newman:ci:
     desc: Run Newman tests in CI/CD mode (fail fast, minimal output)
@@ -235,9 +233,8 @@ tasks:
           --bail \
           --reporters cli,json \
           --reporter-json-export reports/newman-ci-results.json \
-          --color off \
-          || (echo "❌ Newman tests failed!" && exit 1)
-      - echo "✅ CI tests passed!"
+          --color off || (echo "❌ Newman tests failed!" && exit 1)
+        echo "✅ CI tests passed!"
 
   newman:fresh:
     desc: Run Newman tests with completely fresh database (teardown + setup + test)
