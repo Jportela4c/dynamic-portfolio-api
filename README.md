@@ -117,20 +117,20 @@ task help          # Ver todos os comandos disponíveis
 
 **Como autenticar no Swagger para testar endpoints protegidos:**
 
-1. No Swagger, encontre o endpoint `POST /auth/login`
+1. No Swagger, encontre o endpoint `POST /oauth2/token`
 2. Clique em "Try it out"
-3. Use este JSON:
-   ```json
-   {
-     "username": "demo"
-   }
-   ```
-4. Clique em "Execute"
-5. Copie o valor do campo `token` que aparece na resposta
-6. Clique no botão **"Authorize"** no topo da página
-7. Cole o token no campo (no formato: `Bearer SEU_TOKEN_AQUI`)
-8. Clique em "Authorize" e depois "Close"
-9. Agora você pode testar todos os endpoints protegidos!
+3. Preencha os campos:
+   - **grant_type**: `client_credentials`
+   - **scope**: `read write`
+4. Em "Authorization", use:
+   - **Username**: `portfolio-api-client`
+   - **Password**: `api-secret`
+5. Clique em "Execute"
+6. Copie o valor do campo `access_token` que aparece na resposta
+7. Clique no botão **"Authorize"** no topo da página
+8. Cole o token no campo (apenas o token, sem "Bearer")
+9. Clique em "Authorize" e depois "Close"
+10. Agora você pode testar todos os endpoints protegidos!
 
 ---
 
@@ -142,25 +142,26 @@ task help          # Ver todos os comandos disponíveis
 - ✅ macOS
 - ✅ Linux
 
-**Passo 1: Pegar um token de autenticação**
+**Passo 1: Pegar um access token OAuth2**
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/auth/login -H "Content-Type: application/json" -d "{\"username\":\"demo\"}"
+curl -X POST http://localhost:8080/api/v1/oauth2/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -u "portfolio-api-client:api-secret" \
+  -d "grant_type=client_credentials&scope=read write"
 ```
 
 **Resposta:**
 ```json
 {
-  "success": true,
-  "data": {
-    "token": "eyJhbGciOiJIUzI1NiJ9...",
-    "username": "demo"
-  },
-  "message": "Login successful"
+  "access_token": "eyJraWQiOiI...",
+  "token_type": "Bearer",
+  "expires_in": 3599,
+  "scope": "read write"
 }
 ```
 
-Copie o valor do `token`.
+Copie o valor do `access_token`.
 
 **Passo 2: Usar o token para chamar os endpoints**
 
@@ -213,7 +214,7 @@ curl http://localhost:8080/api/v1/actuator/health
 - ✅ Recomendação de produtos por perfil de risco
 - ✅ Histórico de investimentos
 - ✅ Telemetria e métricas de desempenho
-- ✅ Autenticação JWT
+- ✅ Autenticação OAuth2
 - ✅ API RESTful com documentação OpenAPI (Swagger)
 
 ### Perfis de Risco
@@ -238,7 +239,7 @@ A classificação considera:
 - SQL Server 2022
 - Docker & Docker Compose
 - Flyway (migrações de banco de dados)
-- JWT (autenticação)
+- OAuth2 (Spring Authorization Server)
 - Swagger/OpenAPI (documentação)
 - JUnit 5 + Mockito (testes)
 
@@ -247,7 +248,9 @@ A classificação considera:
 ## Endpoints da API
 
 ### Autenticação
-- `POST /auth/login` - Gerar token JWT
+- `POST /oauth2/token` - Obter access token OAuth2
+- `POST /oauth2/introspect` - Validar token
+- `POST /oauth2/revoke` - Revogar token
 
 ### Simulações e Investimentos
 - `POST /simular-investimento` - Simular um investimento
@@ -305,7 +308,6 @@ Você pode customizar a conexão com o banco:
 | DB_NAME | Nome do banco | portfoliodb |
 | DB_USER | Usuário | sa |
 | DB_PASSWORD | Senha | YourStrong@Passw0rd |
-| JWT_SECRET | Chave JWT | (gerada automaticamente) |
 
 ---
 
@@ -375,7 +377,7 @@ mvn test
 - Cálculos de investimento
 - Algoritmo de perfil de risco
 - Validação de produtos
-- Autenticação JWT
+- Autenticação OAuth2
 
 **Estrutura:**
 ```
@@ -558,10 +560,12 @@ mvn clean install
 
 ---
 
-## Credenciais de Teste
+## Credenciais OAuth2
 
-**Usuário:** `demo`
-**Senha:** não é necessária (autenticação simplificada para demonstração)
+**Client ID:** `portfolio-api-client`
+**Client Secret:** `api-secret`
+**Grant Type:** `client_credentials`
+**Scopes:** `read write`
 
 ---
 

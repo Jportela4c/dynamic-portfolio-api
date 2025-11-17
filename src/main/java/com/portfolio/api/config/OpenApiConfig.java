@@ -25,8 +25,12 @@ import org.springframework.context.annotation.Configuration;
             - Telemetria e métricas
 
             ## Autenticação
-            Use o endpoint `/auth/login` com o username "demo" para obter um token JWT.
-            Depois, clique no botão "Authorize" e insira o token no formato: `Bearer {seu-token}`
+            Esta API usa OAuth2 para autenticação. Use o endpoint `/oauth2/token` com client credentials para obter um access token.
+            Depois, clique no botão "Authorize" e insira o token no formato: `Bearer {seu-access-token}`
+
+            **Client Credentials:**
+            - Client ID: `portfolio-api-client`
+            - Client Secret: `api-secret`
 
             ## Respostas de Erro
             A API utiliza respostas de erro padronizadas:
@@ -50,7 +54,7 @@ import org.springframework.context.annotation.Configuration;
     type = SecuritySchemeType.HTTP,
     scheme = "bearer",
     bearerFormat = "JWT",
-    description = "Autenticação JWT. Use o endpoint /auth/login para obter um token."
+    description = "OAuth2 Bearer Token. Use o endpoint /oauth2/token com client credentials (portfolio-api-client:api-secret) para obter um access token."
 )
 public class OpenApiConfig {
 }
