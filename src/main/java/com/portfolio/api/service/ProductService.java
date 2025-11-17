@@ -1,6 +1,7 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.model.entity.Product;
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ProductService {
         return productRepository.findByPerfilAdequadoAndAtivoTrue(riskProfile);
     }
 
-    public Optional<Product> findMatchingProduct(String tipo, BigDecimal valor, Integer prazoMeses) {
+    public Optional<Product> findMatchingProduct(TipoProduto tipo, BigDecimal valor, Integer prazoMeses) {
         return productRepository
                 .findFirstByTipoAndAtivoTrueAndValorMinimoLessThanEqualAndPrazoMinimoMesesLessThanEqualOrderByRentabilidadeDesc(
                         tipo, valor, prazoMeses

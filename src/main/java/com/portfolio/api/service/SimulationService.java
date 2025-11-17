@@ -42,6 +42,7 @@ public class SimulationService {
 
     @Transactional
     public SimulationResponse simulateInvestment(SimulationRequest request) {
+
         Product product = productService.findMatchingProduct(
                 request.getTipoProduto(),
                 request.getValor(),
