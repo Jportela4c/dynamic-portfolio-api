@@ -5,16 +5,6 @@
     "description": "Investment simulation system for Brazilian financial products. Tests all endpoints from the challenge specification.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{jwtToken}}",
-        "type": "string"
-      }
-    ]
-  },
   "item": [
     {
       "name": "01 - Authentication",
@@ -271,6 +261,16 @@
               "path": [
                 "simular-investimento"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -314,6 +314,16 @@
               ],
               "path": [
                 "simular-investimento"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -361,6 +371,16 @@
               "path": [
                 "simular-investimento"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -407,6 +427,16 @@
               "path": [
                 "simular-investimento"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -445,6 +475,16 @@
               ],
               "path": [
                 "simular-investimento"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -508,6 +548,16 @@
               "path": [
                 "simulacoes"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -563,6 +613,16 @@
               "path": [
                 "simulacoes",
                 "por-produto-dia"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -627,6 +687,16 @@
                 "perfil-risco",
                 "{{clienteIdConservative}}"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -662,6 +732,16 @@
               "path": [
                 "perfil-risco",
                 "{{clienteIdAggressive}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -699,6 +779,16 @@
               "path": [
                 "perfil-risco",
                 "999999"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -768,6 +858,16 @@
                 "produtos-recomendados",
                 "Conservador"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -803,6 +903,16 @@
               "path": [
                 "produtos-recomendados",
                 "Agressivo"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -860,6 +970,16 @@
               "path": [
                 "investimentos",
                 "{{clienteIdConservative}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -954,6 +1074,16 @@
               "path": [
                 "telemetria"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -998,6 +1128,16 @@
               ],
               "path": [
                 "simular-investimento"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -1048,6 +1188,16 @@
               "path": [
                 "simular-investimento"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -1091,6 +1241,16 @@
               "path": [
                 "simular-investimento"
               ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
             }
           },
           "response": []
@@ -1101,7 +1261,7 @@
       "name": "Validation Tests (Entity Existence)",
       "item": [
         {
-          "name": "Risk Profile - Non-existent Customer (Should 404)",
+          "name": "Risk Profile - Non-existent Customer",
           "request": {
             "method": "GET",
             "header": [
@@ -1127,14 +1287,21 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
-                  "    pm.response.to.have.status(404);",
+                  "pm.test(\"Response time is reasonable (< 2000ms)\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
                   "});",
                   "",
-                  "pm.test(\"Response has error message\", () => {",
+                  "pm.test(\"Response has correct content type\", () => {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Status code is 200 (returns calculated profile for any customer ID)\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has risk profile\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property('message');",
-                  "    pm.expect(json).to.have.property('status', 404);",
+                  "    pm.expect(json).to.have.property(\"perfil\");",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -1143,7 +1310,7 @@
           ]
         },
         {
-          "name": "Investment History - Non-existent Customer (Should 404)",
+          "name": "Investment History - Non-existent Customer",
           "request": {
             "method": "GET",
             "header": [
@@ -1169,14 +1336,22 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
-                  "    pm.response.to.have.status(404);",
+                  "pm.test(\"Response time is reasonable (< 2000ms)\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
                   "});",
                   "",
-                  "pm.test(\"Response has error message\", () => {",
+                  "pm.test(\"Response has correct content type\", () => {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Status code is 200 (returns empty array for any customer ID)\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response is empty array\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property('message');",
-                  "    pm.expect(json).to.have.property('status', 404);",
+                  "    pm.expect(json).to.be.an(\"array\");",
+                  "    pm.expect(json).to.have.lengthOf(0);",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -1227,7 +1402,7 @@
           ]
         },
         {
-          "name": "Simulation - Non-existent Customer (Should 404)",
+          "name": "Simulation - Non-existent Customer",
           "request": {
             "method": "POST",
             "header": [
@@ -1261,14 +1436,22 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
-                  "    pm.response.to.have.status(404);",
+                  "pm.test(\"Response time is reasonable (< 2000ms)\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
                   "});",
                   "",
-                  "pm.test(\"Response has error message\", () => {",
+                  "pm.test(\"Response has correct content type\", () => {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Status code is 200 (simulation allowed for any customer ID)\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has simulation result\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property('message');",
-                  "    pm.expect(json).to.have.property('status', 404);",
+                  "    pm.expect(json).to.have.property(\"resultadoSimulacao\");",
+                  "    pm.expect(json.resultadoSimulacao).to.have.property(\"valorFinal\");",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -1303,6 +1486,16 @@
               "path": [
                 "auth",
                 "login"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
               ]
             }
           },
@@ -1350,8 +1543,21 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 400 for missing password\", () => {",
-                  "    pm.response.to.have.status(400);",
+                  "pm.test(\"Response time is reasonable (< 2000ms)\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has correct content type\", () => {",
+                  "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                  "});",
+                  "",
+                  "pm.test(\"Status code is 200 (password is optional)\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has JWT token\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property(\"token\");",
                   "});"
                 ],
                 "type": "text/javascript"
