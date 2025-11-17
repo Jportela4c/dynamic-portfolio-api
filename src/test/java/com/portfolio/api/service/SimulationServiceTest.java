@@ -4,6 +4,7 @@ import com.portfolio.api.exception.InvalidSimulationException;
 import com.portfolio.api.exception.ProductNotFoundException;
 import com.portfolio.api.model.dto.request.SimulationRequest;
 import com.portfolio.api.model.dto.response.SimulationResponse;
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.model.entity.Product;
 import com.portfolio.api.repository.SimulationRepository;
 import com.portfolio.api.repository.TelemetryRepository;
@@ -48,7 +49,7 @@ class SimulationServiceTest {
         testProduct = new Product();
         testProduct.setId(1L);
         testProduct.setNome("CDB Test");
-        testProduct.setTipo("CDB");
+        testProduct.setTipo(TipoProduto.CDB);
         testProduct.setRentabilidade(new BigDecimal("0.12"));
         testProduct.setRisco("Baixo");
         testProduct.setValorMinimo(new BigDecimal("1000"));
@@ -59,12 +60,12 @@ class SimulationServiceTest {
         testRequest.setClienteId(123L);
         testRequest.setValor(new BigDecimal("10000"));
         testRequest.setPrazoMeses(12);
-        testRequest.setTipoProduto("CDB");
+        testRequest.setTipoProduto(TipoProduto.CDB);
     }
 
     @Test
     void shouldSimulateInvestmentSuccessfully() {
-        when(productService.findMatchingProduct(anyString(), any(), anyInt()))
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
                 .thenReturn(Optional.of(testProduct));
         when(investmentCalculator.calculateFinalValue(any(), any(), anyInt()))
                 .thenReturn(new BigDecimal("11200.00"));
@@ -80,7 +81,7 @@ class SimulationServiceTest {
 
     @Test
     void shouldThrowExceptionWhenProductNotFound() {
-        when(productService.findMatchingProduct(anyString(), any(), anyInt()))
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
                 .thenReturn(Optional.empty());
 
         assertThrows(ProductNotFoundException.class, () ->
@@ -92,7 +93,7 @@ class SimulationServiceTest {
     void shouldThrowExceptionWhenValueBelowMinimum() {
         testRequest.setValor(new BigDecimal("500"));
 
-        when(productService.findMatchingProduct(anyString(), any(), anyInt()))
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
                 .thenReturn(Optional.of(testProduct));
 
         assertThrows(InvalidSimulationException.class, () ->
@@ -104,7 +105,7 @@ class SimulationServiceTest {
     void shouldThrowExceptionWhenTermBelowMinimum() {
         testRequest.setPrazoMeses(3);
 
-        when(productService.findMatchingProduct(anyString(), any(), anyInt()))
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
                 .thenReturn(Optional.of(testProduct));
 
         assertThrows(InvalidSimulationException.class, () ->
@@ -116,7 +117,7 @@ class SimulationServiceTest {
     void shouldThrowExceptionWhenTermExceedsMaximum() {
         testRequest.setPrazoMeses(72);
 
-        when(productService.findMatchingProduct(anyString(), any(), anyInt()))
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
                 .thenReturn(Optional.of(testProduct));
 
         assertThrows(InvalidSimulationException.class, () ->

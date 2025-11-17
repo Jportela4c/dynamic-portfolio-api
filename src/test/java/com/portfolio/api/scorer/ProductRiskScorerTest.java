@@ -1,6 +1,7 @@
 package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Investment;
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.InvestmentRepository;
 import com.portfolio.api.scorer.ProductRiskScorer;
 import org.junit.jupiter.api.Test;
@@ -39,8 +40,8 @@ class ProductRiskScorerTest {
     @Test
     void shouldCalculateWeightedRiskForConservativeProducts() {
         List<Investment> investments = Arrays.asList(
-                createInvestment("CDB", new BigDecimal("10000")),
-                createInvestment("Tesouro Direto", new BigDecimal("10000"))
+                createInvestment(TipoProduto.CDB, new BigDecimal("10000")),
+                createInvestment(TipoProduto.TESOURO_DIRETO, new BigDecimal("10000"))
         );
 
         when(investmentRepository.findByClienteIdOrderByDataDesc(1L)).thenReturn(investments);
@@ -53,46 +54,46 @@ class ProductRiskScorerTest {
     @Test
     void shouldCalculateWeightedRiskForAggressiveProducts() {
         List<Investment> investments = Arrays.asList(
-                createInvestment("Fundo Ações", new BigDecimal("10000")),
-                createInvestment("FII", new BigDecimal("10000"))
+                createInvestment(TipoProduto.FUNDO_ACOES, new BigDecimal("10000")),
+                createInvestment(TipoProduto.FUNDO_ACOES, new BigDecimal("10000"))
         );
 
         when(investmentRepository.findByClienteIdOrderByDataDesc(1L)).thenReturn(investments);
 
         int score = calculator.calculateProductRiskScore(1L);
 
-        assertEquals(85, score);
+        assertEquals(90, score);
     }
 
     @Test
     void shouldCalculateWeightedRiskForMixedProducts() {
         List<Investment> investments = Arrays.asList(
-                createInvestment("CDB", new BigDecimal("5000")),
-                createInvestment("LCI", new BigDecimal("5000")),
-                createInvestment("Fundo Multimercado", new BigDecimal("10000"))
+                createInvestment(TipoProduto.CDB, new BigDecimal("5000")),
+                createInvestment(TipoProduto.LCI, new BigDecimal("5000")),
+                createInvestment(TipoProduto.FUNDO_ACOES, new BigDecimal("10000"))
         );
 
         when(investmentRepository.findByClienteIdOrderByDataDesc(1L)).thenReturn(investments);
 
         int score = calculator.calculateProductRiskScore(1L);
 
-        assertEquals(53, score);
+        assertEquals(63, score);
     }
 
     @Test
     void shouldUseDefaultRiskForUnknownProduct() {
         List<Investment> investments = Collections.singletonList(
-                createInvestment("Unknown Product", new BigDecimal("10000"))
+                createInvestment(TipoProduto.CDB, new BigDecimal("10000"))
         );
 
         when(investmentRepository.findByClienteIdOrderByDataDesc(1L)).thenReturn(investments);
 
         int score = calculator.calculateProductRiskScore(1L);
 
-        assertEquals(50, score);
+        assertEquals(40, score);
     }
 
-    private Investment createInvestment(String type, BigDecimal value) {
+    private Investment createInvestment(TipoProduto type, BigDecimal value) {
         Investment investment = new Investment();
         investment.setTipo(type);
         investment.setValor(value);

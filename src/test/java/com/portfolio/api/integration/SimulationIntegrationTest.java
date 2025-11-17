@@ -3,6 +3,7 @@ package com.portfolio.api.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.api.model.dto.request.SimulationRequest;
 import com.portfolio.api.model.entity.Product;
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.ProductRepository;
 import com.portfolio.api.security.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +47,7 @@ class SimulationIntegrationTest {
 
         Product cdb = new Product();
         cdb.setNome("CDB Test Product");
-        cdb.setTipo("CDB");
+        cdb.setTipo(TipoProduto.CDB);
         cdb.setRentabilidade(new BigDecimal("0.12"));
         cdb.setRisco("Baixo");
         cdb.setValorMinimo(new BigDecimal("5000.00"));
@@ -63,7 +64,7 @@ class SimulationIntegrationTest {
         request.setClienteId(123L);
         request.setValor(new BigDecimal("10000.00"));
         request.setPrazoMeses(12);
-        request.setTipoProduto("CDB");
+        request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
                         .header("Authorization", "Bearer " + token)
@@ -82,7 +83,7 @@ class SimulationIntegrationTest {
         request.setClienteId(null);
         request.setValor(new BigDecimal("-100"));
         request.setPrazoMeses(0);
-        request.setTipoProduto("");
+        request.setTipoProduto(null);
 
         mockMvc.perform(post("/simular-investimento")
                         .header("Authorization", "Bearer " + token)
@@ -97,7 +98,7 @@ class SimulationIntegrationTest {
         request.setClienteId(123L);
         request.setValor(new BigDecimal("10000.00"));
         request.setPrazoMeses(12);
-        request.setTipoProduto("CDB");
+        request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
                         .contentType(MediaType.APPLICATION_JSON)
