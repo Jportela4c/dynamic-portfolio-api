@@ -1,26 +1,21 @@
 -- Add CHECK constraints to enforce enum-like behavior in SQL Server
 
--- Constraint for product type (tipo_produto)
+-- Constraint for product type (tipo column in produtos table)
 ALTER TABLE produtos
-ADD CONSTRAINT CK_produtos_tipo_produto
-CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
+ADD CONSTRAINT CK_produtos_tipo
+CHECK (tipo IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
 
--- Constraint for risk level (nivel_risco)
+-- Constraint for risk level (risco column)
 ALTER TABLE produtos
-ADD CONSTRAINT CK_produtos_nivel_risco
-CHECK (nivel_risco IN ('Baixo', 'Médio', 'Alto'));
+ADD CONSTRAINT CK_produtos_risco
+CHECK (risco IN ('Baixo', 'Médio', 'Alto'));
 
--- Constraint for risk profile (perfil_risco)
+-- Constraint for risk profile (perfil_adequado column)
 ALTER TABLE produtos
-ADD CONSTRAINT CK_produtos_perfil_risco
-CHECK (perfil_risco IN ('Conservador', 'Moderado', 'Agressivo'));
+ADD CONSTRAINT CK_produtos_perfil_adequado
+CHECK (perfil_adequado IN ('Conservador', 'Moderado', 'Agressivo'));
 
--- Constraint for product type in simulations table
-ALTER TABLE simulacoes
-ADD CONSTRAINT CK_simulacoes_tipo_produto
-CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
-
--- Constraint for product type in investments table
+-- Constraint for product type in investments table (tipo column)
 ALTER TABLE investimentos
-ADD CONSTRAINT CK_investimentos_tipo_produto
-CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
+ADD CONSTRAINT CK_investimentos_tipo
+CHECK (tipo IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
