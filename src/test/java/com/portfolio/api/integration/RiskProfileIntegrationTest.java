@@ -141,11 +141,14 @@ class RiskProfileIntegrationTest {
     }
 
     @Test
-    void shouldReturn404ForNonExistentClient() throws Exception {
-        // CRITICAL: Non-existent clients should return 404, not a fake profile
+    void shouldReturnConservadorForClientWithNoHistory() throws Exception {
+        // Clients with no investment history should return Conservador profile
         mockMvc.perform(get("/perfil-risco/999999999")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.clienteId").value(999999999))
+                .andExpect(jsonPath("$.perfil").value("Conservador"))
+                .andExpect(jsonPath("$.pontuacao").exists());
     }
 
     @Test

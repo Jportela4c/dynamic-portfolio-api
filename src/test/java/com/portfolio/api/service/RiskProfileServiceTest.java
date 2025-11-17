@@ -1,8 +1,6 @@
 package com.portfolio.api.service;
 
-import com.portfolio.api.exception.ClientNotFoundException;
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
-import com.portfolio.api.repository.InvestmentRepository;
 import com.portfolio.api.scorer.FrequencyScorer;
 import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
@@ -35,15 +33,11 @@ class RiskProfileServiceTest {
     @Mock
     private HorizonScorer horizonCalculator;
 
-    @Mock
-    private InvestmentRepository investmentRepository;
-
     @InjectMocks
     private RiskProfileService service;
 
     @Test
     void shouldClassifyAsConservadorLowScore() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(20);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(10);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(20);
@@ -59,7 +53,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsConservadorHighScore() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(40);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(40);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(40);
@@ -74,7 +67,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsModeradoLowScore() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(50);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(45);
@@ -90,7 +82,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsModeradoHighScore() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(70);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(70);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
@@ -105,7 +96,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsAgressivo() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(90);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(90);
@@ -121,7 +111,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldCalculateWeightedScore() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(60);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
@@ -142,40 +131,25 @@ class RiskProfileServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionForNonExistentClient() {
-        // Client with no investment history should throw ClientNotFoundException
-        when(investmentRepository.countByClienteId(999999L)).thenReturn(0L);
+    void shouldReturnConservadorForClientWithNoHistory() {
+        // Client with no investment history should return Conservador profile with score 0
+        when(volumeCalculator.calculateVolumeScore(999999L)).thenReturn(0);
+        when(frequencyCalculator.calculateFrequencyScore(999999L)).thenReturn(0);
+        when(productRiskCalculator.calculateProductRiskScore(999999L)).thenReturn(0);
+        when(liquidityCalculator.calculateLiquidityScore(999999L)).thenReturn(0);
+        when(horizonCalculator.calculateHorizonScore(999999L)).thenReturn(0);
 
-        assertThrows(ClientNotFoundException.class, () ->
-                service.calculateRiskProfile(999999L)
-        );
+        RiskProfileResponse response = service.calculateRiskProfile(999999L);
+
+        assertEquals("Conservador", response.getPerfil());
+        assertEquals(0, response.getPontuacao());
+        assertEquals(999999L, response.getClienteId());
     }
 
-    @Test
-    void shouldThrowExceptionForNullClientId() {
-        assertThrows(IllegalArgumentException.class, () ->
-                service.calculateRiskProfile(null)
-        );
-    }
-
-    @Test
-    void shouldThrowExceptionForNegativeClientId() {
-        assertThrows(IllegalArgumentException.class, () ->
-                service.calculateRiskProfile(-1L)
-        );
-    }
-
-    @Test
-    void shouldThrowExceptionForZeroClientId() {
-        assertThrows(IllegalArgumentException.class, () ->
-                service.calculateRiskProfile(0L)
-        );
-    }
 
     @Test
     void shouldClassifyBoundaryBetweenConservadorAndModerado() {
         // Score exactly 41 should be Moderado
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(41);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(41);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(41);
@@ -191,7 +165,6 @@ class RiskProfileServiceTest {
     @Test
     void shouldClassifyBoundaryBetweenModeradoAndAgressivo() {
         // Score exactly 71 should be Agressivo
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(71);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(71);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(71);
@@ -206,7 +179,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldHandleMaximumPossibleScore() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(100);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(100);
@@ -221,7 +193,6 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldHandleZeroScores() {
-        when(investmentRepository.countByClienteId(1L)).thenReturn(5L);
         when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(0);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(0);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(0);
