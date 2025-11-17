@@ -1,5 +1,6 @@
 package com.portfolio.api.model.dto.response;
 
+import com.portfolio.api.model.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class ProductResponse {
 
     private Long id;
     private String nome;
-    private String tipo;
+    private TipoProduto tipo;
     private BigDecimal rentabilidade;
     private String risco;
 }

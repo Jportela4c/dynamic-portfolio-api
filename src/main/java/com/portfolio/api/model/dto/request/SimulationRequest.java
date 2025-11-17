@@ -36,7 +36,7 @@ public class SimulationRequest {
         description = "Tipo de produto financeiro",
         example = "CDB",
         required = true,
-        allowableValues = {"CDB", "LCI", "LCA", "Tesouro Direto", "Fundo"}
+        allowableValues = {"CDB", "LCI", "LCA", "Tesouro Direto", "Fundo Renda Fixa", "Fundo Multimercado", "Fundo Ações", "FII"}
     )
     @NotNull(message = "Tipo de produto é obrigatório")
     private TipoProduto tipoProduto;
