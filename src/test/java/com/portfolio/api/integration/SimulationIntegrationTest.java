@@ -5,13 +5,13 @@ import com.portfolio.api.model.dto.request.SimulationRequest;
 import com.portfolio.api.model.entity.Product;
 import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.ProductRepository;
-import com.portfolio.api.security.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
-@org.springframework.test.context.TestPropertySource(properties = {
-    "jwt.secret=VEVTVF9TRUNSRVRfRk9SX1RFU1RJTkdfT05MWV9DSEFOR0VfTUVfMDEyMzQ1Njc4OQ=="
-})
+@WithMockUser(username = "testuser", roles = {"USER"})
 class SimulationIntegrationTest {
 
     @Autowired
@@ -37,16 +35,10 @@ class SimulationIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-    @Autowired
     private ProductRepository productRepository;
-
-    private String token;
 
     @BeforeEach
     void setUp() {
-        token = jwtTokenProvider.generateToken("testuser");
 
         Product cdb = new Product();
         cdb.setNome("CDB Test Product");
@@ -70,7 +62,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -89,7 +81,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(null);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -112,7 +104,7 @@ class SimulationIntegrationTest {
     @Test
     void shouldGetAllSimulations() throws Exception {
         mockMvc.perform(get("/simulacoes")
-                        .header("Authorization", "Bearer " + token))
+                        )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -120,7 +112,7 @@ class SimulationIntegrationTest {
     @Test
     void shouldGetDailyAggregations() throws Exception {
         mockMvc.perform(get("/simulacoes/por-produto-dia")
-                        .header("Authorization", "Bearer " + token))
+                        )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -128,7 +120,7 @@ class SimulationIntegrationTest {
     @Test
     void shouldGetTelemetry() throws Exception {
         mockMvc.perform(get("/telemetria")
-                        .header("Authorization", "Bearer " + token))
+                        )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.servicos").isArray())
                 .andExpect(jsonPath("$.periodo").exists());
@@ -145,7 +137,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
@@ -163,7 +155,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
@@ -181,7 +173,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
@@ -198,7 +190,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -216,7 +208,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -233,7 +225,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.FII);  // No FII products in test DB
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound());
@@ -248,7 +240,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -263,7 +255,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -278,7 +270,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -293,7 +285,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(null);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -308,7 +300,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -323,7 +315,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -338,7 +330,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -353,7 +345,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        .header("Authorization", "Bearer " + token)
+                        
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
