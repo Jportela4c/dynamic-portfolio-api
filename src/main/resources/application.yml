@@ -32,6 +32,12 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+    defaultModelsExpandDepth: 1
+    defaultModelExpandDepth: 1
+    displayRequestDuration: true
+    tryItOutEnabled: true
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
 
 management:
   endpoints:
