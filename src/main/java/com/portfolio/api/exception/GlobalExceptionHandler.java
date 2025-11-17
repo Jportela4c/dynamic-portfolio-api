@@ -25,30 +25,17 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleProductNotFound(ProductNotFoundException ex) {
-        logger.warn("Product not found: {}", ex.getMessage());
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorResponse> handleApiException(ApiException ex) {
+        logger.warn("{}: context={}", ex.getMessage(), ex.getContext());
 
         ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value())
+                .status(ex.getStatusCode().value())
                 .message(ex.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
 
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(ClientNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleClientNotFound(ClientNotFoundException ex) {
-        logger.warn("Client not found: {}", ex.getMessage());
-
-        ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value())
-                .message(ex.getMessage())
-                .timestamp(LocalDateTime.now())
-                .build();
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, ex.getStatusCode());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -58,19 +45,6 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message("Invalid client ID")
-                .timestamp(LocalDateTime.now())
-                .build();
-
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(InvalidSimulationException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidSimulation(InvalidSimulationException ex) {
-        logger.warn("Invalid simulation: {}", ex.getMessage());
-
-        ErrorResponse error = ErrorResponse.builder()
-                .status(HttpStatus.BAD_REQUEST.value())
-                .message(ex.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
 
