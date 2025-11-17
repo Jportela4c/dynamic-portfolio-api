@@ -1261,7 +1261,7 @@
       "name": "Validation Tests (Entity Existence)",
       "item": [
         {
-          "name": "Risk Profile - Non-existent Customer",
+          "name": "Risk Profile - Non-existent Customer (Should 404)",
           "request": {
             "method": "GET",
             "header": [
@@ -1295,13 +1295,13 @@
                   "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
                   "});",
                   "",
-                  "pm.test(\"Status code is 200 (returns calculated profile for any customer ID)\", () => {",
-                  "    pm.response.to.have.status(200);",
+                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
+                  "    pm.response.to.have.status(404);",
                   "});",
                   "",
-                  "pm.test(\"Response has risk profile\", () => {",
+                  "pm.test(\"Response has error message\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property(\"perfil\");",
+                  "    pm.expect(json).to.have.property(\"message\");",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -1310,7 +1310,7 @@
           ]
         },
         {
-          "name": "Investment History - Non-existent Customer",
+          "name": "Investment History - Non-existent Customer (Should 404)",
           "request": {
             "method": "GET",
             "header": [
@@ -1344,14 +1344,13 @@
                   "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
                   "});",
                   "",
-                  "pm.test(\"Status code is 200 (returns empty array for any customer ID)\", () => {",
-                  "    pm.response.to.have.status(200);",
+                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
+                  "    pm.response.to.have.status(404);",
                   "});",
                   "",
-                  "pm.test(\"Response is empty array\", () => {",
+                  "pm.test(\"Response has error message\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.be.an(\"array\");",
-                  "    pm.expect(json).to.have.lengthOf(0);",
+                  "    pm.expect(json).to.have.property(\"message\");",
                   "});"
                 ],
                 "type": "text/javascript"
