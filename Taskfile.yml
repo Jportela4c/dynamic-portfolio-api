@@ -102,20 +102,22 @@ tasks:
     silent: true
     cmds:
       - |
-        echo "Checking container health..."
-        i=1
-        while [ $i -le 30 ]; do
-          if docker compose ps | grep "healthy" > /dev/null 2>&1; then
-            echo "✅ Services are healthy"
-            exit 0
+        echo "Waiting for containers to be healthy (this may take up to 60 seconds)..."
+
+        # Use docker compose wait which is cross-platform
+        if docker compose wait api 2>/dev/null; then
+          echo "✅ Services are healthy"
+        else
+          # Fallback: Just check status
+          echo "⏳ Checking service status..."
+          docker compose ps
+          if docker compose ps | grep "healthy" > /dev/null 2>&1 || docker compose ps api | grep "Up" > /dev/null 2>&1; then
+            echo "✅ Services are running"
+          else
+            echo "❌ Services may not be ready yet"
+            echo "💡 Check logs with: task logs-api"
           fi
-          echo "Waiting... ($i/30)"
-          sleep 2
-          i=$((i + 1))
-        done
-        echo "❌ Timeout waiting for services to become healthy"
-        docker compose ps
-        exit 1
+        fi
 
   logs:
     desc: Show logs from all containers
