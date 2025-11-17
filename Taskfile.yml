@@ -78,8 +78,10 @@ tasks:
     desc: Start all Docker containers
     silent: true
     cmds:
+      - echo "🚀 Building application..."
+      - docker compose build --pull || (echo "❌ Build failed! Check Docker is running." && exit 1)
       - echo "🚀 Starting Docker containers..."
-      - docker compose up -d --wait
+      - docker compose up -d --wait --force-recreate || (echo "❌ Container startup failed! Showing logs:" && docker compose logs --tail=50 && exit 1)
       - echo "✅ All services are running"
 
   docker-down:
