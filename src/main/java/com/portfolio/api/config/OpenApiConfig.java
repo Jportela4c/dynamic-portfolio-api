@@ -26,18 +26,23 @@ import org.springframework.context.annotation.Configuration;
 
             ## Autenticação OAuth2
 
-            Esta API usa OAuth2 para autenticação.
+            Esta API usa OAuth2 (Client Credentials Grant) para autenticação.
 
-            **Como obter um access token:**
-            1. Use o endpoint `POST /oauth2/token` (documentado na seção "authorization-server-endpoints" abaixo)
-            2. Envie Basic Auth com Client ID e Secret (abaixo)
-            3. Body: `grant_type=client_credentials&scope=read write` (form-urlencoded)
-            4. Copie o `access_token` da resposta
-            5. Clique em "Authorize" acima e cole: `{seu-access-token}` (sem "Bearer")
+            ### Como obter um access token:
 
-            **Client Credentials:**
-            - Client ID: `portfolio-api-client`
-            - Client Secret: `api-secret`
+            1. **Endpoint:** `POST /oauth2/token` (veja seção "authorization-server-endpoints" abaixo)
+
+            2. **Autenticação:** Basic Auth com as credenciais:
+               - Username: `portfolio-api-client`
+               - Password: `api-secret`
+
+            3. **Body (form-urlencoded):**
+               - `grant_type`: `client_credentials`
+               - `scope`: `read write`
+
+            4. **Resposta:** Copie o `access_token` retornado
+
+            5. **Uso:** Clique em "Authorize" acima e cole o token (sem prefixo "Bearer")
 
             ## Endpoints da API
 
