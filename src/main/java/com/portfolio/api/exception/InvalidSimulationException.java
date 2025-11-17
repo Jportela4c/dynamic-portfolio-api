@@ -1,7 +1,12 @@
 package com.portfolio.api.exception;
 
-public class InvalidSimulationException extends RuntimeException {
-    public InvalidSimulationException(String message) {
-        super(message);
+import org.springframework.http.HttpStatus;
+
+public class InvalidSimulationException extends ApiException {
+
+    private static final String MESSAGE = "Invalid request";
+
+    public InvalidSimulationException(String field) {
+        super(HttpStatus.BAD_REQUEST, MESSAGE, field);
     }
 }
