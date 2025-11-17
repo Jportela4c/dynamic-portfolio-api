@@ -124,4 +124,113 @@ class SimulationServiceTest {
                 simulationService.simulateInvestment(testRequest)
         );
     }
+
+
+    @Test
+    void shouldThrowExceptionForZeroValue() {
+        testRequest.setValor(BigDecimal.ZERO);
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+
+        assertThrows(InvalidSimulationException.class, () ->
+                simulationService.simulateInvestment(testRequest)
+        );
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeValue() {
+        testRequest.setValor(new BigDecimal("-1000"));
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+
+        assertThrows(InvalidSimulationException.class, () ->
+                simulationService.simulateInvestment(testRequest)
+        );
+    }
+
+    @Test
+    void shouldThrowExceptionForZeroTerm() {
+        testRequest.setPrazoMeses(0);
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+
+        assertThrows(InvalidSimulationException.class, () ->
+                simulationService.simulateInvestment(testRequest)
+        );
+    }
+
+    @Test
+    void shouldThrowExceptionForNegativeTerm() {
+        testRequest.setPrazoMeses(-6);
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+
+        assertThrows(InvalidSimulationException.class, () ->
+                simulationService.simulateInvestment(testRequest)
+        );
+    }
+
+    @Test
+    void shouldAcceptValueExactlyAtMinimum() {
+        testRequest.setValor(new BigDecimal("1000"));
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+        when(investmentCalculator.calculateFinalValue(any(), any(), anyInt()))
+                .thenReturn(new BigDecimal("1120.00"));
+
+        SimulationResponse response = simulationService.simulateInvestment(testRequest);
+
+        assertNotNull(response);
+        verify(simulationRepository, times(1)).save(any());
+    }
+
+    @Test
+    void shouldAcceptTermExactlyAtMinimum() {
+        testRequest.setPrazoMeses(6);
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+        when(investmentCalculator.calculateFinalValue(any(), any(), anyInt()))
+                .thenReturn(new BigDecimal("10600.00"));
+
+        SimulationResponse response = simulationService.simulateInvestment(testRequest);
+
+        assertNotNull(response);
+        verify(simulationRepository, times(1)).save(any());
+    }
+
+    @Test
+    void shouldAcceptTermExactlyAtMaximum() {
+        testRequest.setPrazoMeses(60);
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+        when(investmentCalculator.calculateFinalValue(any(), any(), anyInt()))
+                .thenReturn(new BigDecimal("16000.00"));
+
+        SimulationResponse response = simulationService.simulateInvestment(testRequest);
+
+        assertNotNull(response);
+        verify(simulationRepository, times(1)).save(any());
+    }
+
+    @Test
+    void shouldHandleVeryLargeValue() {
+        testRequest.setValor(new BigDecimal("999999999.99"));
+
+        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
+                .thenReturn(Optional.of(testProduct));
+        when(investmentCalculator.calculateFinalValue(any(), any(), anyInt()))
+                .thenReturn(new BigDecimal("1119999999.99"));
+
+        SimulationResponse response = simulationService.simulateInvestment(testRequest);
+
+        assertNotNull(response);
+        verify(simulationRepository, times(1)).save(any());
+    }
 }

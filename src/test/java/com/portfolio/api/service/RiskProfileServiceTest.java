@@ -131,4 +131,106 @@ class RiskProfileServiceTest {
         assertEquals(55, response.getPontuacao());
         assertEquals("Moderado", response.getPerfil());
     }
+
+    @Test
+    void shouldReturnConservadorForNonExistentClient() {
+        // Non-existent clients return 0 scores
+        when(volumeCalculator.calculateVolumeScore(999999L)).thenReturn(0);
+        when(frequencyCalculator.calculateFrequencyScore(999999L)).thenReturn(0);
+        when(productRiskCalculator.calculateProductRiskScore(999999L)).thenReturn(0);
+        when(liquidityCalculator.calculateLiquidityScore(999999L)).thenReturn(0);
+        when(horizonCalculator.calculateHorizonScore(999999L)).thenReturn(0);
+
+        RiskProfileResponse response = service.calculateRiskProfile(999999L);
+
+        assertEquals("Conservador", response.getPerfil());
+        assertEquals(0, response.getPontuacao());
+        assertEquals(999999L, response.getClienteId());
+    }
+
+    @Test
+    void shouldHandleNullClientId() {
+        // Should handle null gracefully or throw exception
+        when(volumeCalculator.calculateVolumeScore(null)).thenReturn(0);
+        when(frequencyCalculator.calculateFrequencyScore(null)).thenReturn(0);
+        when(productRiskCalculator.calculateProductRiskScore(null)).thenReturn(0);
+        when(liquidityCalculator.calculateLiquidityScore(null)).thenReturn(0);
+        when(horizonCalculator.calculateHorizonScore(null)).thenReturn(0);
+
+        RiskProfileResponse response = service.calculateRiskProfile(null);
+
+        assertNotNull(response);
+    }
+
+    @Test
+    void shouldHandleNegativeClientId() {
+        when(volumeCalculator.calculateVolumeScore(-1L)).thenReturn(0);
+        when(frequencyCalculator.calculateFrequencyScore(-1L)).thenReturn(0);
+        when(productRiskCalculator.calculateProductRiskScore(-1L)).thenReturn(0);
+        when(liquidityCalculator.calculateLiquidityScore(-1L)).thenReturn(0);
+        when(horizonCalculator.calculateHorizonScore(-1L)).thenReturn(0);
+
+        RiskProfileResponse response = service.calculateRiskProfile(-1L);
+
+        assertNotNull(response);
+        assertEquals(-1L, response.getClienteId());
+    }
+
+    @Test
+    void shouldClassifyBoundaryBetweenConservadorAndModerado() {
+        // Score exactly 41 should be Moderado
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(41);
+        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(41);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(41);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(41);
+        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(41);
+
+        RiskProfileResponse response = service.calculateRiskProfile(1L);
+
+        assertEquals("Moderado", response.getPerfil());
+        assertEquals(41, response.getPontuacao());
+    }
+
+    @Test
+    void shouldClassifyBoundaryBetweenModeradoAndAgressivo() {
+        // Score exactly 71 should be Agressivo
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(71);
+        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(71);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(71);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(71);
+        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(71);
+
+        RiskProfileResponse response = service.calculateRiskProfile(1L);
+
+        assertEquals("Agressivo", response.getPerfil());
+        assertEquals(71, response.getPontuacao());
+    }
+
+    @Test
+    void shouldHandleMaximumPossibleScore() {
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(100);
+        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(100);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(100);
+        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(100);
+
+        RiskProfileResponse response = service.calculateRiskProfile(1L);
+
+        assertEquals("Agressivo", response.getPerfil());
+        assertEquals(100, response.getPontuacao());
+    }
+
+    @Test
+    void shouldHandleZeroScores() {
+        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(0);
+        when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(0);
+        when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(0);
+        when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(0);
+        when(horizonCalculator.calculateHorizonScore(1L)).thenReturn(0);
+
+        RiskProfileResponse response = service.calculateRiskProfile(1L);
+
+        assertEquals("Conservador", response.getPerfil());
+        assertEquals(0, response.getPontuacao());
+    }
 }
