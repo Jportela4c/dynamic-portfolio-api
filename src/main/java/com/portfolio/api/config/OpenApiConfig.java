@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
             Esta API usa OAuth2 para autenticação.
 
             **Como obter um access token:**
-            1. Use o endpoint `POST /oauth2/token` (não visível no Swagger, mas funcional)
+            1. Use o endpoint `POST /oauth2/token` (documentado na seção OAuth2 abaixo)
             2. Envie Basic Auth com Client ID e Secret (abaixo)
             3. Body: `grant_type=client_credentials&scope=read write` (form-urlencoded)
             4. Copie o `access_token` da resposta
@@ -38,14 +38,6 @@ import org.springframework.context.annotation.Configuration;
             **Client Credentials:**
             - Client ID: `portfolio-api-client`
             - Client Secret: `api-secret`
-
-            **Exemplo curl:**
-            ```bash
-            curl -X POST http://localhost:8080/api/v1/oauth2/token \\
-              -u "portfolio-api-client:api-secret" \\
-              -H "Content-Type: application/x-www-form-urlencoded" \\
-              -d "grant_type=client_credentials&scope=read write"
-            ```
 
             ## Respostas de Erro
             A API utiliza respostas de erro padronizadas:
