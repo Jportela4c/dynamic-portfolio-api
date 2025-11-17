@@ -39,9 +39,9 @@ public class InvestmentSimulationController {
         @ApiResponse(responseCode = "200", description = "Simulação realizada com sucesso",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = SimulationResponse.class))),
         @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição",
-            content = @Content(mediaType = "application/json")),
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ValidationErrorResponse.class))),
         @ApiResponse(responseCode = "404", description = "Produto não encontrado para os parâmetros informados",
-            content = @Content(mediaType = "application/json"))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @PostMapping("/simular-investimento")
     public ResponseEntity<SimulationResponse> simulateInvestment(
