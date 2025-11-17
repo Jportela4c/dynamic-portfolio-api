@@ -1,5 +1,6 @@
 package com.portfolio.api.controller;
 
+import com.portfolio.api.model.dto.request.LoginRequest;
 import com.portfolio.api.security.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -7,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +39,8 @@ public class AuthController {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String token = tokenProvider.generateToken(username);
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody LoginRequest request) {
+        String token = tokenProvider.generateToken(request.getUsername());
 
         return ResponseEntity.ok(Map.of(
                 "token", token,
