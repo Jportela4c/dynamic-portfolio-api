@@ -1,0 +1,15 @@
+# CI-specific overrides for Newman tests
+# Usage: docker compose -f docker-compose.yml -f docker-compose.ci.yml up
+
+services:
+  flyway-test-data:
+    image: mcr.microsoft.com/mssql-tools
+    platform: linux/amd64
+    restart: "no"
+    command: >
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P 'YourStrong@Passw0rd' -C -i /scripts/setup-test-data.sql
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      - ./postman/scripts:/scripts

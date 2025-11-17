@@ -2,6 +2,9 @@
 -- Purpose: Add additional test data for Newman API contract validation
 -- Note: Products are already seeded by V5__seed_sample_products.sql migration
 
+USE portfoliodb;
+GO
+
 -- Clean existing test simulation and telemetry data
 DELETE FROM simulacoes;
 DELETE FROM telemetria;
