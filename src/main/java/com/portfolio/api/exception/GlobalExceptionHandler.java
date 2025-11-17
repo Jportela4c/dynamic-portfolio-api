@@ -3,6 +3,7 @@ package com.portfolio.api.exception;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.portfolio.api.model.dto.response.ErrorResponse;
 import com.portfolio.api.model.dto.response.ValidationErrorResponse;
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -50,13 +51,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
-        logger.warn("Invalid argument: {}", ex.getMessage());
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException ex) {
+        logger.warn("Constraint violation: {}", ex.getMessage());
 
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .message(ex.getMessage())
+                .message("Invalid client ID")
                 .timestamp(LocalDateTime.now())
                 .build();
 

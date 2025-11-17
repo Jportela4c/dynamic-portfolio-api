@@ -10,12 +10,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Validated
 @Tag(name = "Perfil de Risco", description = "Endpoints para consulta de perfil de risco de clientes")
 public class RiskProfileController {
 
@@ -35,12 +38,13 @@ public class RiskProfileController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Perfil calculado com sucesso",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = RiskProfileResponse.class))),
-        @ApiResponse(responseCode = "404", description = "Cliente não encontrado",
+        @ApiResponse(responseCode = "400", description = "ID do cliente inválido",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @GetMapping("/perfil-risco/{clienteId}")
     public ResponseEntity<RiskProfileResponse> getRiskProfile(
         @Parameter(description = "ID do cliente", example = "123", required = true)
+        @Positive(message = "Invalid client ID")
         @PathVariable Long clienteId) {
         long startTime = System.currentTimeMillis();
 
