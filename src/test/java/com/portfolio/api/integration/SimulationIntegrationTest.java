@@ -25,6 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
+@org.springframework.test.context.TestPropertySource(properties = {
+    "jwt.secret=VEVTVF9TRUNSRVRfRk9SX1RFU1RJTkdfT05MWV9DSEFOR0VfTUVfMDEyMzQ1Njc4OQ=="
+})
 class SimulationIntegrationTest {
 
     @Autowired

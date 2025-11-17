@@ -2,24 +2,29 @@ spring:
   main:
     allow-bean-definition-overriding: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;MODE=MSSQLServer;DATABASE_TO_LOWER=TRUE
     driver-class-name: org.h2.Driver
+    username: sa
+    password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
   flyway:
     enabled: false
 
 jwt:
-  secret: dGVzdHNlY3JldGtleWZvcnRlc3RpbmdwdXJwb3Nlc29ubHlAMTIz
+  secret: VEVTVF9TRUNSRVRfRk9SX1RFU1RJTkdfT05MWV9DSEFOR0VfTUVfMDEyMzQ1Njc4OQ==
   expiration: 3600000
 
 logging:
   level:
     root: WARN
-    com.portfolio.api: DEBUG
+    com.portfolio.api: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
