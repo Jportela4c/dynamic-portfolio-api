@@ -36,9 +36,17 @@ jobs:
 
       - name: Start Docker Compose stack
         run: |
-          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --wait
-          echo "Waiting for services to be fully ready..."
-          sleep 15
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+
+          # Wait for API to be healthy
+          echo "Waiting for API to be healthy..."
+          timeout 120 bash -c 'until curl -sf http://localhost:8080/api/v1/actuator/health > /dev/null; do sleep 2; done'
+
+          # Wait for test data seeding to complete
+          echo "Waiting for test data seeding..."
+          timeout 60 bash -c 'until docker compose -f docker-compose.yml -f docker-compose.ci.yml ps flyway-test-data | grep -q "exited (0)"; do sleep 1; done'
+
+          echo "All services ready!"
 
       - name: Verify services are healthy
         run: |
