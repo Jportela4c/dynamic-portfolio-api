@@ -74,20 +74,8 @@ jobs:
       - name: Show Docker logs on failure
         if: failure()
         run: |
-          echo "=== API Logs ==="
-          docker compose logs api --tail=100
-          echo "=== Database Logs ==="
-          docker compose logs sqlserver --tail=100
-          echo "=== Database Init Logs ==="
-          docker compose logs sqlserver-init --tail=100
-          echo "=== Flyway Logs ==="
-          docker compose logs flyway --tail=100
-          echo "=== Prometheus Logs ==="
-          docker compose logs prometheus --tail=100
-          echo "=== Flyway Test Data Logs ==="
-          docker compose logs flyway-test-data --tail=100
-          echo "=== All Logs ==="
-          docker compose logs --tail=200
+          echo "=== Docker Compose Logs ==="
+          docker compose logs
 
       - name: Cleanup
         if: always()
