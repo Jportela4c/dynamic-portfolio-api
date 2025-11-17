@@ -37,7 +37,7 @@ class ProductRepositoryTest {
         conservativeProduct.setValorMinimo(new BigDecimal("1000.00"));
         conservativeProduct.setPrazoMinimoMeses(6);
         conservativeProduct.setPrazoMaximoMeses(24);
-        conservativeProduct.setPerfilAdequado("Conservador");
+        conservativeProduct.setPerfilAdequado("CONSERVADOR");
         conservativeProduct.setAtivo(true);
         productRepository.save(conservativeProduct);
 
@@ -49,7 +49,7 @@ class ProductRepositoryTest {
         moderateProduct.setValorMinimo(new BigDecimal("5000.00"));
         moderateProduct.setPrazoMinimoMeses(12);
         moderateProduct.setPrazoMaximoMeses(36);
-        moderateProduct.setPerfilAdequado("Moderado");
+        moderateProduct.setPerfilAdequado("MODERADO");
         moderateProduct.setAtivo(true);
         productRepository.save(moderateProduct);
 
@@ -61,14 +61,14 @@ class ProductRepositoryTest {
         aggressiveProduct.setValorMinimo(new BigDecimal("10000.00"));
         aggressiveProduct.setPrazoMinimoMeses(24);
         aggressiveProduct.setPrazoMaximoMeses(60);
-        aggressiveProduct.setPerfilAdequado("Agressivo");
+        aggressiveProduct.setPerfilAdequado("AGRESSIVO");
         aggressiveProduct.setAtivo(true);
         productRepository.save(aggressiveProduct);
     }
 
     @Test
     void shouldFindProductsByRiskProfile() {
-        List<Product> conservativeProducts = productRepository.findByPerfilAdequadoAndAtivoTrue("Conservador");
+        List<Product> conservativeProducts = productRepository.findByPerfilAdequadoAndAtivoTrue("CONSERVADOR");
 
         assertThat(conservativeProducts).hasSize(1);
         assertThat(conservativeProducts.get(0).getNome()).isEqualTo("CDB Conservador");
@@ -126,7 +126,7 @@ class ProductRepositoryTest {
         conservativeProduct.setAtivo(false);
         productRepository.save(conservativeProduct);
 
-        List<Product> products = productRepository.findByPerfilAdequadoAndAtivoTrue("Conservador");
+        List<Product> products = productRepository.findByPerfilAdequadoAndAtivoTrue("CONSERVADOR");
 
         assertThat(products).isEmpty();
     }
@@ -141,11 +141,11 @@ class ProductRepositoryTest {
         anotherModerate.setValorMinimo(new BigDecimal("3000.00"));
         anotherModerate.setPrazoMinimoMeses(6);
         anotherModerate.setPrazoMaximoMeses(24);
-        anotherModerate.setPerfilAdequado("Moderado");
+        anotherModerate.setPerfilAdequado("MODERADO");
         anotherModerate.setAtivo(true);
         productRepository.save(anotherModerate);
 
-        List<Product> products = productRepository.findByPerfilAdequadoAndAtivoTrue("Moderado");
+        List<Product> products = productRepository.findByPerfilAdequadoAndAtivoTrue("MODERADO");
 
         assertThat(products).hasSize(2);
     }

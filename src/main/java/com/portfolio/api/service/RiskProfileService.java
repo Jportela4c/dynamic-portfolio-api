@@ -26,20 +26,24 @@ public class RiskProfileService {
     private final ProductRiskScorer productRiskCalculator;
     private final LiquidityScorer liquidityCalculator;
     private final HorizonScorer horizonCalculator;
+    private final ClientValidationService clientValidationService;
 
     public RiskProfileService(VolumeScorer volumeCalculator,
                                       FrequencyScorer frequencyCalculator,
                                       ProductRiskScorer productRiskCalculator,
                                       LiquidityScorer liquidityCalculator,
-                                      HorizonScorer horizonCalculator) {
+                                      HorizonScorer horizonCalculator,
+                                      ClientValidationService clientValidationService) {
         this.volumeCalculator = volumeCalculator;
         this.frequencyCalculator = frequencyCalculator;
         this.productRiskCalculator = productRiskCalculator;
         this.liquidityCalculator = liquidityCalculator;
         this.horizonCalculator = horizonCalculator;
+        this.clientValidationService = clientValidationService;
     }
 
     public RiskProfileResponse calculateRiskProfile(Long clienteId) {
+        clientValidationService.validateClientExists(clienteId);
         int volumeScore = volumeCalculator.calculateVolumeScore(clienteId);
         int frequencyScore = frequencyCalculator.calculateFrequencyScore(clienteId);
         int productRiskScore = productRiskCalculator.calculateProductRiskScore(clienteId);
@@ -67,19 +71,19 @@ public class RiskProfileService {
 
     private String classifyProfile(int score) {
         if (score <= 40) {
-            return "Conservador";
+            return "CONSERVADOR";
         } else if (score <= 70) {
-            return "Moderado";
+            return "MODERADO";
         } else {
-            return "Agressivo";
+            return "AGRESSIVO";
         }
     }
 
     private String getProfileDescription(String profile) {
         return switch (profile) {
-            case "Conservador" -> "Perfil de baixo risco, focado em segurança e liquidez.";
-            case "Moderado" -> "Perfil equilibrado entre segurança e rentabilidade.";
-            case "Agressivo" -> "Perfil de alto risco, focado em alta rentabilidade.";
+            case "CONSERVADOR" -> "Perfil de baixo risco, focado em segurança e liquidez.";
+            case "MODERADO" -> "Perfil equilibrado entre segurança e rentabilidade.";
+            case "AGRESSIVO" -> "Perfil de alto risco, focado em alta rentabilidade.";
             default -> "Perfil não identificado.";
         };
     }

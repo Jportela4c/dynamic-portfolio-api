@@ -147,7 +147,7 @@ class RiskProfileIntegrationTest {
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.clienteId").value(999999999))
-                .andExpect(jsonPath("$.perfil").value("Conservador"))
+                .andExpect(jsonPath("$.perfil").value("CONSERVADOR"))
                 .andExpect(jsonPath("$.pontuacao").exists());
     }
 

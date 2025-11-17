@@ -49,7 +49,7 @@ class RiskProfileControllerTest {
         // Arrange
         RiskProfileResponse response = RiskProfileResponse.builder()
             .clienteId(123L)
-            .perfil("Moderado")
+            .perfil("MODERADO")
             .pontuacao(65)
             .descricao("Cliente com perfil moderado, busca equilíbrio entre rentabilidade e segurança")
             .build();
@@ -62,7 +62,7 @@ class RiskProfileControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.clienteId").value(123))
-            .andExpect(jsonPath("$.perfil").value("Moderado"))
+            .andExpect(jsonPath("$.perfil").value("MODERADO"))
             .andExpect(jsonPath("$.pontuacao").value(65))
             .andExpect(jsonPath("$.descricao").value("Cliente com perfil moderado, busca equilíbrio entre rentabilidade e segurança"));
 
@@ -75,7 +75,7 @@ class RiskProfileControllerTest {
         // Arrange
         RiskProfileResponse response = RiskProfileResponse.builder()
             .clienteId(456L)
-            .perfil("Conservador")
+            .perfil("CONSERVADOR")
             .pontuacao(30)
             .descricao("Cliente com perfil conservador, prioriza segurança e liquidez")
             .build();
@@ -88,7 +88,7 @@ class RiskProfileControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.clienteId").value(456))
-            .andExpect(jsonPath("$.perfil").value("Conservador"))
+            .andExpect(jsonPath("$.perfil").value("CONSERVADOR"))
             .andExpect(jsonPath("$.pontuacao").value(30));
 
         verify(riskProfileService).calculateRiskProfile(456L);
@@ -100,7 +100,7 @@ class RiskProfileControllerTest {
         // Arrange
         RiskProfileResponse response = RiskProfileResponse.builder()
             .clienteId(789L)
-            .perfil("Agressivo")
+            .perfil("AGRESSIVO")
             .pontuacao(85)
             .descricao("Cliente com perfil agressivo, busca maior rentabilidade")
             .build();
@@ -113,7 +113,7 @@ class RiskProfileControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.clienteId").value(789))
-            .andExpect(jsonPath("$.perfil").value("Agressivo"))
+            .andExpect(jsonPath("$.perfil").value("AGRESSIVO"))
             .andExpect(jsonPath("$.pontuacao").value(85));
 
         verify(riskProfileService).calculateRiskProfile(789L);

@@ -69,7 +69,7 @@ class ProductRecommendationControllerTest {
 
         List<Product> products = Arrays.asList(product1, product2);
 
-        when(productService.getRecommendedProducts("Conservador")).thenReturn(products);
+        when(productService.getRecommendedProducts("CONSERVADOR")).thenReturn(products);
         doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
@@ -87,7 +87,7 @@ class ProductRecommendationControllerTest {
             .andExpect(jsonPath("$[1].rentabilidade").value(0.09))
             .andExpect(jsonPath("$[1].risco").value("Baixo"));
 
-        verify(productService).getRecommendedProducts("Conservador");
+        verify(productService).getRecommendedProducts("CONSERVADOR");
         verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 
@@ -103,7 +103,7 @@ class ProductRecommendationControllerTest {
 
         List<Product> products = Arrays.asList(product);
 
-        when(productService.getRecommendedProducts("Moderado")).thenReturn(products);
+        when(productService.getRecommendedProducts("MODERADO")).thenReturn(products);
         doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
@@ -116,7 +116,7 @@ class ProductRecommendationControllerTest {
             .andExpect(jsonPath("$[0].rentabilidade").value(0.14))
             .andExpect(jsonPath("$[0].risco").value("Médio"));
 
-        verify(productService).getRecommendedProducts("Moderado");
+        verify(productService).getRecommendedProducts("MODERADO");
         verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 
@@ -139,7 +139,7 @@ class ProductRecommendationControllerTest {
 
         List<Product> products = Arrays.asList(product1, product2);
 
-        when(productService.getRecommendedProducts("Agressivo")).thenReturn(products);
+        when(productService.getRecommendedProducts("AGRESSIVO")).thenReturn(products);
         doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
@@ -153,14 +153,14 @@ class ProductRecommendationControllerTest {
             .andExpect(jsonPath("$[1].nome").value("FII Shopping Center"))
             .andExpect(jsonPath("$[1].tipo").value("FII"));
 
-        verify(productService).getRecommendedProducts("Agressivo");
+        verify(productService).getRecommendedProducts("AGRESSIVO");
         verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 
     @Test
     void shouldReturnEmptyListWhenNoProducts() throws Exception {
         // Arrange
-        when(productService.getRecommendedProducts("Conservador")).thenReturn(Collections.emptyList());
+        when(productService.getRecommendedProducts("CONSERVADOR")).thenReturn(Collections.emptyList());
         doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
@@ -170,7 +170,7 @@ class ProductRecommendationControllerTest {
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
-        verify(productService).getRecommendedProducts("Conservador");
+        verify(productService).getRecommendedProducts("CONSERVADOR");
         verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 }
