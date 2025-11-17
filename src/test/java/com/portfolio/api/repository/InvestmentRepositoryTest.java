@@ -116,7 +116,7 @@ class InvestmentRepositoryTest {
         investmentRepository.save(inv3);
         investmentRepository.save(inv4);
 
-        List<BigDecimal> volumes = investmentRepository.getAllCustomerVolumes();
+        List<BigDecimal> volumes = investmentRepository.getAllCustomerAmounts();
 
         assertThat(volumes).hasSize(3);
         assertThat(volumes).contains(
@@ -128,7 +128,7 @@ class InvestmentRepositoryTest {
 
     @Test
     void shouldReturnEmptyListWhenNoInvestmentsForVolumes() {
-        List<BigDecimal> volumes = investmentRepository.getAllCustomerVolumes();
+        List<BigDecimal> volumes = investmentRepository.getAllCustomerAmounts();
 
         assertThat(volumes).isEmpty();
     }

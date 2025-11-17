@@ -1,7 +1,7 @@
 package com.portfolio.api.scorer;
 
 import com.portfolio.api.repository.InvestmentRepository;
-import com.portfolio.api.scorer.VolumeScorer;
+import com.portfolio.api.scorer.AmountScorer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,19 +17,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class VolumeScorerTest {
+class AmountScorerTest {
 
     @Mock
     private InvestmentRepository investmentRepository;
 
     @InjectMocks
-    private VolumeScorer calculator;
+    private AmountScorer calculator;
 
     @Test
     void shouldReturnZeroForNoVolume() {
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(BigDecimal.ZERO);
 
-        int score = calculator.calculateVolumeScore(1L);
+        int score = calculator.calculateAmountScore(1L);
 
         assertEquals(0, score);
     }
@@ -38,7 +38,7 @@ class VolumeScorerTest {
     void shouldReturnZeroForNullVolume() {
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(null);
 
-        int score = calculator.calculateVolumeScore(1L);
+        int score = calculator.calculateAmountScore(1L);
 
         assertEquals(0, score);
     }
@@ -46,9 +46,9 @@ class VolumeScorerTest {
     @Test
     void shouldReturn50ForSingleClient() {
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllCustomerVolumes()).thenReturn(Collections.singletonList(new BigDecimal("10000")));
+        when(investmentRepository.getAllCustomerAmounts()).thenReturn(Collections.singletonList(new BigDecimal("10000")));
 
-        int score = calculator.calculateVolumeScore(1L);
+        int score = calculator.calculateAmountScore(1L);
 
         assertEquals(50, score);
     }
@@ -56,9 +56,9 @@ class VolumeScorerTest {
     @Test
     void shouldReturn50ForEmptyClientList() {
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllCustomerVolumes()).thenReturn(Collections.emptyList());
+        when(investmentRepository.getAllCustomerAmounts()).thenReturn(Collections.emptyList());
 
-        int score = calculator.calculateVolumeScore(1L);
+        int score = calculator.calculateAmountScore(1L);
 
         assertEquals(50, score);
     }
@@ -74,9 +74,9 @@ class VolumeScorerTest {
         );
 
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllCustomerVolumes()).thenReturn(allVolumes);
+        when(investmentRepository.getAllCustomerAmounts()).thenReturn(allVolumes);
 
-        int score = calculator.calculateVolumeScore(1L);
+        int score = calculator.calculateAmountScore(1L);
 
         assertEquals(40, score);
     }
@@ -92,9 +92,9 @@ class VolumeScorerTest {
         );
 
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("100000"));
-        when(investmentRepository.getAllCustomerVolumes()).thenReturn(allVolumes);
+        when(investmentRepository.getAllCustomerAmounts()).thenReturn(allVolumes);
 
-        int score = calculator.calculateVolumeScore(1L);
+        int score = calculator.calculateAmountScore(1L);
 
         assertEquals(80, score);
     }

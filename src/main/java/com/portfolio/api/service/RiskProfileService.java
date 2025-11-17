@@ -5,7 +5,7 @@ import com.portfolio.api.scorer.FrequencyScorer;
 import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
 import com.portfolio.api.scorer.ProductRiskScorer;
-import com.portfolio.api.scorer.VolumeScorer;
+import com.portfolio.api.scorer.AmountScorer;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -21,14 +21,14 @@ public class RiskProfileService {
             "horizon", 0.10
     );
 
-    private final VolumeScorer volumeCalculator;
+    private final AmountScorer volumeCalculator;
     private final FrequencyScorer frequencyCalculator;
     private final ProductRiskScorer productRiskCalculator;
     private final LiquidityScorer liquidityCalculator;
     private final HorizonScorer horizonCalculator;
     private final CustomerValidationService clientValidationService;
 
-    public RiskProfileService(VolumeScorer volumeCalculator,
+    public RiskProfileService(AmountScorer volumeCalculator,
                                       FrequencyScorer frequencyCalculator,
                                       ProductRiskScorer productRiskCalculator,
                                       LiquidityScorer liquidityCalculator,
@@ -44,7 +44,7 @@ public class RiskProfileService {
 
     public RiskProfileResponse calculateRiskProfile(Long clienteId) {
         clientValidationService.validateClientExists(clienteId);
-        int volumeScore = volumeCalculator.calculateVolumeScore(clienteId);
+        int volumeScore = volumeCalculator.calculateAmountScore(clienteId);
         int frequencyScore = frequencyCalculator.calculateFrequencyScore(clienteId);
         int productRiskScore = productRiskCalculator.calculateProductRiskScore(clienteId);
         int liquidityScore = liquidityCalculator.calculateLiquidityScore(clienteId);

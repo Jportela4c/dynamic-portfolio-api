@@ -8,34 +8,34 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class VolumeScorer {
+public class AmountScorer {
 
     private final InvestmentRepository investmentRepository;
 
-    public VolumeScorer(InvestmentRepository investmentRepository) {
+    public AmountScorer(InvestmentRepository investmentRepository) {
         this.investmentRepository = investmentRepository;
     }
 
-    public int calculateVolumeScore(Long clienteId) {
+    public int calculateAmountScore(Long clienteId) {
         BigDecimal clientVolume = investmentRepository.sumValorByClienteId(clienteId);
 
         if (clientVolume == null || clientVolume.compareTo(BigDecimal.ZERO) == 0) {
             return 0;
         }
 
-        List<BigDecimal> allVolumes = investmentRepository.getAllCustomerVolumes();
+        List<BigDecimal> allVolumes = investmentRepository.getAllCustomerAmounts();
 
         if (allVolumes.isEmpty() || allVolumes.size() == 1) {
             return 50;
         }
 
-        double[] volumesArray = allVolumes.stream()
+        double[] amountsArray = allVolumes.stream()
                 .mapToDouble(BigDecimal::doubleValue)
                 .toArray();
 
         double clientPercentile = calculatePercentileRank(
                 clientVolume.doubleValue(),
-                volumesArray
+                amountsArray
         );
 
         return (int) Math.round(clientPercentile);

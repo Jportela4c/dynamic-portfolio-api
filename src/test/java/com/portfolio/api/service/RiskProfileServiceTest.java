@@ -5,7 +5,7 @@ import com.portfolio.api.scorer.FrequencyScorer;
 import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
 import com.portfolio.api.scorer.ProductRiskScorer;
-import com.portfolio.api.scorer.VolumeScorer;
+import com.portfolio.api.scorer.AmountScorer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class RiskProfileServiceTest {
 
     @Mock
-    private VolumeScorer volumeCalculator;
+    private AmountScorer volumeCalculator;
 
     @Mock
     private FrequencyScorer frequencyCalculator;
@@ -41,7 +41,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsConservadorLowScore() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(20);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(20);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(10);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(20);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(10);
@@ -56,7 +56,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsConservadorHighScore() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(40);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(40);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(40);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(40);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(40);
@@ -70,7 +70,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsModeradoLowScore() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(50);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(50);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(45);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(45);
@@ -85,7 +85,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsModeradoHighScore() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(70);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(70);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(70);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(70);
@@ -99,7 +99,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsAgressivo() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(90);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(90);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(90);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(100);
@@ -114,7 +114,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldCalculateWeightedScore() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(50);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(60);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(40);
@@ -136,7 +136,7 @@ class RiskProfileServiceTest {
     @Test
     void shouldReturnConservadorForClientWithNoHistory() {
         // Customer with no investment history should return Conservador profile with score 0
-        when(volumeCalculator.calculateVolumeScore(999999L)).thenReturn(0);
+        when(volumeCalculator.calculateAmountScore(999999L)).thenReturn(0);
         when(frequencyCalculator.calculateFrequencyScore(999999L)).thenReturn(0);
         when(productRiskCalculator.calculateProductRiskScore(999999L)).thenReturn(0);
         when(liquidityCalculator.calculateLiquidityScore(999999L)).thenReturn(0);
@@ -153,7 +153,7 @@ class RiskProfileServiceTest {
     @Test
     void shouldClassifyBoundaryBetweenConservadorAndModerado() {
         // Score exactly 41 should be Moderado
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(41);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(41);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(41);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(41);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(41);
@@ -168,7 +168,7 @@ class RiskProfileServiceTest {
     @Test
     void shouldClassifyBoundaryBetweenModeradoAndAgressivo() {
         // Score exactly 71 should be Agressivo
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(71);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(71);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(71);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(71);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(71);
@@ -182,7 +182,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldHandleMaximumPossibleScore() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(100);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(100);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(100);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(100);
@@ -196,7 +196,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldHandleZeroScores() {
-        when(volumeCalculator.calculateVolumeScore(1L)).thenReturn(0);
+        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(0);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(0);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(0);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(0);
