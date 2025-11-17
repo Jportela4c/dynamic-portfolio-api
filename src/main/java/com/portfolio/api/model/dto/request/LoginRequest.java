@@ -15,4 +15,7 @@ public class LoginRequest {
     @Schema(description = "Nome de usuário", example = "demo", required = true)
     @NotBlank(message = "Invalid request")
     private String username;
+
+    @Schema(description = "Senha do usuário", example = "password", required = false)
+    private String password;
 }

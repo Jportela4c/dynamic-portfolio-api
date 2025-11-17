@@ -1828,7 +1828,10 @@
                 "type": "text/javascript"
               }
             }
-          ]
+          ],
+          "auth": {
+            "type": "noauth"
+          }
         },
         {
           "name": "Risk Profile - Invalid Token",
@@ -1863,7 +1866,10 @@
                 "type": "text/javascript"
               }
             }
-          ]
+          ],
+          "auth": {
+            "type": "noauth"
+          }
         },
         {
           "name": "Simulation - Expired Token",
@@ -1905,7 +1911,10 @@
                 "type": "text/javascript"
               }
             }
-          ]
+          ],
+          "auth": {
+            "type": "noauth"
+          }
         },
         {
           "name": "Products - Empty Profile String",
