@@ -268,8 +268,7 @@ tasks:
           --reporter-htmlextra-darkTheme \
           --reporter-htmlextra-title "Dynamic Portfolio API - Contract Tests" \
           --color on
-      - echo "📊 Detailed report generated: reports/newman-detailed-report.html"
-      - |
+        echo "📊 Detailed report generated: reports/newman-detailed-report.html"
         if command -v open >/dev/null 2>&1; then
           open reports/newman-detailed-report.html
         elif command -v xdg-open >/dev/null 2>&1; then
