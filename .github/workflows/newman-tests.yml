@@ -82,10 +82,10 @@ jobs:
           docker compose logs sqlserver-init --tail=100
           echo "=== Flyway Logs ==="
           docker compose logs flyway --tail=100
-          echo "=== Flyway Test Data Logs ==="
-          docker compose logs flyway-test-data --tail=100
           echo "=== Prometheus Logs ==="
           docker compose logs prometheus --tail=100
+          echo "=== Flyway Test Data Logs ==="
+          docker compose logs flyway-test-data --tail=100
 
       - name: Cleanup
         if: always()
