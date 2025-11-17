@@ -191,6 +191,14 @@ tasks:
           rm -rf target/
         fi
 
+  newman:docker-up:
+    desc: Start all Docker containers for Newman tests
+    silent: true
+    cmds:
+      - echo "🚀 Starting Docker containers..."
+      - docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --wait --force-recreate || true
+      - echo "✅ All services are running"
+
   newman:local:
     desc: Run Newman API tests against local Docker with fresh data
     deps:
@@ -295,7 +303,7 @@ tasks:
       - |
         if ! docker compose ps | grep -q "api.*running"; then
           echo "⚠️  API container not running, starting services..."
-          task docker-up
+          task newman:docker-up
           echo "⏳ Waiting for API to be ready..."
           sleep 10
         fi
