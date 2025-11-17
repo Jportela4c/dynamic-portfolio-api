@@ -32,6 +32,9 @@ springdoc:
     defaultModelExpandDepth: 1
     displayRequestDuration: true
     tryItOutEnabled: true
+    oauth:
+      clientId: portfolio-api-client
+      clientSecret: api-secret
   default-produces-media-type: application/json
   default-consumes-media-type: application/json
   show-oauth2-endpoints: true
