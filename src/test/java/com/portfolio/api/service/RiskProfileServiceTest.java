@@ -33,6 +33,9 @@ class RiskProfileServiceTest {
     @Mock
     private HorizonScorer horizonCalculator;
 
+    @Mock
+    private ClientValidationService clientValidationService;
+
     @InjectMocks
     private RiskProfileService service;
 
