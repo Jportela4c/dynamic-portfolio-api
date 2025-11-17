@@ -51,15 +51,28 @@ docker compose down -v
 
 ### Opção 2: Setup Automático com Task
 
-**Linux/macOS/Git Bash (Windows):**
+**Linux/macOS:**
 ```bash
 ./setup.sh && task setup
 ```
 
-**Usuários Windows sem Git Bash:**
-1. Baixe e instale o Git Bash: https://git-scm.com/downloads
-2. Abra o Git Bash
-3. Execute: `./setup.sh && task setup`
+**Windows (PowerShell):**
+```powershell
+# Se necessário, permita execução de scripts:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+.\setup.ps1; task setup
+```
+
+**Windows (CMD):**
+```cmd
+setup.bat && task setup
+```
+
+**Windows (Git Bash):**
+```bash
+./setup.sh && task setup
+```
 
 Isso instala tudo automaticamente e inicia a aplicação.
 
