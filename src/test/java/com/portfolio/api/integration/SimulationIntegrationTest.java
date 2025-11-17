@@ -56,7 +56,7 @@ class SimulationIntegrationTest {
         cdb.setValorMinimo(new BigDecimal("5000.00"));
         cdb.setPrazoMinimoMeses(6);
         cdb.setPrazoMaximoMeses(24);
-        cdb.setPerfilAdequado("CONSERVADOR");
+        cdb.setPerfilAdequado("Conservador");
         cdb.setAtivo(true);
         productRepository.save(cdb);
     }

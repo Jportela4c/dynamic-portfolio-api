@@ -1,5 +1,5 @@
 package com.portfolio.api.controller;
-
+import com.portfolio.api.model.enums.PerfilRisco;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.api.model.dto.request.SimulationRequest;
 import com.portfolio.api.model.dto.response.SimulationResponse;

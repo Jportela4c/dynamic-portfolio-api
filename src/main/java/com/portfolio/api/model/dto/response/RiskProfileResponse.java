@@ -17,7 +17,7 @@ public class RiskProfileResponse {
     private Long clienteId;
 
     @Schema(description = "Classificação do perfil de risco", example = "Moderado", allowableValues = {"Conservador", "Moderado", "Agressivo"})
-    private String perfil;
+    private com.portfolio.api.model.enums.PerfilRisco perfil;
 
     @Schema(description = "Pontuação de risco calculada", example = "65")
     private Integer pontuacao;

@@ -1,6 +1,7 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
+import com.portfolio.api.model.enums.PerfilRisco;
 import com.portfolio.api.scorer.FrequencyScorer;
 import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
@@ -58,7 +59,7 @@ public class RiskProfileService {
                 horizonScore * FACTOR_WEIGHTS.get("horizon")
         );
 
-        String profile = classifyProfile(totalScore);
+        PerfilRisco profile = classifyProfile(totalScore);
         String description = getProfileDescription(profile);
 
         return RiskProfileResponse.builder()
@@ -69,22 +70,21 @@ public class RiskProfileService {
                 .build();
     }
 
-    private String classifyProfile(int score) {
+    private PerfilRisco classifyProfile(int score) {
         if (score <= 40) {
-            return "CONSERVADOR";
+            return PerfilRisco.CONSERVADOR;
         } else if (score <= 70) {
-            return "MODERADO";
+            return PerfilRisco.MODERADO;
         } else {
-            return "AGRESSIVO";
+            return PerfilRisco.AGRESSIVO;
         }
     }
 
-    private String getProfileDescription(String profile) {
+    private String getProfileDescription(PerfilRisco profile) {
         return switch (profile) {
-            case "CONSERVADOR" -> "Perfil de baixo risco, focado em segurança e liquidez.";
-            case "MODERADO" -> "Perfil equilibrado entre segurança e rentabilidade.";
-            case "AGRESSIVO" -> "Perfil de alto risco, focado em alta rentabilidade.";
-            default -> "Perfil não identificado.";
+            case CONSERVADOR -> "Perfil de baixo risco, focado em segurança e liquidez.";
+            case MODERADO -> "Perfil equilibrado entre segurança e rentabilidade.";
+            case AGRESSIVO -> "Perfil de alto risco, focado em alta rentabilidade.";
         };
     }
 }

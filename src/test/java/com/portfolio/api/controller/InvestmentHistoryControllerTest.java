@@ -1,5 +1,5 @@
 package com.portfolio.api.controller;
-
+import com.portfolio.api.model.enums.PerfilRisco;
 import com.portfolio.api.model.dto.response.InvestmentResponse;
 import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.service.InvestmentService;

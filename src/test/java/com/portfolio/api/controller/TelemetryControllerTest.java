@@ -1,5 +1,5 @@
 package com.portfolio.api.controller;
-
+import com.portfolio.api.model.enums.PerfilRisco;
 import com.portfolio.api.model.dto.response.TelemetryResponse;
 import com.portfolio.api.service.SimulationService;
 import com.portfolio.api.service.TelemetryService;

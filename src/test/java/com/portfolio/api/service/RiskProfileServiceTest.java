@@ -1,6 +1,7 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
+import com.portfolio.api.model.enums.PerfilRisco;
 import com.portfolio.api.scorer.FrequencyScorer;
 import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
@@ -49,7 +50,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("CONSERVADOR", response.getPerfil());
+        assertEquals(PerfilRisco.CONSERVADOR, response.getPerfil());
         assertTrue(response.getPontuacao() <= 40);
         assertEquals("Perfil de baixo risco, focado em segurança e liquidez.", response.getDescricao());
     }
@@ -64,7 +65,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("CONSERVADOR", response.getPerfil());
+        assertEquals(PerfilRisco.CONSERVADOR, response.getPerfil());
         assertTrue(response.getPontuacao() <= 40);
     }
 
@@ -78,7 +79,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("MODERADO", response.getPerfil());
+        assertEquals(PerfilRisco.MODERADO, response.getPerfil());
         assertTrue(response.getPontuacao() > 40 && response.getPontuacao() <= 70);
         assertEquals("Perfil equilibrado entre segurança e rentabilidade.", response.getDescricao());
     }
@@ -93,7 +94,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("MODERADO", response.getPerfil());
+        assertEquals(PerfilRisco.MODERADO, response.getPerfil());
         assertTrue(response.getPontuacao() > 40 && response.getPontuacao() <= 70);
     }
 
@@ -107,7 +108,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("AGRESSIVO", response.getPerfil());
+        assertEquals(PerfilRisco.AGRESSIVO, response.getPerfil());
         assertTrue(response.getPontuacao() > 70);
         assertEquals("Perfil de alto risco, focado em alta rentabilidade.", response.getDescricao());
     }
@@ -130,7 +131,7 @@ class RiskProfileServiceTest {
 
         // Weighted score: 50*0.25 + 60*0.20 + 70*0.30 + 40*0.15 + 30*0.10 = 12.5 + 12 + 21 + 6 + 3 = 54.5 → 55
         assertEquals(55, response.getPontuacao());
-        assertEquals("MODERADO", response.getPerfil());
+        assertEquals(PerfilRisco.MODERADO, response.getPerfil());
     }
 
     @Test
@@ -144,7 +145,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(999999L);
 
-        assertEquals("CONSERVADOR", response.getPerfil());
+        assertEquals(PerfilRisco.CONSERVADOR, response.getPerfil());
         assertEquals(0, response.getPontuacao());
         assertEquals(999999L, response.getClienteId());
     }
@@ -161,7 +162,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("MODERADO", response.getPerfil());
+        assertEquals(PerfilRisco.MODERADO, response.getPerfil());
         assertEquals(41, response.getPontuacao());
     }
 
@@ -176,7 +177,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("AGRESSIVO", response.getPerfil());
+        assertEquals(PerfilRisco.AGRESSIVO, response.getPerfil());
         assertEquals(71, response.getPontuacao());
     }
 
@@ -190,7 +191,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("AGRESSIVO", response.getPerfil());
+        assertEquals(PerfilRisco.AGRESSIVO, response.getPerfil());
         assertEquals(100, response.getPontuacao());
     }
 
@@ -204,7 +205,7 @@ class RiskProfileServiceTest {
 
         RiskProfileResponse response = service.calculateRiskProfile(1L);
 
-        assertEquals("CONSERVADOR", response.getPerfil());
+        assertEquals(PerfilRisco.CONSERVADOR, response.getPerfil());
         assertEquals(0, response.getPontuacao());
     }
 }
