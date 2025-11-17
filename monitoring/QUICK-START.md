@@ -3,8 +3,8 @@
 ## Access Points
 
 - **Prometheus UI**: http://localhost:9090
-- **Grafana**: http://localhost:3000 (login: admin/admin)
 - **Raw Metrics**: http://localhost:8080/api/v1/actuator/prometheus
+- **API Telemetry** (SPEC endpoint): http://localhost:8080/api/v1/telemetria
 
 ## Useful Prometheus Queries
 
@@ -64,24 +64,27 @@ rate(jvm_gc_pause_seconds_sum[1m])
 jvm_threads_live_threads
 ```
 
-## Creating Dashboards in Grafana
+## How Metrics Are Used
 
-1. Open http://localhost:3000
-2. Login with admin/admin
-3. Click "+" → "Dashboard" → "Add visualization"
-4. Select "Prometheus" as data source
-5. Enter one of the queries above
-6. Click "Apply"
+The `/telemetria` endpoint (matching THE SPEC) queries Micrometer's MeterRegistry to return service metrics in the exact format specified by the challenge:
 
-## Pre-Built Dashboard (Recommended)
+```json
+{
+  "servicos": [
+    {
+      "nome": "simular-investimento",
+      "quantidadeChamadas": 120,
+      "mediaTempoRespostaMs": 250
+    }
+  ],
+  "periodo": {
+    "inicio": "2025-10-01",
+    "fim": "2025-10-31"
+  }
+}
+```
 
-Import Spring Boot dashboard from Grafana.com:
-
-1. Go to Grafana → Dashboards → Import
-2. Enter dashboard ID: **4701** (Spring Boot 2.1 Statistics)
-3. Or ID: **11378** (JVM Micrometer)
-4. Select "Prometheus" as data source
-5. Click "Import"
+Prometheus is used for **persistent storage** of metrics - they survive API restarts.
 
 ## What Gets Monitored Automatically
 
