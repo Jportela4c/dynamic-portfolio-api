@@ -47,18 +47,22 @@ public class SimulationService {
                 request.getTipoProduto(),
                 request.getValor(),
                 request.getPrazoMeses()
-        ).orElseThrow(() -> new ProductNotFoundException("Product not available"));
+        ).orElseThrow(() -> new ProductNotFoundException(
+                request.getTipoProduto(),
+                request.getValor(),
+                request.getPrazoMeses()
+        ));
 
         if (request.getValor().compareTo(product.getValorMinimo()) < 0) {
-            throw new InvalidSimulationException("Invalid investment value");
+            throw new InvalidSimulationException("valor");
         }
 
         if (request.getPrazoMeses() < product.getPrazoMinimoMeses()) {
-            throw new InvalidSimulationException("Invalid investment term");
+            throw new InvalidSimulationException("prazoMeses");
         }
 
         if (product.getPrazoMaximoMeses() != null && request.getPrazoMeses() > product.getPrazoMaximoMeses()) {
-            throw new InvalidSimulationException("Invalid investment term");
+            throw new InvalidSimulationException("prazoMeses");
         }
 
         BigDecimal finalValue = investmentCalculator.calculateFinalValue(
