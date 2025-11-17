@@ -64,7 +64,7 @@ class InvestmentSimulationControllerTest {
             TipoProduto.CDB
         );
 
-        SimulationResponse.ProductValidated product = SimulationResponse.ProductValidated.builder()
+        SimulationResponse.SelectedProduct product = SimulationResponse.SelectedProduct.builder()
             .id(1L)
             .nome("CDB Caixa 2026")
             .tipo(TipoProduto.CDB)
@@ -79,7 +79,7 @@ class InvestmentSimulationControllerTest {
             .build();
 
         SimulationResponse response = SimulationResponse.builder()
-            .produtoValidado(product)
+            .selectedProduct(product)
             .resultadoSimulacao(result)
             .dataSimulacao(LocalDateTime.of(2025, 1, 15, 10, 30, 0))
             .build();
@@ -92,11 +92,11 @@ class InvestmentSimulationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.produtoValidado.id").value(1))
-            .andExpect(jsonPath("$.produtoValidado.nome").value("CDB Caixa 2026"))
-            .andExpect(jsonPath("$.produtoValidado.tipo").value("CDB"))
-            .andExpect(jsonPath("$.produtoValidado.rentabilidade").value(0.12))
-            .andExpect(jsonPath("$.produtoValidado.risco").value("Baixo"))
+            .andExpect(jsonPath("$.selectedProduct.id").value(1))
+            .andExpect(jsonPath("$.selectedProduct.nome").value("CDB Caixa 2026"))
+            .andExpect(jsonPath("$.selectedProduct.tipo").value("CDB"))
+            .andExpect(jsonPath("$.selectedProduct.rentabilidade").value(0.12))
+            .andExpect(jsonPath("$.selectedProduct.risco").value("Baixo"))
             .andExpect(jsonPath("$.resultadoSimulacao.valorFinal").value(11200.00))
             .andExpect(jsonPath("$.resultadoSimulacao.rentabilidadeEfetiva").value(0.12))
             .andExpect(jsonPath("$.resultadoSimulacao.prazoMeses").value(12))

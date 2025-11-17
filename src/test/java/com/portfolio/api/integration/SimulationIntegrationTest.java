@@ -74,8 +74,8 @@ class SimulationIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.produtoValidado").exists())
-                .andExpect(jsonPath("$.produtoValidado.nome").exists())
+                .andExpect(jsonPath("$.selectedProduct").exists())
+                .andExpect(jsonPath("$.selectedProduct.nome").exists())
                 .andExpect(jsonPath("$.resultadoSimulacao.valorFinal").exists())
                 .andExpect(jsonPath("$.dataSimulacao").exists());
     }
@@ -202,7 +202,7 @@ class SimulationIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.produtoValidado").exists())
+                .andExpect(jsonPath("$.selectedProduct").exists())
                 .andExpect(jsonPath("$.resultadoSimulacao").exists());
     }
 
@@ -220,7 +220,7 @@ class SimulationIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.produtoValidado").exists())
+                .andExpect(jsonPath("$.selectedProduct").exists())
                 .andExpect(jsonPath("$.resultadoSimulacao").exists());
     }
 

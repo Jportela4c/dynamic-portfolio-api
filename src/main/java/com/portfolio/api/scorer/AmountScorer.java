@@ -17,9 +17,9 @@ public class AmountScorer {
     }
 
     public int calculateAmountScore(Long clienteId) {
-        BigDecimal clientVolume = investmentRepository.sumValorByClienteId(clienteId);
+        BigDecimal customerAmount = investmentRepository.sumValorByClienteId(clienteId);
 
-        if (clientVolume == null || clientVolume.compareTo(BigDecimal.ZERO) == 0) {
+        if (customerAmount == null || customerAmount.compareTo(BigDecimal.ZERO) == 0) {
             return 0;
         }
 
@@ -34,7 +34,7 @@ public class AmountScorer {
                 .toArray();
 
         double clientPercentile = calculatePercentileRank(
-                clientVolume.doubleValue(),
+                customerAmount.doubleValue(),
                 amountsArray
         );
 

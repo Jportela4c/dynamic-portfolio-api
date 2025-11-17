@@ -73,7 +73,7 @@ public class SimulationService {
         simulationRepository.save(simulation);
 
         return SimulationResponse.builder()
-                .produtoValidado(SimulationResponse.ProductValidated.builder()
+                .selectedProduct(SimulationResponse.SelectedProduct.builder()
                         .id(product.getId())
                         .nome(product.getNome())
                         .tipo(product.getTipo())

@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Schema(description = "Resposta da simulação de investimento")
 public class SimulationResponse {
 
-    @Schema(description = "Dados do produto validado")
-    private ProductValidated produtoValidado;
+    @Schema(description = "Dados do selected product")
+    private SelectedProduct selectedProduct;
 
     @Schema(description = "Resultado da simulação")
     private SimulationResult resultadoSimulacao;
@@ -30,8 +30,8 @@ public class SimulationResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    @Schema(description = "Produto validado com seus parâmetros")
-    public static class ProductValidated {
+    @Schema(description = "Selected product com seus parâmetros")
+    public static class SelectedProduct {
         @Schema(description = "ID do produto", example = "1")
         private Long id;
 
