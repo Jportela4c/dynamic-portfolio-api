@@ -1,5 +1,6 @@
 package com.portfolio.api.model.entity;
 
+import com.portfolio.api.model.enums.TipoProduto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class Product {
     private String nome;
 
     @Column(nullable = false, length = 50)
-    private String tipo;
+    private TipoProduto tipo;
 
     @Column(nullable = false, precision = 10, scale = 4)
     private BigDecimal rentabilidade;
