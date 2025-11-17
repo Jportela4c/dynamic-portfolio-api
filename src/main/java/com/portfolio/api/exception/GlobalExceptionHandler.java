@@ -1,5 +1,6 @@
 package com.portfolio.api.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.portfolio.api.model.dto.response.ErrorResponse;
 import com.portfolio.api.model.dto.response.ValidationErrorResponse;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,6 +44,31 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
+        logger.warn("Invalid JSON format or enum value: {}", ex.getMessage());
+
+        String message = "Formato de dados inválido na requisição";
+
+        if (ex.getCause() instanceof InvalidFormatException invalidFormatEx) {
+            String fieldName = invalidFormatEx.getPath().get(0).getFieldName();
+            Object value = invalidFormatEx.getValue();
+
+            if (invalidFormatEx.getTargetType().isEnum()) {
+                message = String.format("Valor inválido para o campo '%s': '%s'. Valores permitidos: %s",
+                    fieldName, value, java.util.Arrays.toString(invalidFormatEx.getTargetType().getEnumConstants()));
+            }
+        }
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .message(message)
                 .timestamp(LocalDateTime.now())
                 .build();
 
