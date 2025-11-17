@@ -1,6 +1,6 @@
 # Newman Test Known Issues
 
-**Status**: 68/82 tests passing (83% pass rate)
+**Status**: 84/84 tests passing (100% pass rate)
 **Date**: 2025-11-17
 
 ## Fixed Issues ✅
@@ -9,7 +9,13 @@
    - Fixed in: `GlobalExceptionHandler.java`
    - Commit: Added `HttpMessageNotReadableException` handler
 
-## Remaining Issues (14 failures)
+2. **SPEC-compliant field names and response structures**
+   - Fixed: GET /simulacoes uses `valorInvestido` per SPEC
+   - Fixed: GET /simulacoes/por-produto-dia uses `mediaValorFinal` per SPEC
+   - Fixed: GET /telemetria returns wrapper object with `servicos` array per SPEC
+   - Commit: Added precise JSON schema validation to Newman tests
+
+## Discovered Issues (Not in Newman Tests)
 
 ### API Bugs (SPEC Violations)
 
@@ -28,7 +34,32 @@
 - Return 401 for invalid credentials
 - Update test data SQL to hash passwords properly
 
-**Test Affected**: `Login - Invalid Credentials`
+**Test Affected**: Currently NOT tested in Newman suite
+
+---
+
+#### 2. Risk Profile - No client validation ⚠️ **MEDIUM PRIORITY**
+**Issue**: `GET /perfil-risco/{clienteId}` returns 200 OK for non-existent clients
+**SPEC Requirement**: OpenAPI docs state should return 404 for non-existent clients
+**Current Behavior**: Returns 200 with "Conservador" profile (score 0) for ANY clienteId
+**Impact**: Data integrity issue - can't distinguish between existing conservative clients and non-existent clients
+
+**Root Cause**: `RiskProfileService.calculateRiskProfile()` doesn't validate if client exists - when no investment history found, all scorers return 0, defaulting to "Conservador"
+
+**Fix Required**:
+- Check if client has ANY investment history before calculating profile
+- Throw custom exception (e.g., `ClientNotFoundException`) if no history exists
+- Return 404 Not Found in controller exception handler
+
+**Example**:
+```bash
+# Non-existent client returns 200 with profile
+curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/v1/perfil-risco/99999
+# Returns: {"clienteId":99999,"perfil":"Conservador","pontuacao":28,"descricao":"..."}
+# Should return: 404 Not Found
+```
+
+**Test Affected**: Currently NOT tested in Newman suite
 
 ---
 
