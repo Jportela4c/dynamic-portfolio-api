@@ -4,6 +4,13 @@ import com.portfolio.api.model.dto.response.ProductResponse;
 import com.portfolio.api.model.entity.Product;
 import com.portfolio.api.service.ProductService;
 import com.portfolio.api.service.TelemetryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Tag(name = "Produtos Recomendados", description = "Endpoints para consulta de produtos recomendados por perfil de risco")
 public class ProductRecommendationController {
 
     private final ProductService productService;
@@ -24,8 +32,20 @@ public class ProductRecommendationController {
         this.telemetryService = telemetryService;
     }
 
+    @Operation(
+        summary = "Consultar produtos recomendados",
+        description = "Retorna produtos de investimento recomendados para um perfil de risco específico"
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Produtos encontrados com sucesso",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Perfil de risco inválido",
+            content = @Content(mediaType = "application/json"))
+    })
     @GetMapping("/produtos-recomendados/{perfil}")
-    public ResponseEntity<List<ProductResponse>> getRecommendedProducts(@PathVariable String perfil) {
+    public ResponseEntity<List<ProductResponse>> getRecommendedProducts(
+        @Parameter(description = "Perfil de risco do cliente", example = "Moderado", required = true)
+        @PathVariable String perfil) {
         long startTime = System.currentTimeMillis();
 
         try {
