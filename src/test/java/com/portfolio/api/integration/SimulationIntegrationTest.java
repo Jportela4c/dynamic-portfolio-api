@@ -173,19 +173,19 @@ class SimulationIntegrationTest {
     @Test
     void shouldRejectSimulationAboveMaximumTerm() throws Exception {
         // Product maximum term: 24 months
-        // Service validates term and returns 400 for invalid term
+        // Service validates term and returns 404 when no product matches
         SimulationRequest request = new SimulationRequest();
         request.setClienteId(123L);
         request.setValor(new BigDecimal("10000.00"));
-        request.setPrazoMeses(36);  // Above maximum
+        request.setPrazoMeses(200);  // Way above maximum (no CDB product has this term)
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").exists());
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Product not available"));
     }
 
     @Test

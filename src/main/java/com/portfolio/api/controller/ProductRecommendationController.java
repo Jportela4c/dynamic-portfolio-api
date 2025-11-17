@@ -2,6 +2,7 @@ package com.portfolio.api.controller;
 
 import com.portfolio.api.model.dto.response.ProductResponse;
 import com.portfolio.api.model.entity.Product;
+import com.portfolio.api.model.enums.PerfilRisco;
 import com.portfolio.api.service.ProductService;
 import com.portfolio.api.service.TelemetryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,11 +46,11 @@ public class ProductRecommendationController {
     @GetMapping("/produtos-recomendados/{perfil}")
     public ResponseEntity<List<ProductResponse>> getRecommendedProducts(
         @Parameter(description = "Perfil de risco do cliente", example = "Moderado", required = true)
-        @PathVariable String perfil) {
+        @PathVariable PerfilRisco perfil) {
         long startTime = System.currentTimeMillis();
 
         try {
-            List<Product> products = productService.getRecommendedProducts(perfil);
+            List<Product> products = productService.getRecommendedProducts(perfil.name());
 
             List<ProductResponse> response = products.stream()
                     .map(p -> ProductResponse.builder()

@@ -4,6 +4,8 @@ import com.portfolio.api.model.entity.Investment;
 import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.InvestmentRepository;
 import com.portfolio.api.security.JwtTokenProvider;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -166,20 +166,16 @@ class RiskProfileIntegrationTest {
     }
 
     @Test
-    void shouldReturnEmptyListForInvalidProfile() throws Exception {
+    void shouldReturnBadRequestForInvalidProfile() throws Exception {
         mockMvc.perform(get("/produtos-recomendados/InvalidProfile")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$").isEmpty());
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    void shouldReturnEmptyListForEmptyProfile() throws Exception {
+    void shouldReturnBadRequestForEmptyProfile() throws Exception {
         mockMvc.perform(get("/produtos-recomendados/ ")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$").isEmpty());
+                .andExpect(status().isBadRequest());
     }
 }

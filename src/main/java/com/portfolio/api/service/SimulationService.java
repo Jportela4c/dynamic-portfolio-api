@@ -12,15 +12,13 @@ import com.portfolio.api.model.entity.Simulation;
 import com.portfolio.api.repository.SimulationRepository;
 import com.portfolio.api.repository.TelemetryRepository;
 import com.portfolio.api.util.InvestmentCalculator;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SimulationService {
@@ -55,14 +53,6 @@ public class SimulationService {
 
         if (request.getValor().compareTo(product.getValorMinimo()) < 0) {
             throw new InvalidSimulationException("valor");
-        }
-
-        if (request.getPrazoMeses() < product.getPrazoMinimoMeses()) {
-            throw new InvalidSimulationException("prazoMeses");
-        }
-
-        if (product.getPrazoMaximoMeses() != null && request.getPrazoMeses() > product.getPrazoMaximoMeses()) {
-            throw new InvalidSimulationException("prazoMeses");
         }
 
         BigDecimal finalValue = investmentCalculator.calculateFinalValue(

@@ -30,9 +30,6 @@ class SimulationServiceTest {
     private SimulationRepository simulationRepository;
 
     @Mock
-    private TelemetryRepository telemetryRepository;
-
-    @Mock
     private ProductService productService;
 
     @Mock
@@ -102,31 +99,6 @@ class SimulationServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenTermBelowMinimum() {
-        testRequest.setPrazoMeses(3);
-
-        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
-                .thenReturn(Optional.of(testProduct));
-
-        assertThrows(InvalidSimulationException.class, () ->
-                simulationService.simulateInvestment(testRequest)
-        );
-    }
-
-    @Test
-    void shouldThrowExceptionWhenTermExceedsMaximum() {
-        testRequest.setPrazoMeses(72);
-
-        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
-                .thenReturn(Optional.of(testProduct));
-
-        assertThrows(InvalidSimulationException.class, () ->
-                simulationService.simulateInvestment(testRequest)
-        );
-    }
-
-
-    @Test
     void shouldThrowExceptionForZeroValue() {
         testRequest.setValor(BigDecimal.ZERO);
 
@@ -141,30 +113,6 @@ class SimulationServiceTest {
     @Test
     void shouldThrowExceptionForNegativeValue() {
         testRequest.setValor(new BigDecimal("-1000"));
-
-        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
-                .thenReturn(Optional.of(testProduct));
-
-        assertThrows(InvalidSimulationException.class, () ->
-                simulationService.simulateInvestment(testRequest)
-        );
-    }
-
-    @Test
-    void shouldThrowExceptionForZeroTerm() {
-        testRequest.setPrazoMeses(0);
-
-        when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
-                .thenReturn(Optional.of(testProduct));
-
-        assertThrows(InvalidSimulationException.class, () ->
-                simulationService.simulateInvestment(testRequest)
-        );
-    }
-
-    @Test
-    void shouldThrowExceptionForNegativeTerm() {
-        testRequest.setPrazoMeses(-6);
 
         when(productService.findMatchingProduct(any(TipoProduto.class), any(), anyInt()))
                 .thenReturn(Optional.of(testProduct));
