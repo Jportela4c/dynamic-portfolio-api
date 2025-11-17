@@ -23,10 +23,6 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-jwt:
-  secret: ${JWT_SECRET:YW5vdGhlci1zZWNyZXQta2V5LWZvci1wb3J0Zm9saW8tYXBpLWRlZmF1bHQtY2hhbmdlLWluLXByb2R1Y3Rpb24=}
-  expiration: 86400000
-
 springdoc:
   api-docs:
     path: /api-docs
@@ -58,5 +54,7 @@ logging:
   level:
     root: INFO
     com.portfolio.api: DEBUG
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
