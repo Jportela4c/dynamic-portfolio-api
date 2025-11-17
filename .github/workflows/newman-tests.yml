@@ -36,7 +36,7 @@ jobs:
 
       - name: Start Docker Compose stack
         run: |
-          docker compose up -d --wait
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --wait
           echo "Waiting for services to be fully ready..."
           sleep 15
 
@@ -75,7 +75,7 @@ jobs:
         if: failure()
         run: |
           echo "=== Docker Compose Logs ==="
-          docker compose logs
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml logs
 
       - name: Cleanup
         if: always()
