@@ -63,10 +63,10 @@ services:
       - JWT_SECRET=YW5vdGhlci1zZWNyZXQta2V5LWZvci1wb3J0Zm9saW8tYXBpLWRlZmF1bHQtY2hhbmdlLWluLXByb2R1Y3Rpb24=
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
 
 volumes:
   sqlserver-data:
