@@ -3,7 +3,7 @@
 -- Constraint for product type (tipo_produto)
 ALTER TABLE produtos
 ADD CONSTRAINT CK_produtos_tipo_produto
-CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo'));
+CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
 
 -- Constraint for risk level (nivel_risco)
 ALTER TABLE produtos
@@ -18,9 +18,9 @@ CHECK (perfil_risco IN ('Conservador', 'Moderado', 'Agressivo'));
 -- Constraint for product type in simulations table
 ALTER TABLE simulacoes
 ADD CONSTRAINT CK_simulacoes_tipo_produto
-CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo'));
+CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
 
 -- Constraint for product type in investments table
 ALTER TABLE investimentos
 ADD CONSTRAINT CK_investimentos_tipo_produto
-CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo'));
+CHECK (tipo_produto IN ('CDB', 'LCI', 'LCA', 'Tesouro Direto', 'Fundo Renda Fixa', 'Fundo Multimercado', 'Fundo Ações', 'FII'));
