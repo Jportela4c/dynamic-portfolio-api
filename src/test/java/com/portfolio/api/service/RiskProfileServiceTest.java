@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class RiskProfileServiceTest {
 
     @Mock
-    private AmountScorer volumeCalculator;
+    private AmountScorer amountCalculator;
 
     @Mock
     private FrequencyScorer frequencyCalculator;
@@ -34,14 +34,14 @@ class RiskProfileServiceTest {
     private HorizonScorer horizonCalculator;
 
     @Mock
-    private CustomerValidationService clientValidationService;
+    private CustomerValidationService customerValidationService;
 
     @InjectMocks
     private RiskProfileService service;
 
     @Test
     void shouldClassifyAsConservadorLowScore() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(20);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(20);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(10);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(20);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(10);
@@ -56,7 +56,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsConservadorHighScore() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(40);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(40);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(40);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(40);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(40);
@@ -70,7 +70,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsModeradoLowScore() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(50);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(50);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(45);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(45);
@@ -85,7 +85,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsModeradoHighScore() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(70);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(70);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(70);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(70);
@@ -99,7 +99,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldClassifyAsAgressivo() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(90);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(90);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(90);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(100);
@@ -114,7 +114,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldCalculateWeightedScore() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(50);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(60);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(70);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(40);
@@ -136,7 +136,7 @@ class RiskProfileServiceTest {
     @Test
     void shouldReturnConservadorForClientWithNoHistory() {
         // Customer with no investment history should return Conservador profile with score 0
-        when(volumeCalculator.calculateAmountScore(999999L)).thenReturn(0);
+        when(amountCalculator.calculateAmountScore(999999L)).thenReturn(0);
         when(frequencyCalculator.calculateFrequencyScore(999999L)).thenReturn(0);
         when(productRiskCalculator.calculateProductRiskScore(999999L)).thenReturn(0);
         when(liquidityCalculator.calculateLiquidityScore(999999L)).thenReturn(0);
@@ -153,7 +153,7 @@ class RiskProfileServiceTest {
     @Test
     void shouldClassifyBoundaryBetweenConservadorAndModerado() {
         // Score exactly 41 should be Moderado
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(41);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(41);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(41);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(41);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(41);
@@ -168,7 +168,7 @@ class RiskProfileServiceTest {
     @Test
     void shouldClassifyBoundaryBetweenModeradoAndAgressivo() {
         // Score exactly 71 should be Agressivo
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(71);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(71);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(71);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(71);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(71);
@@ -182,7 +182,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldHandleMaximumPossibleScore() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(100);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(100);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(100);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(100);
@@ -196,7 +196,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldHandleZeroScores() {
-        when(volumeCalculator.calculateAmountScore(1L)).thenReturn(0);
+        when(amountCalculator.calculateAmountScore(1L)).thenReturn(0);
         when(frequencyCalculator.calculateFrequencyScore(1L)).thenReturn(0);
         when(productRiskCalculator.calculateProductRiskScore(1L)).thenReturn(0);
         when(liquidityCalculator.calculateLiquidityScore(1L)).thenReturn(0);

@@ -14,44 +14,44 @@ import java.util.Map;
 public class RiskProfileService {
 
     private static final Map<String, Double> FACTOR_WEIGHTS = Map.of(
-            "volume", 0.25,
+            "amount", 0.25,
             "frequency", 0.20,
             "product_risk", 0.30,
             "liquidity", 0.15,
             "horizon", 0.10
     );
 
-    private final AmountScorer volumeCalculator;
+    private final AmountScorer amountCalculator;
     private final FrequencyScorer frequencyCalculator;
     private final ProductRiskScorer productRiskCalculator;
     private final LiquidityScorer liquidityCalculator;
     private final HorizonScorer horizonCalculator;
-    private final CustomerValidationService clientValidationService;
+    private final CustomerValidationService customerValidationService;
 
-    public RiskProfileService(AmountScorer volumeCalculator,
+    public RiskProfileService(AmountScorer amountCalculator,
                                       FrequencyScorer frequencyCalculator,
                                       ProductRiskScorer productRiskCalculator,
                                       LiquidityScorer liquidityCalculator,
                                       HorizonScorer horizonCalculator,
-                                      CustomerValidationService clientValidationService) {
-        this.volumeCalculator = volumeCalculator;
+                                      CustomerValidationService customerValidationService) {
+        this.amountCalculator = amountCalculator;
         this.frequencyCalculator = frequencyCalculator;
         this.productRiskCalculator = productRiskCalculator;
         this.liquidityCalculator = liquidityCalculator;
         this.horizonCalculator = horizonCalculator;
-        this.clientValidationService = clientValidationService;
+        this.customerValidationService = customerValidationService;
     }
 
     public RiskProfileResponse calculateRiskProfile(Long clienteId) {
-        clientValidationService.validateClientExists(clienteId);
-        int volumeScore = volumeCalculator.calculateAmountScore(clienteId);
+        customerValidationService.validateClientExists(clienteId);
+        int amountScore = amountCalculator.calculateAmountScore(clienteId);
         int frequencyScore = frequencyCalculator.calculateFrequencyScore(clienteId);
         int productRiskScore = productRiskCalculator.calculateProductRiskScore(clienteId);
         int liquidityScore = liquidityCalculator.calculateLiquidityScore(clienteId);
         int horizonScore = horizonCalculator.calculateHorizonScore(clienteId);
 
         int totalScore = (int) Math.round(
-                volumeScore * FACTOR_WEIGHTS.get("volume") +
+                amountScore * FACTOR_WEIGHTS.get("amount") +
                 frequencyScore * FACTOR_WEIGHTS.get("frequency") +
                 productRiskScore * FACTOR_WEIGHTS.get("product_risk") +
                 liquidityScore * FACTOR_WEIGHTS.get("liquidity") +
