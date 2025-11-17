@@ -2,8 +2,25 @@
 
 Sistema de simulação de investimentos para produtos financeiros brasileiros incluindo CDBs, LCIs, LCAs, Tesouro Direto e fundos de investimento.
 
+---
+
+## ⚡ Início Rápido (Um Único Comando)
+
+**Execute isso e está pronto (funciona em qualquer sistema operacional):**
+
+```bash
+./setup.cmd && task run
+```
+
+Pronto! A API estará rodando em `http://localhost:8080`
+
+**Testar no navegador:** http://localhost:8080/swagger-ui.html
+
+---
+
 ## Índice
 
+- [Início Rápido](#-início-rápido-um-único-comando)
 - [Como Rodar a Aplicação](#como-rodar-a-aplicação)
 - [Como Testar a API](#como-testar-a-api)
 - [Funcionalidades](#funcionalidades)
@@ -18,7 +35,20 @@ Sistema de simulação de investimentos para produtos financeiros brasileiros in
 
 ## Como Rodar a Aplicação
 
-### Opção 1: Docker (Mais Simples - Recomendado)
+### Opção 1: Comando Único (Mais Simples)
+
+```bash
+./setup.cmd && task run
+```
+
+Este comando funciona em:
+- ✅ Linux
+- ✅ macOS
+- ✅ Windows (CMD, PowerShell, Git Bash)
+
+---
+
+### Opção 2: Docker Direto (Se você já tem Docker)
 
 **Funciona em todos os sistemas operacionais (Windows, macOS, Linux)**
 
@@ -49,24 +79,10 @@ docker compose down -v
 
 ---
 
-### Opção 2: Setup Automático com Task
+### Comandos Úteis
 
-**Todos os sistemas (um único comando):**
+Depois de rodar o setup, você pode usar estes comandos:
 
-```bash
-./setup.cmd && task setup
-```
-
-**Windows CMD:**
-```cmd
-setup.cmd && task setup
-```
-
-Este script funciona nativamente em Linux, macOS, Windows CMD, Windows PowerShell e Git Bash.
-
-Isso instala tudo automaticamente e inicia a aplicação.
-
-**Comandos úteis após o setup:**
 ```bash
 task docker-up     # Subir todos os serviços
 task docker-down   # Parar todos os serviços

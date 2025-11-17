@@ -11,6 +11,11 @@ tasks:
     cmds:
       - task --list
 
+  run:
+    desc: Run the entire application (installs Task if needed, then runs setup)
+    deps:
+      - setup
+
   setup:
     desc: Complete project setup (checks dependencies, installs tools, starts services)
     cmds:
