@@ -7,9 +7,9 @@ services:
     platform: linux/amd64
     restart: "no"
     command: >
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P 'YourStrong@Passw0rd' -C -i /scripts/setup-test-data.sql
+      bash -c "/opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P 'YourStrong@Passw0rd' -C -i /scripts/setup-test-data.sql
     depends_on:
-      api:
-        condition: service_healthy
+      flyway:
+        condition: service_completed_successfully
     volumes:
       - ./postman/scripts:/scripts
