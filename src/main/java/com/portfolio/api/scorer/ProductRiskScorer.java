@@ -1,6 +1,7 @@
 package com.portfolio.api.scorer;
 
 import com.portfolio.api.model.entity.Investment;
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.InvestmentRepository;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +11,15 @@ import java.util.Map;
 @Component
 public class ProductRiskScorer {
 
-    private static final Map<String, Integer> PRODUCT_RISK_LEVELS = Map.of(
-            "Tesouro Direto", 2,
-            "LCI", 3,
-            "LCA", 3,
-            "CDB", 4,
-            "Fundo Renda Fixa", 5,
-            "Fundo Multimercado", 7,
-            "Fundo Ações", 9,
-            "FII", 8
+    private static final Map<TipoProduto, Integer> PRODUCT_RISK_LEVELS = Map.of(
+            TipoProduto.TESOURO_DIRETO, 2,
+            TipoProduto.LCI, 3,
+            TipoProduto.LCA, 3,
+            TipoProduto.CDB, 4,
+            TipoProduto.FUNDO_RENDA_FIXA, 5,
+            TipoProduto.FUNDO_MULTIMERCADO, 7,
+            TipoProduto.FUNDO_ACOES, 9,
+            TipoProduto.FII, 8
     );
 
     private final InvestmentRepository investmentRepository;
