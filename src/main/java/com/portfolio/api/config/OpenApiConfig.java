@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 
             ## Endpoints da API
 
-            - **Documentação OpenAPI:** [/api-docs](/api-docs)
+            - **Documentação OpenAPI:** [/api/v1/api-docs](/api/v1/api-docs)
             - **Interface Swagger:** [/swagger-ui/index.html](/swagger-ui/index.html)
 
             ## Respostas de Erro
