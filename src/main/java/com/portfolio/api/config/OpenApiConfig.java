@@ -24,13 +24,28 @@ import org.springframework.context.annotation.Configuration;
             - Histórico de investimentos
             - Telemetria e métricas
 
-            ## Autenticação
-            Esta API usa OAuth2 para autenticação. Use o endpoint `/oauth2/token` com client credentials para obter um access token.
-            Depois, clique no botão "Authorize" e insira o token no formato: `Bearer {seu-access-token}`
+            ## Autenticação OAuth2
+
+            Esta API usa OAuth2 para autenticação.
+
+            **Como obter um access token:**
+            1. Use o endpoint `POST /oauth2/token` (não visível no Swagger, mas funcional)
+            2. Envie Basic Auth com Client ID e Secret (abaixo)
+            3. Body: `grant_type=client_credentials&scope=read write` (form-urlencoded)
+            4. Copie o `access_token` da resposta
+            5. Clique em "Authorize" acima e cole: `{seu-access-token}` (sem "Bearer")
 
             **Client Credentials:**
             - Client ID: `portfolio-api-client`
             - Client Secret: `api-secret`
+
+            **Exemplo curl:**
+            ```bash
+            curl -X POST http://localhost:8080/api/v1/oauth2/token \\
+              -u "portfolio-api-client:api-secret" \\
+              -H "Content-Type: application/x-www-form-urlencoded" \\
+              -d "grant_type=client_credentials&scope=read write"
+            ```
 
             ## Respostas de Erro
             A API utiliza respostas de erro padronizadas:
@@ -57,4 +72,5 @@ import org.springframework.context.annotation.Configuration;
     description = "OAuth2 Bearer Token. Use o endpoint /oauth2/token com client credentials (portfolio-api-client:api-secret) para obter um access token."
 )
 public class OpenApiConfig {
+
 }
