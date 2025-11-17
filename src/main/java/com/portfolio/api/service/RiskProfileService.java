@@ -1,6 +1,8 @@
 package com.portfolio.api.service;
 
+import com.portfolio.api.exception.ClientNotFoundException;
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
+import com.portfolio.api.repository.InvestmentRepository;
 import com.portfolio.api.scorer.FrequencyScorer;
 import com.portfolio.api.scorer.HorizonScorer;
 import com.portfolio.api.scorer.LiquidityScorer;
@@ -26,20 +28,31 @@ public class RiskProfileService {
     private final ProductRiskScorer productRiskCalculator;
     private final LiquidityScorer liquidityCalculator;
     private final HorizonScorer horizonCalculator;
+    private final InvestmentRepository investmentRepository;
 
     public RiskProfileService(VolumeScorer volumeCalculator,
                                       FrequencyScorer frequencyCalculator,
                                       ProductRiskScorer productRiskCalculator,
                                       LiquidityScorer liquidityCalculator,
-                                      HorizonScorer horizonCalculator) {
+                                      HorizonScorer horizonCalculator,
+                                      InvestmentRepository investmentRepository) {
         this.volumeCalculator = volumeCalculator;
         this.frequencyCalculator = frequencyCalculator;
         this.productRiskCalculator = productRiskCalculator;
         this.liquidityCalculator = liquidityCalculator;
         this.horizonCalculator = horizonCalculator;
+        this.investmentRepository = investmentRepository;
     }
 
     public RiskProfileResponse calculateRiskProfile(Long clienteId) {
+        if (clienteId == null || clienteId <= 0) {
+            throw new IllegalArgumentException("Client ID must be a positive number");
+        }
+
+        Long investmentCount = investmentRepository.countByClienteId(clienteId);
+        if (investmentCount == 0) {
+            throw new ClientNotFoundException("Client with ID " + clienteId + " not found or has no investment history");
+        }
         int volumeScore = volumeCalculator.calculateVolumeScore(clienteId);
         int frequencyScore = frequencyCalculator.calculateFrequencyScore(clienteId);
         int productRiskScore = productRiskCalculator.calculateProductRiskScore(clienteId);
