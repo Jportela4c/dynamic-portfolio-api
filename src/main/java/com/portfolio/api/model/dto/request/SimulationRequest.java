@@ -18,21 +18,21 @@ import java.math.BigDecimal;
 public class SimulationRequest {
 
     @Schema(description = "ID do cliente", example = "123", required = true)
-    @NotNull(message = "ID do cliente é obrigatório")
-    @Positive(message = "ID do cliente deve ser positivo")
+    @NotNull(message = "Invalid request")
+    @Positive(message = "Invalid request")
     private Long clienteId;
 
     @Schema(description = "Valor do investimento em reais", example = "10000.00", required = true)
-    @NotNull(message = "Valor é obrigatório")
-    @Positive(message = "Valor deve ser positivo")
+    @NotNull(message = "Invalid request")
+    @Positive(message = "Invalid request")
     private BigDecimal valor;
 
     @Schema(description = "Prazo do investimento em meses", example = "12", required = true, minimum = "1")
-    @NotNull(message = "Prazo em meses é obrigatório")
-    @Min(value = 1, message = "Prazo deve ser no mínimo 1 mês")
+    @NotNull(message = "Invalid request")
+    @Min(value = 1, message = "Invalid request")
     private Integer prazoMeses;
 
     @Schema(description = "Tipo de produto financeiro", example = "CDB", required = true)
-    @NotNull(message = "Tipo de produto é obrigatório")
+    @NotNull(message = "Invalid request")
     private TipoProduto tipoProduto;
 }
