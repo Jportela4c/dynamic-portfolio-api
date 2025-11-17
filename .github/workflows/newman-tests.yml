@@ -34,11 +34,11 @@ jobs:
       - name: Build application
         run: mvn clean package -DskipTests
 
-      - name: Start Docker Compose stack with test data
+      - name: Start Docker Compose stack
         run: |
-          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --wait --force-recreate
+          docker compose up -d --wait
           echo "Waiting for services to be fully ready..."
-          sleep 5
+          sleep 15
 
       - name: Verify services are healthy
         run: |
