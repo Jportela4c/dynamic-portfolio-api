@@ -16,17 +16,24 @@ import org.springframework.context.annotation.Configuration;
         version = "1.0.0",
         description = """
             Sistema de simulação de investimentos para produtos financeiros brasileiros.
-            
+
             ## Funcionalidades
             - Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
             - Perfilamento dinâmico de risco
             - Recomendação de produtos por perfil
             - Histórico de investimentos
             - Telemetria e métricas
-            
+
             ## Autenticação
             Use o endpoint `/auth/login` com o username "demo" para obter um token JWT.
             Depois, clique no botão "Authorize" e insira o token no formato: `Bearer {seu-token}`
+
+            ## Respostas de Erro
+            A API utiliza respostas de erro padronizadas:
+            - **ErrorResponse**: Erros gerais (404, 500, etc.)
+            - **ValidationErrorResponse**: Erros de validação de campos (400)
+
+            Todas as respostas de erro incluem timestamp, código HTTP e mensagem descritiva.
             """,
         contact = @Contact(
             name = "Dynamic Portfolio API",
