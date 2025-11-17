@@ -12,12 +12,17 @@ import java.util.stream.Collectors;
 public class InvestmentService {
 
     private final InvestmentRepository investmentRepository;
+    private final ClientValidationService clientValidationService;
 
-    public InvestmentService(InvestmentRepository investmentRepository) {
+    public InvestmentService(InvestmentRepository investmentRepository,
+                             ClientValidationService clientValidationService) {
         this.investmentRepository = investmentRepository;
+        this.clientValidationService = clientValidationService;
     }
 
     public List<InvestmentResponse> getClientInvestments(Long clienteId) {
+        clientValidationService.validateClientExists(clienteId);
+
         List<Investment> investments = investmentRepository.findByClienteIdOrderByDataDesc(clienteId);
 
         return investments.stream()

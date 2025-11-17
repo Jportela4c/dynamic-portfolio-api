@@ -33,4 +33,6 @@ public interface SimulationRepository extends JpaRepository<Simulation, Long> {
         Long getQuantidadeSimulacoes();
         BigDecimal getMediaValorFinal();
     }
+
+    boolean existsByClienteId(Long clienteId);
 }
