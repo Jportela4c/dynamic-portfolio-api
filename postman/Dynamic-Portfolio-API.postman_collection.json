@@ -10,7 +10,7 @@
       "name": "01 - Authentication",
       "item": [
         {
-          "name": "Login - Valid Credentials",
+          "name": "Get OAuth2 Token - Client Credentials",
           "event": [
             {
               "listen": "test",
@@ -20,23 +20,24 @@
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
-                  "pm.test(\"Response has JWT token\", () => {",
+                  "pm.test(\"Response has access_token\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property('token');",
-                  "    pm.expect(json.token).to.be.a('string');",
-                  "    pm.expect(json.token.length).to.be.greaterThan(20);",
+                  "    pm.expect(json).to.have.property('access_token');",
+                  "    pm.expect(json.access_token).to.be.a('string');",
+                  "    pm.expect(json.access_token.length).to.be.greaterThan(20);",
                   "});",
                   "",
-                  "pm.test(\"Response has token type\", () => {",
+                  "pm.test(\"Response has token_type Bearer\", () => {",
                   "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property('type');",
+                  "    pm.expect(json).to.have.property('token_type');",
+                  "    pm.expect(json.token_type).to.equal('Bearer');",
                   "});",
                   "",
                   "// Save token for subsequent requests",
                   "if (pm.response.code === 200) {",
                   "    const json = pm.response.json();",
-                  "    pm.environment.set('jwtToken', json.token);",
-                  "    console.log('JWT token saved to environment');",
+                  "    pm.environment.set('jwtToken', json.access_token);",
+                  "    console.log('OAuth2 access token saved to environment');",
                   "}"
                 ],
                 "type": "text/javascript"
@@ -45,80 +46,50 @@
           ],
           "request": {
             "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "login"
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "portfolio-api-client",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "api-secret",
+                  "type": "string"
+                }
               ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Login - Invalid Credentials",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "// KNOWN ISSUE: API currently returns 200 for any username",
-                  "// SPEC requires 401 for invalid credentials",
-                  "// This is documented in postman/KNOWN_ISSUES.md",
-                  "pm.test(\"Status code is 200 or 401\", () => {",
-                  "    pm.expect(pm.response.code).to.be.oneOf([200, 401]);",
-                  "});",
-                  "",
-                  "if (pm.response.code === 401) {",
-                  "    pm.test(\"Response has error message\", () => {",
-                  "        const json = pm.response.json();",
-                  "        pm.expect(json).to.have.property('message');",
-                  "    });",
-                  "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "noauth"
             },
             "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/x-www-form-urlencoded"
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"wronguser\",\n  \"password\": \"wrongpassword\"\n}"
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "text"
+                },
+                {
+                  "key": "scope",
+                  "value": "read write",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
-              "raw": "{{baseUrl}}/auth/login",
+              "raw": "{{baseUrl}}/oauth2/token",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
-                "auth",
-                "login"
+                "oauth2",
+                "token"
               ]
             }
           },
@@ -131,8 +102,8 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 401 or 403\", () => {",
-                  "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.expect(pm.response.code).to.equal(401);",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -152,7 +123,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
+              "raw": "{\n  \"clienteId\": 123,\n  \"tipo\": \"CDB\",\n  \"valor\": 10000,\n  \"prazo\": 12\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/simular-investimento",
@@ -837,7 +808,7 @@
                   "    const json = pm.response.json();",
                   "    if (json.length > 0) {",
                   "        json.forEach(produto => {",
-                  "            pm.expect(produto.risco).to.be.oneOf(['Baixo', 'M\u00e9dio']);",
+                  "            pm.expect(produto.risco).to.be.oneOf(['Baixo', 'Médio']);",
                   "        });",
                   "    }",
                   "});"
