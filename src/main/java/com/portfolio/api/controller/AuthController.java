@@ -33,7 +33,7 @@ public class AuthController {
         @ApiResponse(responseCode = "200", description = "Autenticação realizada com sucesso",
             content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "401", description = "Credenciais inválidas",
-            content = @Content(mediaType = "application/json"))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credentials) {

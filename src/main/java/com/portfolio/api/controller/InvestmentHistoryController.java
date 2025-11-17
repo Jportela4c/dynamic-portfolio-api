@@ -38,7 +38,7 @@ public class InvestmentHistoryController {
         @ApiResponse(responseCode = "200", description = "Histórico encontrado com sucesso",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InvestmentResponse.class))),
         @ApiResponse(responseCode = "404", description = "Cliente não encontrado",
-            content = @Content(mediaType = "application/json"))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @GetMapping("/investimentos/{clienteId}")
     public ResponseEntity<List<InvestmentResponse>> getInvestmentHistory(

@@ -36,7 +36,7 @@ public class RiskProfileController {
         @ApiResponse(responseCode = "200", description = "Perfil calculado com sucesso",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = RiskProfileResponse.class))),
         @ApiResponse(responseCode = "404", description = "Cliente não encontrado",
-            content = @Content(mediaType = "application/json"))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @GetMapping("/perfil-risco/{clienteId}")
     public ResponseEntity<RiskProfileResponse> getRiskProfile(

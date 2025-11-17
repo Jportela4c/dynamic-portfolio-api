@@ -40,7 +40,7 @@ public class ProductRecommendationController {
         @ApiResponse(responseCode = "200", description = "Produtos encontrados com sucesso",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductResponse.class))),
         @ApiResponse(responseCode = "400", description = "Perfil de risco inválido",
-            content = @Content(mediaType = "application/json"))
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
     @GetMapping("/produtos-recomendados/{perfil}")
     public ResponseEntity<List<ProductResponse>> getRecommendedProducts(
