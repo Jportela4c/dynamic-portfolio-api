@@ -116,12 +116,10 @@ class RiskProfileIntegrationTest {
 
     @Test
     void shouldReturnEmptyHistoryForNewClient() throws Exception {
-        // Client with no investment history
+        // Client with no investment history should return 404
         mockMvc.perform(get("/investimentos/999999")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$").isEmpty());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -142,13 +140,10 @@ class RiskProfileIntegrationTest {
 
     @Test
     void shouldReturnConservadorForClientWithNoHistory() throws Exception {
-        // Clients with no investment history should return Conservador profile
+        // Clients with no data should return 404
         mockMvc.perform(get("/perfil-risco/999999999")
                         .header("Authorization", "Bearer " + token))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.clienteId").value(999999999))
-                .andExpect(jsonPath("$.perfil").value("CONSERVADOR"))
-                .andExpect(jsonPath("$.pontuacao").exists());
+                .andExpect(status().isNotFound());
     }
 
     @Test

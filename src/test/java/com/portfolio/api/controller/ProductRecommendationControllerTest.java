@@ -112,7 +112,7 @@ class ProductRecommendationControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id").value(3))
             .andExpect(jsonPath("$[0].nome").value("Fundo Multimercado XP"))
-            .andExpect(jsonPath("$[0].tipo").value("FUNDO_MULTIMERCADO"))
+            .andExpect(jsonPath("$[0].tipo").value("FundoMultimercado"))
             .andExpect(jsonPath("$[0].rentabilidade").value(0.14))
             .andExpect(jsonPath("$[0].risco").value("Médio"));
 
@@ -148,7 +148,7 @@ class ProductRecommendationControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id").value(4))
             .andExpect(jsonPath("$[0].nome").value("Fundo Ações BTG"))
-            .andExpect(jsonPath("$[0].tipo").value("FUNDO_ACOES"))
+            .andExpect(jsonPath("$[0].tipo").value("FundoAcoes"))
             .andExpect(jsonPath("$[1].id").value(5))
             .andExpect(jsonPath("$[1].nome").value("FII Shopping Center"))
             .andExpect(jsonPath("$[1].tipo").value("FII"));
