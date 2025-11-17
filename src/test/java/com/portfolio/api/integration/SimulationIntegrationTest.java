@@ -133,4 +133,94 @@ class SimulationIntegrationTest {
                 .andExpect(jsonPath("$.servicos").isArray())
                 .andExpect(jsonPath("$.periodo").exists());
     }
+
+    @Test
+    void shouldRejectSimulationBelowMinimumValue() throws Exception {
+        // Product minimum: R$ 5,000
+        // Service returns 404 when no product matches criteria
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("1000.00"));  // Below minimum
+        request.setPrazoMeses(12);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void shouldRejectSimulationBelowMinimumTerm() throws Exception {
+        // Product minimum term: 6 months
+        // Service returns 404 when no product matches criteria
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(3);  // Below minimum
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void shouldRejectSimulationAboveMaximumTerm() throws Exception {
+        // Product maximum term: 24 months
+        // Service validates term and returns 400 for invalid term
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(36);  // Above maximum
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void shouldAcceptSimulationAtMinimumBoundary() throws Exception {
+        // Test exact minimum values
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("5000.00"));  // Exact minimum
+        request.setPrazoMeses(6);  // Exact minimum term
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.produtoValidado").exists())
+                .andExpect(jsonPath("$.resultadoSimulacao").exists());
+    }
+
+    @Test
+    void shouldAcceptSimulationAtMaximumBoundary() throws Exception {
+        // Test exact maximum values
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("100000.00"));
+        request.setPrazoMeses(24);  // Exact maximum term
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.produtoValidado").exists())
+                .andExpect(jsonPath("$.resultadoSimulacao").exists());
+    }
 }

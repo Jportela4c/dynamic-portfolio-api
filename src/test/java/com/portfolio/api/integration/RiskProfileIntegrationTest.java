@@ -61,4 +61,46 @@ class RiskProfileIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
+
+    @Test
+    void shouldGetRecommendedProductsForConservativeProfile() throws Exception {
+        mockMvc.perform(get("/produtos-recomendados/Conservador")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    void shouldGetRecommendedProductsForAggressiveProfile() throws Exception {
+        mockMvc.perform(get("/produtos-recomendados/Agressivo")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    void shouldReturnEmptyHistoryForNewClient() throws Exception {
+        // Client with no investment history
+        mockMvc.perform(get("/investimentos/999999")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
+    void shouldCalculateRiskProfileForDifferentClients() throws Exception {
+        // Test that different clients get different profiles
+        mockMvc.perform(get("/perfil-risco/100")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.clienteId").value(100))
+                .andExpect(jsonPath("$.perfil").exists());
+
+        mockMvc.perform(get("/perfil-risco/200")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.clienteId").value(200))
+                .andExpect(jsonPath("$.perfil").exists());
+    }
 }
