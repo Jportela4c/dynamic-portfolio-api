@@ -79,9 +79,7 @@ tasks:
     silent: true
     cmds:
       - echo "🚀 Starting Docker containers..."
-      - docker compose up -d
-      - echo "⏳ Waiting for services to be healthy..."
-      - task: wait-healthy
+      - docker compose up -d --wait
       - echo "✅ All services are running"
 
   docker-down:
@@ -96,23 +94,6 @@ tasks:
       - echo "🧹 Cleaning up containers and volumes..."
       - docker compose down -v
       - echo "✅ Clean up complete"
-
-  wait-healthy:
-    desc: Wait for Docker containers to be healthy
-    silent: true
-    cmds:
-      - |
-        echo "Waiting for containers to be healthy..."
-        for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30; do
-          STATUS=$(docker inspect portfolio-api --format='{{{{.State.Health.Status}}}}' 2>/dev/null || echo "starting")
-          if [ "$STATUS" = "healthy" ]; then
-            echo "✅ Services are healthy"
-            exit 0
-          fi
-          printf "."
-        done
-        echo ""
-        echo "⚠️  Services may still be starting. Use 'task status' to check."
 
   logs:
     desc: Show logs from all containers
