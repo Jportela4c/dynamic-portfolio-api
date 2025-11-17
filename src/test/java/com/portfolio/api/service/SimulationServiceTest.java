@@ -70,8 +70,8 @@ class SimulationServiceTest {
         SimulationResponse response = simulationService.simulateInvestment(testRequest);
 
         assertNotNull(response);
-        assertNotNull(response.getSelectedProduct());
-        assertEquals("CDB Test", response.getSelectedProduct().getNome());
+        assertNotNull(response.getProdutoValidado());
+        assertEquals("CDB Test", response.getProdutoValidado().getNome());
         assertEquals(new BigDecimal("11200.00"), response.getResultadoSimulacao().getValorFinal());
         verify(simulationRepository, times(1)).save(any());
     }
