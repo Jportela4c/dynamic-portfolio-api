@@ -2,6 +2,7 @@ package com.portfolio.api.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springframework.stereotype.Component;
@@ -59,6 +60,23 @@ public class OAuth2EndpointsCustomizer implements GlobalOpenApiCustomizer {
                         p.setDescription("Basic Auth header com credenciais do cliente (Base64: clientId:clientSecret)");
                         p.setExample("Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA==");
                     });
+            }
+
+            // Add default/example values to request body parameters
+            if (operation.getRequestBody() != null
+                && operation.getRequestBody().getContent() != null
+                && operation.getRequestBody().getContent().get("application/x-www-form-urlencoded") != null
+                && operation.getRequestBody().getContent().get("application/x-www-form-urlencoded").getSchema() != null) {
+
+                Schema<?> schema = operation.getRequestBody().getContent().get("application/x-www-form-urlencoded").getSchema();
+                if (schema.getProperties() != null) {
+                    if (schema.getProperties().containsKey("grant_type")) {
+                        schema.getProperties().get("grant_type").setDefault("client_credentials");
+                    }
+                    if (schema.getProperties().containsKey("scope")) {
+                        schema.getProperties().get("scope").setDefault("read write");
+                    }
+                }
             }
 
             // Enhance responses
