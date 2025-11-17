@@ -32,12 +32,7 @@ public class SimulationRequest {
     @Min(value = 1, message = "Prazo deve ser no mínimo 1 mês")
     private Integer prazoMeses;
 
-    @Schema(
-        description = "Tipo de produto financeiro",
-        example = "CDB",
-        required = true,
-        allowableValues = {"CDB", "LCI", "LCA", "TESOURO_DIRETO", "FUNDO_RENDA_FIXA", "FUNDO_MULTIMERCADO", "FUNDO_ACOES", "FII"}
-    )
+    @Schema(description = "Tipo de produto financeiro", example = "CDB", required = true)
     @NotNull(message = "Tipo de produto é obrigatório")
     private TipoProduto tipoProduto;
 }
