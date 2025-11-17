@@ -262,6 +262,11 @@ A classificação considera:
 ### Monitoramento
 - `GET /telemetria` - Métricas de telemetria do serviço
 - `GET /actuator/health` - Verificação de saúde da API
+- `GET /actuator/prometheus` - Métricas em formato Prometheus
+
+### Observabilidade
+- **Prometheus:** http://localhost:9090 - Coleta de métricas
+- **Grafana:** http://localhost:3000 - Dashboards e visualizações (admin/admin)
 
 **Documentação completa:** http://localhost:8080/api/v1/swagger-ui.html
 
@@ -411,7 +416,7 @@ java -jar target/dynamic-portfolio-api-1.0.0.jar
 
 ## Arquitetura Docker
 
-O Docker Compose orquestra 4 containers:
+O Docker Compose orquestra 6 containers:
 
 ```
 ┌─────────────────┐
@@ -431,6 +436,16 @@ O Docker Compose orquestra 4 containers:
          ▼
 ┌─────────────────┐
 │      API        │ ◄── Inicia após as migrações completarem
+└────────┬────────┘     Expõe métricas em /actuator/prometheus
+         │
+         ▼
+┌─────────────────┐
+│   Prometheus    │ ◄── Coleta métricas da API a cada 15s
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│    Grafana      │ ◄── Visualiza métricas do Prometheus
 └─────────────────┘
 ```
 
@@ -439,6 +454,8 @@ O Docker Compose orquestra 4 containers:
 - `sqlserver-init` - Inicialização do banco (temporário)
 - `flyway` - Executor de migrações (temporário)
 - `portfolio-api` - Aplicação Spring Boot (persistente)
+- `portfolio-prometheus` - Coleta de métricas (persistente)
+- `portfolio-grafana` - Dashboards e visualizações (persistente)
 
 ---
 
