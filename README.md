@@ -48,8 +48,11 @@ Este comando funciona em:
 
 Este script automaticamente:
 1. Instala Task (se necessário)
-2. Verifica Docker
-3. Inicia todos os serviços
+2. Verifica Docker e Docker Compose
+3. Compila a aplicação (Maven build dentro do Docker)
+4. Inicia todos os serviços (SQL Server, Flyway, API)
+5. Aguarda até tudo estar pronto (healthcheck)
+6. Detecta porta disponível (se 8080 estiver ocupada)
 
 ---
 
@@ -60,17 +63,19 @@ Este script automaticamente:
 Você só precisa ter Docker instalado. Execute um único comando:
 
 ```bash
-docker compose up -d
+docker compose up -d --wait
 ```
 
 Pronto! A API estará rodando em `http://localhost:8080`
 
 **O que acontece automaticamente:**
-1. SQL Server é iniciado
-2. Banco de dados `portfoliodb` é criado
-3. Todas as tabelas são criadas (migrations)
-4. Dados de exemplo são inseridos
-5. API inicia e fica disponível
+1. Aplicação é compilada (Maven build dentro do Docker)
+2. SQL Server é iniciado e fica pronto
+3. Banco de dados `portfoliodb` é criado
+4. Todas as tabelas são criadas (migrations Flyway)
+5. Dados de exemplo são inseridos
+6. API inicia e aguarda ficar saudável (healthcheck)
+7. Pronto para uso!
 
 Para parar tudo:
 ```bash
