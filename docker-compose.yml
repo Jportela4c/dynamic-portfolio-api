@@ -90,23 +90,6 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
-  grafana:
-    image: grafana/grafana:11.3.0
-    container_name: portfolio-grafana
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
-    volumes:
-      - grafana-data:/var/lib/grafana
-      - ./monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-    depends_on:
-      - prometheus
-    restart: unless-stopped
-
 volumes:
   sqlserver-data:
   prometheus-data:
-  grafana-data:
