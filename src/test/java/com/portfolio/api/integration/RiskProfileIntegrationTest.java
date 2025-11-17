@@ -1,5 +1,8 @@
 package com.portfolio.api.integration;
 
+import com.portfolio.api.model.entity.Investment;
+import com.portfolio.api.model.enums.TipoProduto;
+import com.portfolio.api.repository.InvestmentRepository;
 import com.portfolio.api.security.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,11 +34,41 @@ class RiskProfileIntegrationTest {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @Autowired
+    private InvestmentRepository investmentRepository;
+
     private String token;
 
     @BeforeEach
     void setUp() {
         token = jwtTokenProvider.generateToken("testuser");
+
+        // Create test investment data for client 123
+        Investment inv1 = new Investment();
+        inv1.setClienteId(123L);
+        inv1.setValor(new BigDecimal("10000.00"));
+        inv1.setTipo(TipoProduto.CDB);
+        inv1.setRentabilidade(new BigDecimal("0.12"));
+        inv1.setData(LocalDate.now());
+        investmentRepository.save(inv1);
+
+        // Create test investment data for client 100
+        Investment inv2 = new Investment();
+        inv2.setClienteId(100L);
+        inv2.setValor(new BigDecimal("5000.00"));
+        inv2.setTipo(TipoProduto.LCI);
+        inv2.setRentabilidade(new BigDecimal("0.10"));
+        inv2.setData(LocalDate.now());
+        investmentRepository.save(inv2);
+
+        // Create test investment data for client 200
+        Investment inv3 = new Investment();
+        inv3.setClienteId(200L);
+        inv3.setValor(new BigDecimal("50000.00"));
+        inv3.setTipo(TipoProduto.FUNDO_MULTIMERCADO);
+        inv3.setRentabilidade(new BigDecimal("0.18"));
+        inv3.setData(LocalDate.now());
+        investmentRepository.save(inv3);
     }
 
     @Test
@@ -102,5 +138,45 @@ class RiskProfileIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.clienteId").value(200))
                 .andExpect(jsonPath("$.perfil").exists());
+    }
+
+    @Test
+    void shouldReturn404ForNonExistentClient() throws Exception {
+        // CRITICAL: Non-existent clients should return 404, not a fake profile
+        mockMvc.perform(get("/perfil-risco/999999999")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturn400ForNegativeClientId() throws Exception {
+        mockMvc.perform(get("/perfil-risco/-1")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturn400ForZeroClientId() throws Exception {
+        mockMvc.perform(get("/perfil-risco/0")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnEmptyListForInvalidProfile() throws Exception {
+        mockMvc.perform(get("/produtos-recomendados/InvalidProfile")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isEmpty());
+    }
+
+    @Test
+    void shouldReturnEmptyListForEmptyProfile() throws Exception {
+        mockMvc.perform(get("/produtos-recomendados/ ")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isEmpty());
     }
 }
