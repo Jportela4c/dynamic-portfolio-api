@@ -1038,7 +1038,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clienteId\": 1,\n  \"valor\": 1000000,\n  \"prazoMeses\": 24,\n  \"tipoProduto\": \"FUNDO_ACOES\"\n}"
+              "raw": "{\n  \"clienteId\": 1,\n  \"valor\": 1000000,\n  \"prazoMeses\": 24,\n  \"tipoProduto\": \"FundoAcoes\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/simular-investimento",
