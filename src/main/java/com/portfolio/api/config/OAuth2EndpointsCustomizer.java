@@ -55,10 +55,9 @@ public class OAuth2EndpointsCustomizer implements GlobalOpenApiCustomizer {
                 operation.getParameters().stream()
                     .filter(p -> "Authorization".equals(p.getName()))
                     .findFirst()
-                    .ifPresent(p -> {
-                        p.setDescription("Basic Auth header com credenciais do cliente (Base64: clientId:clientSecret)");
-                        p.setExample("Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA==");
-                    });
+                    .ifPresent(p ->
+                        p.setDescription("Basic Auth header com credenciais do cliente (Base64: clientId:clientSecret)")
+                    );
             }
 
             // Enhance responses
