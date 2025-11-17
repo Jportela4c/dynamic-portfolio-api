@@ -12,9 +12,9 @@ Sistema de simulação de investimentos para produtos financeiros brasileiros in
 ./run.cmd
 ```
 
-Pronto! A API estará rodando em `http://localhost:8080`
+Pronto! A API estará rodando em `http://localhost:8080/api/v1/api/v1`
 
-**Testar no navegador:** http://localhost:8080/swagger-ui.html
+**Testar no navegador:** http://localhost:8080/api/v1/api/v1/swagger-ui.html
 
 ---
 
@@ -112,7 +112,7 @@ task help          # Ver todos os comandos disponíveis
 **Swagger não precisa de autenticação!** Você pode testar tudo direto pelo navegador.
 
 1. Certifique-se que a aplicação está rodando
-2. Abra no navegador: http://localhost:8080/swagger-ui.html
+2. Abra no navegador: http://localhost:8080/api/v1/swagger-ui.html
 3. Pronto! Você pode testar todos os endpoints visualmente
 
 **Como autenticar no Swagger para testar endpoints protegidos:**
@@ -145,7 +145,7 @@ task help          # Ver todos os comandos disponíveis
 **Passo 1: Pegar um token de autenticação**
 
 ```bash
-curl -X POST http://localhost:8080/auth/login -H "Content-Type: application/json" -d "{\"username\":\"demo\"}"
+curl -X POST http://localhost:8080/api/v1/auth/login -H "Content-Type: application/json" -d "{\"username\":\"demo\"}"
 ```
 
 **Resposta:**
@@ -167,7 +167,7 @@ Copie o valor do `token`.
 Substitua `SEU_TOKEN_AQUI` pelo token que você copiou:
 
 ```bash
-curl -X GET http://localhost:8080/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X GET http://localhost:8080/api/v1/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 ---
@@ -176,32 +176,32 @@ curl -X GET http://localhost:8080/perfil-risco/123 -H "Authorization: Bearer SEU
 
 **Simular um investimento:**
 ```bash
-curl -X POST http://localhost:8080/simular-investimento -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN_AQUI" -d "{\"clienteId\":123,\"valor\":10000.00,\"prazoMeses\":12,\"tipoProduto\":\"CDB\"}"
+curl -X POST http://localhost:8080/api/v1/simular-investimento -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN_AQUI" -d "{\"clienteId\":123,\"valor\":10000.00,\"prazoMeses\":12,\"tipoProduto\":\"CDB\"}"
 ```
 
 **Consultar perfil de risco de um cliente:**
 ```bash
-curl -X GET http://localhost:8080/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X GET http://localhost:8080/api/v1/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 **Ver produtos recomendados por perfil:**
 ```bash
-curl -X GET http://localhost:8080/produtos-recomendados/Moderado -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X GET http://localhost:8080/api/v1/produtos-recomendados/Moderado -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 **Ver histórico de investimentos:**
 ```bash
-curl -X GET http://localhost:8080/investimentos/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X GET http://localhost:8080/api/v1/investimentos/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 **Ver todas as simulações:**
 ```bash
-curl -X GET http://localhost:8080/simulacoes -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X GET http://localhost:8080/api/v1/simulacoes -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 **Verificar se a API está funcionando (sem autenticação):**
 ```bash
-curl http://localhost:8080/actuator/health
+curl http://localhost:8080/api/v1/actuator/health
 ```
 
 ---
@@ -263,7 +263,7 @@ A classificação considera:
 - `GET /telemetria` - Métricas de telemetria do serviço
 - `GET /actuator/health` - Verificação de saúde da API
 
-**Documentação completa:** http://localhost:8080/swagger-ui.html
+**Documentação completa:** http://localhost:8080/api/v1/swagger-ui.html
 
 ---
 

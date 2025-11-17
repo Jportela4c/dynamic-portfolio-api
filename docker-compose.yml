@@ -70,7 +70,7 @@ services:
       - DB_PASSWORD=YourStrong@Passw0rd
       - JWT_SECRET=YW5vdGhlci1zZWNyZXQta2V5LWZvci1wb3J0Zm9saW8tYXBpLWRlZmF1bHQtY2hhbmdlLWluLXByb2R1Y3Rpb24=
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/api/v1/actuator/health"]
       interval: 2s
       timeout: 3s
       retries: 40
