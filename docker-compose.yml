@@ -18,10 +18,10 @@ services:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
       test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -Q "SELECT 1" -C || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
+      interval: 2s
+      timeout: 2s
+      retries: 20
+      start_period: 5s
 
   sqlserver-init:
     image: mcr.microsoft.com/mssql-tools
@@ -71,10 +71,10 @@ services:
       - JWT_SECRET=YW5vdGhlci1zZWNyZXQta2V5LWZvci1wb3J0Zm9saW8tYXBpLWRlZmF1bHQtY2hhbmdlLWluLXByb2R1Y3Rpb24=
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
-      interval: 5s
-      timeout: 3s
-      retries: 12
-      start_period: 10s
+      interval: 2s
+      timeout: 2s
+      retries: 30
+      start_period: 5s
 
 volumes:
   sqlserver-data:

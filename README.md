@@ -21,13 +21,13 @@ Pronto! A API estará rodando em `http://localhost:8080`
 ## Índice
 
 - [Início Rápido](#-início-rápido-um-único-comando)
-- [Como Rodar a Aplicação](#como-rodar-a-aplicação)
 - [Como Testar a API](#como-testar-a-api)
+- [Como Rodar a Aplicação](#como-rodar-a-aplicação)
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Desenvolvimento Local](#desenvolvimento-local)
 - [Endpoints da API](#endpoints-da-api)
 - [Banco de Dados](#banco-de-dados)
+- [Desenvolvimento Local](#desenvolvimento-local)
 - [Testes](#testes)
 - [Solução de Problemas](#solução-de-problemas)
 
