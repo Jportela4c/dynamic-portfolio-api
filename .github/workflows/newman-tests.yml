@@ -59,8 +59,7 @@ jobs:
             --reporter-json-export reports/newman-results.json \
             --reporter-htmlextra-export reports/newman-report.html \
             --reporter-htmlextra-title "Newman API Tests - CI Pipeline" \
-            --reporter-htmlextra-darkTheme \
-            --bail
+            --reporter-htmlextra-darkTheme
 
       - name: Upload Newman HTML report
         if: always()
