@@ -28,10 +28,7 @@ services:
     platform: linux/amd64
     restart: "no"
     command: >
-      bash -c "
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P YourStrong@Passw0rd -Q
-      'IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'"'"'portfoliodb'"'"') CREATE DATABASE portfoliodb'
-      "
+      bash -c "/opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P 'YourStrong@Passw0rd' -Q \"IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'portfoliodb') CREATE DATABASE portfoliodb\""
     depends_on:
       sqlserver:
         condition: service_healthy
