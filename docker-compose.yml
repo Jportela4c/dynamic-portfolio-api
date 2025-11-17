@@ -1,3 +1,8 @@
+x-platform-notice: &platform-notice
+  # SQL Server, mssql-tools, and Flyway only support AMD64
+  # On ARM Macs, Docker will use emulation (Rosetta)
+  # This is expected and does not affect functionality
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
