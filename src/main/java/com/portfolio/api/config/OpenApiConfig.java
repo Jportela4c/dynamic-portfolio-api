@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
 
             3. **Body (form-urlencoded):**
                - `grant_type`: `client_credentials`
-               - `scope`: `read` ou `write` ou `read write`
+               - `scope`: `read write`
 
             4. **Resposta:** Copie o `access_token` retornado
 
