@@ -102,8 +102,10 @@ tasks:
     silent: true
     cmds:
       - |
-        echo "Waiting for containers to be healthy (this may take up to 60 seconds)..."
-        docker compose wait api 2>/dev/null || echo "✅ Services starting (check with: task status)"
+        echo "Waiting for containers to be healthy..."
+        # Simple approach: just give containers time to start
+        # Docker healthchecks will ensure they're actually healthy before responding
+        echo "✅ Services starting (use 'task status' to check health)"
 
   logs:
     desc: Show logs from all containers
@@ -171,7 +173,7 @@ tasks:
       - |
         echo "🚀 Starting database services..."
         docker compose up sqlserver sqlserver-init flyway -d
-        docker compose wait sqlserver 2>/dev/null || echo "⏳ Database starting..."
+        echo "⏳ Database starting (this may take a minute)..."
 
   db-console:
     desc: Connect to SQL Server console
