@@ -4,7 +4,7 @@ import com.portfolio.api.model.enums.TipoProduto;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-@Converter(autoApply = false)
+@Converter(autoApply = true)
 public class TipoProdutoConverter implements AttributeConverter<TipoProduto, String> {
 
     @Override
@@ -12,15 +12,9 @@ public class TipoProdutoConverter implements AttributeConverter<TipoProduto, Str
         if (tipoProduto == null) {
             return null;
         }
-        
-        // Convert enum to database format
-        return switch (tipoProduto) {
-            case CDB -> "CDB";
-            case LCI -> "LCI";
-            case LCA -> "LCA";
-            case TESOURO_DIRETO -> "Tesouro Direto";
-            case FUNDO -> "Fundo";
-        };
+
+        // Use the descricao field which matches database values
+        return tipoProduto.getDescricao();
     }
 
     @Override
