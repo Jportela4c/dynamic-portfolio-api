@@ -1,12 +1,10 @@
 package com.portfolio.api.model.enums;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "Tipo de produto financeiro disponível")
-@JsonSerialize(using = TipoProdutoSerializer.class)
-@JsonDeserialize(using = TipoProdutoDeserializer.class)
 public enum TipoProduto {
 
     @Schema(description = "Certificado de Depósito Bancário")
@@ -33,6 +31,7 @@ public enum TipoProduto {
     @Schema(description = "Fundo de Investimento Imobiliário")
     FII;
 
+    @JsonValue
     public String getDisplayName() {
         return switch (this) {
             case CDB -> "CDB";
@@ -44,5 +43,24 @@ public enum TipoProduto {
             case FUNDO_ACOES -> "Fundo Ações";
             case FII -> "FII";
         };
+    }
+
+    @JsonCreator
+    public static TipoProduto fromString(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        String normalized = value.trim().toUpperCase().replace(" ", "_");
+
+        try {
+            return TipoProduto.valueOf(normalized);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                "Invalid product type: " + value +
+                ". Valid values: CDB, LCI, LCA, Tesouro Direto, " +
+                "Fundo Renda Fixa, Fundo Multimercado, Fundo Ações, FII"
+            );
+        }
     }
 }
