@@ -115,16 +115,25 @@ if %errorlevel% equ 0 (
 
 echo [INFO] Installing Task...
 
+REM Try Chocolatey first
 where choco >nul 2>&1
 if %errorlevel% equ 0 (
     echo [INFO] Installing via Chocolatey...
     choco install go-task -y >nul 2>&1
     if %errorlevel% equ 0 (
-        echo [OK] Task installed
-        goto :complete
-    ) else (
-        echo [WARNING] Chocolatey installation failed, trying alternative...
+        echo [OK] Task installed via Chocolatey
+        goto :verify_task
     )
+)
+
+REM Try direct download
+echo [INFO] Downloading Task directly...
+if not exist "%USERPROFILE%\bin" mkdir "%USERPROFILE%\bin"
+powershell -Command "Invoke-WebRequest -Uri 'https://github.com/go-task/task/releases/latest/download/task_windows_amd64.zip' -OutFile '%TEMP%\task.zip'; Expand-Archive -Path '%TEMP%\task.zip' -DestinationPath '%USERPROFILE%\bin' -Force; Remove-Item '%TEMP%\task.zip'" >nul 2>&1
+if %errorlevel% equ 0 (
+    set "PATH=%USERPROFILE%\bin;%PATH%"
+    echo [OK] Task installed to %USERPROFILE%\bin
+    goto :verify_task
 )
 
 echo.
@@ -143,6 +152,15 @@ echo   https://github.com/go-task/task/releases
 echo.
 pause
 exit /b 1
+
+:verify_task
+where task >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [ERROR] Task installed but not found in PATH
+    echo [INFO] Please restart your terminal or add %USERPROFILE%\bin to PATH
+    pause
+    exit /b 1
+)
 
 :complete
 echo.
