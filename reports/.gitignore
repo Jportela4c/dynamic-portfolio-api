@@ -1,0 +1,7 @@
+# Newman test reports (generated artifacts)
+*.html
+*.json
+*.xml
+
+# Keep directory structure
+!.gitignore

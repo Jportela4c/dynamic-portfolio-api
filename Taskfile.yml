@@ -191,6 +191,133 @@ tasks:
           rm -rf target/
         fi
 
+  newman:local:
+    desc: Run Newman API tests against local Docker with fresh data
+    deps:
+      - check-newman
+    cmds:
+      - echo "🧪 Setting up test environment..."
+      - task: ensure-newman-env-ready
+      - echo "📊 Running Newman tests against local Docker..."
+      - |
+        newman run postman/Dynamic-Portfolio-API.postman_collection.json \
+          -e postman/environments/local-docker.postman_environment.json \
+          --reporters cli,htmlextra \
+          --reporter-htmlextra-export reports/newman-local-report.html \
+          --color on \
+          || (echo "❌ Newman tests failed! Check reports/newman-local-report.html" && exit 1)
+      - echo "✅ All Newman tests passed! Report: reports/newman-local-report.html"
+
+  newman:test:
+    desc: Run Newman API tests against test environment (port 8081)
+    deps:
+      - check-newman
+    cmds:
+      - echo "🧪 Running Newman tests against test environment..."
+      - |
+        newman run postman/Dynamic-Portfolio-API.postman_collection.json \
+          -e postman/environments/test.postman_environment.json \
+          --reporters cli,htmlextra \
+          --reporter-htmlextra-export reports/newman-test-report.html \
+          --color on \
+          || (echo "❌ Newman tests failed! Check reports/newman-test-report.html" && exit 1)
+      - echo "✅ All Newman tests passed! Report: reports/newman-test-report.html"
+
+  newman:ci:
+    desc: Run Newman tests in CI/CD mode (fail fast, minimal output)
+    deps:
+      - check-newman
+    cmds:
+      - echo "🤖 Running Newman tests in CI/CD mode..."
+      - |
+        newman run postman/Dynamic-Portfolio-API.postman_collection.json \
+          -e postman/environments/ci.postman_environment.json \
+          --bail \
+          --reporters cli,json \
+          --reporter-json-export reports/newman-ci-results.json \
+          --color off \
+          || (echo "❌ Newman tests failed!" && exit 1)
+      - echo "✅ CI tests passed!"
+
+  newman:fresh:
+    desc: Run Newman tests with completely fresh database (teardown + setup + test)
+    deps:
+      - check-newman
+    cmds:
+      - echo "🧹 Cleaning up existing containers and data..."
+      - task: docker-clean
+      - echo "🚀 Starting fresh Docker environment..."
+      - task: docker-up
+      - echo "⏳ Waiting for services to be ready..."
+      - sleep 10
+      - echo "📊 Seeding test data..."
+      - task: seed-test-data
+      - echo "🧪 Running Newman tests..."
+      - task: newman:local
+      - echo "✅ Fresh environment tests completed!"
+
+  newman:report:
+    desc: Generate comprehensive Newman HTML report
+    deps:
+      - check-newman
+    cmds:
+      - mkdir -p reports
+      - |
+        newman run postman/Dynamic-Portfolio-API.postman_collection.json \
+          -e postman/environments/local-docker.postman_environment.json \
+          --reporters htmlextra \
+          --reporter-htmlextra-export reports/newman-detailed-report.html \
+          --reporter-htmlextra-showOnlyFails \
+          --reporter-htmlextra-darkTheme \
+          --reporter-htmlextra-title "Dynamic Portfolio API - Contract Tests" \
+          --color on
+      - echo "📊 Detailed report generated: reports/newman-detailed-report.html"
+      - |
+        if command -v open >/dev/null 2>&1; then
+          open reports/newman-detailed-report.html
+        elif command -v xdg-open >/dev/null 2>&1; then
+          xdg-open reports/newman-detailed-report.html
+        else
+          echo "💡 Open reports/newman-detailed-report.html in your browser"
+        fi
+
+  seed-test-data:
+    desc: Seed database with test data for Newman tests
+    silent: true
+    cmds:
+      - |
+        echo "📊 Loading test data into database..."
+        docker compose exec -T sqlserver /opt/mssql-tools18/bin/sqlcmd \
+          -S localhost -U sa -P YourStrong@Passw0rd -C \
+          -i /scripts/setup-test-data.sql \
+          || echo "⚠️  Test data seeding may have failed - check if database is ready"
+
+  ensure-newman-env-ready:
+    desc: Ensure Docker environment is ready for Newman tests
+    internal: true
+    cmds:
+      - |
+        if ! docker compose ps | grep -q "api.*running"; then
+          echo "⚠️  API container not running, starting services..."
+          task docker-up
+          echo "⏳ Waiting for API to be ready..."
+          sleep 10
+        fi
+      - task: seed-test-data
+
+  check-newman:
+    desc: Check if Newman is installed
+    internal: true
+    silent: true
+    cmds:
+      - |
+        if ! command -v newman >/dev/null 2>&1; then
+          echo "❌ Newman is not installed"
+          echo "📥 Install via: npm install -g newman newman-reporter-htmlextra"
+          exit 1
+        fi
+        echo "✅ Newman found: $(newman --version)"
+
   help:
     desc: Show detailed help information
     cmds:
@@ -205,8 +332,15 @@ tasks:
       - echo ""
       - echo "📋 Development:"
       - echo "   task dev            - Run locally (needs DB)"
-      - echo "   task test           - Run tests"
+      - echo "   task test           - Run unit tests"
       - echo "   task build          - Build JAR"
+      - echo ""
+      - echo "🧪 API Testing (Newman):"
+      - echo "   task newman:local   - Run API tests (local Docker)"
+      - echo "   task newman:fresh   - Run with fresh database"
+      - echo "   task newman:test    - Run against test env"
+      - echo "   task newman:ci      - Run in CI/CD mode"
+      - echo "   task newman:report  - Generate detailed report"
       - echo ""
       - echo "🔍 Monitoring:"
       - echo "   task status         - Container status"

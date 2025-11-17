@@ -1,0 +1,940 @@
+{
+	"info": {
+		"_postman_id": "dynamic-portfolio-api-v1",
+		"name": "Dynamic Portfolio API",
+		"description": "Investment simulation system for Brazilian financial products. Tests all endpoints from the challenge specification.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwtToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "01 - Authentication",
+			"item": [
+				{
+					"name": "Login - Valid Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has JWT token\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('token');",
+									"    pm.expect(json.token).to.be.a('string');",
+									"    pm.expect(json.token.length).to.be.greaterThan(20);",
+									"});",
+									"",
+									"pm.test(\"Response has username\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('username');",
+									"    pm.expect(json.username).to.equal(pm.environment.get('username'));",
+									"});",
+									"",
+									"// Save token for subsequent requests",
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    pm.environment.set('jwtToken', json.token);",
+									"    console.log('JWT token saved to environment');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - Invalid Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Response has error message\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('message');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"wronguser\",\n  \"password\": \"wrongpassword\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access Protected Endpoint - Without Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 or 403\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02 - Investment Simulation",
+			"item": [
+				{
+					"name": "Simulate CDB Investment - Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response matches specification schema\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('produtoValidado');",
+									"    pm.expect(json).to.have.property('resultadoSimulacao');",
+									"});",
+									"",
+									"pm.test(\"Product details are valid\", () => {",
+									"    const produto = pm.response.json().produtoValidado;",
+									"    pm.expect(produto).to.have.property('id');",
+									"    pm.expect(produto).to.have.property('nome');",
+									"    pm.expect(produto).to.have.property('tipo');",
+									"    pm.expect(produto).to.have.property('rentabilidade');",
+									"    pm.expect(produto).to.have.property('risco');",
+									"    pm.expect(produto.tipo).to.equal('CDB');",
+									"});",
+									"",
+									"pm.test(\"Simulation result has required fields\", () => {",
+									"    const resultado = pm.response.json().resultadoSimulacao;",
+									"    pm.expect(resultado).to.have.property('valorInicial');",
+									"    pm.expect(resultado).to.have.property('valorFinal');",
+									"    pm.expect(resultado).to.have.property('lucro');",
+									"    pm.expect(resultado).to.have.property('rentabilidadePercentual');",
+									"});",
+									"",
+									"pm.test(\"Calculation is correct\", () => {",
+									"    const resultado = pm.response.json().resultadoSimulacao;",
+									"    const valorInicial = parseFloat(resultado.valorInicial);",
+									"    const valorFinal = parseFloat(resultado.valorFinal);",
+									"    const lucro = parseFloat(resultado.lucro);",
+									"    ",
+									"    pm.expect(valorFinal).to.be.greaterThan(valorInicial);",
+									"    pm.expect(lucro).to.equal(valorFinal - valorInicial);",
+									"});",
+									"",
+									"// Save simulation ID for later tests",
+									"if (pm.response.code === 200) {",
+									"    const json = pm.response.json();",
+									"    if (json.id) {",
+									"        pm.environment.set('lastSimulationId', json.id);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Simulate LCI Investment - Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Product type is LCI\", () => {",
+									"    const produto = pm.response.json().produtoValidado;",
+									"    pm.expect(produto.tipo).to.equal('LCI');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 15000,\n  \"prazoMeses\": 18,\n  \"tipoProduto\": \"LCI\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Simulate - Invalid Value (Negative)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has validation errors\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('valor');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": -1000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Simulate - Invalid Term (Zero)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response has validation errors\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('prazoMeses');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 0,\n  \"tipoProduto\": \"CDB\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Simulate - Invalid Product Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 or 404\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400, 404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"INVALID_TYPE\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Simulations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Array contains simulation objects\", () => {",
+									"    const json = pm.response.json();",
+									"    if (json.length > 0) {",
+									"        const firstItem = json[0];",
+									"        pm.expect(firstItem).to.have.property('id');",
+									"        pm.expect(firstItem).to.have.property('clienteId');",
+									"        pm.expect(firstItem).to.have.property('valor');",
+									"        pm.expect(firstItem).to.have.property('prazoMeses');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/simulacoes",
+							"host": ["{{baseUrl}}"],
+							"path": ["simulacoes"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Daily Aggregations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Aggregation has required fields\", () => {",
+									"    const json = pm.response.json();",
+									"    if (json.length > 0) {",
+									"        const firstItem = json[0];",
+									"        pm.expect(firstItem).to.have.property('data');",
+									"        pm.expect(firstItem).to.have.property('produto');",
+									"        pm.expect(firstItem).to.have.property('quantidadeSimulacoes');",
+									"        pm.expect(firstItem).to.have.property('valorMedioFinal');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/simulacoes/por-produto-dia",
+							"host": ["{{baseUrl}}"],
+							"path": ["simulacoes", "por-produto-dia"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "03 - Risk Profile",
+			"item": [
+				{
+					"name": "Get Risk Profile - Conservative Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has profile information\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('clienteId');",
+									"    pm.expect(json).to.have.property('perfil');",
+									"    pm.expect(json).to.have.property('pontuacao');",
+									"});",
+									"",
+									"pm.test(\"Profile is valid\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json.perfil).to.be.oneOf(['Conservador', 'Moderado', 'Agressivo']);",
+									"});",
+									"",
+									"pm.test(\"Score is within valid range\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json.pontuacao).to.be.a('number');",
+									"    pm.expect(json.pontuacao).to.be.at.least(0);",
+									"    pm.expect(json.pontuacao).to.be.at.most(100);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/perfil-risco/{{clienteIdConservative}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["perfil-risco", "{{clienteIdConservative}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Risk Profile - Aggressive Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Profile classification exists\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.have.property('perfil');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/perfil-risco/{{clienteIdAggressive}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["perfil-risco", "{{clienteIdAggressive}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Risk Profile - Non-existent Client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 or 200 with default profile\", () => {",
+									"    const code = pm.response.code;",
+									"    pm.expect(code).to.be.oneOf([200, 404]);",
+									"    ",
+									"    if (code === 200) {",
+									"        const json = pm.response.json();",
+									"        pm.expect(json).to.have.property('perfil');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/perfil-risco/999999",
+							"host": ["{{baseUrl}}"],
+							"path": ["perfil-risco", "999999"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recommended Products - Conservative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Products match conservative profile\", () => {",
+									"    const json = pm.response.json();",
+									"    if (json.length > 0) {",
+									"        json.forEach(produto => {",
+									"            pm.expect(produto).to.have.property('id');",
+									"            pm.expect(produto).to.have.property('nome');",
+									"            pm.expect(produto).to.have.property('tipo');",
+									"            pm.expect(produto).to.have.property('risco');",
+									"            pm.expect(produto.risco).to.be.oneOf(['Baixo', 'Médio']);",
+									"        });",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/produtos-recomendados/Conservador",
+							"host": ["{{baseUrl}}"],
+							"path": ["produtos-recomendados", "Conservador"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recommended Products - Aggressive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/produtos-recomendados/Agressivo",
+							"host": ["{{baseUrl}}"],
+							"path": ["produtos-recomendados", "Agressivo"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Investment History",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is an array\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Investment history has required fields\", () => {",
+									"    const json = pm.response.json();",
+									"    if (json.length > 0) {",
+									"        const firstItem = json[0];",
+									"        pm.expect(firstItem).to.have.property('id');",
+									"        pm.expect(firstItem).to.have.property('clienteId');",
+									"        pm.expect(firstItem).to.have.property('produtoNome');",
+									"        pm.expect(firstItem).to.have.property('valor');",
+									"        pm.expect(firstItem).to.have.property('dataInvestimento');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/investimentos/{{clienteIdConservative}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["investimentos", "{{clienteIdConservative}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "04 - Telemetry",
+			"item": [
+				{
+					"name": "Get Telemetry Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has telemetry data\", () => {",
+									"    const json = pm.response.json();",
+									"    pm.expect(json).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"Telemetry records have required fields\", () => {",
+									"    const json = pm.response.json();",
+									"    if (json.length > 0) {",
+									"        const firstItem = json[0];",
+									"        pm.expect(firstItem).to.have.property('servico');",
+									"        pm.expect(firstItem).to.have.property('totalChamadas');",
+									"        pm.expect(firstItem).to.have.property('tempoMedioResposta');",
+									"    }",
+									"});",
+									"",
+									"pm.test(\"Response time is valid\", () => {",
+									"    const json = pm.response.json();",
+									"    if (json.length > 0) {",
+									"        json.forEach(record => {",
+									"            pm.expect(record.tempoMedioResposta).to.be.a('number');",
+									"            pm.expect(record.tempoMedioResposta).to.be.at.least(0);",
+									"        });",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/telemetria",
+							"host": ["{{baseUrl}}"],
+							"path": ["telemetria"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "05 - Edge Cases & Performance",
+			"item": [
+				{
+					"name": "Simulate - Boundary Value (Minimum)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 or 400\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 1000,\n  \"prazoMeses\": 1,\n  \"tipoProduto\": \"CDB\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Simulate - Large Value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Calculation handles large values correctly\", () => {",
+									"    const resultado = pm.response.json().resultadoSimulacao;",
+									"    const valorInicial = parseFloat(resultado.valorInicial);",
+									"    pm.expect(valorInicial).to.equal(1000000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 1000000,\n  \"prazoMeses\": 24,\n  \"tipoProduto\": \"FUNDO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Time Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is acceptable (< 1000ms)\", () => {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"pm.test(\"Response time is good (< 500ms)\", () => {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/simular-investimento",
+							"host": ["{{baseUrl}}"],
+							"path": ["simular-investimento"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global pre-request script - runs before each request",
+					"console.log('Running request: ' + pm.info.requestName);",
+					"console.log('Environment: ' + pm.environment.name);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test script - runs after each request",
+					"pm.test(\"Response time is reasonable (< 2000ms)\", () => {",
+					"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+					"});",
+					"",
+					"pm.test(\"Response has correct content type\", () => {",
+					"    if (pm.response.code !== 401 && pm.response.code !== 403) {",
+					"        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+					"    }",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "clienteIdConservative",
+			"value": "1",
+			"type": "default"
+		},
+		{
+			"key": "clienteIdModerate",
+			"value": "2",
+			"type": "default"
+		},
+		{
+			"key": "clienteIdAggressive",
+			"value": "3",
+			"type": "default"
+		}
+	]
+}
