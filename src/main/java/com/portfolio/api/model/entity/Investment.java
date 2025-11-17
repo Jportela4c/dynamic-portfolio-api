@@ -24,6 +24,7 @@ public class Investment {
     @Column(name = "cliente_id", nullable = false)
     private Long clienteId;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private TipoProduto tipo;
 

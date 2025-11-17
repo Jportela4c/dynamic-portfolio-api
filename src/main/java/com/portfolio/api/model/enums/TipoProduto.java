@@ -6,65 +6,39 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public enum TipoProduto {
 
     @Schema(description = "Certificado de Depósito Bancário")
-    CDB("CDB"),
+    CDB,
 
     @Schema(description = "Letra de Crédito Imobiliário (isento de IR)")
-    LCI("LCI"),
+    LCI,
 
     @Schema(description = "Letra de Crédito do Agronegócio (isento de IR)")
-    LCA("LCA"),
+    LCA,
 
     @Schema(description = "Títulos públicos do governo federal")
-    TESOURO_DIRETO("Tesouro Direto"),
+    TESOURO_DIRETO,
 
     @Schema(description = "Fundo de investimento em renda fixa")
-    FUNDO_RENDA_FIXA("Fundo Renda Fixa"),
+    FUNDO_RENDA_FIXA,
 
     @Schema(description = "Fundo de investimento multimercado")
-    FUNDO_MULTIMERCADO("Fundo Multimercado"),
+    FUNDO_MULTIMERCADO,
 
     @Schema(description = "Fundo de investimento em ações")
-    FUNDO_ACOES("Fundo Ações"),
+    FUNDO_ACOES,
 
     @Schema(description = "Fundo de Investimento Imobiliário")
-    FII("FII");
+    FII;
 
-    private final String descricao;
-
-    TipoProduto(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public static TipoProduto fromString(String tipo) {
-        if (tipo == null) {
-            return null;
-        }
-
-        // First try exact match with descricao
-        for (TipoProduto t : TipoProduto.values()) {
-            if (t.descricao.equalsIgnoreCase(tipo.trim())) {
-                return t;
-            }
-        }
-
-        // Then try normalized enum name match
-        String normalized = tipo.trim().toUpperCase()
-                .replace(" ", "_")
-                .replace("Ç", "C")
-                .replace("Õ", "O");
-
-        for (TipoProduto t : TipoProduto.values()) {
-            if (t.name().equals(normalized)) {
-                return t;
-            }
-        }
-
-        throw new IllegalArgumentException("Tipo de produto inválido: " + tipo +
-            ". Valores válidos: CDB, LCI, LCA, Tesouro Direto, Fundo Renda Fixa, " +
-            "Fundo Multimercado, Fundo Ações, FII");
+    public String getDisplayName() {
+        return switch (this) {
+            case CDB -> "CDB";
+            case LCI -> "LCI";
+            case LCA -> "LCA";
+            case TESOURO_DIRETO -> "Tesouro Direto";
+            case FUNDO_RENDA_FIXA -> "Fundo Renda Fixa";
+            case FUNDO_MULTIMERCADO -> "Fundo Multimercado";
+            case FUNDO_ACOES -> "Fundo Ações";
+            case FII -> "FII";
+        };
     }
 }

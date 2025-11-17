@@ -23,6 +23,7 @@ public class Product {
     @Column(nullable = false, length = 100)
     private String nome;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private TipoProduto tipo;
 
