@@ -23,8 +23,10 @@ tasks:
       - task: check-dependencies
       - task: install-tools
       - task: docker-up
-      - echo "✅ Setup complete! API is available at http://localhost:8080"
-      - echo "📖 Access API docs at http://localhost:8080/swagger-ui.html"
+      - |
+        PORT=${SERVER_PORT:-8080}
+        echo "✅ Setup complete! API is available at http://localhost:$PORT"
+        echo "📖 Access API docs at http://localhost:$PORT/swagger-ui.html"
 
   check-dependencies:
     desc: Check if required dependencies are installed

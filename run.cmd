@@ -92,12 +92,6 @@ fi
 # Run task run to start everything
 task run
 
-if [ $PORT -ne 8080 ]; then
-    echo ""
-    print_info "API is running on http://localhost:$PORT"
-    print_info "Swagger UI: http://localhost:$PORT/swagger-ui.html"
-fi
-
 exit 0
 
 # ============================================================================
@@ -124,10 +118,12 @@ echo [INFO] Installing Task...
 where choco >nul 2>&1
 if %errorlevel% equ 0 (
     echo [INFO] Installing via Chocolatey...
-    choco install go-task -y
+    choco install go-task -y >nul 2>&1
     if %errorlevel% equ 0 (
         echo [OK] Task installed
         goto :complete
+    ) else (
+        echo [WARNING] Chocolatey installation failed, trying alternative...
     )
 )
 
@@ -171,11 +167,5 @@ if not %PORT%==8080 (
 
 REM Run task run to start everything
 task run
-
-if not %PORT%==8080 (
-    echo.
-    echo [INFO] API is running on http://localhost:%PORT%
-    echo [INFO] Swagger UI: http://localhost:%PORT%/swagger-ui.html
-)
 
 pause
