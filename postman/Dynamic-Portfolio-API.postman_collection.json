@@ -808,7 +808,7 @@
                   "    const json = pm.response.json();",
                   "    if (json.length > 0) {",
                   "        json.forEach(produto => {",
-                  "            pm.expect(produto.risco).to.be.oneOf(['Baixo', 'Médio']);",
+                  "            pm.expect(produto.risco).to.be.oneOf(['Baixo', 'M\u00e9dio']);",
                   "        });",
                   "    }",
                   "});"
@@ -2061,6 +2061,279 @@
               }
             }
           ]
+        },
+        {
+          "name": "Simulation - Invalid Tipo Produto (Invalid Enum)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Response time is reasonable (< 2000ms)\", () => {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has correct content type\", () => {",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                  "});",
+                  "",
+                  "pm.test(\"Status code is 400 for invalid enum\", () => {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Error message mentions invalid value\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('Valor inv\u00e1lido');",
+                  "    pm.expect(json.message).to.include('tipoProduto');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwtToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 123,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"INVALID_TYPE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/simular-investimento",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "simular-investimento"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Simulation - Lowercase Tipo Produto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 400 for lowercase enum\", () => {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"Error message mentions invalid value\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('Valor inv\u00e1lido');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwtToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 123,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"cdb\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/simular-investimento",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "simular-investimento"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Risk Profile - Without Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/perfil-risco/123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "perfil-risco",
+                "123"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Products - Without Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/produtos-recomendados/Moderado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "produtos-recomendados",
+                "Moderado"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Investment History - Without Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/investimentos/123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "investimentos",
+                "123"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Simulations List - Without Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/simulacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "simulacoes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Telemetry - Without Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 401\", () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/telemetria",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "telemetria"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     }
