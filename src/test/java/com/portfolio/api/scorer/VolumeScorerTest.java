@@ -46,7 +46,7 @@ class VolumeScorerTest {
     @Test
     void shouldReturn50ForSingleClient() {
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllClientVolumes()).thenReturn(Collections.singletonList(new BigDecimal("10000")));
+        when(investmentRepository.getAllCustomerVolumes()).thenReturn(Collections.singletonList(new BigDecimal("10000")));
 
         int score = calculator.calculateVolumeScore(1L);
 
@@ -56,7 +56,7 @@ class VolumeScorerTest {
     @Test
     void shouldReturn50ForEmptyClientList() {
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllClientVolumes()).thenReturn(Collections.emptyList());
+        when(investmentRepository.getAllCustomerVolumes()).thenReturn(Collections.emptyList());
 
         int score = calculator.calculateVolumeScore(1L);
 
@@ -74,7 +74,7 @@ class VolumeScorerTest {
         );
 
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllClientVolumes()).thenReturn(allVolumes);
+        when(investmentRepository.getAllCustomerVolumes()).thenReturn(allVolumes);
 
         int score = calculator.calculateVolumeScore(1L);
 
@@ -92,7 +92,7 @@ class VolumeScorerTest {
         );
 
         when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("100000"));
-        when(investmentRepository.getAllClientVolumes()).thenReturn(allVolumes);
+        when(investmentRepository.getAllCustomerVolumes()).thenReturn(allVolumes);
 
         int score = calculator.calculateVolumeScore(1L);
 

@@ -37,16 +37,16 @@ INSERT INTO products (nome, tipo, rentabilidade, risco, valor_minimo, prazo_mini
 ('Fundo Multimercado', 'FUNDO', 0.18, 'Alto', 50000.00, 6, 60, 'Agressivo', 1),
 ('Fundo Ações', 'FUNDO', 0.22, 'Alto', 100000.00, 12, 60, 'Agressivo', 1);
 
--- Client investment history for risk profile calculation
+-- Customer investment history for risk profile calculation
 
--- Client 1: Conservative profile
+-- Customer 1: Conservative profile
 -- Low volume, low frequency, liquidity-focused
 INSERT INTO investment_history (cliente_id, produto_id, produto_nome, produto_tipo, valor, data_investimento, prazo_meses) VALUES
 (1, 1, 'CDB Banco Líder 120% CDI', 'CDB', 5000.00, DATEADD(month, -6, GETDATE()), 6),
 (1, 2, 'LCI Imobiliário', 'LCI', 8000.00, DATEADD(month, -4, GETDATE()), 12),
 (1, 3, 'LCA Agronegócio', 'LCA', 7000.00, DATEADD(month, -2, GETDATE()), 12);
 
--- Client 2: Moderate profile
+-- Customer 2: Moderate profile
 -- Medium volume, medium frequency, balanced
 INSERT INTO investment_history (cliente_id, produto_id, produto_nome, produto_tipo, valor, data_investimento, prazo_meses) VALUES
 (2, 1, 'CDB Banco Líder 120% CDI', 'CDB', 15000.00, DATEADD(month, -8, GETDATE()), 12),
@@ -55,7 +55,7 @@ INSERT INTO investment_history (cliente_id, produto_id, produto_nome, produto_ti
 (2, 2, 'LCI Imobiliário', 'LCI', 18000.00, DATEADD(month, -3, GETDATE()), 12),
 (2, 6, 'Fundo Multimercado', 'FUNDO', 30000.00, DATEADD(month, -2, GETDATE()), 24);
 
--- Client 3: Aggressive profile
+-- Customer 3: Aggressive profile
 -- High volume, high frequency, profitability-focused
 INSERT INTO investment_history (cliente_id, produto_id, produto_nome, produto_tipo, valor, data_investimento, prazo_meses) VALUES
 (3, 6, 'Fundo Multimercado', 'FUNDO', 80000.00, DATEADD(month, -10, GETDATE()), 36),
@@ -106,7 +106,7 @@ PRINT '- 15 investment records (3 clients with different profiles)';
 PRINT '- 4 sample simulations';
 PRINT '- 9 telemetry records';
 PRINT '';
-PRINT 'Client profiles:';
-PRINT '  Client 1: Conservative (low volume, low frequency)';
-PRINT '  Client 2: Moderate (medium volume, balanced)';
-PRINT '  Client 3: Aggressive (high volume, high frequency)';
+PRINT 'Customer profiles:';
+PRINT '  Customer 1: Conservative (low volume, low frequency)';
+PRINT '  Customer 2: Moderate (medium volume, balanced)';
+PRINT '  Customer 3: Aggressive (high volume, high frequency)';

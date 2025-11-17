@@ -38,22 +38,22 @@
 
 ---
 
-#### 2. Risk Profile - No client validation ⚠️ **MEDIUM PRIORITY**
+#### 2. Risk Profile - No customer validation ⚠️ **MEDIUM PRIORITY**
 **Issue**: `GET /perfil-risco/{clienteId}` returns 200 OK for non-existent clients
 **SPEC Requirement**: OpenAPI docs state should return 404 for non-existent clients
 **Current Behavior**: Returns 200 with "Conservador" profile (score 0) for ANY clienteId
 **Impact**: Data integrity issue - can't distinguish between existing conservative clients and non-existent clients
 
-**Root Cause**: `RiskProfileService.calculateRiskProfile()` doesn't validate if client exists - when no investment history found, all scorers return 0, defaulting to "Conservador"
+**Root Cause**: `RiskProfileService.calculateRiskProfile()` doesn't validate if customer exists - when no investment history found, all scorers return 0, defaulting to "Conservador"
 
 **Fix Required**:
-- Check if client has ANY investment history before calculating profile
+- Check if customer has ANY investment history before calculating profile
 - Throw custom exception (e.g., `ClientNotFoundException`) if no history exists
 - Return 404 Not Found in controller exception handler
 
 **Example**:
 ```bash
-# Non-existent client returns 200 with profile
+# Non-existent customer returns 200 with profile
 curl -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/v1/perfil-risco/99999
 # Returns: {"clienteId":99999,"perfil":"Conservador","pontuacao":28,"descricao":"..."}
 # Should return: 404 Not Found

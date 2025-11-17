@@ -44,7 +44,7 @@ public class RiskProfileController {
     @GetMapping("/perfil-risco/{clienteId}")
     public ResponseEntity<RiskProfileResponse> getRiskProfile(
         @Parameter(description = "ID do cliente", example = "123", required = true)
-        @Positive(message = "Invalid client ID")
+        @Positive(message = "Invalid customer ID")
         @PathVariable Long clienteId) {
         long startTime = System.currentTimeMillis();
 

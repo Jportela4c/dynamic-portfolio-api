@@ -116,19 +116,19 @@ class InvestmentRepositoryTest {
         investmentRepository.save(inv3);
         investmentRepository.save(inv4);
 
-        List<BigDecimal> volumes = investmentRepository.getAllClientVolumes();
+        List<BigDecimal> volumes = investmentRepository.getAllCustomerVolumes();
 
         assertThat(volumes).hasSize(3);
         assertThat(volumes).contains(
-                new BigDecimal("30000.00"),  // Client 123
-                new BigDecimal("15000.00"),  // Client 456
-                new BigDecimal("5000.00")    // Client 789
+                new BigDecimal("30000.00"),  // Customer 123
+                new BigDecimal("15000.00"),  // Customer 456
+                new BigDecimal("5000.00")    // Customer 789
         );
     }
 
     @Test
     void shouldReturnEmptyListWhenNoInvestmentsForVolumes() {
-        List<BigDecimal> volumes = investmentRepository.getAllClientVolumes();
+        List<BigDecimal> volumes = investmentRepository.getAllCustomerVolumes();
 
         assertThat(volumes).isEmpty();
     }

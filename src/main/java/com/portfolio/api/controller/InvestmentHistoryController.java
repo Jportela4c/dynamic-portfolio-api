@@ -46,7 +46,7 @@ public class InvestmentHistoryController {
     @GetMapping("/investimentos/{clienteId}")
     public ResponseEntity<List<InvestmentResponse>> getInvestmentHistory(
         @Parameter(description = "ID do cliente", example = "123", required = true)
-        @Positive(message = "Invalid client ID")
+        @Positive(message = "Invalid customer ID")
         @PathVariable Long clienteId) {
         long startTime = System.currentTimeMillis();
 

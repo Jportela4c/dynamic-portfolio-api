@@ -532,7 +532,7 @@
       "name": "03 - Risk Profile",
       "item": [
         {
-          "name": "Get Risk Profile - Conservative Client",
+          "name": "Get Risk Profile - Conservative Customer",
           "event": [
             {
               "listen": "test",
@@ -582,7 +582,7 @@
           "response": []
         },
         {
-          "name": "Get Risk Profile - Aggressive Client",
+          "name": "Get Risk Profile - Aggressive Customer",
           "event": [
             {
               "listen": "test",
@@ -618,7 +618,7 @@
           "response": []
         },
         {
-          "name": "Get Risk Profile - Non-existent Client",
+          "name": "Get Risk Profile - Non-existent Customer",
           "event": [
             {
               "listen": "test",
@@ -985,7 +985,7 @@
       "name": "Validation Tests (Entity Existence)",
       "item": [
         {
-          "name": "Risk Profile - Non-existent Client (Should 404)",
+          "name": "Risk Profile - Non-existent Customer (Should 404)",
           "request": {
             "method": "GET",
             "header": [
@@ -1011,7 +1011,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404 for non-existent client\", () => {",
+                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
                   "    pm.response.to.have.status(404);",
                   "});",
                   "",
@@ -1027,7 +1027,7 @@
           ]
         },
         {
-          "name": "Investment History - Non-existent Client (Should 404)",
+          "name": "Investment History - Non-existent Customer (Should 404)",
           "request": {
             "method": "GET",
             "header": [
@@ -1053,7 +1053,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404 for non-existent client\", () => {",
+                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
                   "    pm.response.to.have.status(404);",
                   "});",
                   "",
@@ -1111,7 +1111,7 @@
           ]
         },
         {
-          "name": "Simulation - Non-existent Client (Should 404)",
+          "name": "Simulation - Non-existent Customer (Should 404)",
           "request": {
             "method": "POST",
             "header": [
@@ -1145,7 +1145,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 404 for non-existent client\", () => {",
+                  "pm.test(\"Status code is 404 for non-existent customer\", () => {",
                   "    pm.response.to.have.status(404);",
                   "});",
                   "",

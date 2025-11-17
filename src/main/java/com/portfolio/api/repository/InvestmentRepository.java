@@ -21,7 +21,7 @@ public interface InvestmentRepository extends JpaRepository<Investment, Long> {
     BigDecimal sumValorByClienteId(@Param("clienteId") Long clienteId);
 
     @Query("SELECT SUM(i.valor) FROM Investment i GROUP BY i.clienteId")
-    List<BigDecimal> getAllClientVolumes();
+    List<BigDecimal> getAllCustomerVolumes();
 
     boolean existsByClienteId(Long clienteId);
 }

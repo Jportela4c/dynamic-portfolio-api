@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .message("Invalid client ID")
+                .message("Invalid customer ID")
                 .timestamp(LocalDateTime.now())
                 .build();
 

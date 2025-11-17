@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public class InvestmentService {
 
     private final InvestmentRepository investmentRepository;
-    private final ClientValidationService clientValidationService;
+    private final CustomerValidationService clientValidationService;
 
     public InvestmentService(InvestmentRepository investmentRepository,
-                             ClientValidationService clientValidationService) {
+                             CustomerValidationService clientValidationService) {
         this.investmentRepository = investmentRepository;
         this.clientValidationService = clientValidationService;
     }

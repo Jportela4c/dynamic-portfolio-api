@@ -51,9 +51,9 @@ task newman:report
 - ✅ Get daily aggregations → Validates aggregation fields
 
 ### 03 - Risk Profile (6 requests)
-- ✅ Get risk profile (conservative client) → Validates profile calculation
-- ✅ Get risk profile (aggressive client) → Validates profile
-- ✅ Get risk profile (non-existent client) → Expects 404 or default
+- ✅ Get risk profile (conservative customer) → Validates profile calculation
+- ✅ Get risk profile (aggressive customer) → Validates profile
+- ✅ Get risk profile (non-existent customer) → Expects 404 or default
 - ✅ Get recommended products (conservative) → Filters by low risk
 - ✅ Get recommended products (aggressive) → All risk levels allowed
 - ✅ Get investment history → Validates history data
@@ -118,9 +118,9 @@ The `scripts/setup-test-data.sql` file seeds the database with:
 - **Fundo Ações** - Aggressive, R$ 100,000 minimum
 
 ### Test Clients
-- **Client 1** - Conservative profile (low volume, low frequency)
-- **Client 2** - Moderate profile (medium volume, balanced)
-- **Client 3** - Aggressive profile (high volume, high frequency)
+- **Customer 1** - Conservative profile (low volume, low frequency)
+- **Customer 2** - Moderate profile (medium volume, balanced)
+- **Customer 3** - Aggressive profile (high volume, high frequency)
 
 ### Investment History
 - 15 historical investments across 3 clients

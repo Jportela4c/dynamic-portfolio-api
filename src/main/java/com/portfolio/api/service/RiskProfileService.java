@@ -26,14 +26,14 @@ public class RiskProfileService {
     private final ProductRiskScorer productRiskCalculator;
     private final LiquidityScorer liquidityCalculator;
     private final HorizonScorer horizonCalculator;
-    private final ClientValidationService clientValidationService;
+    private final CustomerValidationService clientValidationService;
 
     public RiskProfileService(VolumeScorer volumeCalculator,
                                       FrequencyScorer frequencyCalculator,
                                       ProductRiskScorer productRiskCalculator,
                                       LiquidityScorer liquidityCalculator,
                                       HorizonScorer horizonCalculator,
-                                      ClientValidationService clientValidationService) {
+                                      CustomerValidationService clientValidationService) {
         this.volumeCalculator = volumeCalculator;
         this.frequencyCalculator = frequencyCalculator;
         this.productRiskCalculator = productRiskCalculator;

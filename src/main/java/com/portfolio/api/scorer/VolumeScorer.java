@@ -23,7 +23,7 @@ public class VolumeScorer {
             return 0;
         }
 
-        List<BigDecimal> allVolumes = investmentRepository.getAllClientVolumes();
+        List<BigDecimal> allVolumes = investmentRepository.getAllCustomerVolumes();
 
         if (allVolumes.isEmpty() || allVolumes.size() == 1) {
             return 50;

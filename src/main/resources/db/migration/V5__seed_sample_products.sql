@@ -22,7 +22,7 @@ VALUES
 ('Fundo Ações Brasil', 'FUNDO_ACOES', 0.25, 'Alto', 2000.00, 6, NULL, 'Agressivo', 1),
 ('Fundo Imobiliário FII Premium', 'FII', 0.22, 'Alto', 1000.00, 12, NULL, 'Agressivo', 1);
 
--- Sample client investments for risk profiling
+-- Sample customer investments for risk profiling
 INSERT INTO investimentos (cliente_id, tipo, valor, rentabilidade, data)
 VALUES
 (123, 'CDB', 5000.00, 0.12, '2025-01-15'),

@@ -34,7 +34,7 @@ class RiskProfileServiceTest {
     private HorizonScorer horizonCalculator;
 
     @Mock
-    private ClientValidationService clientValidationService;
+    private CustomerValidationService clientValidationService;
 
     @InjectMocks
     private RiskProfileService service;
@@ -135,7 +135,7 @@ class RiskProfileServiceTest {
 
     @Test
     void shouldReturnConservadorForClientWithNoHistory() {
-        // Client with no investment history should return Conservador profile with score 0
+        // Customer with no investment history should return Conservador profile with score 0
         when(volumeCalculator.calculateVolumeScore(999999L)).thenReturn(0);
         when(frequencyCalculator.calculateFrequencyScore(999999L)).thenReturn(0);
         when(productRiskCalculator.calculateProductRiskScore(999999L)).thenReturn(0);

@@ -43,7 +43,7 @@ class RiskProfileIntegrationTest {
     void setUp() {
         token = jwtTokenProvider.generateToken("testuser");
 
-        // Create test investment data for client 123
+        // Create test investment data for customer 123
         Investment inv1 = new Investment();
         inv1.setClienteId(123L);
         inv1.setValor(new BigDecimal("10000.00"));
@@ -52,7 +52,7 @@ class RiskProfileIntegrationTest {
         inv1.setData(LocalDate.now());
         investmentRepository.save(inv1);
 
-        // Create test investment data for client 100
+        // Create test investment data for customer 100
         Investment inv2 = new Investment();
         inv2.setClienteId(100L);
         inv2.setValor(new BigDecimal("5000.00"));
@@ -61,7 +61,7 @@ class RiskProfileIntegrationTest {
         inv2.setData(LocalDate.now());
         investmentRepository.save(inv2);
 
-        // Create test investment data for client 200
+        // Create test investment data for customer 200
         Investment inv3 = new Investment();
         inv3.setClienteId(200L);
         inv3.setValor(new BigDecimal("50000.00"));
@@ -116,7 +116,7 @@ class RiskProfileIntegrationTest {
 
     @Test
     void shouldReturnEmptyHistoryForNewClient() throws Exception {
-        // Client with no investment history should return 404
+        // Customer with no investment history should return 404
         mockMvc.perform(get("/investimentos/999999")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isNotFound());
