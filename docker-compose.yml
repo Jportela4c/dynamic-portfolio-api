@@ -33,6 +33,7 @@ services:
 
   flyway:
     image: flyway/flyway:latest
+    platform: linux/amd64
     restart: "no"
     command: -connectRetries=60 -locations=filesystem:/flyway/sql migrate
     environment:
