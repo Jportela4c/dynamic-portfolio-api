@@ -86,6 +86,8 @@ jobs:
           docker compose logs prometheus --tail=100
           echo "=== Flyway Test Data Logs ==="
           docker compose logs flyway-test-data --tail=100
+          echo "=== All Logs ==="
+          docker compose logs --tail=200
 
       - name: Cleanup
         if: always()
