@@ -65,12 +65,10 @@ tasks:
     silent: true
     cmds:
       - |
-        # Source SDKMAN if it exists
+        # Source SDKMAN if it exists (use bash for compatibility)
         if [ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-        fi
-
-        if command -v sdk >/dev/null 2>&1; then
+          bash -c 'source "$HOME/.sdkman/bin/sdkman-init.sh" && sdk env install' || echo "⚠️  Tools may already be installed"
+        elif command -v sdk >/dev/null 2>&1; then
           echo "📦 SDKMAN detected, installing Java and Maven..."
           sdk env install || echo "⚠️  Tools may already be installed"
         else
