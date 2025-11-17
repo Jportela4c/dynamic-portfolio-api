@@ -37,6 +37,32 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ClientNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleClientNotFound(ClientNotFoundException ex) {
+        logger.warn("Client not found: {}", ex.getMessage());
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
+        logger.warn("Invalid argument: {}", ex.getMessage());
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(InvalidSimulationException.class)
     public ResponseEntity<ErrorResponse> handleInvalidSimulation(InvalidSimulationException ex) {
         logger.warn("Invalid simulation: {}", ex.getMessage());
