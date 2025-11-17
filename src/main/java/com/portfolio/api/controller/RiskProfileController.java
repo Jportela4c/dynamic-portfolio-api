@@ -40,7 +40,6 @@ public class RiskProfileController {
     @GetMapping("/perfil-risco/{clienteId}")
     public ResponseEntity<RiskProfileResponse> getRiskProfile(
         @Parameter(description = "ID do cliente", example = "123", required = true)
-        @Positive(message = "Invalid customer ID")
         @PathVariable Long clienteId) {
         RiskProfileResponse response = riskProfileService.calculateRiskProfile(clienteId);
         return ResponseEntity.ok(response);

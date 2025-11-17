@@ -18,6 +18,9 @@ public class CustomerValidationService {
     }
 
     public void validateClientExists(Long clienteId) {
+        if (clienteId == null || clienteId <= 0) {
+            throw new CustomerNotFoundException(clienteId);
+        }
         if (!clientExists(clienteId)) {
             throw new CustomerNotFoundException(clienteId);
         }
