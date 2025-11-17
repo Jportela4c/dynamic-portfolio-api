@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
 
             3. **Body (form-urlencoded):**
                - `grant_type`: `client_credentials`
-               - `scope`: `read write`
+               - `scope`: `read` ou `write` ou `read write`
 
             4. **Resposta:** Copie o `access_token` retornado
 
@@ -46,9 +46,8 @@ import org.springframework.context.annotation.Configuration;
 
             ## Endpoints da API
 
-            **Documentação OpenAPI:** `/api-docs`
-
-            **Interface Swagger:** `/swagger-ui/index.html`
+            - **Documentação OpenAPI:** [/api-docs](/api-docs)
+            - **Interface Swagger:** [/swagger-ui/index.html](/swagger-ui/index.html)
 
             ## Respostas de Erro
             A API utiliza respostas de erro padronizadas:
