@@ -18,6 +18,7 @@ tasks:
 
   setup:
     desc: Complete project setup (checks dependencies, installs tools, starts services)
+    silent: true
     cmds:
       - task: check-dependencies
       - task: install-tools
@@ -27,6 +28,7 @@ tasks:
 
   check-dependencies:
     desc: Check if required dependencies are installed
+    silent: true
     cmds:
       - task: check-docker
       - task: check-docker-compose
@@ -34,6 +36,7 @@ tasks:
 
   check-docker:
     desc: Verify Docker is installed and version is sufficient
+    silent: true
     cmds:
       - |
         if ! command -v docker >/dev/null 2>&1; then
@@ -42,10 +45,10 @@ tasks:
           exit 1
         fi
         echo "✅ Docker found: $(docker --version)"
-    silent: false
 
   check-docker-compose:
     desc: Verify Docker Compose is installed
+    silent: true
     cmds:
       - |
         if ! docker compose version >/dev/null 2>&1; then
@@ -54,10 +57,10 @@ tasks:
           exit 1
         fi
         echo "✅ Docker Compose found: $(docker compose version)"
-    silent: false
 
   install-tools:
     desc: Install optional development tools (Java, Maven) via SDKMAN
+    silent: true
     cmds:
       - |
         if command -v sdk >/dev/null 2>&1; then
@@ -71,6 +74,7 @@ tasks:
 
   docker-up:
     desc: Start all Docker containers
+    silent: true
     cmds:
       - echo "🚀 Starting Docker containers..."
       - docker compose up -d
@@ -93,6 +97,7 @@ tasks:
 
   wait-healthy:
     desc: Wait for Docker containers to be healthy
+    silent: true
     cmds:
       - |
         echo "Checking container health..."

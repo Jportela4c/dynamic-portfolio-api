@@ -9,7 +9,7 @@ Sistema de simulação de investimentos para produtos financeiros brasileiros in
 **Execute isso e está pronto (funciona em qualquer sistema operacional):**
 
 ```bash
-./setup.cmd && task run
+./setup.cmd
 ```
 
 Pronto! A API estará rodando em `http://localhost:8080`
@@ -38,13 +38,18 @@ Pronto! A API estará rodando em `http://localhost:8080`
 ### Opção 1: Comando Único (Mais Simples)
 
 ```bash
-./setup.cmd && task run
+./setup.cmd
 ```
 
 Este comando funciona em:
 - ✅ Linux
 - ✅ macOS
 - ✅ Windows (CMD, PowerShell, Git Bash)
+
+Este script automaticamente:
+1. Instala Task (se necessário)
+2. Verifica Docker
+3. Inicia todos os serviços
 
 ---
 

@@ -65,10 +65,11 @@ else
 fi
 
 echo ""
-print_success "Setup complete!"
+print_success "Setup complete! Starting services..."
 echo ""
-print_info "Run: ${GREEN}task setup${NC} - to start all services"
-echo ""
+
+# Run task run to start everything
+task run
 
 exit 0
 
@@ -122,8 +123,10 @@ exit /b 1
 
 :complete
 echo.
-echo [OK] Setup complete!
+echo [OK] Setup complete! Starting services...
 echo.
-echo Run: task setup - to start all services
-echo.
+
+REM Run task run to start everything
+task run
+
 pause
