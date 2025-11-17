@@ -2,7 +2,6 @@ package com.portfolio.api.controller;
 
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
 import com.portfolio.api.service.RiskProfileService;
-import com.portfolio.api.service.TelemetryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,12 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class RiskProfileController {
 
     private final RiskProfileService riskProfileService;
-    private final TelemetryService telemetryService;
 
-    public RiskProfileController(RiskProfileService riskProfileService,
-                                 TelemetryService telemetryService) {
+    public RiskProfileController(RiskProfileService riskProfileService) {
         this.riskProfileService = riskProfileService;
-        this.telemetryService = telemetryService;
     }
 
     @Operation(
@@ -46,18 +42,7 @@ public class RiskProfileController {
         @Parameter(description = "ID do cliente", example = "123", required = true)
         @Positive(message = "Invalid customer ID")
         @PathVariable Long clienteId) {
-        long startTime = System.currentTimeMillis();
-
-        try {
-            RiskProfileResponse response = riskProfileService.calculateRiskProfile(clienteId);
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("perfil-risco", responseTime, true, 200);
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("perfil-risco", responseTime, false, 500);
-            throw e;
-        }
+        RiskProfileResponse response = riskProfileService.calculateRiskProfile(clienteId);
+        return ResponseEntity.ok(response);
     }
 }

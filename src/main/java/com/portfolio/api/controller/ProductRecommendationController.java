@@ -4,7 +4,6 @@ import com.portfolio.api.model.dto.response.ProductResponse;
 import com.portfolio.api.model.entity.Product;
 import com.portfolio.api.model.enums.PerfilRisco;
 import com.portfolio.api.service.ProductService;
-import com.portfolio.api.service.TelemetryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,12 +24,9 @@ import java.util.stream.Collectors;
 public class ProductRecommendationController {
 
     private final ProductService productService;
-    private final TelemetryService telemetryService;
 
-    public ProductRecommendationController(ProductService productService,
-                                           TelemetryService telemetryService) {
+    public ProductRecommendationController(ProductService productService) {
         this.productService = productService;
-        this.telemetryService = telemetryService;
     }
 
     @Operation(
@@ -47,29 +43,18 @@ public class ProductRecommendationController {
     public ResponseEntity<List<ProductResponse>> getRecommendedProducts(
         @Parameter(description = "Perfil de risco do cliente", example = "Moderado", required = true)
         @PathVariable PerfilRisco perfil) {
-        long startTime = System.currentTimeMillis();
+        List<Product> products = productService.getRecommendedProducts(perfil.name());
 
-        try {
-            List<Product> products = productService.getRecommendedProducts(perfil.name());
+        List<ProductResponse> response = products.stream()
+                .map(p -> ProductResponse.builder()
+                        .id(p.getId())
+                        .nome(p.getNome())
+                        .tipo(p.getTipo())
+                        .rentabilidade(p.getRentabilidade())
+                        .risco(p.getRisco())
+                        .build())
+                .collect(Collectors.toList());
 
-            List<ProductResponse> response = products.stream()
-                    .map(p -> ProductResponse.builder()
-                            .id(p.getId())
-                            .nome(p.getNome())
-                            .tipo(p.getTipo())
-                            .rentabilidade(p.getRentabilidade())
-                            .risco(p.getRisco())
-                            .build())
-                    .collect(Collectors.toList());
-
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("produtos-recomendados", responseTime, true, 200);
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("produtos-recomendados", responseTime, false, 500);
-            throw e;
-        }
+        return ResponseEntity.ok(response);
     }
 }

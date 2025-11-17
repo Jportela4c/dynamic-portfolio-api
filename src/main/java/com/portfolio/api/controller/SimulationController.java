@@ -3,7 +3,6 @@ package com.portfolio.api.controller;
 import com.portfolio.api.model.dto.response.DailyAggregationResponse;
 import com.portfolio.api.model.dto.response.SimulationHistoryResponse;
 import com.portfolio.api.service.SimulationService;
-import com.portfolio.api.service.TelemetryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,12 +20,9 @@ import java.util.List;
 public class SimulationController {
 
     private final SimulationService simulationService;
-    private final TelemetryService telemetryService;
 
-    public SimulationController(SimulationService simulationService,
-                                TelemetryService telemetryService) {
+    public SimulationController(SimulationService simulationService) {
         this.simulationService = simulationService;
-        this.telemetryService = telemetryService;
     }
 
     @Operation(
@@ -39,19 +35,8 @@ public class SimulationController {
     })
     @GetMapping("/simulacoes")
     public ResponseEntity<List<SimulationHistoryResponse>> getAllSimulations() {
-        long startTime = System.currentTimeMillis();
-
-        try {
-            List<SimulationHistoryResponse> response = simulationService.getAllSimulations();
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("simulacoes", responseTime, true, 200);
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("simulacoes", responseTime, false, 500);
-            throw e;
-        }
+        List<SimulationHistoryResponse> response = simulationService.getAllSimulations();
+        return ResponseEntity.ok(response);
     }
 
     @Operation(
@@ -64,18 +49,7 @@ public class SimulationController {
     })
     @GetMapping("/simulacoes/por-produto-dia")
     public ResponseEntity<List<DailyAggregationResponse>> getDailyAggregations() {
-        long startTime = System.currentTimeMillis();
-
-        try {
-            List<DailyAggregationResponse> response = simulationService.getDailyAggregations();
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("simulacoes-por-produto-dia", responseTime, true, 200);
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("simulacoes-por-produto-dia", responseTime, false, 500);
-            throw e;
-        }
+        List<DailyAggregationResponse> response = simulationService.getDailyAggregations();
+        return ResponseEntity.ok(response);
     }
 }

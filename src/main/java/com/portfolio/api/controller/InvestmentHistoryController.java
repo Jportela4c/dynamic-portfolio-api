@@ -2,7 +2,6 @@ package com.portfolio.api.controller;
 
 import com.portfolio.api.model.dto.response.InvestmentResponse;
 import com.portfolio.api.service.InvestmentService;
-import com.portfolio.api.service.TelemetryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,12 +24,9 @@ import java.util.List;
 public class InvestmentHistoryController {
 
     private final InvestmentService investmentService;
-    private final TelemetryService telemetryService;
 
-    public InvestmentHistoryController(InvestmentService investmentService,
-                                       TelemetryService telemetryService) {
+    public InvestmentHistoryController(InvestmentService investmentService) {
         this.investmentService = investmentService;
-        this.telemetryService = telemetryService;
     }
 
     @Operation(
@@ -48,18 +44,7 @@ public class InvestmentHistoryController {
         @Parameter(description = "ID do cliente", example = "123", required = true)
         @Positive(message = "Invalid customer ID")
         @PathVariable Long clienteId) {
-        long startTime = System.currentTimeMillis();
-
-        try {
-            List<InvestmentResponse> response = investmentService.getClientInvestments(clienteId);
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("investimentos", responseTime, true, 200);
-
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            long responseTime = System.currentTimeMillis() - startTime;
-            telemetryService.recordMetric("investimentos", responseTime, false, 500);
-            throw e;
-        }
+        List<InvestmentResponse> response = investmentService.getClientInvestments(clienteId);
+        return ResponseEntity.ok(response);
     }
 }
