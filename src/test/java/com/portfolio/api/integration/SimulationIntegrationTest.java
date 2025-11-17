@@ -223,4 +223,139 @@ class SimulationIntegrationTest {
                 .andExpect(jsonPath("$.produtoValidado").exists())
                 .andExpect(jsonPath("$.resultadoSimulacao").exists());
     }
+
+    @Test
+    void shouldReturn404ForNonExistentProductType() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(12);
+        request.setTipoProduto(TipoProduto.FII);  // No FII products in test DB
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnBadRequestForNullClientId() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(null);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(12);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForNullValue() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(null);
+        request.setPrazoMeses(12);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForNullTerm() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(null);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForNullProductType() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(12);
+        request.setTipoProduto(null);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForZeroValue() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(BigDecimal.ZERO);
+        request.setPrazoMeses(12);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForNegativeValue() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("-1000.00"));
+        request.setPrazoMeses(12);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForZeroTerm() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(0);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturnBadRequestForNegativeTerm() throws Exception {
+        SimulationRequest request = new SimulationRequest();
+        request.setClienteId(123L);
+        request.setValor(new BigDecimal("10000.00"));
+        request.setPrazoMeses(-12);
+        request.setTipoProduto(TipoProduto.CDB);
+
+        mockMvc.perform(post("/simular-investimento")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest());
+    }
 }
