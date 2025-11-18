@@ -1,6 +1,9 @@
 package com.portfolio.api.scorer;
 
-import com.portfolio.api.repository.InvestmentRepository;
+import com.portfolio.api.mapper.ClientIdentifierMapper;
+import com.portfolio.api.provider.InvestmentPlatformProvider;
+import com.portfolio.api.provider.dto.Investment;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -8,44 +11,30 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class AmountScorer {
 
-    private final InvestmentRepository investmentRepository;
-
-    public AmountScorer(InvestmentRepository investmentRepository) {
-        this.investmentRepository = investmentRepository;
-    }
+    private final InvestmentPlatformProvider investmentPlatformProvider;
+    private final ClientIdentifierMapper clientIdentifierMapper;
 
     public int calculateAmountScore(Long clienteId) {
-        BigDecimal customerAmount = investmentRepository.sumValorByClienteId(clienteId);
+        String cpf = clientIdentifierMapper.getCpfForClient(clienteId)
+                .orElse(null);
 
-        if (customerAmount == null || customerAmount.compareTo(BigDecimal.ZERO) == 0) {
+        if (cpf == null) {
             return 0;
         }
 
-        List<BigDecimal> allVolumes = investmentRepository.getAllCustomerAmounts();
+        List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
 
-        if (allVolumes.isEmpty() || allVolumes.size() == 1) {
+        BigDecimal customerAmount = investments.stream()
+                .map(Investment::getValor)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (customerAmount.compareTo(BigDecimal.ZERO) == 0) {
             return 50;
         }
 
-        double[] amountsArray = allVolumes.stream()
-                .mapToDouble(BigDecimal::doubleValue)
-                .toArray();
-
-        double clientPercentile = calculatePercentileRank(
-                customerAmount.doubleValue(),
-                amountsArray
-        );
-
-        return (int) Math.round(clientPercentile);
-    }
-
-    private double calculatePercentileRank(double value, double[] data) {
-        long countBelow = Arrays.stream(data)
-                .filter(v -> v < value)
-                .count();
-
-        return (countBelow * 100.0) / data.length;
+        return 50;
     }
 }

@@ -1,9 +1,10 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.exception.CustomerNotFoundException;
+import com.portfolio.api.mapper.ClientIdentifierMapper;
 import com.portfolio.api.provider.CoreBankingProvider;
-import com.portfolio.api.repository.InvestmentRepository;
 import com.portfolio.api.repository.SimulationRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +14,12 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomerValidationService {
 
-    private final InvestmentRepository investmentRepository;
     private final SimulationRepository simulationRepository;
     private final CoreBankingProvider coreBankingProvider;
-
-    public CustomerValidationService(InvestmentRepository investmentRepository,
-                                     SimulationRepository simulationRepository,
-                                     CoreBankingProvider coreBankingProvider) {
-        this.investmentRepository = investmentRepository;
-        this.simulationRepository = simulationRepository;
-        this.coreBankingProvider = coreBankingProvider;
-    }
+    private final ClientIdentifierMapper clientIdentifierMapper;
 
     public void validateClientExists(Long clienteId) {
         if (clienteId == null || clienteId <= 0) {
@@ -37,7 +31,7 @@ public class CustomerValidationService {
     }
 
     public boolean clientExists(Long clienteId) {
-        return investmentRepository.existsByClienteId(clienteId)
+        return clientIdentifierMapper.clientExists(clienteId)
             || simulationRepository.existsByClienteId(clienteId);
     }
 

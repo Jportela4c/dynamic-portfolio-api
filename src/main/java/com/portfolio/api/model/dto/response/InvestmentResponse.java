@@ -1,6 +1,5 @@
 package com.portfolio.api.model.dto.response;
 
-import com.portfolio.api.model.enums.TipoProduto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +20,7 @@ public class InvestmentResponse {
     private Long id;
 
     @Schema(description = "Tipo de produto financeiro", example = "CDB")
-    private TipoProduto tipo;
+    private String tipo;
 
     @Schema(description = "Valor investido", example = "5000.00")
     private BigDecimal valor;
