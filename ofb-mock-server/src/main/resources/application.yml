@@ -9,6 +9,8 @@ quarkus:
       certificate:
         key-store-file: certs/server.p12
         key-store-password: changeit
+        trust-store-file: certs/truststore.p12
+        trust-store-password: changeit
       client-auth: REQUIRED
 
   log:
