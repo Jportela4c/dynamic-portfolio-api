@@ -1,9 +1,6 @@
 package com.portfolio.api.scorer;
 
-import com.portfolio.api.mapper.ClientIdentifierMapper;
-import com.portfolio.api.provider.InvestmentPlatformProvider;
 import com.portfolio.api.provider.dto.Investment;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -11,23 +8,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
 public class HorizonScorer {
 
-    private final InvestmentPlatformProvider investmentPlatformProvider;
-    private final ClientIdentifierMapper clientIdentifierMapper;
-
-    public int calculateHorizonScore(Long clienteId) {
-        String cpf = clientIdentifierMapper.getCpfForClient(clienteId)
-                .orElse(null);
-
-        if (cpf == null) {
-            return 50;
-        }
-
-        List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
-
-        if (investments.isEmpty()) {
+    public int calculateHorizonScore(List<Investment> investments) {
+        if (investments == null || investments.isEmpty()) {
             return 50;
         }
 

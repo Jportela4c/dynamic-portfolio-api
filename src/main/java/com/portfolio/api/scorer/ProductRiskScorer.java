@@ -1,17 +1,12 @@
 package com.portfolio.api.scorer;
 
-import com.portfolio.api.mapper.ClientIdentifierMapper;
-import com.portfolio.api.model.enums.TipoProduto;
-import com.portfolio.api.provider.InvestmentPlatformProvider;
 import com.portfolio.api.provider.dto.Investment;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
 @Component
-@RequiredArgsConstructor
 public class ProductRiskScorer {
 
     private static final Map<String, Integer> PRODUCT_RISK_LEVELS = Map.of(
@@ -25,20 +20,8 @@ public class ProductRiskScorer {
             "FII", 8
     );
 
-    private final InvestmentPlatformProvider investmentPlatformProvider;
-    private final ClientIdentifierMapper clientIdentifierMapper;
-
-    public int calculateProductRiskScore(Long clienteId) {
-        String cpf = clientIdentifierMapper.getCpfForClient(clienteId)
-                .orElse(null);
-
-        if (cpf == null) {
-            return 50;
-        }
-
-        List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
-
-        if (investments.isEmpty()) {
+    public int calculateProductRiskScore(List<Investment> investments) {
+        if (investments == null || investments.isEmpty()) {
             return 50;
         }
 

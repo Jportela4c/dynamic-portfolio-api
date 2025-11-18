@@ -6,11 +6,6 @@ ALTER TABLE produtos ADD CONSTRAINT chk_produtos_tipo
                     'FUNDO_RENDA_FIXA', 'FUNDO_MULTIMERCADO',
                     'FUNDO_ACOES', 'FII'));
 
-ALTER TABLE investimentos ADD CONSTRAINT chk_investimentos_tipo
-    CHECK (tipo IN ('CDB', 'LCI', 'LCA', 'TESOURO_DIRETO',
-                    'FUNDO_RENDA_FIXA', 'FUNDO_MULTIMERCADO',
-                    'FUNDO_ACOES', 'FII'));
-
 -- PerfilRisco constraint
 ALTER TABLE produtos ADD CONSTRAINT chk_produtos_perfil
     CHECK (perfil_adequado IN ('CONSERVADOR', 'MODERADO', 'AGRESSIVO'));
@@ -24,12 +19,6 @@ ALTER TABLE produtos ADD CONSTRAINT chk_produtos_prazo
        AND (prazo_maximo_meses IS NULL OR prazo_maximo_meses >= prazo_minimo_meses));
 
 ALTER TABLE produtos ADD CONSTRAINT chk_produtos_rentabilidade
-    CHECK (rentabilidade >= 0);
-
-ALTER TABLE investimentos ADD CONSTRAINT chk_investimentos_valor
-    CHECK (valor > 0);
-
-ALTER TABLE investimentos ADD CONSTRAINT chk_investimentos_rentabilidade
     CHECK (rentabilidade >= 0);
 
 ALTER TABLE simulacoes ADD CONSTRAINT chk_simulacoes_valores
