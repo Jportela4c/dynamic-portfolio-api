@@ -18,3 +18,5 @@ COPY --from=build /build/target/quarkus-app/quarkus/ /app/quarkus/
 EXPOSE 8089 8443
 
 ENTRYPOINT ["java", "-jar", "/app/quarkus-run.jar"]
+
+USER nobody
