@@ -1,0 +1,12 @@
+quarkus:
+  application:
+    name: ofb-mock-server
+
+  http:
+    port: 8089
+    ssl-port: 8443
+
+  log:
+    level: INFO
+    console:
+      format: "%d{HH:mm:ss} %-5p [%c{2.}] %s%e%n"
