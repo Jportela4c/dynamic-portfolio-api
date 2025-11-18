@@ -20,7 +20,7 @@ import java.util.*;
  */
 @Slf4j
 @Service
-@Profile({"dev", "test", "default"})
+@Profile({"dev", "test", "default", "prod"})
 public class MockTransactionSystemProvider implements TransactionSystemProvider {
 
     private final Map<String, List<Transaction>> mockTransactions = new HashMap<>();

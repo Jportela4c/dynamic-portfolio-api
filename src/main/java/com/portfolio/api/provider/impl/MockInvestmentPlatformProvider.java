@@ -20,7 +20,7 @@ import java.util.*;
  */
 @Slf4j
 @Service
-@Profile({"dev", "test", "default"})
+@Profile({"dev", "test", "default", "prod"})
 public class MockInvestmentPlatformProvider implements InvestmentPlatformProvider {
 
     private final Map<String, CustomerPortfolio> mockPortfolios = new HashMap<>();
