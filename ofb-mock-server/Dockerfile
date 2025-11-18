@@ -1,22 +1,19 @@
-FROM maven:3.9.5-eclipse-temurin-21 AS build
-WORKDIR /build
-
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
-COPY src ./src
-RUN mvn package -DskipTests
-
-FROM registry.access.redhat.com/ubi9/openjdk-21-runtime:1.18
+FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN apk add --no-cache maven && \
+    mvn package -DskipTests
 
-COPY --from=build /build/target/quarkus-app/lib/ /app/lib/
-COPY --from=build /build/target/quarkus-app/*.jar /app/
-COPY --from=build /build/target/quarkus-app/app/ /app/app/
-COPY --from=build /build/target/quarkus-app/quarkus/ /app/quarkus/
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/quarkus-app/lib/ ./lib/
+COPY --from=builder /app/target/quarkus-app/*.jar ./
+COPY --from=builder /app/target/quarkus-app/app/ ./app/
+COPY --from=builder /app/target/quarkus-app/quarkus/ ./quarkus/
 
 EXPOSE 8089 8443
 
-ENTRYPOINT ["java", "-jar", "/app/quarkus-run.jar"]
+ENTRYPOINT ["java", "-jar", "quarkus-run.jar"]
 
 USER nobody
