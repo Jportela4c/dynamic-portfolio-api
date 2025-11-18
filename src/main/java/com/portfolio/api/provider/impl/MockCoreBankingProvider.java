@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-@Profile({"dev", "test", "default", "prod"})
+@Profile({"dev", "test", "default"})
 public class MockCoreBankingProvider implements CoreBankingProvider {
 
     private final Map<String, CustomerData> mockCustomers = new HashMap<>();
