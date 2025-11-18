@@ -1,0 +1,146 @@
+{
+  "investments": {
+    "12345678901": [
+      {
+        "investmentId": "INV-001",
+        "productType": "CDB",
+        "productName": "CDB Banco XYZ 110% CDI",
+        "amount": 50000.00,
+        "purchaseDate": "2024-01-15",
+        "maturityDate": "2025-01-15",
+        "profitability": 0.11,
+        "currentValue": 55500.00
+      },
+      {
+        "investmentId": "INV-002",
+        "productType": "TESOURO_DIRETO",
+        "productName": "Tesouro Selic 2025",
+        "amount": 30000.00,
+        "purchaseDate": "2024-03-20",
+        "maturityDate": "2025-03-20",
+        "profitability": 0.12,
+        "currentValue": 33600.00
+      }
+    ],
+    "23456789012": [
+      {
+        "investmentId": "INV-003",
+        "productType": "LCI",
+        "productName": "LCI Banco ABC Isento IR",
+        "amount": 100000.00,
+        "purchaseDate": "2023-12-01",
+        "maturityDate": "2025-12-01",
+        "profitability": 0.095,
+        "currentValue": 119025.00
+      }
+    ],
+    "34567890123": [
+      {
+        "investmentId": "INV-004",
+        "productType": "LCA",
+        "productName": "LCA Agro 105% CDI",
+        "amount": 75000.00,
+        "purchaseDate": "2024-02-10",
+        "maturityDate": "2026-02-10",
+        "profitability": 0.105,
+        "currentValue": 86362.50
+      },
+      {
+        "investmentId": "INV-005",
+        "productType": "FUNDO_RENDA_FIXA",
+        "productName": "Fundo DI Premium",
+        "amount": 200000.00,
+        "purchaseDate": "2024-01-01",
+        "maturityDate": null,
+        "profitability": 0.13,
+        "currentValue": 226000.00
+      }
+    ],
+    "45678901234": [
+      {
+        "investmentId": "INV-006",
+        "productType": "CDB",
+        "productName": "CDB Liquidez Diária 100% CDI",
+        "amount": 20000.00,
+        "purchaseDate": "2024-06-01",
+        "maturityDate": null,
+        "profitability": 0.10,
+        "currentValue": 21000.00
+      }
+    ],
+    "56789012345": [
+      {
+        "investmentId": "INV-007",
+        "productType": "TESOURO_DIRETO",
+        "productName": "Tesouro IPCA+ 2030",
+        "amount": 150000.00,
+        "purchaseDate": "2024-04-15",
+        "maturityDate": "2030-04-15",
+        "profitability": 0.14,
+        "currentValue": 171000.00
+      },
+      {
+        "investmentId": "INV-008",
+        "productType": "FUNDO_MULTIMERCADO",
+        "productName": "Fundo Alpha Master",
+        "amount": 300000.00,
+        "purchaseDate": "2023-11-20",
+        "maturityDate": null,
+        "profitability": 0.18,
+        "currentValue": 354000.00
+      }
+    ]
+  },
+  "customers": {
+    "12345678901": {
+      "customerId": "CUST-001",
+      "cpf": "12345678901",
+      "name": "João Silva",
+      "email": "joao.silva@example.com"
+    },
+    "23456789012": {
+      "customerId": "CUST-002",
+      "cpf": "23456789012",
+      "name": "Maria Santos",
+      "email": "maria.santos@example.com"
+    },
+    "34567890123": {
+      "customerId": "CUST-003",
+      "cpf": "34567890123",
+      "name": "Pedro Oliveira",
+      "email": "pedro.oliveira@example.com"
+    },
+    "45678901234": {
+      "customerId": "CUST-004",
+      "cpf": "45678901234",
+      "name": "Ana Costa",
+      "email": "ana.costa@example.com"
+    },
+    "56789012345": {
+      "customerId": "CUST-005",
+      "cpf": "56789012345",
+      "name": "Carlos Ferreira",
+      "email": "carlos.ferreira@example.com"
+    }
+  },
+  "transactions": {
+    "12345678901": [
+      {"transactionId": "TXN-001", "date": "2024-01-15", "type": "DEPOSIT", "amount": 50000.00},
+      {"transactionId": "TXN-002", "date": "2024-03-20", "type": "DEPOSIT", "amount": 30000.00}
+    ],
+    "23456789012": [
+      {"transactionId": "TXN-003", "date": "2023-12-01", "type": "DEPOSIT", "amount": 100000.00}
+    ],
+    "34567890123": [
+      {"transactionId": "TXN-004", "date": "2024-02-10", "type": "DEPOSIT", "amount": 75000.00},
+      {"transactionId": "TXN-005", "date": "2024-01-01", "type": "DEPOSIT", "amount": 200000.00}
+    ],
+    "45678901234": [
+      {"transactionId": "TXN-006", "date": "2024-06-01", "type": "DEPOSIT", "amount": 20000.00}
+    ],
+    "56789012345": [
+      {"transactionId": "TXN-007", "date": "2024-04-15", "type": "DEPOSIT", "amount": 150000.00},
+      {"transactionId": "TXN-008", "date": "2023-11-20", "type": "DEPOSIT", "amount": 300000.00}
+    ]
+  }
+}
