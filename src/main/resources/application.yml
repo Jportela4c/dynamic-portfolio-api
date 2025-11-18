@@ -62,3 +62,23 @@ logging:
     org.springframework.security.oauth2: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# OFB Provider Configuration
+ofb:
+  provider:
+    base-url: https://ofb-mock-server:8443
+    client-id: portfolio-api
+    redirect-uri: https://portfolio-api/callback
+    scope: investments:read
+    keystore:
+      path: classpath:certs/client.p12
+      password: changeit
+    truststore:
+      path: classpath:certs/server.cer
+    token:
+      cache-ttl-seconds: 3000
+    jwks:
+      cache-ttl-seconds: 86400
+    connection:
+      connect-timeout-ms: 5000
+      read-timeout-ms: 10000
