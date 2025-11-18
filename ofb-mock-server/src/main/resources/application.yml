@@ -5,8 +5,37 @@ quarkus:
   http:
     port: 8089
     ssl-port: 8443
+    ssl:
+      certificate:
+        key-store-file: certs/server.p12
+        key-store-password: changeit
+      client-auth: REQUIRED
 
   log:
     level: INFO
     console:
       format: "%d{HH:mm:ss} %-5p [%c{2.}] %s%e%n"
+
+# OAuth2 Configuration
+oauth:
+  issuer: https://localhost:8443
+  token:
+    expiry-seconds: 3600
+  signing:
+    key-id: ofb-mock-key-1
+    algorithm: RS256
+
+# JWS/JWE Configuration
+jws:
+  algorithm: PS256
+  key-id: ofb-jws-key-1
+
+jwe:
+  algorithm: RSA-OAEP
+  encryption-method: A256GCM
+  key-id: ofb-jwe-key-1
+
+# Mock Data Configuration
+mock:
+  data:
+    file: mock-data/investments.json
