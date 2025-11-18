@@ -73,6 +73,19 @@ services:
       retries: 60
       start_period: 10s
 
+  ofb-mock-server:
+    build: ./ofb-mock-server
+    container_name: ofb-mock-server
+    ports:
+      - "8089:8089"
+      - "8443:8443"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8089/oauth2/.well-known/openid-configuration"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 15s
+
   prometheus:
     image: prom/prometheus:v2.54.1
     container_name: portfolio-prometheus
