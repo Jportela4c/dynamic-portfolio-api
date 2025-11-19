@@ -8,7 +8,6 @@ import com.portfolio.api.provider.dto.Position;
 import com.portfolio.api.service.external.OFBInvestmentDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@Profile("prod")
 @RequiredArgsConstructor
 public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider {
 
