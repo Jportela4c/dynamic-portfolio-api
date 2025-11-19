@@ -16,6 +16,7 @@
         <quarkus.platform.version>3.6.4</quarkus.platform.version>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
         <surefire-plugin.version>3.1.2</surefire-plugin.version>
+        <openapi-generator.version>7.2.0</openapi-generator.version>
     </properties>
 
     <dependencyManagement>
@@ -93,6 +94,194 @@
 
     <build>
         <plugins>
+            <!-- Download OpenAPI specs from GitHub -->
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.9.0</version>
+                <executions>
+                    <execution>
+                        <id>download-ofb-specs</id>
+                        <phase>initialize</phase>
+                        <goals><goal>wget</goal></goals>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/OpenBanking-Brasil/openapi/a1bb907e3391d58d89c49ef0e0242a58e435bac8/swagger-apis/bank-fixed-incomes/1.0.4.yml</url>
+                            <outputDirectory>${project.build.directory}/ofb-specs</outputDirectory>
+                            <outputFileName>bank-fixed-incomes-1.0.4.yml</outputFileName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-ofb-funds</id>
+                        <phase>initialize</phase>
+                        <goals><goal>wget</goal></goals>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/OpenBanking-Brasil/openapi/288e17281c052b32d9cf283c8d957e5e6b512a7d/swagger-apis/funds/1.0.2.yml</url>
+                            <outputDirectory>${project.build.directory}/ofb-specs</outputDirectory>
+                            <outputFileName>funds-1.0.2.yml</outputFileName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-ofb-treasure</id>
+                        <phase>initialize</phase>
+                        <goals><goal>wget</goal></goals>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/OpenBanking-Brasil/openapi/0d9a65e7ce1dd796735fd7cb52bd50b5c357fafc/swagger-apis/treasure-titles/1.0.2.yml</url>
+                            <outputDirectory>${project.build.directory}/ofb-specs</outputDirectory>
+                            <outputFileName>treasure-titles-1.0.2.yml</outputFileName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-ofb-variable</id>
+                        <phase>initialize</phase>
+                        <goals><goal>wget</goal></goals>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/OpenBanking-Brasil/openapi/309904e810dffa41cc2beb05922ff065110e3eb5/swagger-apis/variable-incomes/1.2.1.yml</url>
+                            <outputDirectory>${project.build.directory}/ofb-specs</outputDirectory>
+                            <outputFileName>variable-incomes-1.2.1.yml</outputFileName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-ofb-credit</id>
+                        <phase>initialize</phase>
+                        <goals><goal>wget</goal></goals>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/OpenBanking-Brasil/openapi/e85c2c3eac140f6a1668d252904df560e26a464c/swagger-apis/credit-fixed-incomes/1.0.3.yml</url>
+                            <outputDirectory>${project.build.directory}/ofb-specs</outputDirectory>
+                            <outputFileName>credit-fixed-incomes-1.0.3.yml</outputFileName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- OpenAPI Generator Plugin -->
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator.version}</version>
+                <executions>
+                    <!-- Bank Fixed Incomes -->
+                    <execution>
+                        <id>generate-bank-fixed-incomes</id>
+                        <goals><goal>generate</goal></goals>
+                        <configuration>
+                            <inputSpec>${project.build.directory}/ofb-specs/bank-fixed-incomes-1.0.4.yml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <library>microprofile</library>
+                            <modelPackage>com.ofb.api.model.bankfixedincome</modelPackage>
+                            <apiPackage>com.ofb.api.bankfixedincome</apiPackage>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <dateLibrary>java8</dateLibrary>
+                                <useBeanValidation>false</useBeanValidation>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <!-- Funds -->
+                    <execution>
+                        <id>generate-funds</id>
+                        <goals><goal>generate</goal></goals>
+                        <configuration>
+                            <inputSpec>${project.build.directory}/ofb-specs/funds-1.0.2.yml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <library>microprofile</library>
+                            <modelPackage>com.ofb.api.model.fund</modelPackage>
+                            <apiPackage>com.ofb.api.fund</apiPackage>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <dateLibrary>java8</dateLibrary>
+                                <useBeanValidation>false</useBeanValidation>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <!-- Treasure Titles -->
+                    <execution>
+                        <id>generate-treasure-titles</id>
+                        <goals><goal>generate</goal></goals>
+                        <configuration>
+                            <inputSpec>${project.build.directory}/ofb-specs/treasure-titles-1.0.2.yml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <library>microprofile</library>
+                            <modelPackage>com.ofb.api.model.treasuretitle</modelPackage>
+                            <apiPackage>com.ofb.api.treasuretitle</apiPackage>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <dateLibrary>java8</dateLibrary>
+                                <useBeanValidation>false</useBeanValidation>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <!-- Variable Incomes -->
+                    <execution>
+                        <id>generate-variable-incomes</id>
+                        <goals><goal>generate</goal></goals>
+                        <configuration>
+                            <inputSpec>${project.build.directory}/ofb-specs/variable-incomes-1.2.1.yml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <library>microprofile</library>
+                            <modelPackage>com.ofb.api.model.variableincome</modelPackage>
+                            <apiPackage>com.ofb.api.variableincome</apiPackage>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <dateLibrary>java8</dateLibrary>
+                                <useBeanValidation>false</useBeanValidation>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <!-- Credit Fixed Incomes -->
+                    <execution>
+                        <id>generate-credit-fixed-incomes</id>
+                        <goals><goal>generate</goal></goals>
+                        <configuration>
+                            <inputSpec>${project.build.directory}/ofb-specs/credit-fixed-incomes-1.0.3.yml</inputSpec>
+                            <generatorName>java</generatorName>
+                            <library>microprofile</library>
+                            <modelPackage>com.ofb.api.model.creditfixedincome</modelPackage>
+                            <apiPackage>com.ofb.api.creditfixedincome</apiPackage>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <configOptions>
+                                <useJakartaEe>true</useJakartaEe>
+                                <dateLibrary>java8</dateLibrary>
+                                <useBeanValidation>false</useBeanValidation>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
