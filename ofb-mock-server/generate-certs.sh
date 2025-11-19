@@ -4,6 +4,9 @@ set -e
 CERTS_DIR="src/main/resources/certs"
 mkdir -p "$CERTS_DIR"
 
+# Clean old keystores
+rm -f "$CERTS_DIR"/*.p12 "$CERTS_DIR"/*.cer
+
 echo "Generating mTLS certificates for OFB Mock Server..."
 
 # Generate server certificate
