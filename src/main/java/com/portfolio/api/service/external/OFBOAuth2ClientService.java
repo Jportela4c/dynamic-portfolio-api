@@ -6,12 +6,9 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.portfolio.api.config.OFBProviderProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -21,8 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OFBOAuth2ClientService {
 
-    @Qualifier("ofbRestTemplate")
-    private final RestTemplate restTemplate;
+    private final OFBOAuth2Client oAuth2Client;
     private final OFBProviderProperties properties;
     private final JWEDecryptionService jweDecryptionService;
     private final ObjectMapper objectMapper;
@@ -63,8 +59,6 @@ public class OFBOAuth2ClientService {
     private String pushAuthorizationRequest() throws Exception {
         log.debug("Pushing authorization request to OFB provider");
 
-        String parEndpoint = properties.getBaseUrl() + "/oauth2/par";
-
         MultiValueMap<String, String> parRequest = new LinkedMultiValueMap<>();
         parRequest.add("client_id", properties.getClientId());
         parRequest.add("redirect_uri", properties.getRedirectUri());
@@ -73,23 +67,8 @@ public class OFBOAuth2ClientService {
         parRequest.add("state", UUID.randomUUID().toString());
         parRequest.add("nonce", UUID.randomUUID().toString());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parRequest, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                parEndpoint,
-                HttpMethod.POST,
-                request,
-                String.class
-        );
-
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            throw new IllegalStateException("PAR request failed with status: " + response.getStatusCode());
-        }
-
-        JsonNode parResponse = objectMapper.readTree(response.getBody());
+        String responseBody = oAuth2Client.pushAuthorizationRequest(parRequest);
+        JsonNode parResponse = objectMapper.readTree(responseBody);
         String requestUri = parResponse.get("request_uri").asText();
 
         log.debug("PAR request successful, received request_uri: {}", requestUri);
@@ -99,29 +78,12 @@ public class OFBOAuth2ClientService {
     private String getAuthorizationCode(String requestUri) throws Exception {
         log.debug("Exchanging request_uri for authorization code");
 
-        String authorizeEndpoint = properties.getBaseUrl() + "/oauth2/authorize";
-
         MultiValueMap<String, String> authRequest = new LinkedMultiValueMap<>();
         authRequest.add("request_uri", requestUri);
         authRequest.add("client_id", properties.getClientId());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(authRequest, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                authorizeEndpoint,
-                HttpMethod.POST,
-                request,
-                String.class
-        );
-
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            throw new IllegalStateException("Authorization request failed with status: " + response.getStatusCode());
-        }
-
-        JsonNode authResponse = objectMapper.readTree(response.getBody());
+        String responseBody = oAuth2Client.authorize(authRequest);
+        JsonNode authResponse = objectMapper.readTree(responseBody);
         String authorizationCode = authResponse.get("code").asText();
 
         log.debug("Authorization code received");
@@ -131,31 +93,14 @@ public class OFBOAuth2ClientService {
     private TokenResponse exchangeCodeForTokens(String authorizationCode) throws Exception {
         log.debug("Exchanging authorization code for tokens");
 
-        String tokenEndpoint = properties.getBaseUrl() + "/oauth2/token";
-
         MultiValueMap<String, String> tokenRequest = new LinkedMultiValueMap<>();
         tokenRequest.add("grant_type", "authorization_code");
         tokenRequest.add("code", authorizationCode);
         tokenRequest.add("redirect_uri", properties.getRedirectUri());
         tokenRequest.add("client_id", properties.getClientId());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(tokenRequest, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                tokenEndpoint,
-                HttpMethod.POST,
-                request,
-                String.class
-        );
-
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            throw new IllegalStateException("Token exchange failed with status: " + response.getStatusCode());
-        }
-
-        JsonNode tokenResponse = objectMapper.readTree(response.getBody());
+        String responseBody = oAuth2Client.exchangeToken(tokenRequest);
+        JsonNode tokenResponse = objectMapper.readTree(responseBody);
 
         String accessToken = tokenResponse.get("access_token").asText();
         String idToken = tokenResponse.get("id_token").asText();

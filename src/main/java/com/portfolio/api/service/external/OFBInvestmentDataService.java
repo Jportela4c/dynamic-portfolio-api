@@ -2,13 +2,9 @@ package com.portfolio.api.service.external;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.portfolio.api.config.OFBProviderProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OFBInvestmentDataService {
 
-    @Qualifier("ofbRestTemplate")
-    private final RestTemplate restTemplate;
-    private final OFBProviderProperties properties;
+    private final OFBInvestmentClient investmentClient;
     private final OFBOAuth2ClientService oAuth2ClientService;
     private final JWSVerificationService jwsVerificationService;
     private final ObjectMapper objectMapper;
@@ -31,28 +25,10 @@ public class OFBInvestmentDataService {
         // Get access token
         String accessToken = oAuth2ClientService.getAccessToken();
 
-        // Call investments API
-        String investmentsEndpoint = properties.getBaseUrl() + "/investments/v1/investments";
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-
-        HttpEntity<Void> request = new HttpEntity<>(headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(
-                investmentsEndpoint,
-                HttpMethod.GET,
-                request,
-                String.class
-        );
-
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            throw new IllegalStateException("Investments API call failed with status: " + response.getStatusCode());
-        }
+        // Call investments API using HTTP Interface client
+        String jwsToken = investmentClient.getInvestments("Bearer " + accessToken);
 
         // Verify JWS signature and extract payload
-        String jwsToken = response.getBody();
         String payload = jwsVerificationService.verifyAndExtractPayload(jwsToken);
 
         // Parse investment data

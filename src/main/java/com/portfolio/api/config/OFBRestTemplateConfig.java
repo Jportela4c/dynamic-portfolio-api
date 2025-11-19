@@ -1,5 +1,7 @@
 package com.portfolio.api.config;
 
+import com.portfolio.api.service.external.OFBInvestmentClient;
+import com.portfolio.api.service.external.OFBOAuth2Client;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -8,13 +10,14 @@ import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuil
 import org.apache.hc.client5.http.io.HttpClientConnectionManager;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
 import org.apache.hc.core5.ssl.SSLContextBuilder;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.support.RestClientAdapter;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import javax.net.ssl.SSLContext;
 import java.io.InputStream;
@@ -31,9 +34,25 @@ public class OFBRestTemplateConfig {
     private final OFBProviderProperties properties;
     private final ResourceLoader resourceLoader;
 
-    @Bean(name = "ofbRestTemplate")
-    public RestTemplate ofbRestTemplate(RestTemplateBuilder builder) throws Exception {
-        log.info("Configuring OFB RestTemplate with mTLS");
+    @Bean
+    public OFBInvestmentClient ofbInvestmentClient(RestClient ofbRestClient) {
+        log.info("Creating OFB Investment HTTP Interface client");
+        RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(OFBInvestmentClient.class);
+    }
+
+    @Bean
+    public OFBOAuth2Client ofbOAuth2Client(RestClient ofbRestClient) {
+        log.info("Creating OFB OAuth2 HTTP Interface client");
+        RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(OFBOAuth2Client.class);
+    }
+
+    @Bean
+    public RestClient ofbRestClient() throws Exception {
+        log.info("Configuring OFB RestClient with mTLS");
 
         SSLContext sslContext = createSSLContext();
         HttpClientConnectionManager connectionManager = createConnectionManager(sslContext);
@@ -44,10 +63,11 @@ public class OFBRestTemplateConfig {
         HttpComponentsClientHttpRequestFactory requestFactory =
                 new HttpComponentsClientHttpRequestFactory(httpClient);
         requestFactory.setConnectTimeout(Duration.ofMillis(properties.getConnection().getConnectTimeoutMs()));
+        requestFactory.setReadTimeout(Duration.ofMillis(properties.getConnection().getReadTimeoutMs()));
 
-        return builder
-                .requestFactory(() -> requestFactory)
-                .setReadTimeout(Duration.ofMillis(properties.getConnection().getReadTimeoutMs()))
+        return RestClient.builder()
+                .baseUrl(properties.getBaseUrl())
+                .requestFactory(requestFactory)
                 .build();
     }
 
