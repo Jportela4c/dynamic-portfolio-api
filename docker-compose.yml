@@ -72,6 +72,8 @@ services:
   ofb-mock-server:
     build: ./ofb-mock-server
     container_name: ofb-mock-server
+    environment:
+      - OAUTH_ISSUER=https://ofb-mock-server:8443
     ports:
       - "8089:8089"
       - "8443:8443"

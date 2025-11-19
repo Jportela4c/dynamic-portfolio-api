@@ -6,6 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,6 +19,9 @@ public class OAuth2Resource {
 
     @Inject
     OAuth2Service oauth2Service;
+
+    @ConfigProperty(name = "oauth.issuer", defaultValue = "https://localhost:8443")
+    String issuer;
 
     @POST
     @Path("/par")
@@ -123,11 +127,11 @@ public class OAuth2Resource {
     @Path("/.well-known/openid-configuration")
     public Response openidConfiguration() {
         Map<String, Object> config = new HashMap<>();
-        config.put("issuer", "https://localhost:8443");
-        config.put("authorization_endpoint", "https://localhost:8443/oauth2/authorize");
-        config.put("token_endpoint", "https://localhost:8443/oauth2/token");
-        config.put("pushed_authorization_request_endpoint", "https://localhost:8443/oauth2/par");
-        config.put("jwks_uri", "https://localhost:8443/oauth2/jwks");
+        config.put("issuer", issuer);
+        config.put("authorization_endpoint", issuer + "/oauth2/authorize");
+        config.put("token_endpoint", issuer + "/oauth2/token");
+        config.put("pushed_authorization_request_endpoint", issuer + "/oauth2/par");
+        config.put("jwks_uri", issuer + "/oauth2/jwks");
         config.put("response_types_supported", new String[]{"code"});
         config.put("grant_types_supported", new String[]{"authorization_code"});
         config.put("token_endpoint_auth_methods_supported", new String[]{"tls_client_auth"});
