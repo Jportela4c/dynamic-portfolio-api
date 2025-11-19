@@ -86,7 +86,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"tipoProduto\": \"CDB\",\n  \"valor\": 10000,\n  \"prazo\": 12\n}"
+              "raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/simular-investimento",
@@ -125,7 +125,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"tipoProduto\": \"LCI\",\n  \"valor\": 15000,\n  \"prazo\": 24\n}"
+              "raw": "{\n  \"clienteId\": 1,\n  \"valor\": 15000,\n  \"prazoMeses\": 24,\n  \"tipoProduto\": \"LCI\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/simular-investimento",
