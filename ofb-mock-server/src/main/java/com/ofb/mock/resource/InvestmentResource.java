@@ -15,6 +15,14 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.ExampleObject;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +31,7 @@ import java.util.Map;
 @Path("/open-banking/bank-fixed-incomes/v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@Tag(name = "Open Finance Brasil - Investimentos", description = "APIs de investimentos em renda fixa conforme especificação Open Finance Brasil")
 public class InvestmentResource {
 
     @Inject
@@ -36,7 +45,76 @@ public class InvestmentResource {
 
     @GET
     @Path("/investments")
-    public Response getInvestments(@HeaderParam("Authorization") String authorization) {
+    @Operation(
+        summary = "Listar Investimentos em Renda Fixa",
+        description = """
+            Retorna lista de investimentos em renda fixa do cliente conforme especificação Open Finance Brasil.
+
+            ## Descrição
+
+            Este endpoint implementa a API de investimentos OFB para produtos de renda fixa (CDB, LCI, LCA, etc.).
+            Retorna informações detalhadas sobre os investimentos do cliente autenticado.
+
+            ## Segurança e Conformidade OFB
+
+            ### Requisitos de Autenticação
+            - **OAuth2 Bearer Token**: Token de acesso obtido via fluxo PAR
+            - **mTLS**: Certificado de cliente válido obrigatório
+            - **Escopos Necessários**: `bank-fixed-incomes` ou `investments:read`
+
+            ### Assinatura de Resposta (JWS)
+            - **Algoritmo**: PS256 (RSA-PSS com SHA-256)
+            - **Formato**: Resposta completa assinada em formato JWS compacto
+            - **Verificação**: Use o endpoint `/oauth2/jwks` para obter chaves públicas
+
+            ## Estrutura da Resposta
+
+            A resposta é um JWS assinado contendo objeto JSON com:
+
+            - **data**: Array de investimentos do cliente
+            - Cada investimento contém: tipo, valor investido, rentabilidade, prazo, etc.
+
+            ## Conformidade
+
+            Este endpoint segue rigorosamente a especificação:
+            - Open Finance Brasil - Bank Fixed Incomes API v1
+            - FAPI Security Profile 1.0
+            - Assinatura JWS obrigatória conforme spec OFB
+            """
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = "200",
+            description = "Lista de investimentos retornada com sucesso (resposta assinada JWS)",
+            content = @Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @ExampleObject(
+                    name = "Resposta JWS Assinada",
+                    value = "eyJhbGciOiJSUzI1NiIsImtpZCI6Im9mYi1qd3Mta2V5LTEifQ.eyJkYXRhIjpbeyJpZCI6IjEyMzQ1IiwidHlwZSI6IkNEQiIsImFtb3VudCI6MTAwMDAuMDB9XX0.signature..."
+                )
+            )
+        ),
+        @APIResponse(
+            responseCode = "401",
+            description = "Token de autorização inválido ou expirado"
+        ),
+        @APIResponse(
+            responseCode = "403",
+            description = "Certificado de cliente inválido ou escopos insuficientes"
+        ),
+        @APIResponse(
+            responseCode = "500",
+            description = "Erro ao assinar resposta JWS"
+        )
+    })
+    public Response getInvestments(
+            @HeaderParam("Authorization")
+            @Parameter(
+                description = "Bearer token OAuth2 obtido via fluxo PAR",
+                required = true,
+                example = "Bearer eyJraWQiOiI..."
+            )
+            String authorization) {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments");
 
         try {
@@ -67,8 +145,78 @@ public class InvestmentResource {
 
     @GET
     @Path("/investments/{investmentId}")
-    public Response getInvestmentById(@PathParam("investmentId") String investmentId,
-                                      @HeaderParam("Authorization") String authorization) {
+    @Operation(
+        summary = "Consultar Investimento Específico",
+        description = """
+            Retorna detalhes de um investimento específico por ID conforme especificação Open Finance Brasil.
+
+            ## Descrição
+
+            Consulta informações detalhadas de um investimento em renda fixa específico,
+            incluindo rentabilidade, vencimento, indexadores e saldo atual.
+
+            ## Segurança
+
+            Requer autenticação OAuth2 com Bearer token e mTLS.
+
+            ## Estrutura da Resposta
+
+            Retorna objeto JSON com:
+
+            - **data**: Objeto contendo detalhes completos do investimento
+            - Informações incluem: tipo, emissor, valor, rentabilidade, indexadores, prazos
+
+            ## Tratamento de Erros
+
+            - **404 Not Found**: Investimento não encontrado para o ID fornecido
+            - Resposta de erro segue padrão OFB com estrutura `errors`
+            """
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = "200",
+            description = "Detalhes do investimento retornados com sucesso",
+            content = @Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @ExampleObject(
+                    value = "{\"data\":{\"id\":\"12345\",\"type\":\"CDB\",\"issuer\":\"Banco Exemplo\",\"amount\":10000.00,\"rate\":12.5}}"
+                )
+            )
+        ),
+        @APIResponse(
+            responseCode = "404",
+            description = "Investimento não encontrado",
+            content = @Content(
+                mediaType = MediaType.APPLICATION_JSON,
+                examples = @ExampleObject(
+                    value = "{\"errors\":[{\"code\":\"NOT_FOUND\",\"title\":\"Investment not found\",\"detail\":\"Investment with id 12345 not found\"}]}"
+                )
+            )
+        ),
+        @APIResponse(
+            responseCode = "401",
+            description = "Token de autorização inválido ou expirado"
+        ),
+        @APIResponse(
+            responseCode = "403",
+            description = "Acesso não autorizado ao investimento"
+        )
+    })
+    public Response getInvestmentById(
+            @PathParam("investmentId")
+            @Parameter(
+                description = "Identificador único do investimento",
+                required = true,
+                example = "12345"
+            )
+            String investmentId,
+            @HeaderParam("Authorization")
+            @Parameter(
+                description = "Bearer token OAuth2",
+                required = true,
+                example = "Bearer eyJraWQiOiI..."
+            )
+            String authorization) {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}", investmentId);
 
         Investment investment = mockDataService.getInvestmentById(investmentId);
