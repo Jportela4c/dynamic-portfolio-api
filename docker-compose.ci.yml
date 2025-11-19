@@ -3,7 +3,7 @@
 
 services:
   flyway-test-data:
-    image: mcr.microsoft.com/mssql-tools
+    image: mcr.microsoft.com/mssql-tools:10.0.20348.1-1
     platform: linux/amd64
     restart: "no"
     command: >

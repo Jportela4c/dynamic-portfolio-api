@@ -5,7 +5,11 @@ WORKDIR /app
 COPY . .
 RUN --mount=type=cache,target=/root/.m2 \
     mvn clean package -DskipTests -Dmaven.test.skip=true \
-    -Dmaven.artifact.threads=20 \
+    -Dmaven.artifact.threads=50 \
+    -Dhttp.maxConnections=50 \
+    -Dmaven.wagon.http.pool=true \
+    -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
+    -Dmaven.wagon.http.retryHandler.count=3 \
     -Ddownload.plugin.skip.sources=true \
     -Ddownload.plugin.skip.javadoc=true \
     -Dmaven.javadoc.skip=true \

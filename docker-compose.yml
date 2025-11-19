@@ -1,11 +1,6 @@
-x-platform-notice: &platform-notice
-  # SQL Server, mssql-tools, and Flyway only support AMD64
-  # On ARM Macs, Docker will use emulation (Rosetta)
-  # This is expected and does not affect functionality
-
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2022-CU16-ubuntu-22.04
     container_name: portfolio-sqlserver
     platform: linux/amd64
     environment:
@@ -24,7 +19,7 @@ services:
       start_period: 10s
 
   sqlserver-init:
-    image: mcr.microsoft.com/mssql-tools
+    image: mcr.microsoft.com/mssql-tools:10.0.20348.1-1
     platform: linux/amd64
     restart: "no"
     command: >
@@ -34,7 +29,7 @@ services:
         condition: service_healthy
 
   flyway:
-    image: flyway/flyway:latest
+    image: flyway/flyway:11.1.0
     platform: linux/amd64
     restart: "no"
     command: -connectRetries=60 -locations=filesystem:/flyway/sql migrate
