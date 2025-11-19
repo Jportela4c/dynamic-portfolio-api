@@ -77,10 +77,10 @@ ofb:
     redirect-uri: https://portfolio-api/callback
     scope: investments:read
     keystore:
-      path: classpath:certs/client.p12
+      path: ${OFB_KEYSTORE_PATH:classpath:certs/client.p12}
       password: changeit
     truststore:
-      path: classpath:certs/server.cer
+      path: ${OFB_TRUSTSTORE_PATH:classpath:certs/ca.crt}
     token:
       cache-ttl-seconds: 3000
     jwks:
