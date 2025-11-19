@@ -58,7 +58,7 @@ public class InvestmentService {
         return List.of(
                 InvestmentResponse.builder()
                         .id(0L)
-                        .tipo("SISTEMA_INDISPONIVEL")
+                        .tipo(com.portfolio.api.model.enums.TipoProduto.UNKNOWN)
                         .valor(BigDecimal.ZERO)
                         .rentabilidade(BigDecimal.ZERO)
                         .data(LocalDate.now())

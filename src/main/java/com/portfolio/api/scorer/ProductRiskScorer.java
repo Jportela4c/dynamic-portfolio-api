@@ -10,15 +10,25 @@ import java.util.Map;
 @Component
 public class ProductRiskScorer {
 
-    private static final Map<TipoProduto, Integer> PRODUCT_RISK_LEVELS = Map.of(
-            TipoProduto.TESOURO_DIRETO, 2,
-            TipoProduto.LCI, 3,
-            TipoProduto.LCA, 3,
-            TipoProduto.CDB, 4,
-            TipoProduto.FUNDO_RENDA_FIXA, 5,
-            TipoProduto.FUNDO_MULTIMERCADO, 7,
-            TipoProduto.FUNDO_ACOES, 9,
-            TipoProduto.FII, 8
+    private static final Map<TipoProduto, Integer> PRODUCT_RISK_LEVELS = Map.ofEntries(
+            // Treasure Titles - Very low risk
+            Map.entry(TipoProduto.TESOURO_SELIC, 2),
+            Map.entry(TipoProduto.TESOURO_PREFIXADO, 2),
+            Map.entry(TipoProduto.TESOURO_IPCA, 2),
+            Map.entry(TipoProduto.TESOURO_RENDA_MAIS, 2),
+            Map.entry(TipoProduto.TESOURO_EDUCA_MAIS, 2),
+            // Bank Fixed Incomes - Low to medium risk
+            Map.entry(TipoProduto.LCI, 3),
+            Map.entry(TipoProduto.LCA, 3),
+            Map.entry(TipoProduto.RDB, 3),
+            Map.entry(TipoProduto.CDB, 4),
+            // Poupança - Very low risk
+            Map.entry(TipoProduto.POUPANCA, 1),
+            // Funds - Medium to high risk
+            Map.entry(TipoProduto.RENDA_FIXA, 5),
+            Map.entry(TipoProduto.CAMBIAL, 6),
+            Map.entry(TipoProduto.MULTIMERCADO, 7),
+            Map.entry(TipoProduto.ACOES, 9)
     );
 
     public int calculateProductRiskScore(List<Investment> investments) {

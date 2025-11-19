@@ -78,7 +78,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                 Position.builder()
                         .codigoProduto("TESOURO_SELIC")
                         .nomeProduto("Tesouro Selic 2027")
-                        .tipoProduto("TESOURO_DIRETO")
+                        .tipoProduto("TESOURO_SELIC")
                         .valorAplicado(new BigDecimal("25000.00"))
                         .valorAtual(new BigDecimal("27400.00"))
                         .rentabilidade(new BigDecimal("0.096"))
@@ -100,7 +100,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                         .build(),
                 Investment.builder()
                         .id(2L)
-                        .tipo(TipoProduto.FUNDO_MULTIMERCADO)
+                        .tipo(TipoProduto.MULTIMERCADO)
                         .tipoOperacao("RESGATE")
                         .valor(new BigDecimal("5000.00"))
                         .rentabilidade(new BigDecimal("0.08"))
@@ -158,7 +158,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Arrays.asList(
                 Investment.builder()
                         .id(4L)
-                        .tipo("POUPANCA")
+                        .tipo(TipoProduto.POUPANCA)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("20000.00"))
                         .rentabilidade(new BigDecimal("0.03"))
@@ -190,9 +190,9 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
 
         mockPositions.put(cpf, Arrays.asList(
                 Position.builder()
-                        .codigoProduto("FUNDO_ACOES")
+                        .codigoProduto("ACOES")
                         .nomeProduto("CAIXA FIC Ações Ibovespa")
-                        .tipoProduto("FUNDO_ACOES")
+                        .tipoProduto("ACOES")
                         .valorAplicado(new BigDecimal("50000.00"))
                         .valorAtual(new BigDecimal("57000.00"))
                         .rentabilidade(new BigDecimal("0.14"))
@@ -216,7 +216,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Arrays.asList(
                 Investment.builder()
                         .id(6L)
-                        .tipo(TipoProduto.FUNDO_ACOES)
+                        .tipo(TipoProduto.ACOES)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("50000.00"))
                         .rentabilidade(new BigDecimal("0.14"))
@@ -250,7 +250,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                 Position.builder()
                         .codigoProduto("TESOURO_IPCA")
                         .nomeProduto("Tesouro IPCA+ 2029")
-                        .tipoProduto("TESOURO_DIRETO")
+                        .tipoProduto("TESOURO_SELIC")
                         .valorAplicado(new BigDecimal("15000.00"))
                         .valorAtual(new BigDecimal("15750.00"))
                         .rentabilidade(new BigDecimal("0.05"))
@@ -263,7 +263,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Collections.singletonList(
                 Investment.builder()
                         .id(8L)
-                        .tipo(TipoProduto.TESOURO_DIRETO)
+                        .tipo(TipoProduto.TESOURO_SELIC)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("15000.00"))
                         .rentabilidade(new BigDecimal("0.05"))
@@ -301,7 +301,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Collections.singletonList(
                 Investment.builder()
                         .id(9L)
-                        .tipo("POUPANCA")
+                        .tipo(TipoProduto.POUPANCA)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("8000.00"))
                         .rentabilidade(new BigDecimal("0.025"))

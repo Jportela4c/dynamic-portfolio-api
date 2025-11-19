@@ -144,13 +144,13 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
 
     private TipoProduto mapStringToTipoProduto(String type) {
         if (type == null) {
-            return TipoProduto.CDB; // default
+            return TipoProduto.UNKNOWN;
         }
         try {
             return TipoProduto.valueOf(type.toUpperCase());
         } catch (IllegalArgumentException e) {
-            log.warn("Unknown investment type from OFB: {}. Defaulting to CDB", type);
-            return TipoProduto.CDB;
+            log.warn("Unknown investment type from OFB: {}. Returning UNKNOWN", type);
+            return TipoProduto.UNKNOWN;
         }
     }
 }
