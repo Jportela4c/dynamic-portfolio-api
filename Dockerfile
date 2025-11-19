@@ -11,7 +11,7 @@ RUN --mount=type=cache,target=/root/.m2 \
     -Dmaven.javadoc.skip=true \
     -T 1C
 
-FROM amazoncorretto:21-alpine-jre
+FROM amazoncorretto:21-alpine
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
