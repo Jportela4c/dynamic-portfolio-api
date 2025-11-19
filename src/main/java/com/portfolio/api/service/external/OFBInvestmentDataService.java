@@ -31,7 +31,7 @@ public class OFBInvestmentDataService {
         // Call investments API using HTTP Interface client
         String jwsToken = investmentClient.getInvestments("Bearer " + accessToken);
 
-        // Verify JWS signature and extract payload
+        // Verify JWS signature and extract payload (FAPI compliant)
         String payload = jwsVerificationService.verifyAndExtractPayload(jwsToken);
 
         // Parse investment data
