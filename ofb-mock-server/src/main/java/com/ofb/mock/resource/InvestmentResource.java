@@ -233,4 +233,129 @@ public class InvestmentResource {
 
         return Response.ok(Map.of("data", investment)).build();
     }
+
+    @GET
+    @Path("/investments/{investmentId}/transactions")
+    @Operation(
+        summary = "Listar Transações Históricas do Investimento",
+        description = """
+            Retorna movimentações históricas (últimos 12 meses) da operação de Renda Fixa Bancária.
+
+            ## Descrição
+
+            Consulta o histórico completo de transações de um investimento específico conforme
+            especificação Open Finance Brasil.
+
+            ## Período
+
+            - **Últimos 12 meses** a partir da data da consulta
+            - Inclui todas as movimentações: aplicações, resgates, juros, impostos
+
+            ## Segurança
+
+            Requer autenticação OAuth2 com Bearer token e mTLS.
+
+            ## Tipos de Transação
+
+            - Aplicação inicial
+            - Aplicações adicionais
+            - Resgates parciais ou totais
+            - Rendimentos creditados
+            - Impostos descontados (IR, IOF)
+            """
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = "200",
+            description = "Transações retornadas com sucesso"
+        ),
+        @APIResponse(
+            responseCode = "404",
+            description = "Investimento não encontrado"
+        ),
+        @APIResponse(
+            responseCode = "401",
+            description = "Token de autorização inválido"
+        )
+    })
+    public Response getInvestmentTransactions(
+            @PathParam("investmentId")
+            @Parameter(
+                description = "Identificador único do investimento",
+                required = true,
+                example = "12345"
+            )
+            String investmentId,
+            @HeaderParam("Authorization")
+            @Parameter(
+                description = "Bearer token OAuth2",
+                required = true
+            )
+            String authorization) {
+        log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/transactions", investmentId);
+
+        // Mock implementation - returns empty transactions list
+        return Response.ok(Map.of("data", List.of())).build();
+    }
+
+    @GET
+    @Path("/investments/{investmentId}/transactions-current")
+    @Operation(
+        summary = "Listar Transações Recentes do Investimento",
+        description = """
+            Retorna movimentações recentes (últimos 7 dias) da operação de Renda Fixa Bancária.
+
+            ## Descrição
+
+            Consulta transações recentes de um investimento específico conforme especificação OFB.
+
+            ## Período
+
+            - **Últimos 7 dias** (D-6 até hoje)
+            - Inclui o dia da consulta
+            - Útil para monitoramento em tempo real
+
+            ## Segurança
+
+            Requer autenticação OAuth2 com Bearer token e mTLS.
+
+            ## Diferença de /transactions
+
+            - `/transactions`: Histórico completo (12 meses)
+            - `/transactions-current`: Apenas movimentações recentes (7 dias)
+            """
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = "200",
+            description = "Transações recentes retornadas com sucesso"
+        ),
+        @APIResponse(
+            responseCode = "404",
+            description = "Investimento não encontrado"
+        ),
+        @APIResponse(
+            responseCode = "401",
+            description = "Token de autorização inválido"
+        )
+    })
+    public Response getInvestmentTransactionsCurrent(
+            @PathParam("investmentId")
+            @Parameter(
+                description = "Identificador único do investimento",
+                required = true,
+                example = "12345"
+            )
+            String investmentId,
+            @HeaderParam("Authorization")
+            @Parameter(
+                description = "Bearer token OAuth2",
+                required = true
+            )
+            String authorization) {
+        log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/transactions-current", investmentId);
+
+        // Mock implementation - returns empty transactions list
+        return Response.ok(Map.of("data", List.of())).build();
+    }
 }
