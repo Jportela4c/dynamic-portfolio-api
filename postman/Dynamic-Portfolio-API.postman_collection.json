@@ -1027,8 +1027,143 @@
                   "    json.servicos.forEach(service => {",
                   "        pm.expect(validNames).to.include(service.nome);",
                   "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/telemetria",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "telemetria"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwtToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Telemetry - Verify Metrics Collection",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Call multiple endpoints to generate telemetry data",
+                  "const baseUrl = pm.environment.get('baseUrl');",
+                  "const token = pm.environment.get('jwtToken');",
+                  "",
+                  "// Simulation request payload",
+                  "const simulationPayload = {",
+                  "    clienteId: 123,",
+                  "    valor: 10000.00,",
+                  "    prazoMeses: 12,",
+                  "    tipoProduto: 'CDB'",
+                  "};",
+                  "",
+                  "// Call simular-investimento 3 times",
+                  "for (let i = 0; i < 3; i++) {",
+                  "    pm.sendRequest({",
+                  "        url: baseUrl + '/simular-investimento',",
+                  "        method: 'POST',",
+                  "        header: {",
+                  "            'Content-Type': 'application/json',",
+                  "            'Authorization': 'Bearer ' + token",
+                  "        },",
+                  "        body: {",
+                  "            mode: 'raw',",
+                  "            raw: JSON.stringify(simulationPayload)",
+                  "        }",
+                  "    }, (err, res) => {",
+                  "        if (err) console.log('Simulation request error:', err);",
+                  "    });",
+                  "}",
+                  "",
+                  "// Call perfil-risco 2 times",
+                  "for (let i = 0; i < 2; i++) {",
+                  "    pm.sendRequest({",
+                  "        url: baseUrl + '/perfil-risco/1',",
+                  "        method: 'GET',",
+                  "        header: {",
+                  "            'Authorization': 'Bearer ' + token",
+                  "        }",
+                  "    }, (err, res) => {",
+                  "        if (err) console.log('Risk profile request error:', err);",
+                  "    });",
+                  "}",
+                  "",
+                  "// Call simulacoes",
+                  "pm.sendRequest({",
+                  "    url: baseUrl + '/simulacoes',",
+                  "    method: 'GET',",
+                  "    header: {",
+                  "        'Authorization': 'Bearer ' + token",
+                  "    }",
+                  "}, (err, res) => {",
+                  "    if (err) console.log('Simulacoes request error:', err);",
                   "});",
-                  ""
+                  "",
+                  "// Wait 500ms for metrics to be recorded",
+                  "setTimeout(() => {}, 500);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Telemetry recorded simulation calls\", () => {",
+                  "    const json = pm.response.json();",
+                  "    const simulationMetrics = json.servicos.find(s => s.nome === 'simular-investimento');",
+                  "    ",
+                  "    pm.expect(simulationMetrics, 'simular-investimento metrics should exist').to.exist;",
+                  "    pm.expect(simulationMetrics.quantidadeChamadas, 'Should have recorded at least 3 simulation calls').to.be.at.least(3);",
+                  "    pm.expect(simulationMetrics.mediaTempoRespostaMs, 'Response time should be positive').to.be.greaterThan(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Telemetry recorded risk profile calls\", () => {",
+                  "    const json = pm.response.json();",
+                  "    const riskMetrics = json.servicos.find(s => s.nome === 'perfil-risco');",
+                  "    ",
+                  "    pm.expect(riskMetrics, 'perfil-risco metrics should exist').to.exist;",
+                  "    pm.expect(riskMetrics.quantidadeChamadas, 'Should have recorded at least 2 risk profile calls').to.be.at.least(2);",
+                  "});",
+                  "",
+                  "pm.test(\"Telemetry recorded simulacoes calls\", () => {",
+                  "    const json = pm.response.json();",
+                  "    const simulacoesMetrics = json.servicos.find(s => s.nome === 'simulacoes');",
+                  "    ",
+                  "    pm.expect(simulacoesMetrics, 'simulacoes metrics should exist').to.exist;",
+                  "    pm.expect(simulacoesMetrics.quantidadeChamadas, 'Should have recorded at least 1 simulacoes call').to.be.at.least(1);",
+                  "});",
+                  "",
+                  "pm.test(\"All metrics have valid response times\", () => {",
+                  "    const json = pm.response.json();",
+                  "    json.servicos.forEach(service => {",
+                  "        pm.expect(service.mediaTempoRespostaMs, `${service.nome} response time should be non-negative`).to.be.at.least(0);",
+                  "    });",
+                  "});"
                 ],
                 "type": "text/javascript"
               }
