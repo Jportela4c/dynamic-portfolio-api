@@ -4,14 +4,14 @@ VALUES
 ('CDB Caixa 2026', 'CDB', 0.12, 'Baixo', 1000.00, 6, 60, 'Conservador', 1),
 ('LCI Premium', 'LCI', 0.10, 'Baixo', 5000.00, 12, 36, 'Conservador', 1),
 ('LCA Agro Invest', 'LCA', 0.11, 'Baixo', 3000.00, 12, 48, 'Conservador', 1),
-('Tesouro Selic 2027', 'TESOURO_DIRETO', 0.13, 'Baixo', 100.00, 3, 120, 'Conservador', 1);
+('Tesouro Selic 2027', 'TESOURO_SELIC', 0.13, 'Baixo', 100.00, 3, 120, 'Conservador', 1);
 
 -- Moderate Products
 INSERT INTO produtos (nome, tipo, rentabilidade, risco, valor_minimo, prazo_minimo_meses, prazo_maximo_meses, perfil_adequado, ativo)
 VALUES
 ('CDB Prefixado Plus', 'CDB', 0.15, 'Médio', 2000.00, 12, 36, 'Moderado', 1),
 ('Fundo Renda Fixa Moderado', 'FUNDO_RENDA_FIXA', 0.14, 'Médio', 1000.00, 6, NULL, 'Moderado', 1),
-('Tesouro IPCA+ 2035', 'TESOURO_DIRETO', 0.16, 'Médio', 100.00, 12, 180, 'Moderado', 1),
+('Tesouro IPCA+ 2035', 'TESOURO_IPCA', 0.16, 'Médio', 100.00, 12, 180, 'Moderado', 1),
 ('LCI Moderada', 'LCI', 0.13, 'Médio', 3000.00, 12, 36, 'Moderado', 1);
 
 -- Aggressive Products
