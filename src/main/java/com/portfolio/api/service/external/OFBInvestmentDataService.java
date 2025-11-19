@@ -52,9 +52,9 @@ public class OFBInvestmentDataService {
         for (JsonNode investmentNode : dataNode) {
             InvestmentData investment = InvestmentData.builder()
                     .investmentId(investmentNode.get("investmentId").asText())
-                    .type(investmentNode.get("type").asText())
-                    .issuerName(investmentNode.path("issuerName").asText(null))
-                    .investedAmount(investmentNode.path("investedAmount").asDouble(0.0))
+                    .type(investmentNode.path("productType").asText("UNKNOWN"))
+                    .issuerName(investmentNode.path("productName").asText(null))
+                    .investedAmount(investmentNode.path("amount").asDouble(0.0))
                     .currentValue(investmentNode.path("currentValue").asDouble(0.0))
                     .profitability(investmentNode.path("profitability").asDouble(0.0))
                     .maturityDate(investmentNode.path("maturityDate").asText(null))
