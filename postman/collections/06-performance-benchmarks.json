@@ -38,6 +38,10 @@
               {
                 "key": "Content-Type",
                 "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA=="
               }
             ],
             "body": {
@@ -46,14 +50,6 @@
                 {
                   "key": "grant_type",
                   "value": "client_credentials"
-                },
-                {
-                  "key": "client_id",
-                  "value": "portfolio-api-client"
-                },
-                {
-                  "key": "client_secret",
-                  "value": "portfolio-secret-2024"
                 },
                 {
                   "key": "scope",
