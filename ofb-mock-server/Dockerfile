@@ -1,9 +1,25 @@
+FROM maven:3.9-eclipse-temurin-21-alpine AS builder
+WORKDIR /app
+
+# Copy pom.xml and download dependencies (uses persistent cache, parallel downloads)
+COPY pom.xml .
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn dependency:go-offline -B \
+    -Dmaven.artifact.threads=20
+
+# Copy source and build (uses persistent cache, parallel build)
+COPY src ./src
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn package -DskipTests \
+    -Dmaven.artifact.threads=20 \
+    -T 1C
+
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY target/quarkus-app/lib/ ./lib/
-COPY target/quarkus-app/*.jar ./
-COPY target/quarkus-app/app/ ./app/
-COPY target/quarkus-app/quarkus/ ./quarkus/
+COPY --from=builder /app/target/quarkus-app/lib/ ./lib/
+COPY --from=builder /app/target/quarkus-app/*.jar ./
+COPY --from=builder /app/target/quarkus-app/app/ ./app/
+COPY --from=builder /app/target/quarkus-app/quarkus/ ./quarkus/
 
 EXPOSE 8089 8443
 
