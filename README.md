@@ -12,9 +12,30 @@ Sistema de simulação de investimentos para produtos financeiros brasileiros in
 ./run.cmd
 ```
 
-Pronto! A API estará rodando em `http://localhost:8080/api/v1/api/v1`
+Pronto! A API estará rodando em `http://localhost:8080/api/v1`
 
-**Testar no navegador:** http://localhost:8080/api/v1/api/v1/swagger-ui.html
+**Testar no navegador:**
+- **API Principal**: http://localhost:8080/api/v1/swagger-ui/index.html
+- **OFB Mock Server**: http://localhost:8089/q/swagger-ui (Servidor simulado Open Finance Brasil)
+
+---
+
+## 🏦 Servidor Mock OFB
+
+Este projeto inclui um **servidor mock completo de Open Finance Brasil** para desenvolvimento e testes.
+
+**Documentação**: [`ofb-mock-server/README.md`](ofb-mock-server/README.md)
+
+**Swagger UI**: http://localhost:8089/q/swagger-ui
+
+O mock implementa:
+- ✅ OAuth2 PAR (Pushed Authorization Request)
+- ✅ mTLS (autenticação mútua)
+- ✅ JWS (assinatura de respostas PS256)
+- ✅ JWE (criptografia de ID tokens)
+- ✅ APIs de investimentos OFB
+
+⚠️ **Uso educacional apenas** - não usar em produção.
 
 ---
 
