@@ -11,7 +11,7 @@ keytool -genkeypair -alias server -keyalg RSA -keysize 2048 \
   -validity 365 -keystore "$CERTS_DIR/server.p12" \
   -storepass changeit -keypass changeit \
   -dname "CN=localhost,OU=OFB Mock,O=Portfolio API,L=Sao Paulo,ST=SP,C=BR" \
-  -ext "SAN=dns:localhost,ip:127.0.0.1" -storetype PKCS12
+  -ext "SAN=dns:localhost,dns:ofb-mock-server,ip:127.0.0.1" -storetype PKCS12
 
 # Export server certificate
 keytool -exportcert -alias server -keystore "$CERTS_DIR/server.p12" \
