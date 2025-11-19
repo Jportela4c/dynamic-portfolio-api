@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "security-headers-v1",
-    "name": "04 - Security Headers",
+    "name": "03 - Security Headers",
     "description": "Comprehensive security headers validation for financial API compliance including OWASP recommendations",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },

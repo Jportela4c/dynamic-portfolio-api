@@ -61,12 +61,12 @@ if [ -f "$COLLECTIONS_DIR/02-ofb-integration.json" ]; then
     run_collection "$COLLECTIONS_DIR/02-ofb-integration.json"
 fi
 
-if [ -f "$COLLECTIONS_DIR/03-api-edge-cases.json" ]; then
-    run_collection "$COLLECTIONS_DIR/03-api-edge-cases.json"
+if [ -f "$COLLECTIONS_DIR/03-security-headers.json" ]; then
+    run_collection "$COLLECTIONS_DIR/03-security-headers.json"
 fi
 
-if [ -f "$COLLECTIONS_DIR/04-security-headers.json" ]; then
-    run_collection "$COLLECTIONS_DIR/04-security-headers.json"
+if [ -f "$COLLECTIONS_DIR/04-api-edge-cases.json" ]; then
+    run_collection "$COLLECTIONS_DIR/04-api-edge-cases.json"
 fi
 
 # Run existing collections if they exist

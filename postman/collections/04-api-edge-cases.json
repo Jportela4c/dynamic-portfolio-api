@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "api-edge-cases-v1",
-    "name": "03 - API Edge Cases & Validation",
+    "name": "04 - API Edge Cases & Validation",
     "description": "Comprehensive edge case testing including input validation, boundary values, SQL injection, XSS, and error handling",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
