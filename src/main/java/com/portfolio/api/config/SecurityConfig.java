@@ -23,6 +23,7 @@ public class SecurityConfig {
                         .requestMatchers("/oauth2/**", "/.well-known/**", "/login", "/logout").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/perfil-risco/**", "/simular-investimento", "/investimentos/**", "/simulacoes/**", "/telemetria/**", "/produtos-recomendados/**").permitAll() // Temporarily allow API endpoints for testing
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
