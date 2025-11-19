@@ -92,6 +92,23 @@ Quando estiver pronto para produção:
 
 ---
 
+## Documentação Interativa (Swagger UI)
+
+**Acesse a documentação interativa da API:**
+
+- **Swagger UI**: http://localhost:8089/q/swagger-ui
+- **Especificação OpenAPI**: http://localhost:8089/q/openapi (formato YAML)
+
+A interface Swagger permite:
+- ✅ Explorar todos os endpoints disponíveis
+- ✅ Ver schemas de request/response
+- ✅ Testar endpoints diretamente no navegador
+- ✅ Validar parâmetros e formatos
+
+**Nota**: Esta documentação é gerada automaticamente pelo Quarkus SmallRye OpenAPI.
+
+---
+
 ## Endpoints Disponíveis
 
 ### OAuth2 / OIDC

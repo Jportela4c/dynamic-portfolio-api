@@ -64,6 +64,12 @@
             <artifactId>quarkus-smallrye-health</artifactId>
         </dependency>
 
+        <!-- OpenAPI/Swagger -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-openapi</artifactId>
+        </dependency>
+
         <!-- JWS/JWE (Nimbus JOSE+JWT) -->
         <dependency>
             <groupId>com.nimbusds</groupId>
