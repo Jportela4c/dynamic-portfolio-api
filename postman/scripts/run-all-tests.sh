@@ -61,6 +61,10 @@ if [ -f "$COLLECTIONS_DIR/02-ofb-integration.json" ]; then
     run_collection "$COLLECTIONS_DIR/02-ofb-integration.json"
 fi
 
+if [ -f "$COLLECTIONS_DIR/03-api-edge-cases.json" ]; then
+    run_collection "$COLLECTIONS_DIR/03-api-edge-cases.json"
+fi
+
 # Run existing collections if they exist
 if [ -f "$PROJECT_ROOT/postman/Dynamic-Portfolio-API.postman_collection.json" ]; then
     echo "Running legacy comprehensive collection..."
