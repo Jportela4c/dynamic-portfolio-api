@@ -1,0 +1,404 @@
+{
+  "info": {
+    "_postman_id": "api-happy-paths-v1",
+    "name": "05 - API Happy Paths",
+    "description": "Complete happy path testing for all 7 API endpoints with valid inputs and expected successful responses",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Investment Simulation",
+      "item": [
+        {
+          "name": "Simulate CDB Investment",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get fresh token",
+                  "const baseUrl = pm.environment.get('baseUrl');",
+                  "pm.sendRequest({",
+                  "    url: baseUrl + (baseUrl.endsWith('/api/v1') ? '' : '/api/v1') + '/oauth2/token',",
+                  "    method: 'POST',",
+                  "    header: {",
+                  "        'Content-Type': 'application/x-www-form-urlencoded'",
+                  "    },",
+                  "    body: {",
+                  "        mode: 'urlencoded',",
+                  "        urlencoded: [",
+                  "            { key: 'grant_type', value: 'client_credentials' },",
+                  "            { key: 'client_id', value: 'portfolio-api-client' },",
+                  "            { key: 'client_secret', value: 'portfolio-secret-2024' },",
+                  "            { key: 'scope', value: 'read write' }",
+                  "        ]",
+                  "    }",
+                  "}, (err, res) => {",
+                  "    if (!err && res.code === 200) {",
+                  "        pm.environment.set('accessToken', res.json().access_token);",
+                  "    }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has correct structure\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('produtoValidado');",
+                  "    pm.expect(json).to.have.property('resultadoSimulacao');",
+                  "});",
+                  "",
+                  "pm.test(\"Product validation successful\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.produtoValidado).to.have.property('id');",
+                  "    pm.expect(json.produtoValidado).to.have.property('nome');",
+                  "    pm.expect(json.produtoValidado.tipo).to.equal('CDB');",
+                  "});",
+                  "",
+                  "pm.test(\"Simulation result valid\", () => {",
+                  "    const json = pm.response.json();",
+                  "    const sim = json.resultadoSimulacao;",
+                  "    pm.expect(sim.valorInicial).to.equal(10000);",
+                  "    pm.expect(sim.valorFinal).to.be.greaterThan(sim.valorInicial);",
+                  "    pm.expect(sim.lucro).to.equal(sim.valorFinal - sim.valorInicial);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoProduto\": \"CDB\",\n  \"valor\": 10000,\n  \"prazo\": 12\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/simular-investimento",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "simular-investimento"]
+            }
+          }
+        },
+        {
+          "name": "Simulate LCI Investment",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Product type is LCI\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.produtoValidado.tipo).to.equal('LCI');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoProduto\": \"LCI\",\n  \"valor\": 15000,\n  \"prazo\": 24\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/simular-investimento",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "simular-investimento"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Risk Profile",
+      "item": [
+        {
+          "name": "Get Risk Profile - Conservative Client",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Has profile and score\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('perfil');",
+                  "    pm.expect(json).to.have.property('pontuacao');",
+                  "});",
+                  "",
+                  "pm.test(\"Profile is valid\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(['CONSERVADOR', 'MODERADO', 'AGRESSIVO']).to.include(json.perfil);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/perfil-risco/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "perfil-risco", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Product Recommendations",
+      "item": [
+        {
+          "name": "Get Products for Conservative Profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Returns array of products\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('array');",
+                  "    pm.expect(json.length).to.be.greaterThan(0);",
+                  "});",
+                  "",
+                  "pm.test(\"Products have required fields\", () => {",
+                  "    const json = pm.response.json();",
+                  "    json.forEach(product => {",
+                  "        pm.expect(product).to.have.property('id');",
+                  "        pm.expect(product).to.have.property('nome');",
+                  "        pm.expect(product).to.have.property('tipo');",
+                  "        pm.expect(product).to.have.property('rentabilidade');",
+                  "    });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/produtos-recomendados/CONSERVADOR",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "produtos-recomendados", "CONSERVADOR"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Investment History",
+      "item": [
+        {
+          "name": "Get Client Investment History",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Returns array\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('array');",
+                  "});",
+                  "",
+                  "if (pm.response.json().length > 0) {",
+                  "    pm.test(\"Investments have correct structure\", () => {",
+                  "        const json = pm.response.json();",
+                  "        json.forEach(inv => {",
+                  "            pm.expect(inv).to.have.property('id');",
+                  "            pm.expect(inv).to.have.property('tipo');",
+                  "            pm.expect(inv).to.have.property('valor');",
+                  "            pm.expect(inv).to.have.property('data');",
+                  "        });",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/investimentos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "investimentos", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Simulations List",
+      "item": [
+        {
+          "name": "Get All Simulations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Returns array\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/simulacoes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "simulacoes"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Simulations by Product/Day",
+      "item": [
+        {
+          "name": "Get Aggregated Simulations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Returns array\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('array');",
+                  "});",
+                  "",
+                  "if (pm.response.json().length > 0) {",
+                  "    pm.test(\"Aggregations have correct structure\", () => {",
+                  "        const json = pm.response.json();",
+                  "        json.forEach(agg => {",
+                  "            pm.expect(agg).to.have.property('produto');",
+                  "            pm.expect(agg).to.have.property('data');",
+                  "            pm.expect(agg).to.have.property('quantidade');",
+                  "            pm.expect(agg).to.have.property('valorFinalMedio');",
+                  "        });",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/simulacoes/por-produto-dia",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "simulacoes", "por-produto-dia"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Telemetry",
+      "item": [
+        {
+          "name": "Get Service Telemetry",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => pm.response.to.have.status(200));",
+                  "",
+                  "pm.test(\"Has telemetry data\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.be.an('array');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/telemetria",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "telemetria"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

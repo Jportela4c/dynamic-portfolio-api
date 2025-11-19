@@ -69,6 +69,14 @@ if [ -f "$COLLECTIONS_DIR/04-api-edge-cases.json" ]; then
     run_collection "$COLLECTIONS_DIR/04-api-edge-cases.json"
 fi
 
+if [ -f "$COLLECTIONS_DIR/05-api-happy-paths.json" ]; then
+    run_collection "$COLLECTIONS_DIR/05-api-happy-paths.json"
+fi
+
+if [ -f "$COLLECTIONS_DIR/06-performance-benchmarks.json" ]; then
+    run_collection "$COLLECTIONS_DIR/06-performance-benchmarks.json"
+fi
+
 # Run existing collections if they exist
 if [ -f "$PROJECT_ROOT/postman/Dynamic-Portfolio-API.postman_collection.json" ]; then
     echo "Running legacy comprehensive collection..."
