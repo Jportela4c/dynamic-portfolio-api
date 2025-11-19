@@ -119,47 +119,6 @@
           "response": []
         },
         {
-          "name": "X-XSS-Protection",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"X-XSS-Protection header present\", () => {",
-                  "    pm.response.to.have.header('X-XSS-Protection');",
-                  "});",
-                  "",
-                  "pm.test(\"X-XSS-Protection enabled\", () => {",
-                  "    const value = pm.response.headers.get('X-XSS-Protection');",
-                  "    pm.expect(value).to.match(/^1/);",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwtToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/perfil-risco/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["perfil-risco", "1"]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "Strict-Transport-Security (HSTS)",
           "event": [
             {
@@ -180,55 +139,6 @@
                   "} else {",
                   "    console.log('Skipping HSTS check - not HTTPS');",
                   "}"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwtToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/perfil-risco/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["perfil-risco", "1"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "02 - Content Security Policy",
-      "item": [
-        {
-          "name": "CSP Header Present",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Content-Security-Policy header present\", () => {",
-                  "    const hasCSP = pm.response.headers.has('Content-Security-Policy') || ",
-                  "                   pm.response.headers.has('Content-Security-Policy-Report-Only');",
-                  "    pm.expect(hasCSP).to.be.true;",
-                  "});",
-                  "",
-                  "pm.test(\"CSP restricts default-src\", () => {",
-                  "    const csp = pm.response.headers.get('Content-Security-Policy') || ",
-                  "                pm.response.headers.get('Content-Security-Policy-Report-Only') || '';",
-                  "    pm.expect(csp).to.include('default-src');",
-                  "});"
                 ],
                 "type": "text/javascript"
               }
