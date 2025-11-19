@@ -64,7 +64,7 @@ class HorizonScorerTest {
 
     private Investment createInvestment(int daysAgo) {
         return Investment.builder()
-                .tipo("CDB")
+                .tipo(TipoProduto.CDB)
                 .valor(new BigDecimal("10000"))
                 .data(LocalDate.now().minusDays(daysAgo))
                 .rentabilidade(new BigDecimal("0.10"))
