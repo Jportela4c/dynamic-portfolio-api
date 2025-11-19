@@ -1,12 +1,14 @@
 package com.portfolio.api.service.external;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.portfolio.api.mapper.OFBInvestmentMapper;
+import com.portfolio.api.provider.dto.OFBInvestmentDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -18,6 +20,7 @@ public class OFBInvestmentDataService {
     private final OFBOAuth2ClientService oAuth2ClientService;
     private final JWSVerificationService jwsVerificationService;
     private final ObjectMapper objectMapper;
+    private final OFBInvestmentMapper investmentMapper;
 
     public List<InvestmentData> fetchInvestments() throws Exception {
         log.info("Fetching investment data from OFB provider");
@@ -47,23 +50,12 @@ public class OFBInvestmentDataService {
             return List.of();
         }
 
-        List<InvestmentData> investments = new ArrayList<>();
+        List<OFBInvestmentDto> dtos = objectMapper.convertValue(
+                dataNode,
+                new TypeReference<List<OFBInvestmentDto>>() {}
+        );
 
-        for (JsonNode investmentNode : dataNode) {
-            InvestmentData investment = InvestmentData.builder()
-                    .investmentId(investmentNode.get("investmentId").asText())
-                    .type(investmentNode.path("productType").asText("UNKNOWN"))
-                    .issuerName(investmentNode.path("productName").asText(null))
-                    .investedAmount(investmentNode.path("amount").asDouble(0.0))
-                    .currentValue(investmentNode.path("currentValue").asDouble(0.0))
-                    .profitability(investmentNode.path("profitability").asDouble(0.0))
-                    .maturityDate(investmentNode.path("maturityDate").asText(null))
-                    .build();
-
-            investments.add(investment);
-        }
-
-        return investments;
+        return investmentMapper.toInvestmentDataList(dtos);
     }
 
     @lombok.Data
