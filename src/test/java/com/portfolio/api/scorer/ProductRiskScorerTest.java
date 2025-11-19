@@ -32,7 +32,7 @@ class ProductRiskScorerTest {
     void shouldCalculateWeightedRiskForConservativeProducts() {
         List<Investment> investments = Arrays.asList(
                 createInvestment(TipoProduto.CDB, new BigDecimal("10000")),
-                createInvestment(TipoProduto.TESOURO_DIRETO, new BigDecimal("10000"))
+                createInvestment(TipoProduto.TESOURO_SELIC, new BigDecimal("10000"))
         );
         int score = calculator.calculateProductRiskScore(investments);
         assertEquals(30, score);
@@ -41,8 +41,8 @@ class ProductRiskScorerTest {
     @Test
     void shouldCalculateWeightedRiskForAggressiveProducts() {
         List<Investment> investments = Arrays.asList(
-                createInvestment(TipoProduto.FUNDO_ACOES, new BigDecimal("10000")),
-                createInvestment(TipoProduto.FUNDO_ACOES, new BigDecimal("10000"))
+                createInvestment(TipoProduto.ACOES, new BigDecimal("10000")),
+                createInvestment(TipoProduto.ACOES, new BigDecimal("10000"))
         );
         int score = calculator.calculateProductRiskScore(investments);
         assertEquals(90, score);
@@ -53,7 +53,7 @@ class ProductRiskScorerTest {
         List<Investment> investments = Arrays.asList(
                 createInvestment(TipoProduto.CDB, new BigDecimal("5000")),
                 createInvestment(TipoProduto.LCI, new BigDecimal("5000")),
-                createInvestment(TipoProduto.FUNDO_ACOES, new BigDecimal("10000"))
+                createInvestment(TipoProduto.ACOES, new BigDecimal("10000"))
         );
         int score = calculator.calculateProductRiskScore(investments);
         assertEquals(63, score);

@@ -55,7 +55,7 @@ class ProductRepositoryTest {
 
         aggressiveProduct = new Product();
         aggressiveProduct.setNome("Fundo Agressivo");
-        aggressiveProduct.setTipo(TipoProduto.FUNDO_ACOES);
+        aggressiveProduct.setTipo(TipoProduto.ACOES);
         aggressiveProduct.setRentabilidade(new BigDecimal("0.18"));
         aggressiveProduct.setRisco("Alto");
         aggressiveProduct.setValorMinimo(new BigDecimal("10000.00"));

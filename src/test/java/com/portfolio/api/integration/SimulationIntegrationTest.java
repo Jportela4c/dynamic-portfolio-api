@@ -222,7 +222,7 @@ class SimulationIntegrationTest {
         request.setClienteId(123L);
         request.setValor(new BigDecimal("10000.00"));
         request.setPrazoMeses(12);
-        request.setTipoProduto(TipoProduto.FII);  // No FII products in test DB
+        request.setTipoProduto(TipoProduto.ACOES);  // No ACOES products in test DB
 
         mockMvc.perform(post("/simular-investimento")
                         
