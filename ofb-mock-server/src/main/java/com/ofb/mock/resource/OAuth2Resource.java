@@ -66,10 +66,15 @@ public class OAuth2Resource {
                     .build();
         }
 
+        // Mock server: Auto-approve consent (simulates user clicking "Approve")
+        // In production OFB: would show login page, user authenticates, grants consent
+        log.info("Mock: Auto-approving consent (simulating user approval)");
         String authCode = oauth2Service.createAuthorizationCode(requestUri);
-        String redirectUri = par.getRedirectUri() + "?code=" + authCode;
 
-        return Response.seeOther(URI.create(redirectUri)).build();
+        // For server-to-server testing: return code directly as JSON
+        // Simulates the redirect being followed and callback being processed
+        // Production would redirect browser: 303 to redirect_uri?code=xyz
+        return Response.ok(Map.of("code", authCode)).build();
     }
 
     @POST

@@ -6,10 +6,13 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.portfolio.api.config.OFBProviderProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestClient;
 
+import java.net.URI;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -78,11 +81,7 @@ public class OFBOAuth2ClientService {
     private String getAuthorizationCode(String requestUri) throws Exception {
         log.debug("Exchanging request_uri for authorization code");
 
-        MultiValueMap<String, String> authRequest = new LinkedMultiValueMap<>();
-        authRequest.add("request_uri", requestUri);
-        authRequest.add("client_id", properties.getClientId());
-
-        String responseBody = oAuth2Client.authorize(authRequest);
+        String responseBody = oAuth2Client.authorize(requestUri, properties.getClientId());
         JsonNode authResponse = objectMapper.readTree(responseBody);
         String authorizationCode = authResponse.get("code").asText();
 
