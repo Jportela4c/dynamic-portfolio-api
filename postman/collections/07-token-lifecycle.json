@@ -1,0 +1,498 @@
+{
+  "info": {
+    "name": "07 - Token Lifecycle",
+    "description": "OAuth2 token lifecycle testing including expiration, revocation, and refresh scenarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Token Expiration",
+      "item": [
+        {
+          "name": "Token Expires After TTL",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log('Testing token expiration - this would require waiting for token TTL or mocking');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Token has expires_in field', () => {",
+                  "    pm.response.to.have.status(200);",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('expires_in');",
+                  "    pm.expect(json.expires_in).to.be.a('number');",
+                  "    pm.expect(json.expires_in).to.be.greaterThan(0);",
+                  "});",
+                  "",
+                  "pm.test('Token TTL is reasonable (< 1 hour)', () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.expires_in).to.be.lessThanOrEqual(3600);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA=="
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                },
+                {
+                  "key": "scope",
+                  "value": "read write"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth2",
+                "token"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Use Expired Token Returns 401",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Set an obviously expired/invalid token",
+                  "pm.environment.set('accessToken', 'expired.token.invalid');"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Expired token rejected with 401', () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "",
+                  "pm.test('Response indicates invalid token', () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('token');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/perfil-risco/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "perfil-risco",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Token Introspection",
+      "item": [
+        {
+          "name": "Introspect Valid Token",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get fresh token first",
+                  "const baseUrl = pm.environment.get('baseUrl');",
+                  "pm.sendRequest({",
+                  "    url: baseUrl + '/oauth2/token',",
+                  "    method: 'POST',",
+                  "    header: {",
+                  "        'Content-Type': 'application/x-www-form-urlencoded',",
+                  "        'Authorization': 'Basic ' + btoa('portfolio-api-client:api-secret')",
+                  "    },",
+                  "    body: {",
+                  "        mode: 'urlencoded',",
+                  "        urlencoded: [",
+                  "            { key: 'grant_type', value: 'client_credentials' },",
+                  "            { key: 'scope', value: 'read write' }",
+                  "        ]",
+                  "    }",
+                  "}, (err, res) => {",
+                  "    if (!err && res.code === 200) {",
+                  "        pm.environment.set('accessToken', res.json().access_token);",
+                  "    }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Introspection returns token info', () => {",
+                  "    pm.response.to.have.status(200);",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('active');",
+                  "});",
+                  "",
+                  "pm.test('Token is active', () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.active).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test('Token has client_id', () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('client_id');",
+                  "    pm.expect(json.client_id).to.equal('portfolio-api-client');",
+                  "});",
+                  "",
+                  "pm.test('Token has scope', () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('scope');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA=="
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/introspect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth2",
+                "introspect"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Introspect Invalid Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Invalid token returns inactive', () => {",
+                  "    pm.response.to.have.status(200);",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json.active).to.be.false;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA=="
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "token",
+                  "value": "invalid.token.here"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/introspect",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth2",
+                "introspect"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Token Revocation",
+      "item": [
+        {
+          "name": "Revoke Token",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get fresh token to revoke",
+                  "const baseUrl = pm.environment.get('baseUrl');",
+                  "pm.sendRequest({",
+                  "    url: baseUrl + '/oauth2/token',",
+                  "    method: 'POST',",
+                  "    header: {",
+                  "        'Content-Type': 'application/x-www-form-urlencoded',",
+                  "        'Authorization': 'Basic ' + btoa('portfolio-api-client:api-secret')",
+                  "    },",
+                  "    body: {",
+                  "        mode: 'urlencoded',",
+                  "        urlencoded: [",
+                  "            { key: 'grant_type', value: 'client_credentials' },",
+                  "            { key: 'scope', value: 'read write' }",
+                  "        ]",
+                  "    }",
+                  "}, (err, res) => {",
+                  "    if (!err && res.code === 200) {",
+                  "        pm.environment.set('tokenToRevoke', res.json().access_token);",
+                  "    }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Revocation succeeds', () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA=="
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "token",
+                  "value": "{{tokenToRevoke}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/revoke",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth2",
+                "revoke"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Use Revoked Token Returns 401",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Revoked token rejected with 401', () => {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenToRevoke}}"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/perfil-risco/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "perfil-risco",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Token Reuse & Security",
+      "item": [
+        {
+          "name": "Same Credentials Generate Different Tokens",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Get first token",
+                  "const baseUrl = pm.environment.get('baseUrl');",
+                  "pm.sendRequest({",
+                  "    url: baseUrl + '/oauth2/token',",
+                  "    method: 'POST',",
+                  "    header: {",
+                  "        'Content-Type': 'application/x-www-form-urlencoded',",
+                  "        'Authorization': 'Basic ' + btoa('portfolio-api-client:api-secret')",
+                  "    },",
+                  "    body: {",
+                  "        mode: 'urlencoded',",
+                  "        urlencoded: [",
+                  "            { key: 'grant_type', value: 'client_credentials' },",
+                  "            { key: 'scope', value: 'read write' }",
+                  "        ]",
+                  "    }",
+                  "}, (err, res) => {",
+                  "    if (!err && res.code === 200) {",
+                  "        pm.environment.set('firstToken', res.json().access_token);",
+                  "    }",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Second token generated successfully', () => {",
+                  "    pm.response.to.have.status(200);",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('access_token');",
+                  "});",
+                  "",
+                  "pm.test('Tokens are different (not cached)', () => {",
+                  "    const firstToken = pm.environment.get('firstToken');",
+                  "    const secondToken = pm.response.json().access_token;",
+                  "    pm.expect(secondToken).to.not.equal(firstToken);",
+                  "});",
+                  "",
+                  "pm.test('Both tokens are valid JWTs', () => {",
+                  "    const firstToken = pm.environment.get('firstToken');",
+                  "    const secondToken = pm.response.json().access_token;",
+                  "    pm.expect(firstToken.split('.')).to.have.lengthOf(3);",
+                  "    pm.expect(secondToken.split('.')).to.have.lengthOf(3);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic cG9ydGZvbGlvLWFwaS1jbGllbnQ6YXBpLXNlY3JldA=="
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                },
+                {
+                  "key": "scope",
+                  "value": "read write"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/oauth2/token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "oauth2",
+                "token"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
