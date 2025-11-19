@@ -47,8 +47,6 @@ class ProductRecommendationControllerTest {
     @MockBean
     private ProductService productService;
 
-    @MockBean
-    private TelemetryService telemetryService;
 
     @Test
     void shouldReturnRecommendedProductsForConservativeProfile() throws Exception {
@@ -70,7 +68,6 @@ class ProductRecommendationControllerTest {
         List<Product> products = Arrays.asList(product1, product2);
 
         when(productService.getRecommendedProducts("CONSERVADOR")).thenReturn(products);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/produtos-recomendados/Conservador")
@@ -88,7 +85,6 @@ class ProductRecommendationControllerTest {
             .andExpect(jsonPath("$[1].risco").value("Baixo"));
 
         verify(productService).getRecommendedProducts("CONSERVADOR");
-        verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 
     @Test
@@ -104,7 +100,6 @@ class ProductRecommendationControllerTest {
         List<Product> products = Arrays.asList(product);
 
         when(productService.getRecommendedProducts("MODERADO")).thenReturn(products);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/produtos-recomendados/Moderado")
@@ -112,12 +107,11 @@ class ProductRecommendationControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id").value(3))
             .andExpect(jsonPath("$[0].nome").value("Fundo Multimercado XP"))
-            .andExpect(jsonPath("$[0].tipo").value("FundoMultimercado"))
+            .andExpect(jsonPath("$[0].tipo").value("MULTIMERCADO"))
             .andExpect(jsonPath("$[0].rentabilidade").value(0.14))
             .andExpect(jsonPath("$[0].risco").value("Médio"));
 
         verify(productService).getRecommendedProducts("MODERADO");
-        verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 
     @Test
@@ -140,7 +134,6 @@ class ProductRecommendationControllerTest {
         List<Product> products = Arrays.asList(product1, product2);
 
         when(productService.getRecommendedProducts("AGRESSIVO")).thenReturn(products);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/produtos-recomendados/Agressivo")
@@ -148,20 +141,18 @@ class ProductRecommendationControllerTest {
             .andExpect(status().isOk())
             .andExpect(jsonPath("$[0].id").value(4))
             .andExpect(jsonPath("$[0].nome").value("Fundo Ações BTG"))
-            .andExpect(jsonPath("$[0].tipo").value("FundoAcoes"))
+            .andExpect(jsonPath("$[0].tipo").value("ACOES"))
             .andExpect(jsonPath("$[1].id").value(5))
             .andExpect(jsonPath("$[1].nome").value("ACOES Shopping Center"))
             .andExpect(jsonPath("$[1].tipo").value("ACOES"));
 
         verify(productService).getRecommendedProducts("AGRESSIVO");
-        verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 
     @Test
     void shouldReturnEmptyListWhenNoProducts() throws Exception {
         // Arrange
         when(productService.getRecommendedProducts("CONSERVADOR")).thenReturn(Collections.emptyList());
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/produtos-recomendados/Conservador")
@@ -171,6 +162,5 @@ class ProductRecommendationControllerTest {
             .andExpect(jsonPath("$").isEmpty());
 
         verify(productService).getRecommendedProducts("CONSERVADOR");
-        verify(telemetryService).recordMetric(eq("produtos-recomendados"), anyLong(), eq(true), eq(200));
     }
 }

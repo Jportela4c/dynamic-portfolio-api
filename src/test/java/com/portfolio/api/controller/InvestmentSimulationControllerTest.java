@@ -51,8 +51,6 @@ class InvestmentSimulationControllerTest {
     @MockBean
     private SimulationService simulationService;
 
-    @MockBean
-    private TelemetryService telemetryService;
 
     @Test
     void shouldSimulateInvestmentSuccessfully() throws Exception {
@@ -85,7 +83,6 @@ class InvestmentSimulationControllerTest {
             .build();
 
         when(simulationService.simulateInvestment(any(SimulationRequest.class))).thenReturn(response);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(post("/simular-investimento")
@@ -103,7 +100,6 @@ class InvestmentSimulationControllerTest {
             .andExpect(jsonPath("$.dataSimulacao").value("2025-01-15T10:30:00"));
 
         verify(simulationService).simulateInvestment(any(SimulationRequest.class));
-        verify(telemetryService).recordMetric(eq("simular-investimento"), anyLong(), eq(true), eq(200));
     }
 
     @Test

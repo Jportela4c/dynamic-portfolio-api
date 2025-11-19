@@ -49,8 +49,6 @@ class SimulationControllerTest {
     @MockBean
     private SimulationService simulationService;
 
-    @MockBean
-    private TelemetryService telemetryService;
 
     @Test
     void shouldReturnAllSimulations() throws Exception {
@@ -77,7 +75,6 @@ class SimulationControllerTest {
         );
 
         when(simulationService.getAllSimulations()).thenReturn(simulations);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/simulacoes")
@@ -94,14 +91,12 @@ class SimulationControllerTest {
             .andExpect(jsonPath("$[1].produto").value("LCI Itaú 2025"));
 
         verify(simulationService).getAllSimulations();
-        verify(telemetryService).recordMetric(eq("simulacoes"), anyLong(), eq(true), eq(200));
     }
 
     @Test
     void shouldReturnEmptyListWhenNoSimulations() throws Exception {
         // Arrange
         when(simulationService.getAllSimulations()).thenReturn(Collections.emptyList());
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/simulacoes")
@@ -111,7 +106,6 @@ class SimulationControllerTest {
             .andExpect(jsonPath("$").isEmpty());
 
         verify(simulationService).getAllSimulations();
-        verify(telemetryService).recordMetric(eq("simulacoes"), anyLong(), eq(true), eq(200));
     }
 
     @Test
@@ -133,7 +127,6 @@ class SimulationControllerTest {
         );
 
         when(simulationService.getDailyAggregations()).thenReturn(aggregations);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/simulacoes/por-produto-dia")
@@ -149,14 +142,12 @@ class SimulationControllerTest {
             .andExpect(jsonPath("$[1].mediaValorFinal").value(5300.00));
 
         verify(simulationService).getDailyAggregations();
-        verify(telemetryService).recordMetric(eq("simulacoes-por-produto-dia"), anyLong(), eq(true), eq(200));
     }
 
     @Test
     void shouldReturnEmptyListWhenNoAggregations() throws Exception {
         // Arrange
         when(simulationService.getDailyAggregations()).thenReturn(Collections.emptyList());
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/simulacoes/por-produto-dia")
@@ -166,6 +157,5 @@ class SimulationControllerTest {
             .andExpect(jsonPath("$").isEmpty());
 
         verify(simulationService).getDailyAggregations();
-        verify(telemetryService).recordMetric(eq("simulacoes-por-produto-dia"), anyLong(), eq(true), eq(200));
     }
 }

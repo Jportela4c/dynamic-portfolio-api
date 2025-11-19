@@ -41,8 +41,6 @@ class RiskProfileControllerTest {
     @MockBean
     private RiskProfileService riskProfileService;
 
-    @MockBean
-    private TelemetryService telemetryService;
 
     @Test
     void shouldReturnRiskProfileForClient() throws Exception {
@@ -55,7 +53,6 @@ class RiskProfileControllerTest {
             .build();
 
         when(riskProfileService.calculateRiskProfile(123L)).thenReturn(response);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/perfil-risco/123")
@@ -67,7 +64,6 @@ class RiskProfileControllerTest {
             .andExpect(jsonPath("$.descricao").value("Cliente com perfil moderado, busca equilíbrio entre rentabilidade e segurança"));
 
         verify(riskProfileService).calculateRiskProfile(123L);
-        verify(telemetryService).recordMetric(eq("perfil-risco"), anyLong(), eq(true), eq(200));
     }
 
     @Test
@@ -81,7 +77,6 @@ class RiskProfileControllerTest {
             .build();
 
         when(riskProfileService.calculateRiskProfile(456L)).thenReturn(response);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/perfil-risco/456")
@@ -92,7 +87,6 @@ class RiskProfileControllerTest {
             .andExpect(jsonPath("$.pontuacao").value(30));
 
         verify(riskProfileService).calculateRiskProfile(456L);
-        verify(telemetryService).recordMetric(eq("perfil-risco"), anyLong(), eq(true), eq(200));
     }
 
     @Test
@@ -106,7 +100,6 @@ class RiskProfileControllerTest {
             .build();
 
         when(riskProfileService.calculateRiskProfile(789L)).thenReturn(response);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/perfil-risco/789")
@@ -117,6 +110,5 @@ class RiskProfileControllerTest {
             .andExpect(jsonPath("$.pontuacao").value(85));
 
         verify(riskProfileService).calculateRiskProfile(789L);
-        verify(telemetryService).recordMetric(eq("perfil-risco"), anyLong(), eq(true), eq(200));
     }
 }

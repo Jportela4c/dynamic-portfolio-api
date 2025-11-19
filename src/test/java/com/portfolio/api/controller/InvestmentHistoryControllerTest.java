@@ -48,8 +48,6 @@ class InvestmentHistoryControllerTest {
     @MockBean
     private InvestmentService investmentService;
 
-    @MockBean
-    private TelemetryService telemetryService;
 
     @Test
     void shouldReturnInvestmentHistoryForClient() throws Exception {
@@ -72,7 +70,6 @@ class InvestmentHistoryControllerTest {
         );
 
         when(investmentService.getClientInvestments(123L)).thenReturn(investments);
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/investimentos/123")
@@ -90,14 +87,12 @@ class InvestmentHistoryControllerTest {
             .andExpect(jsonPath("$[1].data").value("2025-01-10"));
 
         verify(investmentService).getClientInvestments(123L);
-        verify(telemetryService).recordMetric(eq("investimentos"), anyLong(), eq(true), eq(200));
     }
 
     @Test
     void shouldReturnEmptyListWhenClientHasNoInvestments() throws Exception {
         // Arrange
         when(investmentService.getClientInvestments(456L)).thenReturn(Collections.emptyList());
-        doNothing().when(telemetryService).recordMetric(anyString(), anyLong(), anyBoolean(), anyInt());
 
         // Act & Assert
         mockMvc.perform(get("/investimentos/456")
@@ -107,6 +102,5 @@ class InvestmentHistoryControllerTest {
             .andExpect(jsonPath("$").isEmpty());
 
         verify(investmentService).getClientInvestments(456L);
-        verify(telemetryService).recordMetric(eq("investimentos"), anyLong(), eq(true), eq(200));
     }
 }

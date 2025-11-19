@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@Profile("!dev")
+@Profile("prod")
 @RequiredArgsConstructor
 public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider {
 
