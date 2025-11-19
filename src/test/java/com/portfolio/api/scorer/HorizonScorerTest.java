@@ -1,14 +1,7 @@
 package com.portfolio.api.scorer;
 
-import com.portfolio.api.model.entity.Investment;
-import com.portfolio.api.repository.InvestmentRepository;
-import com.portfolio.api.model.enums.TipoProduto;
-import com.portfolio.api.scorer.HorizonScorer;
+import com.portfolio.api.provider.dto.Investment;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,103 +9,64 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class HorizonScorerTest {
 
-    @Mock
-    private InvestmentRepository investmentRepository;
-
-    @InjectMocks
-    private HorizonScorer calculator;
+    private final HorizonScorer calculator = new HorizonScorer();
 
     @Test
     void shouldReturn50ForNoInvestments() {
-        when(investmentRepository.findByClienteIdOrderByDataDesc(1L))
-                .thenReturn(Collections.emptyList());
+        int score = calculator.calculateHorizonScore(Collections.emptyList());
+        assertEquals(50, score);
+    }
 
-        int score = calculator.calculateHorizonScore(1L);
-
+    @Test
+    void shouldReturn50ForNullInvestments() {
+        int score = calculator.calculateHorizonScore(null);
         assertEquals(50, score);
     }
 
     @Test
     void shouldReturn90ForDecadeLongInvestor() {
-        List<Investment> investments = Collections.singletonList(
-                createInvestment(3700)
-        );
-
-        when(investmentRepository.findByClienteIdOrderByDataDesc(1L))
-                .thenReturn(investments);
-
-        int score = calculator.calculateHorizonScore(1L);
-
+        List<Investment> investments = Collections.singletonList(createInvestment(3700));
+        int score = calculator.calculateHorizonScore(investments);
         assertEquals(90, score);
     }
 
     @Test
     void shouldReturn70ForFiveYearInvestor() {
-        List<Investment> investments = Collections.singletonList(
-                createInvestment(1900)
-        );
-
-        when(investmentRepository.findByClienteIdOrderByDataDesc(1L))
-                .thenReturn(investments);
-
-        int score = calculator.calculateHorizonScore(1L);
-
+        List<Investment> investments = Collections.singletonList(createInvestment(1900));
+        int score = calculator.calculateHorizonScore(investments);
         assertEquals(70, score);
     }
 
     @Test
     void shouldReturn50ForTwoYearInvestor() {
-        List<Investment> investments = Collections.singletonList(
-                createInvestment(750)
-        );
-
-        when(investmentRepository.findByClienteIdOrderByDataDesc(1L))
-                .thenReturn(investments);
-
-        int score = calculator.calculateHorizonScore(1L);
-
+        List<Investment> investments = Collections.singletonList(createInvestment(750));
+        int score = calculator.calculateHorizonScore(investments);
         assertEquals(50, score);
     }
 
     @Test
     void shouldReturn30ForOneYearInvestor() {
-        List<Investment> investments = Collections.singletonList(
-                createInvestment(365)
-        );
-
-        when(investmentRepository.findByClienteIdOrderByDataDesc(1L))
-                .thenReturn(investments);
-
-        int score = calculator.calculateHorizonScore(1L);
-
+        List<Investment> investments = Collections.singletonList(createInvestment(365));
+        int score = calculator.calculateHorizonScore(investments);
         assertEquals(30, score);
     }
 
     @Test
     void shouldReturn20ForNewInvestor() {
-        List<Investment> investments = Collections.singletonList(
-                createInvestment(180)
-        );
-
-        when(investmentRepository.findByClienteIdOrderByDataDesc(1L))
-                .thenReturn(investments);
-
-        int score = calculator.calculateHorizonScore(1L);
-
+        List<Investment> investments = Collections.singletonList(createInvestment(180));
+        int score = calculator.calculateHorizonScore(investments);
         assertEquals(20, score);
     }
 
     private Investment createInvestment(int daysAgo) {
-        Investment investment = new Investment();
-        investment.setTipo(TipoProduto.CDB);
-        investment.setValor(new BigDecimal("10000"));
-        investment.setData(LocalDate.now().minusDays(daysAgo));
-        investment.setRentabilidade(new BigDecimal("0.10"));
-        return investment;
+        return Investment.builder()
+                .tipo("CDB")
+                .valor(new BigDecimal("10000"))
+                .data(LocalDate.now().minusDays(daysAgo))
+                .rentabilidade(new BigDecimal("0.10"))
+                .build();
     }
 }

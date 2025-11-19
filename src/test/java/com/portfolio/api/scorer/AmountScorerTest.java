@@ -1,101 +1,46 @@
 package com.portfolio.api.scorer;
 
-import com.portfolio.api.repository.InvestmentRepository;
-import com.portfolio.api.scorer.AmountScorer;
+import com.portfolio.api.provider.dto.Investment;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class AmountScorerTest {
 
-    @Mock
-    private InvestmentRepository investmentRepository;
-
-    @InjectMocks
-    private AmountScorer calculator;
+    private final AmountScorer calculator = new AmountScorer();
 
     @Test
-    void shouldReturnZeroForNoVolume() {
-        when(investmentRepository.sumValorByClienteId(1L)).thenReturn(BigDecimal.ZERO);
-
-        int score = calculator.calculateAmountScore(1L);
-
-        assertEquals(0, score);
-    }
-
-    @Test
-    void shouldReturnZeroForNullVolume() {
-        when(investmentRepository.sumValorByClienteId(1L)).thenReturn(null);
-
-        int score = calculator.calculateAmountScore(1L);
-
-        assertEquals(0, score);
-    }
-
-    @Test
-    void shouldReturn50ForSingleClient() {
-        when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllCustomerAmounts()).thenReturn(Collections.singletonList(new BigDecimal("10000")));
-
-        int score = calculator.calculateAmountScore(1L);
-
+    void shouldReturn50ForNullInvestments() {
+        int score = calculator.calculateAmountScore(null);
         assertEquals(50, score);
     }
 
     @Test
-    void shouldReturn50ForEmptyClientList() {
-        when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllCustomerAmounts()).thenReturn(Collections.emptyList());
-
-        int score = calculator.calculateAmountScore(1L);
-
+    void shouldReturn50ForEmptyInvestments() {
+        int score = calculator.calculateAmountScore(Collections.emptyList());
         assertEquals(50, score);
     }
 
     @Test
-    void shouldCalculatePercentileRankCorrectly() {
-        List<BigDecimal> allVolumes = Arrays.asList(
-                new BigDecimal("1000"),
-                new BigDecimal("5000"),
-                new BigDecimal("10000"),
-                new BigDecimal("50000"),
-                new BigDecimal("100000")
+    void shouldReturn50ForZeroAmount() {
+        List<Investment> investments = List.of(
+                Investment.builder().valor(BigDecimal.ZERO).build()
         );
-
-        when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("10000"));
-        when(investmentRepository.getAllCustomerAmounts()).thenReturn(allVolumes);
-
-        int score = calculator.calculateAmountScore(1L);
-
-        assertEquals(40, score);
+        int score = calculator.calculateAmountScore(investments);
+        assertEquals(50, score);
     }
 
     @Test
-    void shouldReturnHighScoreForTopPercentile() {
-        List<BigDecimal> allVolumes = Arrays.asList(
-                new BigDecimal("1000"),
-                new BigDecimal("5000"),
-                new BigDecimal("10000"),
-                new BigDecimal("20000"),
-                new BigDecimal("100000")
+    void shouldReturn50ForAnyAmount() {
+        List<Investment> investments = List.of(
+                Investment.builder().valor(new BigDecimal("10000")).build(),
+                Investment.builder().valor(new BigDecimal("20000")).build()
         );
-
-        when(investmentRepository.sumValorByClienteId(1L)).thenReturn(new BigDecimal("100000"));
-        when(investmentRepository.getAllCustomerAmounts()).thenReturn(allVolumes);
-
-        int score = calculator.calculateAmountScore(1L);
-
-        assertEquals(80, score);
+        int score = calculator.calculateAmountScore(investments);
+        assertEquals(50, score);
     }
 }
