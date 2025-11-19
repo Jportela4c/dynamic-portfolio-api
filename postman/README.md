@@ -1,79 +1,79 @@
-# Newman API Contract Tests
+# Testes de Contrato com Newman
 
-Comprehensive API contract testing using Postman/Newman for validating Dynamic Portfolio API against THE SPEC.
+Testes abrangentes de contrato de API usando Postman/Newman para validar a API Dynamic Portfolio contra a especificação do desafio.
 
-## Overview
+## Visão Geral
 
-- **27 requests** with **100+ assertions**
-- Tests all 7 API endpoints from the challenge specification
-- Validates authentication, request/response schemas, calculations, and performance
-- Supports multiple environments (local, test, CI/CD)
+- **27 requisições** com **mais de 100 asserções**
+- Testa todos os 7 endpoints da API conforme especificação do desafio
+- Valida autenticação, esquemas de requisição/resposta, cálculos e performance
+- Suporta múltiplos ambientes (local, teste, CI/CD)
 
-## Quick Start
+## Início Rápido
 
-### Prerequisites
+### Pré-requisitos
 
 ```bash
-# Install Newman globally
+# Instalar Newman globalmente
 npm install -g newman newman-reporter-htmlextra
 
-# Or use via Docker
+# Ou usar via Docker
 docker pull postman/newman
 ```
 
-### Run Tests
+### Executar Testes
 
 ```bash
-# Against local Docker (recommended)
+# Contra Docker local (recomendado)
 task newman:local
 
-# With completely fresh database
+# Com banco de dados completamente limpo
 task newman:fresh
 
-# Generate detailed HTML report
+# Gerar relatório HTML detalhado
 task newman:report
 ```
 
-## Test Collection Structure
+## Estrutura da Coleção de Testes
 
-### 01 - Authentication (3 requests)
-- ✅ Login with valid credentials → Saves JWT token to environment
-- ✅ Login with invalid credentials → Expects 401
-- ✅ Access protected endpoint without token → Expects 401/403
+### 01 - Autenticação (3 requisições)
+- ✅ Login com credenciais válidas → Salva token JWT no ambiente
+- ✅ Login com credenciais inválidas → Espera 401
+- ✅ Acesso a endpoint protegido sem token → Espera 401/403
 
-### 02 - Investment Simulation (7 requests)
-- ✅ Simulate CDB investment → Validates response schema
-- ✅ Simulate LCI investment → Validates product type
-- ✅ Invalid value (negative) → Expects 400
-- ✅ Invalid term (zero) → Expects 400
-- ✅ Invalid product type → Expects 400/404
-- ✅ Get all simulations → Validates array response
-- ✅ Get daily aggregations → Validates aggregation fields
+### 02 - Simulação de Investimento (7 requisições)
+- ✅ Simular investimento CDB → Valida esquema de resposta
+- ✅ Simular investimento LCI → Valida tipo de produto
+- ✅ Valor inválido (negativo) → Espera 400
+- ✅ Prazo inválido (zero) → Espera 400
+- ✅ Tipo de produto inválido → Espera 400/404
+- ✅ Obter todas as simulações → Valida resposta em array
+- ✅ Obter agregações diárias → Valida campos de agregação
 
-### 03 - Risk Profile (6 requests)
-- ✅ Get risk profile (conservative customer) → Validates profile calculation
-- ✅ Get risk profile (aggressive customer) → Validates profile
-- ✅ Get risk profile (non-existent customer) → Expects 404 or default
-- ✅ Get recommended products (conservative) → Filters by low risk
-- ✅ Get recommended products (aggressive) → All risk levels allowed
-- ✅ Get investment history → Validates history data
+### 03 - Perfil de Risco (6 requisições)
+- ✅ Obter perfil de risco (cliente conservador) → Valida cálculo de perfil
+- ✅ Obter perfil de risco (cliente agressivo) → Valida perfil
+- ✅ Obter perfil de risco (cliente inexistente) → Espera 404 ou padrão
+- ✅ Obter produtos recomendados (conservador) → Filtra por baixo risco
+- ✅ Obter produtos recomendados (agressivo) → Todos os níveis de risco permitidos
+- ✅ Obter histórico de investimentos → Valida dados históricos
 
-### 04 - Telemetry (1 request)
-- ✅ Get telemetry data → Validates metrics format
+### 04 - Telemetria (1 requisição)
+- ✅ Obter dados de telemetria → Valida formato de métricas
 
-### 05 - Edge Cases & Performance (3 requests)
-- ✅ Boundary value (minimum) → Tests edge cases
-- ✅ Large value → Validates calculation precision
-- ✅ Response time check → Ensures < 500ms
+### 05 - Casos Extremos & Performance (3 requisições)
+- ✅ Valor limite (mínimo) → Testa casos extremos
+- ✅ Valor grande → Valida precisão de cálculo
+- ✅ Verificação de tempo de resposta → Garante < 500ms
 
-### Global Assertions (on every request)
-- Response time < 2000ms
+### Asserções Globais (em todas as requisições)
+- Tempo de resposta < 2000ms
 - Content-Type: application/json
-- No unexpected server errors
+- Sem erros inesperados do servidor
 
-## Environments
+## Ambientes
 
-### Local Docker (`local-docker.postman_environment.json`)
+### Docker Local (`local-docker.postman_environment.json`)
 ```json
 {
   "baseUrl": "http://localhost:8080",
@@ -82,7 +82,7 @@ task newman:report
 }
 ```
 
-### Test Environment (`test.postman_environment.json`)
+### Ambiente de Teste (`test.postman_environment.json`)
 ```json
 {
   "baseUrl": "http://localhost:8081",
@@ -91,7 +91,7 @@ task newman:report
 }
 ```
 
-### CI/CD Pipeline (`ci.postman_environment.json`)
+### Pipeline CI/CD (`ci.postman_environment.json`)
 ```json
 {
   "baseUrl": "http://api:8080",
@@ -100,71 +100,71 @@ task newman:report
 }
 ```
 
-## Test Data Setup
+## Configuração de Dados de Teste
 
-The `scripts/setup-test-data.sql` file seeds the database with:
+O arquivo `scripts/setup-test-data.sql` popula o banco de dados com:
 
-### Users
-- `admin` / `admin123` - Admin user for testing
-- `testuser` / `testpass123` - Regular user for testing
+### Usuários
+- `admin` / `admin123` - Usuário administrador para testes
+- `testuser` / `testpass123` - Usuário regular para testes
 
-### Products (7 total)
-- **CDB Banco Líder 120% CDI** - Conservative, R$ 5,000 minimum
-- **LCI Imobiliário** - Conservative, R$ 10,000 minimum
-- **LCA Agronegócio** - Conservative, R$ 10,000 minimum
-- **Tesouro Direto Selic** - Moderate, R$ 1,000 minimum
-- **CDB Banco Digital 130% CDI** - Moderate, R$ 10,000 minimum
-- **Fundo Multimercado** - Aggressive, R$ 50,000 minimum
-- **Fundo Ações** - Aggressive, R$ 100,000 minimum
+### Produtos (7 no total)
+- **CDB Banco Líder 120% CDI** - Conservador, R$ 5.000 mínimo
+- **LCI Imobiliário** - Conservador, R$ 10.000 mínimo
+- **LCA Agronegócio** - Conservador, R$ 10.000 mínimo
+- **Tesouro Direto Selic** - Moderado, R$ 1.000 mínimo
+- **CDB Banco Digital 130% CDI** - Moderado, R$ 10.000 mínimo
+- **Fundo Multimercado** - Agressivo, R$ 50.000 mínimo
+- **Fundo Ações** - Agressivo, R$ 100.000 mínimo
 
-### Test Clients
-- **Customer 1** - Conservative profile (low volume, low frequency)
-- **Customer 2** - Moderate profile (medium volume, balanced)
-- **Customer 3** - Aggressive profile (high volume, high frequency)
+### Clientes de Teste
+- **Cliente 1** - Perfil conservador (baixo volume, baixa frequência)
+- **Cliente 2** - Perfil moderado (volume médio, balanceado)
+- **Cliente 3** - Perfil agressivo (alto volume, alta frequência)
 
-### Investment History
-- 15 historical investments across 3 clients
-- Designed to produce expected risk profile classifications
+### Histórico de Investimentos
+- 15 investimentos históricos distribuídos entre 3 clientes
+- Projetados para produzir as classificações de perfil de risco esperadas
 
-### Sample Data
-- 4 simulations for testing GET endpoints
-- 9 telemetry records for metrics validation
+### Dados de Exemplo
+- 4 simulações para testar endpoints GET
+- 9 registros de telemetria para validação de métricas
 
-## Running Tests
+## Executando os Testes
 
-### Via Taskfile (Recommended)
+### Via Taskfile (Recomendado)
 
 ```bash
-# Quick test against running Docker
+# Teste rápido contra Docker em execução
 task newman:local
 
-# Full fresh environment test
+# Teste completo em ambiente limpo
 task newman:fresh
 
-# Test against specific environment
+# Testar contra ambiente específico
 task newman:test
 
-# CI/CD mode (fail fast)
+# Modo CI/CD (fail fast)
 task newman:ci
 
-# Generate detailed report with browser preview
+# Gerar relatório detalhado com preview no navegador
 task newman:report
 ```
 
 ### Via Newman CLI
 
 ```bash
-# Basic run
+# Execução básica
 newman run Dynamic-Portfolio-API.postman_collection.json \
   -e environments/local-docker.postman_environment.json
 
-# With HTML report
+# Com relatório HTML
 newman run Dynamic-Portfolio-API.postman_collection.json \
   -e environments/local-docker.postman_environment.json \
   --reporters cli,htmlextra \
   --reporter-htmlextra-export ../reports/newman-report.html
 
-# CI/CD mode (fail on first error)
+# Modo CI/CD (falha no primeiro erro)
 newman run Dynamic-Portfolio-API.postman_collection.json \
   -e environments/ci.postman_environment.json \
   --bail \
@@ -175,56 +175,56 @@ newman run Dynamic-Portfolio-API.postman_collection.json \
 ### Via Docker
 
 ```bash
-# Run tests in Newman Docker container
+# Executar testes em container Newman Docker
 docker run -t --network host \
   -v $(pwd):/etc/newman \
   postman/newman run Dynamic-Portfolio-API.postman_collection.json \
   -e environments/local-docker.postman_environment.json
 ```
 
-## Seeding Test Data
+## Populando Dados de Teste
 
-### Manual Seeding
+### População Manual
 
 ```bash
-# Seed via Task
+# Popular via Task
 task seed-test-data
 
-# Seed directly via Docker exec
+# Popular diretamente via Docker exec
 docker compose exec -T sqlserver /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P YourStrong@Passw0rd -C \
   -i /scripts/setup-test-data.sql
 ```
 
-### Automatic Seeding
+### População Automática
 
-The `task newman:local` and `task newman:fresh` commands automatically seed test data before running tests.
+Os comandos `task newman:local` e `task newman:fresh` populam automaticamente os dados de teste antes de executar os testes.
 
-## CI/CD Integration
+## Integração CI/CD
 
 ### GitHub Actions
 
-The `.github/workflows/newman-tests.yml` workflow runs on:
-- Push to `main` or `develop` branches
-- Pull requests to `main` or `develop`
-- Manual trigger via workflow dispatch
+O workflow `.github/workflows/newman-tests.yml` executa em:
+- Push para branches `main` ou `develop`
+- Pull requests para `main` ou `develop`
+- Disparo manual via workflow dispatch
 
-**Workflow Steps:**
-1. Checkout code
-2. Set up Java 21 and Node.js 20
-3. Install Newman and reporters
-4. Build application
-5. Start Docker Compose stack
-6. Verify services are healthy
-7. Seed test data
-8. Run Newman tests (fail fast mode)
-9. Upload HTML and JSON reports as artifacts
-10. Show logs on failure
-11. Cleanup containers
+**Passos do Workflow:**
+1. Checkout do código
+2. Configurar Java 21 e Node.js 20
+3. Instalar Newman e reporters
+4. Build da aplicação
+5. Iniciar stack Docker Compose
+6. Verificar se serviços estão saudáveis
+7. Popular dados de teste
+8. Executar testes Newman (modo fail fast)
+9. Upload de relatórios HTML e JSON como artefatos
+10. Mostrar logs em caso de falha
+11. Limpeza de containers
 
-**Artifacts:**
-- `newman-report.html` - Visual test report (30-day retention)
-- `newman-results.json` - Machine-readable results (30-day retention)
+**Artefatos:**
+- `newman-report.html` - Relatório visual de testes (retenção de 30 dias)
+- `newman-results.json` - Resultados legíveis por máquina (retenção de 30 dias)
 
 ### GitLab CI
 
@@ -251,12 +251,12 @@ newman-tests:
     expire_in: 30 days
 ```
 
-## Test Assertions
+## Asserções de Teste
 
-### Schema Validation Example
+### Exemplo de Validação de Esquema
 
 ```javascript
-pm.test("Response matches specification schema", () => {
+pm.test("Resposta corresponde ao esquema da especificação", () => {
     const schema = {
         type: "object",
         required: ["produtoValidado", "resultadoSimulacao"],
@@ -275,10 +275,10 @@ pm.test("Response matches specification schema", () => {
 });
 ```
 
-### Calculation Validation Example
+### Exemplo de Validação de Cálculo
 
 ```javascript
-pm.test("Calculation is correct", () => {
+pm.test("Cálculo está correto", () => {
     const resultado = pm.response.json().resultadoSimulacao;
     const valorInicial = parseFloat(resultado.valorInicial);
     const valorFinal = parseFloat(resultado.valorFinal);
@@ -289,81 +289,81 @@ pm.test("Calculation is correct", () => {
 });
 ```
 
-### JWT Token Management Example
+### Exemplo de Gerenciamento de Token JWT
 
 ```javascript
-// Save token from login response
+// Salvar token da resposta de login
 if (pm.response.code === 200) {
     const json = pm.response.json();
     pm.environment.set('jwtToken', json.token);
-    console.log('JWT token saved to environment');
+    console.log('Token JWT salvo no ambiente');
 }
 ```
 
-## Troubleshooting
+## Solução de Problemas
 
-### Tests Fail with Connection Error
+### Testes Falham com Erro de Conexão
 
 ```bash
-# Ensure Docker is running
+# Garantir que Docker está em execução
 docker compose ps
 
-# Check API health
+# Verificar saúde da API
 curl http://localhost:8080/api/v1/actuator/health
 
-# Restart services
+# Reiniciar serviços
 task docker-down
 task docker-up
 ```
 
-### Test Data Not Found
+### Dados de Teste Não Encontrados
 
 ```bash
-# Re-seed test data
+# Re-popular dados de teste
 task seed-test-data
 
-# Verify data exists
+# Verificar se dados existem
 docker compose exec sqlserver /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P YourStrong@Passw0rd -C \
   -Q "SELECT COUNT(*) FROM portfoliodb.dbo.products"
 ```
 
-### Authentication Fails
+### Autenticação Falha
 
 ```bash
-# Check if users exist in database
+# Verificar se usuários existem no banco de dados
 docker compose exec sqlserver /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P YourStrong@Passw0rd -C \
   -Q "SELECT * FROM portfoliodb.dbo.users"
 
-# Verify JWT secret matches application config
+# Verificar se JWT secret corresponde à configuração da aplicação
 docker compose exec api env | grep JWT_SECRET
 ```
 
-### Tests Time Out
+### Testes Dão Timeout
 
 ```bash
-# Increase wait time in Taskfile.yml
-# Change: sleep 10
-# To:     sleep 20
+# Aumentar tempo de espera no Taskfile.yml
+# Mudar: sleep 10
+# Para:  sleep 20
 
-# Or check if database migrations completed
+# Ou verificar se migrações do banco completaram
 task logs-flyway
 ```
 
-## Reports
+## Relatórios
 
-### HTML Report Features
+### Funcionalidades do Relatório HTML
 
-The HTML report (`newman-report.html`) includes:
-- ✅ Test summary with pass/fail counts
-- ✅ Response time statistics
-- ✅ Request/response details for each test
-- ✅ Assertions with failure details
-- ✅ Dark theme support
-- ✅ Filterable by pass/fail status
+O relatório HTML (`newman-report.html`) inclui:
+- ✅ Resumo de testes com contagens de sucesso/falha
+- ✅ Estatísticas de tempo de resposta
+- ✅ Detalhes de requisição/resposta para cada teste
+- ✅ Asserções com detalhes de falhas
+- ✅ Suporte a tema escuro
+- ✅ Filtrável por status de sucesso/falha
 
-### JSON Results Structure
+### Estrutura dos Resultados JSON
 
 ```json
 {
@@ -383,70 +383,70 @@ The HTML report (`newman-report.html`) includes:
 }
 ```
 
-## Best Practices
+## Melhores Práticas
 
-### 1. Always Use Fresh Data for Contract Tests
+### 1. Sempre Use Dados Limpos para Testes de Contrato
 ```bash
-task newman:fresh  # Tears down, rebuilds, seeds, tests
+task newman:fresh  # Derruba, reconstrói, popula, testa
 ```
 
-### 2. Run Tests Before Deployment
+### 2. Execute Testes Antes do Deploy
 ```bash
-# In CI/CD pipeline
+# No pipeline CI/CD
 task newman:ci
 ```
 
-### 3. Generate Reports for Debugging
+### 3. Gere Relatórios para Debugging
 ```bash
-task newman:report  # Opens HTML report in browser
+task newman:report  # Abre relatório HTML no navegador
 ```
 
-### 4. Test Against Multiple Environments
+### 4. Teste Contra Múltiplos Ambientes
 ```bash
-task newman:local   # Development
-task newman:test    # Test environment
-task newman:ci      # CI/CD environment
+task newman:local   # Desenvolvimento
+task newman:test    # Ambiente de teste
+task newman:ci      # Ambiente CI/CD
 ```
 
-### 5. Monitor Performance Trends
+### 5. Monitore Tendências de Performance
 ```bash
-# Check response times in reports
-# Alert if average > 500ms
+# Verificar tempos de resposta nos relatórios
+# Alertar se média > 500ms
 ```
 
-## Maintenance
+## Manutenção
 
-### Adding New Tests
+### Adicionando Novos Testes
 
-1. Open collection in Postman GUI
-2. Add new request under appropriate folder
-3. Add test scripts (JavaScript)
-4. Export updated collection
-5. Replace `Dynamic-Portfolio-API.postman_collection.json`
+1. Abrir coleção na GUI do Postman
+2. Adicionar nova requisição na pasta apropriada
+3. Adicionar scripts de teste (JavaScript)
+4. Exportar coleção atualizada
+5. Substituir `Dynamic-Portfolio-API.postman_collection.json`
 
-### Updating Test Data
+### Atualizando Dados de Teste
 
-1. Edit `scripts/setup-test-data.sql`
-2. Run `task seed-test-data` to verify
-3. Commit changes
+1. Editar `scripts/setup-test-data.sql`
+2. Executar `task seed-test-data` para verificar
+3. Commitar alterações
 
-### Updating Environments
+### Atualizando Ambientes
 
-1. Edit `environments/*.postman_environment.json`
-2. Update baseUrl, credentials, or variables
-3. Test with `task newman:local` or `task newman:test`
+1. Editar `environments/*.postman_environment.json`
+2. Atualizar baseUrl, credenciais ou variáveis
+3. Testar com `task newman:local` ou `task newman:test`
 
-## Resources
+## Recursos
 
-- [Newman Documentation](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
-- [Postman Collection Format](https://schema.postman.com/)
+- [Documentação do Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
+- [Formato de Coleção Postman](https://schema.postman.com/)
 - [newman-reporter-htmlextra](https://github.com/DannyDainton/newman-reporter-htmlextra)
-- [Challenge Specification](../local-docs/00-challenge-specification-original.md)
+- [Especificação do Desafio](../local-docs/00-challenge-specification-original.md)
 
-## Support
+## Suporte
 
-For issues with:
-- **Test failures**: Check `reports/newman-report.html` for details
-- **Environment issues**: Verify Docker containers are healthy
-- **Data issues**: Re-run `task seed-test-data`
-- **CI/CD issues**: Check GitHub Actions logs and artifacts
+Para problemas com:
+- **Falhas de teste**: Verificar `reports/newman-report.html` para detalhes
+- **Problemas de ambiente**: Verificar se containers Docker estão saudáveis
+- **Problemas de dados**: Re-executar `task seed-test-data`
+- **Problemas de CI/CD**: Verificar logs e artefatos do GitHub Actions
