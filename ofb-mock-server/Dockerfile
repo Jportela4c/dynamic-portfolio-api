@@ -4,13 +4,13 @@ WORKDIR /app
 # Install Maven
 RUN apk add --no-cache maven
 
-# Copy pom.xml and download dependencies (cached layer)
+# Copy pom.xml and download dependencies (uses persistent cache)
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline -B
 
-# Copy source and build (only this layer rebuilds when code changes)
+# Copy source and build (uses persistent cache)
 COPY src ./src
-RUN mvn package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 mvn package -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
