@@ -1,5 +1,6 @@
 package com.portfolio.api.provider.impl;
 
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.provider.InvestmentPlatformProvider;
 import com.portfolio.api.provider.dto.CustomerPortfolio;
 import com.portfolio.api.provider.dto.Investment;
@@ -98,7 +99,7 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
 
         return Investment.builder()
                 .id(Long.valueOf(data.getInvestmentId().hashCode()))
-                .tipo(data.getType())
+                .tipo(mapStringToTipoProduto(data.getType()))
                 .tipoOperacao("APLICACAO")
                 .valor(valor)
                 .rentabilidade(rentabilidade.setScale(2, RoundingMode.HALF_UP))
@@ -139,5 +140,17 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
             return "***";
         }
         return cpf.substring(0, 3) + ".***.***-" + cpf.substring(9);
+    }
+
+    private TipoProduto mapStringToTipoProduto(String type) {
+        if (type == null) {
+            return TipoProduto.CDB; // default
+        }
+        try {
+            return TipoProduto.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            log.warn("Unknown investment type from OFB: {}. Defaulting to CDB", type);
+            return TipoProduto.CDB;
+        }
     }
 }

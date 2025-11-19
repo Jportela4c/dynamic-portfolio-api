@@ -1,5 +1,6 @@
 package com.portfolio.api.provider.impl;
 
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.provider.InvestmentPlatformProvider;
 import com.portfolio.api.provider.dto.CustomerPortfolio;
 import com.portfolio.api.provider.dto.Investment;
@@ -90,7 +91,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Arrays.asList(
                 Investment.builder()
                         .id(1L)
-                        .tipo("CDB")
+                        .tipo(TipoProduto.CDB)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("10000.00"))
                         .rentabilidade(new BigDecimal("0.065"))
@@ -99,7 +100,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                         .build(),
                 Investment.builder()
                         .id(2L)
-                        .tipo("FUNDO_MULTIMERCADO")
+                        .tipo(TipoProduto.FUNDO_MULTIMERCADO)
                         .tipoOperacao("RESGATE")
                         .valor(new BigDecimal("5000.00"))
                         .rentabilidade(new BigDecimal("0.08"))
@@ -108,7 +109,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                         .build(),
                 Investment.builder()
                         .id(3L)
-                        .tipo("LCA")
+                        .tipo(TipoProduto.LCA)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("15000.00"))
                         .rentabilidade(new BigDecimal("0.03"))
@@ -166,7 +167,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                         .build(),
                 Investment.builder()
                         .id(5L)
-                        .tipo("LCI")
+                        .tipo(TipoProduto.LCI)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("10000.00"))
                         .rentabilidade(new BigDecimal("0.03"))
@@ -215,7 +216,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Arrays.asList(
                 Investment.builder()
                         .id(6L)
-                        .tipo("FUNDO_ACOES")
+                        .tipo(TipoProduto.FUNDO_ACOES)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("50000.00"))
                         .rentabilidade(new BigDecimal("0.14"))
@@ -224,7 +225,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
                         .build(),
                 Investment.builder()
                         .id(7L)
-                        .tipo("CDB")
+                        .tipo(TipoProduto.CDB)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("100000.00"))
                         .rentabilidade(new BigDecimal("0.08"))
@@ -262,7 +263,7 @@ public class MockInvestmentPlatformProvider implements InvestmentPlatformProvide
         mockInvestmentHistory.put(cpf, Collections.singletonList(
                 Investment.builder()
                         .id(8L)
-                        .tipo("TESOURO_DIRETO")
+                        .tipo(TipoProduto.TESOURO_DIRETO)
                         .tipoOperacao("APLICACAO")
                         .valor(new BigDecimal("15000.00"))
                         .rentabilidade(new BigDecimal("0.05"))
