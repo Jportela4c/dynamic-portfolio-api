@@ -1,5 +1,6 @@
 package com.portfolio.api.scorer;
 
+import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.provider.dto.Investment;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +57,7 @@ class FrequencyScorerTest {
 
     private List<Investment> createInvestmentsOverPeriod(int count, int daysAgo) {
         Investment investment = Investment.builder()
-                .tipo("CDB")
+                .tipo(TipoProduto.CDB)
                 .valor(new BigDecimal("10000"))
                 .data(LocalDate.now().minusDays(daysAgo))
                 .rentabilidade(new BigDecimal("0.10"))

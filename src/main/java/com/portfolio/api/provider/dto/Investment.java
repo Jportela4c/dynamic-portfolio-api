@@ -1,5 +1,6 @@
 package com.portfolio.api.provider.dto;
 
+import com.portfolio.api.model.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 public class Investment {
 
     private Long id;
-    private String tipo;
+    private TipoProduto tipo;
     private String tipoOperacao;
     private BigDecimal valor;
     private BigDecimal rentabilidade;
