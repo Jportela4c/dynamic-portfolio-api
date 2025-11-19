@@ -62,9 +62,9 @@
               ]
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/oauth2/token",
+              "raw": "{{baseUrl}}/oauth2/token",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "oauth2", "token"]
+              "path": [ "oauth2", "token"]
             }
           }
         }
@@ -111,9 +111,9 @@
               "raw": "{\n  \"tipoProduto\": \"CDB\",\n  \"valor\": 10000,\n  \"prazo\": 12\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/v1/simular-investimento",
+              "raw": "{{baseUrl}}/simular-investimento",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "simular-investimento"]
+              "path": [ "simular-investimento"]
             }
           }
         }
@@ -152,9 +152,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/perfil-risco/1",
+              "raw": "{{baseUrl}}/perfil-risco/1",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "perfil-risco", "1"]
+              "path": [ "perfil-risco", "1"]
             }
           }
         }
@@ -191,9 +191,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/produtos-recomendados/CONSERVADOR",
+              "raw": "{{baseUrl}}/produtos-recomendados/CONSERVADOR",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "produtos-recomendados", "CONSERVADOR"]
+              "path": [ "produtos-recomendados", "CONSERVADOR"]
             }
           }
         }
@@ -230,9 +230,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/investimentos/1",
+              "raw": "{{baseUrl}}/investimentos/1",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "investimentos", "1"]
+              "path": [ "investimentos", "1"]
             }
           }
         }
@@ -269,9 +269,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/simulacoes",
+              "raw": "{{baseUrl}}/simulacoes",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "simulacoes"]
+              "path": [ "simulacoes"]
             }
           }
         }
@@ -308,9 +308,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/simulacoes/por-produto-dia",
+              "raw": "{{baseUrl}}/simulacoes/por-produto-dia",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "simulacoes", "por-produto-dia"]
+              "path": [ "simulacoes", "por-produto-dia"]
             }
           }
         }
@@ -347,9 +347,9 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/v1/telemetria",
+              "raw": "{{baseUrl}}/telemetria",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "telemetria"]
+              "path": [ "telemetria"]
             }
           }
         }
