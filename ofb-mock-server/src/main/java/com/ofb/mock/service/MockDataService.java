@@ -59,4 +59,17 @@ public class MockDataService {
     public boolean customerExists(String cpf) {
         return mockData.getCustomers().containsKey(cpf);
     }
+
+    public List<Investment> getAllInvestments() {
+        return mockData.getInvestments().values().stream()
+                .flatMap(List::stream)
+                .toList();
+    }
+
+    public Investment getInvestmentById(String investmentId) {
+        return getAllInvestments().stream()
+                .filter(inv -> inv.getInvestmentId().equals(investmentId))
+                .findFirst()
+                .orElse(null);
+    }
 }
