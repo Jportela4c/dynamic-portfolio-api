@@ -235,6 +235,74 @@ public class InvestmentResource {
     }
 
     @GET
+    @Path("/investments/{investmentId}/balances")
+    @Operation(
+        summary = "Consultar Posição do Investimento",
+        description = """
+            Retorna a posição atual da operação de Renda Fixa Bancária identificada por investmentId.
+
+            ## Descrição
+
+            Consulta o saldo e posição atual de um investimento específico conforme especificação
+            Open Finance Brasil.
+
+            ## Dados Retornados
+
+            - **Valores monetários**: Saldo atual, valor investido, rendimentos
+            - **Quantidade de ativos**: Quantidade de títulos/cotas
+            - **Data da posição**: Data e hora da última atualização
+
+            ## Regras de Exposição
+
+            Nos casos em que não houver posição para o investimento (valores zerados), mas o mesmo
+            ainda estiver no prazo de exposição (até 12 meses após a última movimentação), retorna
+            status 200 com valores zerados.
+
+            ## Segurança
+
+            Requer autenticação OAuth2 com Bearer token e mTLS.
+            """
+    )
+    @APIResponses({
+        @APIResponse(
+            responseCode = "200",
+            description = "Posição do investimento retornada com sucesso"
+        ),
+        @APIResponse(
+            responseCode = "404",
+            description = "Investimento não encontrado"
+        ),
+        @APIResponse(
+            responseCode = "401",
+            description = "Token de autorização inválido"
+        )
+    })
+    public Response getInvestmentBalances(
+            @PathParam("investmentId")
+            @Parameter(
+                description = "Identificador único do investimento",
+                required = true,
+                example = "12345"
+            )
+            String investmentId,
+            @HeaderParam("Authorization")
+            @Parameter(
+                description = "Bearer token OAuth2",
+                required = true
+            )
+            String authorization) {
+        log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/balances", investmentId);
+
+        // Mock implementation - returns mock balance data
+        return Response.ok(Map.of("data", Map.of(
+            "quantity", 100.00,
+            "grossAmount", 10500.00,
+            "netAmount", 10350.00,
+            "balanceDateTime", "2025-11-19T20:00:00Z"
+        ))).build();
+    }
+
+    @GET
     @Path("/investments/{investmentId}/transactions")
     @Operation(
         summary = "Listar Transações Históricas do Investimento",
