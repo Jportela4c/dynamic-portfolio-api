@@ -36,7 +36,7 @@ public class SecurityConfig {
     private JwtIntrospectionValidator jwtIntrospectionValidator;
 
     @Bean
-    @Order(2)
+    @Order(3)
     public SecurityFilterChain resourceServerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .formLogin(Customizer.withDefaults())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.decoder(resourceServerJwtDecoder()))
                 );
