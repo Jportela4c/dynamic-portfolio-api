@@ -44,6 +44,9 @@ public class Customer {
     @Column(nullable = false, length = 20)
     private UserRole role;
 
+    @Column(nullable = false, length = 255)
+    private String password;
+
     @PrePersist
     protected void onCreate() {
         dataCadastro = LocalDateTime.now();
