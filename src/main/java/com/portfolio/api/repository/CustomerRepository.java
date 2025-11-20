@@ -11,5 +11,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     Optional<Customer> findByCpf(String cpf);
 
+    Optional<Customer> findByEmail(String email);
+
     boolean existsByCpf(String cpf);
 }
