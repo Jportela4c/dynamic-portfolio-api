@@ -72,4 +72,41 @@ public class MockDataService {
                 .findFirst()
                 .orElse(null);
     }
+
+    /**
+     * Gets investments by customer ID (from JWT 'sub' claim).
+     * Maps customer ID to CPF for demo data lookup.
+     *
+     * @param customerId Customer identifier from JWT token
+     * @return List of customer investments
+     */
+    public List<Investment> getInvestmentsByCustomerId(String customerId) {
+        // Map customer ID to CPF for existing mock data
+        String cpf = mapCustomerIdToCpf(customerId);
+        return getInvestmentsByCpf(cpf);
+    }
+
+    /**
+     * Gets transactions by customer ID (from JWT 'sub' claim).
+     *
+     * @param customerId Customer identifier from JWT token
+     * @return List of customer transactions
+     */
+    public List<Transaction> getTransactionsByCustomerId(String customerId) {
+        String cpf = mapCustomerIdToCpf(customerId);
+        return getTransactionsByCpf(cpf);
+    }
+
+    /**
+     * Maps customer ID to CPF for demo data access.
+     * This allows JWT tokens to use customer IDs while mock data uses CPFs.
+     */
+    private String mapCustomerIdToCpf(String customerId) {
+        return switch (customerId) {
+            case "cliente-101" -> "12345678901";  // Conservative customer
+            case "cliente-102" -> "98765432100";  // Moderate customer
+            case "cliente-103" -> "11122233344";  // Aggressive customer
+            default -> "12345678901";  // Default to conservative
+        };
+    }
 }

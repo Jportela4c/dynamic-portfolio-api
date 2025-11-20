@@ -10,6 +10,7 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import com.ofb.mock.model.Investment;
 import com.ofb.mock.security.OAuth2Service;
 import com.ofb.mock.service.MockDataService;
+import com.ofb.mock.util.JwtUtils;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -118,8 +119,17 @@ public class InvestmentResource {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments");
 
         try {
-            // Mock implementation - returns all investments
-            List<Investment> investments = mockDataService.getAllInvestments();
+            // Extract customer ID from JWT token
+            String customerId = JwtUtils.extractCustomerId(authorization);
+            if (customerId == null) {
+                return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(Map.of("error", "invalid_token"))
+                    .build();
+            }
+
+            // Get investments for authenticated customer
+            List<Investment> investments = mockDataService.getInvestmentsByCustomerId(customerId);
+            log.debug("Returning {} investments for customer {}", investments.size(), customerId);
 
             // Create OFB-compliant response structure
             Map<String, Object> responseData = Map.of("data", investments);
@@ -219,6 +229,14 @@ public class InvestmentResource {
             String authorization) {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}", investmentId);
 
+        // Extract customer ID from JWT token
+        String customerId = JwtUtils.extractCustomerId(authorization);
+        if (customerId == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
         Investment investment = mockDataService.getInvestmentById(investmentId);
 
         if (investment == null) {
@@ -229,6 +247,21 @@ public class InvestmentResource {
                         "detail", "Investment with id " + investmentId + " not found"
                     ))))
                     .build();
+        }
+
+        // Verify investment belongs to authenticated customer
+        List<Investment> customerInvestments = mockDataService.getInvestmentsByCustomerId(customerId);
+        boolean investmentBelongsToCustomer = customerInvestments.stream()
+            .anyMatch(inv -> inv.getInvestmentId().equals(investmentId));
+
+        if (!investmentBelongsToCustomer) {
+            return Response.status(Response.Status.FORBIDDEN)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "FORBIDDEN",
+                    "title", "Access denied",
+                    "detail", "Investment does not belong to authenticated customer"
+                ))))
+                .build();
         }
 
         return Response.ok(Map.of("data", investment)).build();
@@ -292,6 +325,41 @@ public class InvestmentResource {
             )
             String authorization) {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/balances", investmentId);
+
+        // Extract customer ID from JWT token
+        String customerId = JwtUtils.extractCustomerId(authorization);
+        if (customerId == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
+        // Verify investment exists
+        Investment investment = mockDataService.getInvestmentById(investmentId);
+        if (investment == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "NOT_FOUND",
+                    "title", "Investment not found",
+                    "detail", "Investment with id " + investmentId + " not found"
+                ))))
+                .build();
+        }
+
+        // Verify investment belongs to authenticated customer
+        List<Investment> customerInvestments = mockDataService.getInvestmentsByCustomerId(customerId);
+        boolean investmentBelongsToCustomer = customerInvestments.stream()
+            .anyMatch(inv -> inv.getInvestmentId().equals(investmentId));
+
+        if (!investmentBelongsToCustomer) {
+            return Response.status(Response.Status.FORBIDDEN)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "FORBIDDEN",
+                    "title", "Access denied",
+                    "detail", "Investment does not belong to authenticated customer"
+                ))))
+                .build();
+        }
 
         // Mock implementation - returns mock balance data
         return Response.ok(Map.of("data", Map.of(
@@ -362,6 +430,41 @@ public class InvestmentResource {
             String authorization) {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/transactions", investmentId);
 
+        // Extract customer ID from JWT token
+        String customerId = JwtUtils.extractCustomerId(authorization);
+        if (customerId == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
+        // Verify investment exists
+        Investment investment = mockDataService.getInvestmentById(investmentId);
+        if (investment == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "NOT_FOUND",
+                    "title", "Investment not found",
+                    "detail", "Investment with id " + investmentId + " not found"
+                ))))
+                .build();
+        }
+
+        // Verify investment belongs to authenticated customer
+        List<Investment> customerInvestments = mockDataService.getInvestmentsByCustomerId(customerId);
+        boolean investmentBelongsToCustomer = customerInvestments.stream()
+            .anyMatch(inv -> inv.getInvestmentId().equals(investmentId));
+
+        if (!investmentBelongsToCustomer) {
+            return Response.status(Response.Status.FORBIDDEN)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "FORBIDDEN",
+                    "title", "Access denied",
+                    "detail", "Investment does not belong to authenticated customer"
+                ))))
+                .build();
+        }
+
         // Mock implementation - returns empty transactions list
         return Response.ok(Map.of("data", List.of())).build();
     }
@@ -422,6 +525,41 @@ public class InvestmentResource {
             )
             String authorization) {
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/transactions-current", investmentId);
+
+        // Extract customer ID from JWT token
+        String customerId = JwtUtils.extractCustomerId(authorization);
+        if (customerId == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
+        // Verify investment exists
+        Investment investment = mockDataService.getInvestmentById(investmentId);
+        if (investment == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "NOT_FOUND",
+                    "title", "Investment not found",
+                    "detail", "Investment with id " + investmentId + " not found"
+                ))))
+                .build();
+        }
+
+        // Verify investment belongs to authenticated customer
+        List<Investment> customerInvestments = mockDataService.getInvestmentsByCustomerId(customerId);
+        boolean investmentBelongsToCustomer = customerInvestments.stream()
+            .anyMatch(inv -> inv.getInvestmentId().equals(investmentId));
+
+        if (!investmentBelongsToCustomer) {
+            return Response.status(Response.Status.FORBIDDEN)
+                .entity(Map.of("errors", List.of(Map.of(
+                    "code", "FORBIDDEN",
+                    "title", "Access denied",
+                    "detail", "Investment does not belong to authenticated customer"
+                ))))
+                .build();
+        }
 
         // Mock implementation - returns empty transactions list
         return Response.ok(Map.of("data", List.of())).build();

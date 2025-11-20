@@ -40,6 +40,19 @@ public class OAuth2Service {
     private final Map<String, PushedAuthRequest> parStore = new ConcurrentHashMap<>();
     private final Map<String, String> authCodeStore = new ConcurrentHashMap<>();
 
+    /**
+     * Demo customer mapping: client_id → customer_id
+     *
+     * Maps OAuth2 client IDs to test customer identifiers.
+     * The customer ID is embedded in JWT 'sub' claim.
+     */
+    private final Map<String, String> clientToCustomerMap = Map.of(
+        "portfolio-api-conservative", "cliente-101",
+        "portfolio-api-moderate", "cliente-102",
+        "portfolio-api-aggressive", "cliente-103",
+        "portfolio-api-client", "cliente-default"
+    );
+
     @PostConstruct
     public void init() {
         try {
@@ -85,14 +98,19 @@ public class OAuth2Service {
             throw new IllegalArgumentException("PAR not found for authorization code");
         }
 
+        // Map client_id to customer_id for demo purposes
+        String customerId = getCustomerIdForClient(par.getClientId());
+
         Instant now = Instant.now();
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .issuer(issuer)
-                .subject(par.getClientId())
+                .subject(customerId)  // Customer ID in 'sub' claim
                 .audience(issuer)
                 .expirationTime(Date.from(now.plusSeconds(tokenExpirySeconds)))
                 .issueTime(Date.from(now))
                 .claim("scope", par.getScope())
+                .claim("client_id", par.getClientId())
+                .claim("consent_id", "consent-" + customerId)
                 .jwtID(UUID.randomUUID().toString())
                 .build();
 
@@ -102,8 +120,18 @@ public class OAuth2Service {
         );
         signedJWT.sign(signer);
 
-        log.debug("Created access token for client: {}", par.getClientId());
+        log.debug("Created access token for client: {}, customer: {}", par.getClientId(), customerId);
         return signedJWT.serialize();
+    }
+
+    /**
+     * Maps OAuth2 client ID to customer ID.
+     *
+     * @param clientId OAuth2 client identifier
+     * @return Customer identifier for demo data
+     */
+    private String getCustomerIdForClient(String clientId) {
+        return clientToCustomerMap.getOrDefault(clientId, "cliente-default");
     }
 
     public String createIdToken(String clientId) throws JOSEException {
