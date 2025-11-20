@@ -85,7 +85,8 @@ public class OpenApiConfig {
                                         > Client ID e Secret são preenchidos automaticamente.
                                         """)
                                 .flows(new OAuthFlows()
-                                        .password(new OAuthFlow()
+                                        .authorizationCode(new OAuthFlow()
+                                                .authorizationUrl("/api/v1/oauth2/authorize")
                                                 .tokenUrl("/api/v1/oauth2/token")
                                                 .scopes(new Scopes()
                                                         .addString("read", "Read access")
