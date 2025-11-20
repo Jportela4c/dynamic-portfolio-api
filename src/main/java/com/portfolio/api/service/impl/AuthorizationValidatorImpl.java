@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
  * Active when: prod profile OR no profile specified (production-safe by default)
  * Development uses DevAuthorizationValidatorImpl which enables ADMIN bypass.
  */
-@Service
-@Profile({"prod", "!dev"})
+@Service("authorizationValidator")
+@Profile("!dev")
 public class AuthorizationValidatorImpl implements AuthorizationValidator {
 
     @Override

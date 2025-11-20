@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * Active profiles: dev only
  * Default/prod uses AuthorizationValidatorImpl (strict validation).
  */
-@Service
+@Service("authorizationValidator")
 @Profile("dev")
 public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
 

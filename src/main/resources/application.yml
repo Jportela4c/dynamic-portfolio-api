@@ -68,8 +68,9 @@ springdoc:
     displayRequestDuration: true
     tryItOutEnabled: true
     oauth:
-      clientId: portfolio-api-client
-      clientSecret: api-secret
+      client-id: portfolio-web-app
+      client-secret: webapp-secret
+      use-basic-authentication-with-access-code-grant: true
   default-produces-media-type: application/json
   default-consumes-media-type: application/json
   show-oauth2-endpoints: true
