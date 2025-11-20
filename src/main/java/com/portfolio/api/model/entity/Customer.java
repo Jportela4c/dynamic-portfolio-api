@@ -1,5 +1,6 @@
 package com.portfolio.api.model.entity;
 
+import com.portfolio.api.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,11 +40,18 @@ public class Customer {
     @Column(nullable = false)
     private Boolean ativo;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private UserRole role;
+
     @PrePersist
     protected void onCreate() {
         dataCadastro = LocalDateTime.now();
         if (ativo == null) {
             ativo = true;
+        }
+        if (role == null) {
+            role = UserRole.CUSTOMER;
         }
     }
 

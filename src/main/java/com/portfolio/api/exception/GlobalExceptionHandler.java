@@ -16,6 +16,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
@@ -156,6 +159,54 @@ public class GlobalExceptionHandler {
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.SERVICE_UNAVAILABLE.value())
                 .message("Erro ao acessar o banco de dados")
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<ErrorResponse> handleHttpClientError(HttpClientErrorException ex) {
+        logger.error("External API client error: {} - {}", ex.getStatusCode(), ex.getMessage());
+
+        String message = "Erro ao comunicar com serviço externo";
+        if (ex.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+            message = "Falha na autenticação com serviço externo";
+        } else if (ex.getStatusCode() == HttpStatus.FORBIDDEN) {
+            message = "Acesso negado ao serviço externo";
+        } else if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+            message = "Recurso não encontrado no serviço externo";
+        }
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(HttpServerErrorException.class)
+    public ResponseEntity<ErrorResponse> handleHttpServerError(HttpServerErrorException ex) {
+        logger.error("External API server error: {} - {}", ex.getStatusCode(), ex.getMessage());
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .message("Serviço externo temporariamente indisponível")
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(ResourceAccessException.class)
+    public ResponseEntity<ErrorResponse> handleResourceAccessException(ResourceAccessException ex) {
+        logger.error("External API connection error: {}", ex.getMessage());
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .message("Não foi possível conectar ao serviço externo")
                 .timestamp(LocalDateTime.now())
                 .build();
 

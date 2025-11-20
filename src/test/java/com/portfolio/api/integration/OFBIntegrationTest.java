@@ -67,9 +67,12 @@ class OFBIntegrationTest {
 
     @Test
     void shouldFetchInvestmentsFromOFB() throws Exception {
+        // Given
+        String accessToken = oAuth2ClientService.getAccessToken();
+
         // When
         List<OFBInvestmentDataService.InvestmentData> investments =
-            investmentDataService.fetchInvestments();
+            investmentDataService.fetchInvestments(accessToken);
 
         // Then
         assertThat(investments).isNotNull();
@@ -87,7 +90,7 @@ class OFBIntegrationTest {
         // Given
         String accessToken = oAuth2ClientService.getAccessToken();
         List<OFBInvestmentDataService.InvestmentData> investments =
-            investmentDataService.fetchInvestments();
+            investmentDataService.fetchInvestments(accessToken);
 
         // Then - if we got here, JWS verification passed
         assertThat(investments).isNotNull();
