@@ -5,7 +5,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import com.portfolio.api.service.OAuth2ClientRegistrationService;
+import com.portfolio.api.service.CustomerUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,9 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -29,7 +26,6 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -39,8 +35,6 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Configuration
@@ -80,24 +74,22 @@ public class AuthorizationServerConfig {
         return http.build();
     }
 
+    /**
+     * Configures single OAuth2 client for portfolio web application.
+     * Uses Authorization Code flow with username/password authentication.
+     */
     @Bean
-    public RegisteredClientRepository registeredClientRepository(
-            OAuth2ClientRegistrationService clientRegistrationService) {
-
-        // Generate clients dynamically from database customers
-        List<RegisteredClient> customerClients = clientRegistrationService.generateClientRegistrations();
-
-        // Add Postman client for testing
-        RegisteredClient postmanClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("postman-client")
-                .clientSecret(passwordEncoder.encode("postman-secret"))
+    public RegisteredClientRepository registeredClientRepository() {
+        RegisteredClient portfolioWebApp = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("portfolio-web-app")
+                .clientSecret(passwordEncoder.encode("webapp-secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("https://oauth.pstmn.io/v1/callback")
+                .redirectUri("http://localhost:3000/callback")
                 .redirectUri("http://localhost:8080/authorized")
+                .redirectUri("https://oauth.pstmn.io/v1/callback")
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope("read")
@@ -111,28 +103,7 @@ public class AuthorizationServerConfig {
                         .build())
                 .build();
 
-        // Combine all clients
-        List<RegisteredClient> allClients = new ArrayList<>(customerClients);
-        allClients.add(postmanClient);
-
-        return new InMemoryRegisteredClientRepository(allClients);
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("admin123"))
-                .roles("ADMIN", "USER")
-                .build();
-
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder.encode("user123"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
+        return new InMemoryRegisteredClientRepository(portfolioWebApp);
     }
 
     @Bean
