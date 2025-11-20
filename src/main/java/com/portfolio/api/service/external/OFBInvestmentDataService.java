@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.portfolio.api.mapper.OFBInvestmentMapper;
+import com.portfolio.api.provider.OFBAuthProvider;
 import com.portfolio.api.provider.dto.OFBInvestmentDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,16 +18,16 @@ import java.util.List;
 public class OFBInvestmentDataService {
 
     private final OFBInvestmentClient investmentClient;
-    private final OFBOAuth2ClientService oAuth2ClientService;
+    private final OFBAuthProvider authProvider;
     private final JWSVerificationService jwsVerificationService;
     private final ObjectMapper objectMapper;
     private final OFBInvestmentMapper investmentMapper;
 
-    public List<InvestmentData> fetchInvestments() throws Exception {
-        log.info("Fetching investment data from OFB provider");
+    public List<InvestmentData> fetchInvestments(String customerId) throws Exception {
+        log.info("Fetching investment data for customer: {}", customerId);
 
-        // Get access token
-        String accessToken = oAuth2ClientService.getAccessToken();
+        // Get access token for the specific customer
+        String accessToken = authProvider.authenticateCustomer(customerId);
 
         // Call investments API using HTTP Interface client
         String jwsToken = investmentClient.getInvestments("Bearer " + accessToken);
