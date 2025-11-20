@@ -1,15 +1,5 @@
 # Dev profile overrides - TESTING ONLY
-spring:
-  security:
-    oauth2:
-      authorizationserver:
-        client:
-          portfolio-web-app:
-            registration:
-              authorization-grant-types:
-                - authorization_code
-                - refresh_token
-                - password  # DEV ONLY: Insecure password grant for testing
+# (No OAuth2 overrides needed - base config already has authorization_code)
 
 # Security Configuration
 security:

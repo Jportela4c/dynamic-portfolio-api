@@ -7,7 +7,8 @@ GO
 CREATE INDEX idx_clients_email ON clients(email);
 GO
 
--- Update existing users with BCrypt hashed passwords
+-- Update existing users with BCrypt hashed passwords (no prefix required)
+-- OptionalPrefixPasswordEncoder defaults to BCrypt when no prefix is present
 -- BCrypt hash for 'admin123': $2a$10$x73ekZHKMsv/usFBfEmJ2eEWqcj4Zjw/AkgK/laO4qmYVAMqjB8la
 -- BCrypt hash for 'customer123': $2a$10$iLey2CKtqr1.OwfxAkTUQ.6B2qGJzwsWfDvz2FKBfTnP05dbGrt7m
 
