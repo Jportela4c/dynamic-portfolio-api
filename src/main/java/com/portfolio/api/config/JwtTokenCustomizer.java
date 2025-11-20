@@ -7,9 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Customizes JWT tokens to include custom claims for RBAC.
  *
@@ -18,14 +15,12 @@ import java.util.regex.Pattern;
  * - role: Customer's role (CUSTOMER or ADMIN)
  * - cpf: Customer's CPF (for OFB integration)
  *
- * Client ID naming convention:
- * - "customer-{customerId}" -> Maps to customer with that ID
- * - "admin-client" -> Maps to ADMIN user (id=999)
+ * Uses authenticated user's email (from username/password authentication)
+ * to lookup customer and add custom claims to the JWT.
  */
 @Configuration
 public class JwtTokenCustomizer {
 
-    private static final Pattern CUSTOMER_CLIENT_PATTERN = Pattern.compile("^customer-(\\d+)$");
     private final CustomerRepository customerRepository;
 
     public JwtTokenCustomizer(CustomerRepository customerRepository) {
@@ -37,12 +32,13 @@ public class JwtTokenCustomizer {
         return context -> {
             // Only customize access tokens (not refresh tokens)
             if (context.getTokenType().getValue().equals("access_token")) {
-                String clientId = context.getRegisteredClient().getClientId();
-                Customer customer = findCustomerByClientId(clientId);
+                // Get authenticated user's email from Spring Security authentication
+                String email = context.getPrincipal().getName();
+                Customer customer = findCustomerByEmail(email);
 
                 if (customer != null) {
                     context.getClaims().claim("userId", customer.getId());
-                    context.getClaims().claim("role", customer.getRole().getCode());
+                    context.getClaims().claim("role", customer.getRole().name());
                     context.getClaims().claim("cpf", customer.getCpf());
                 }
             }
@@ -50,30 +46,12 @@ public class JwtTokenCustomizer {
     }
 
     /**
-     * Maps OAuth2 client_id to a Customer entity using naming convention.
+     * Finds customer by email address (used as username in authentication).
      *
-     * Mapping rules:
-     * - "customer-{id}" -> Customer with that database ID
-     * - "admin-client" -> ADMIN user (id=999)
-     *
-     * Examples:
-     * - "customer-1" -> Customer ID 1
-     * - "customer-2" -> Customer ID 2
-     * - "admin-client" -> Customer ID 999 (ADMIN role)
+     * @param email The authenticated user's email
+     * @return Customer entity or null if not found
      */
-    private Customer findCustomerByClientId(String clientId) {
-        // Admin client (demo only)
-        if ("admin-client".equals(clientId)) {
-            return customerRepository.findById(999L).orElse(null);
-        }
-
-        // Customer-specific clients: customer-{id}
-        Matcher matcher = CUSTOMER_CLIENT_PATTERN.matcher(clientId);
-        if (matcher.matches()) {
-            Long customerId = Long.parseLong(matcher.group(1));
-            return customerRepository.findById(customerId).orElse(null);
-        }
-
-        return null;
+    private Customer findCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email).orElse(null);
     }
 }
