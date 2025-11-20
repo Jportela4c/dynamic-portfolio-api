@@ -26,35 +26,37 @@ public class OpenApiConfig {
                         .description("""
                                 Sistema de simulação de investimentos para produtos financeiros brasileiros.
 
-                                ## 🔐 Como usar esta API (Desenvolvimento)
+                                ## Como usar esta API (Desenvolvimento)
 
-                                ### 1️⃣ Clique no botão "Authorize" acima
+                                ### Passo 1: Clique no botão "Authorize" acima
 
-                                ### 2️⃣ No diálogo, selecione os scopes desejados:
-                                - ✅ **read** - Consultar dados (perfil de risco, investimentos)
-                                - ✅ **write** - Criar simulações
-                                - ✅ **openid** - OpenID Connect (recomendado)
-                                - ✅ **profile** - Informações do perfil do usuário
+                                ### Passo 2: Selecione os scopes desejados
 
-                                💡 **Dica:** Selecione todos os scopes para acesso completo.
+                                - **read** - Consultar dados (perfil de risco, investimentos)
+                                - **write** - Criar simulações
+                                - **openid** - OpenID Connect (recomendado)
+                                - **profile** - Informações do perfil do usuário
 
-                                ### 3️⃣ Entre com suas credenciais:
+                                **Dica:** Selecione todos os scopes para acesso completo.
 
-                                **👤 CUSTOMER (acesso apenas aos próprios dados):**
-                                - Username: `joao.silva@example.com`
-                                - Password: `customer123`
+                                ### Passo 3: Entre com suas credenciais
 
-                                **🔧 ADMIN (acesso a todos os clientes - dev only):**
-                                - Username: `admin@demo.local`
-                                - Password: `admin123`
+                                **CUSTOMER (acesso apenas aos próprios dados):**
+                                Username: `joao.silva@example.com`
+                                Password: `customer123`
 
-                                ℹ️ Client ID e Secret são preenchidos automaticamente.
+                                **ADMIN (acesso a todos os clientes - dev only):**
+                                Username: `admin@demo.local`
+                                Password: `admin123`
 
-                                ### 4️⃣ Clique em "Authorize" e comece a testar!
+                                **Nota:** Client ID e Secret são preenchidos automaticamente.
+
+                                ### Passo 4: Clique em "Authorize" e comece a testar
 
                                 ---
 
-                                ## 📋 Funcionalidades
+                                ## Funcionalidades
+
                                 - Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
                                 - Perfilamento dinâmico de risco
                                 - Recomendação de produtos por perfil
@@ -72,17 +74,17 @@ public class OpenApiConfig {
 
                                         **Credenciais disponíveis para teste:**
 
-                                        📋 **CUSTOMER (acesso próprio apenas):**
-                                        • Email: joao.silva@example.com
-                                        • Password: customer123
-                                        • Cliente ID: 1
+                                        **CUSTOMER (acesso próprio apenas):**
+                                        Email: `joao.silva@example.com`
+                                        Password: `customer123`
+                                        Cliente ID: 1
 
-                                        🔧 **ADMIN (acesso multi-customer - dev only):**
-                                        • Email: admin@demo.local
-                                        • Password: admin123
-                                        • Cliente ID: 999 (pode acessar qualquer cliente)
+                                        **ADMIN (acesso multi-customer - dev only):**
+                                        Email: `admin@demo.local`
+                                        Password: `admin123`
+                                        Cliente ID: 999 (pode acessar qualquer cliente)
 
-                                        ℹ️ Client credentials são pré-preenchidos automaticamente.
+                                        **Nota:** Client credentials são pré-preenchidos automaticamente.
                                         """)
                                 .flows(new OAuthFlows()
                                         .password(new OAuthFlow()
