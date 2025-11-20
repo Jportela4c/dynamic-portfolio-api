@@ -1,7 +1,7 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.model.enums.UserRole;
-import com.portfolio.api.service.impl.ProdAuthorizationValidator;
+import com.portfolio.api.service.impl.AuthorizationValidatorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.Authentication;
@@ -15,15 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Tests for ProdAuthorizationValidator (prod profile, ADMIN bypass disabled).
+ * Tests for AuthorizationValidatorImpl (default/prod profile, ADMIN bypass disabled).
  */
-class ProdAuthorizationValidatorTest {
+class AuthorizationValidatorImplTest {
 
-    private ProdAuthorizationValidator validator;
+    private AuthorizationValidatorImpl validator;
 
     @BeforeEach
     void setUp() {
-        validator = new ProdAuthorizationValidator();
+        validator = new AuthorizationValidatorImpl();
     }
 
     private Authentication createAuthenticationWithClaims(Long userId, String roleCode, String cpf) {

@@ -8,19 +8,18 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 /**
- * Production authorization validator with strict validation only.
+ * Dev-only authorization validator with ADMIN bypass for testing.
  *
  * Authorization rules:
- * - ALL users (including those with ADMIN role): Can ONLY access their own data
- * - userId from JWT MUST equal customerId from request
- * - ADMIN role has NO special privileges in production (OFB compliant)
+ * - ADMIN users: Can access ANY customer's data (bypass validation)
+ * - CUSTOMER users: Can only access their own data (userId must equal customerId)
  *
- * This implementation is active in prod profile (and default if no profile set).
- * Development uses DevAuthorizationValidator which enables ADMIN bypass.
+ * Active profiles: dev only
+ * Default/prod uses AuthorizationValidatorImpl (strict validation).
  */
 @Service
-@Profile({"prod", "default"})
-public class ProdAuthorizationValidator implements AuthorizationValidator {
+@Profile("dev")
+public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
 
     @Override
     public boolean canAccessCustomer(Authentication authentication, Long customerId) {
@@ -30,13 +29,20 @@ public class ProdAuthorizationValidator implements AuthorizationValidator {
 
         Jwt jwt = (Jwt) authentication.getPrincipal();
         Long userId = jwt.getClaim("userId");
+        String roleCode = jwt.getClaim("role");
 
-        if (userId == null) {
+        if (userId == null || roleCode == null) {
             return false;
         }
 
-        // ALWAYS strict validation - no ADMIN bypass
-        // Role claim is ignored in production
+        UserRole role = UserRole.fromCode(roleCode);
+
+        // ADMIN bypass: Can access any customer
+        if (role == UserRole.ADMIN) {
+            return true;
+        }
+
+        // CUSTOMER: Strict validation
         return userId.equals(customerId);
     }
 

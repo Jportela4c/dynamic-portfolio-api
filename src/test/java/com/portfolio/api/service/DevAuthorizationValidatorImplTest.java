@@ -1,11 +1,11 @@
 package com.portfolio.api.service;
 
 import com.portfolio.api.model.enums.UserRole;
+import com.portfolio.api.service.impl.DevAuthorizationValidatorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -14,13 +14,16 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class AuthorizationValidatorTest {
+/**
+ * Tests for DevAuthorizationValidatorImpl (dev profile with ADMIN bypass).
+ */
+class DevAuthorizationValidatorImplTest {
 
-    private AuthorizationValidator validator;
+    private DevAuthorizationValidatorImpl validator;
 
     @BeforeEach
     void setUp() {
-        validator = new AuthorizationValidator();
+        validator = new DevAuthorizationValidatorImpl();
     }
 
     // Helper method to create JWT with claims
@@ -97,75 +100,26 @@ class AuthorizationValidatorTest {
 
     @Test
     void canAccessCustomer_shouldReturnTrue_whenCustomerAccessesOwnData() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", false);
         Authentication auth = createAuthenticationWithClaims(1L, "CUSTOMER", "12345678901");
-
         boolean result = validator.canAccessCustomer(auth, 1L);
         assertTrue(result);
     }
 
     @Test
     void canAccessCustomer_shouldReturnFalse_whenCustomerAccessesOtherData() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", false);
         Authentication auth = createAuthenticationWithClaims(1L, "CUSTOMER", "12345678901");
-
         boolean result = validator.canAccessCustomer(auth, 2L);
         assertFalse(result);
     }
 
     @Test
-    void canAccessCustomer_shouldReturnTrue_whenAdminAccessesAnyData_inDevMode() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", true);
+    void canAccessCustomer_shouldReturnTrue_whenAdminAccessesAnyData() {
+        // Dev mode: ADMIN bypass is ALWAYS enabled
         Authentication auth = createAuthenticationWithClaims(999L, "ADMIN", "00000000000");
 
         assertTrue(validator.canAccessCustomer(auth, 1L));
         assertTrue(validator.canAccessCustomer(auth, 2L));
         assertTrue(validator.canAccessCustomer(auth, 999L));
-    }
-
-    @Test
-    void canAccessCustomer_shouldReturnFalse_whenAdminTriesToAccess_inProdMode() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", false);
-        Authentication auth = createAuthenticationWithClaims(999L, "ADMIN", "00000000000");
-
-        // ADMIN cannot access other customers in prod mode
-        assertFalse(validator.canAccessCustomer(auth, 1L));
-        assertFalse(validator.canAccessCustomer(auth, 2L));
-
-        // ADMIN can only access own ID (999)
-        assertTrue(validator.canAccessCustomer(auth, 999L));
-    }
-
-    // ========== isAdmin() tests ==========
-
-    @Test
-    void isAdmin_shouldReturnFalse_whenAuthenticationIsNull() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", true);
-        assertFalse(validator.isAdmin(null));
-    }
-
-    @Test
-    void isAdmin_shouldReturnFalse_whenAdminIsDisabled() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", false);
-        Authentication auth = createAuthenticationWithClaims(999L, "ADMIN", "00000000000");
-
-        assertFalse(validator.isAdmin(auth));
-    }
-
-    @Test
-    void isAdmin_shouldReturnTrue_whenAdminEnabledAndRoleIsAdmin() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", true);
-        Authentication auth = createAuthenticationWithClaims(999L, "ADMIN", "00000000000");
-
-        assertTrue(validator.isAdmin(auth));
-    }
-
-    @Test
-    void isAdmin_shouldReturnFalse_whenAdminEnabledButRoleIsCustomer() {
-        ReflectionTestUtils.setField(validator, "adminEnabled", true);
-        Authentication auth = createAuthenticationWithClaims(1L, "CUSTOMER", "12345678901");
-
-        assertFalse(validator.isAdmin(auth));
     }
 
     // ========== getUserId() tests ==========
