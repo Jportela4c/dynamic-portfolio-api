@@ -45,7 +45,23 @@ public class OpenApiConfig {
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.OAUTH2)
-                                .description("OAuth2 Password Grant (DEV ONLY)")
+                                .description("""
+                                        OAuth2 Password Grant (DEV ONLY)
+
+                                        **Credenciais disponíveis para teste:**
+
+                                        📋 **CUSTOMER (acesso próprio apenas):**
+                                        • Email: joao.silva@example.com
+                                        • Password: customer123
+                                        • Cliente ID: 1
+
+                                        🔧 **ADMIN (acesso multi-customer - dev only):**
+                                        • Email: admin@demo.local
+                                        • Password: admin123
+                                        • Cliente ID: 999 (pode acessar qualquer cliente)
+
+                                        ℹ️ Client credentials são pré-preenchidos automaticamente.
+                                        """)
                                 .flows(new OAuthFlows()
                                         .password(new OAuthFlow()
                                                 .tokenUrl("/api/v1/oauth2/token")
