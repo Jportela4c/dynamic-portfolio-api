@@ -7,6 +7,33 @@ spring:
     name: dynamic-portfolio-api
   profiles:
     active: dev  # Use dev profile for local development (enables PASSWORD grant, ADMIN role access)
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          portfolio-web-app:
+            registration:
+              client-id: portfolio-web-app
+              client-secret: "{bcrypt}$2a$10$MF7hYnWLeLT66gNccBgxaONZHbrSMjlUofkp0yGLiBWFnIcPKq6IS"  # webapp-secret
+              client-authentication-methods:
+                - client_secret_basic
+                - client_secret_post
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+              redirect-uris:
+                - http://localhost:3000/callback
+                - http://localhost:8080/authorized
+                - https://oauth.pstmn.io/v1/callback
+              scopes:
+                - openid
+                - profile
+                - read
+                - write
+            require-authorization-consent: false
+            token:
+              access-token-time-to-live: 1h
+              refresh-token-time-to-live: 7d
   datasource:
     url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:portfoliodb};encrypt=true;trustServerCertificate=true
     username: ${DB_USER:sa}
@@ -126,21 +153,3 @@ resilience4j:
       ofbProvider:
         timeoutDuration: 15s
 
-# OAuth2 Client Configuration
-oauth2:
-  client:
-    client-id: portfolio-web-app
-    client-secret: webapp-secret
-    redirect-uris:
-      - http://localhost:3000/callback
-      - http://localhost:8080/authorized
-      - https://oauth.pstmn.io/v1/callback
-    scopes:
-      - openid
-      - profile
-      - read
-      - write
-    access-token-ttl: 1h
-    refresh-token-ttl: 7d
-    require-authorization-consent: false
-    enable-password-grant: true  # DEV ONLY: Enables insecure password grant for testing

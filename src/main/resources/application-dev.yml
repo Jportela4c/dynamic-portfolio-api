@@ -1,21 +1,17 @@
-# Development Profile Configuration
-# Enables ADMIN role and relaxed security for testing
+# Dev profile overrides - TESTING ONLY
+spring:
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          portfolio-web-app:
+            registration:
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+                - password  # DEV ONLY: Insecure password grant for testing
 
+# Security Configuration
 security:
   admin:
-    # Enable ADMIN role with multi-customer access (demo only)
-    enabled: true
-
-# Dev-specific logging
-logging:
-  level:
-    root: INFO
-    com.portfolio.api: DEBUG
-    org.springframework.security: DEBUG
-    org.springframework.security.oauth2: DEBUG
-
-# OFB Provider Configuration (Demo)
-ofb:
-  provider:
-    # Use local mock server
-    base-url: http://localhost:8089
+    enabled: true  # Enable ADMIN role for testing
