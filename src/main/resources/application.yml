@@ -126,7 +126,21 @@ resilience4j:
       ofbProvider:
         timeoutDuration: 15s
 
-# OAuth2 configuration
+# OAuth2 Client Configuration
 oauth2:
-  dev:
+  client:
+    client-id: portfolio-web-app
+    client-secret: webapp-secret
+    redirect-uris:
+      - http://localhost:3000/callback
+      - http://localhost:8080/authorized
+      - https://oauth.pstmn.io/v1/callback
+    scopes:
+      - openid
+      - profile
+      - read
+      - write
+    access-token-ttl: 1h
+    refresh-token-ttl: 7d
+    require-authorization-consent: false
     enable-password-grant: true  # DEV ONLY: Enables insecure password grant for testing
