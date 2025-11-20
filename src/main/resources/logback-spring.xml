@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- Console appender with request context -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- Filter out health checks and metrics scraping -->
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator>
+                <expression>return mdc.get("source") != null &amp;&amp; (mdc.get("source").equals("docker-health") || mdc.get("source").equals("prometheus"));</expression>
+            </evaluator>
+            <onMatch>DENY</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{HH:mm:ss} [%X{source}] [%X{ip}] %X{method} %X{uri} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- Application logging -->
+    <logger name="com.portfolio.api" level="DEBUG"/>
+
+    <!-- Spring Security - show authentication failures but not every request -->
+    <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.springframework.security.authentication" level="DEBUG"/>
+    <logger name="org.springframework.security.oauth2" level="INFO"/>
+
+    <!-- Silence noisy warning about AuthenticationProvider configuration -->
+    <logger name="org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer" level="ERROR"/>
+
+    <!-- Silence actuator -->
+    <logger name="org.springframework.boot.actuate.endpoint.web" level="OFF"/>
+</configuration>
