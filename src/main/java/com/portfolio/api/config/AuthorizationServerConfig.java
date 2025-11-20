@@ -5,6 +5,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import com.portfolio.api.service.OAuth2ClientRegistrationService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -38,6 +39,8 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Configuration
@@ -78,7 +81,13 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository() {
+    public RegisteredClientRepository registeredClientRepository(
+            OAuth2ClientRegistrationService clientRegistrationService) {
+
+        // Generate clients dynamically from database customers
+        List<RegisteredClient> customerClients = clientRegistrationService.generateClientRegistrations();
+
+        // Add Postman client for testing
         RegisteredClient postmanClient = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("postman-client")
                 .clientSecret(passwordEncoder.encode("postman-secret"))
@@ -102,22 +111,11 @@ public class AuthorizationServerConfig {
                         .build())
                 .build();
 
-        RegisteredClient apiClient = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("portfolio-api-client")
-                .clientSecret(passwordEncoder.encode("api-secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .scope("read")
-                .scope("write")
-                .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofHours(1))
-                        .refreshTokenTimeToLive(Duration.ofDays(7))
-                        .build())
-                .build();
+        // Combine all clients
+        List<RegisteredClient> allClients = new ArrayList<>(customerClients);
+        allClients.add(postmanClient);
 
-        return new InMemoryRegisteredClientRepository(postmanClient, apiClient);
+        return new InMemoryRegisteredClientRepository(allClients);
     }
 
     @Bean
