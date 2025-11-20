@@ -27,15 +27,12 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
             return false;
         }
 
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        Long userId = jwt.getClaim("userId");
-        String roleCode = jwt.getClaim("role");
+        Long userId = getUserId(authentication);
+        UserRole role = getUserRole(authentication);
 
-        if (userId == null || roleCode == null) {
+        if (userId == null || role == null) {
             return false;
         }
-
-        UserRole role = UserRole.fromCode(roleCode);
 
         // ADMIN bypass: Can access any customer
         if (role == UserRole.ADMIN) {
@@ -52,8 +49,19 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
             return null;
         }
 
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        return jwt.getClaim("userId");
+        // Handle JWT authentication (OAuth2 Resource Server)
+        if (authentication.getPrincipal() instanceof Jwt jwt) {
+            return jwt.getClaim("userId");
+        }
+
+        // Handle form login authentication (UsernamePasswordAuthenticationToken)
+        if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+            // For form login, we need to extract from authorities or session
+            // For now, reject - form login users should use OAuth2 endpoints
+            return null;
+        }
+
+        return null;
     }
 
     @Override
@@ -62,8 +70,12 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
             return null;
         }
 
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        return jwt.getClaim("cpf");
+        // Handle JWT authentication
+        if (authentication.getPrincipal() instanceof Jwt jwt) {
+            return jwt.getClaim("cpf");
+        }
+
+        return null;
     }
 
     @Override
@@ -72,13 +84,15 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
             return null;
         }
 
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        String roleCode = jwt.getClaim("role");
-
-        if (roleCode == null) {
-            return null;
+        // Handle JWT authentication
+        if (authentication.getPrincipal() instanceof Jwt jwt) {
+            String roleCode = jwt.getClaim("role");
+            if (roleCode == null) {
+                return null;
+            }
+            return UserRole.fromCode(roleCode);
         }
 
-        return UserRole.fromCode(roleCode);
+        return null;
     }
 }
