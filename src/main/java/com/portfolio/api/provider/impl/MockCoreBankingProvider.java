@@ -16,11 +16,11 @@ import java.util.Optional;
 
 /**
  * Implementação mock do CoreBankingProvider com dados realistas de clientes brasileiros.
- * Ativa apenas em ambientes de desenvolvimento e teste.
+ * Active when: NOT in prod profile (dev, test, default).
  */
 @Slf4j
 @Service
-@Profile({"dev", "test", "default"})
+@Profile("!prod")
 public class MockCoreBankingProvider implements CoreBankingProvider {
 
     private final Map<String, CustomerData> mockCustomers = new HashMap<>();

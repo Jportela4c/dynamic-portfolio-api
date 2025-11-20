@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
  * - userId from JWT MUST equal customerId from request
  * - ADMIN role has NO special privileges (OFB compliant)
  *
- * Active profiles: prod, default (production-safe)
+ * Active when: prod profile OR no profile specified (production-safe by default)
  * Development uses DevAuthorizationValidatorImpl which enables ADMIN bypass.
  */
 @Service
-@Profile({"prod", "default"})
+@Profile({"prod", "!dev"})
 public class AuthorizationValidatorImpl implements AuthorizationValidator {
 
     @Override

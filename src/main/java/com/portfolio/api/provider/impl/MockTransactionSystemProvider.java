@@ -17,10 +17,11 @@ import java.util.*;
 
 /**
  * Implementação mock do TransactionSystemProvider com dados realistas de movimentações brasileiras.
+ * Active when: NOT in prod profile (dev, test, default).
  */
 @Slf4j
 @Service
-@Profile({"dev", "test", "default"})
+@Profile("!prod")
 public class MockTransactionSystemProvider implements TransactionSystemProvider {
 
     private final Map<String, List<Transaction>> mockTransactions = new HashMap<>();
