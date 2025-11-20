@@ -36,7 +36,7 @@ public class SecurityConfig {
     private JwtIntrospectionValidator jwtIntrospectionValidator;
 
     @Bean
-    @Order(3)
+    @Order(2)
     public SecurityFilterChain resourceServerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
