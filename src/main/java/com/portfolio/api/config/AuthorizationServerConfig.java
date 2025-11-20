@@ -75,36 +75,10 @@ public class AuthorizationServerConfig {
     }
 
     /**
-     * Configures single OAuth2 client for portfolio web application.
-     * Uses Authorization Code flow with username/password authentication.
+     * OAuth2 client configuration moved to profile-specific classes:
+     * - OAuth2ClientConfigDev: Includes PASSWORD grant (dev only)
+     * - OAuth2ClientConfigProd: Secure grants only (default)
      */
-    @Bean
-    public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient portfolioWebApp = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("portfolio-web-app")
-                .clientSecret(passwordEncoder.encode("webapp-secret"))
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://localhost:3000/callback")
-                .redirectUri("http://localhost:8080/authorized")
-                .redirectUri("https://oauth.pstmn.io/v1/callback")
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                .scope("read")
-                .scope("write")
-                .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(false)
-                        .build())
-                .tokenSettings(TokenSettings.builder()
-                        .accessTokenTimeToLive(Duration.ofHours(1))
-                        .refreshTokenTimeToLive(Duration.ofDays(7))
-                        .build())
-                .build();
-
-        return new InMemoryRegisteredClientRepository(portfolioWebApp);
-    }
 
     @Bean
     public JWKSource<SecurityContext> jwkSource() {

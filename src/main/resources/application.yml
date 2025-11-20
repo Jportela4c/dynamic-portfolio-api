@@ -6,7 +6,7 @@ spring:
   application:
     name: dynamic-portfolio-api
   profiles:
-    active: prod
+    active: dev  # Use dev profile for local development (enables PASSWORD grant, ADMIN role access)
   datasource:
     url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:portfoliodb};encrypt=true;trustServerCertificate=true
     username: ${DB_USER:sa}
@@ -125,3 +125,8 @@ resilience4j:
     instances:
       ofbProvider:
         timeoutDuration: 15s
+
+# OAuth2 configuration
+oauth2:
+  dev:
+    enable-password-grant: true  # DEV ONLY: Enables insecure password grant for testing
