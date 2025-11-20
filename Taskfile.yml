@@ -147,6 +147,24 @@ tasks:
           exit 1
         fi
 
+  build-local:
+    desc: Build JAR locally with Maven Wrapper (fast on Mac)
+    cmds:
+      - ./mvnw clean package -DskipTests
+
+  rebuild-api:
+    desc: Build JAR locally and rebuild Docker API container (optimized for Mac)
+    cmds:
+      - echo "🔨 Building JAR locally..."
+      - ./mvnw clean package -DskipTests 2>&1 | grep -E "(Building|SUCCESS|ERROR|WARNING|Tests run)" | tail -20
+      - echo "🐳 Rebuilding Docker image..."
+      - docker compose build --no-cache api 2>&1 | grep -E "(Step|Successfully|ERROR|WARNING)" | tail -20
+      - echo "🚀 Starting API container..."
+      - docker compose up -d api
+      - sleep 2
+      - echo "✅ API rebuilt and started - showing logs (Ctrl+C to exit):"
+      - docker logs portfolio-api --tail 100 -f 2>&1 | grep -v "GET /actuator/health"
+
   dev:
     desc: Run application locally (requires database running)
     cmds:

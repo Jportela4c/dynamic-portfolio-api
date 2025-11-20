@@ -1,4 +1,3 @@
-target/
 .git/
 .gitignore
 .idea/
@@ -7,3 +6,7 @@ target/
 local-docs/
 .claude/
 CLAUDE.md
+target/src/
+target/classes/
+target/test-classes/
+target/maven-*/
