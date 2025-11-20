@@ -8,6 +8,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
@@ -45,6 +47,13 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .defaultSuccessUrl("/swagger-ui.html", true)
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/swagger-ui.html")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.decoder(resourceServerJwtDecoder()))
                 );
@@ -68,9 +77,28 @@ public class SecurityConfig {
         return jwtDecoder;
     }
 
+    /**
+     * DelegatingPasswordEncoder with BCrypt default for passwords without prefix.
+     *
+     * Uses PasswordEncoderFactories.createDelegatingPasswordEncoder() which provides:
+     * - bcrypt (default for NEW passwords)
+     * - noop, pbkdf2, scrypt, argon2, sha256 (for prefixed passwords)
+     *
+     * Custom behavior: passwords WITHOUT prefix default to BCrypt (not error).
+     *
+     * This allows:
+     * - User passwords in database: $2a$10$... (no prefix, BCrypt default)
+     * - OAuth2 client secrets: {noop}webapp-secret (explicit NoOp)
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        DelegatingPasswordEncoder delegatingEncoder =
+                (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        // Set default for passwords WITHOUT prefix
+        delegatingEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
+
+        return delegatingEncoder;
     }
 }
 
