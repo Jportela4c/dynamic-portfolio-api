@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +20,16 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Security configuration for OAuth2 Resource Server and Method Security.
+ *
+ * Enables:
+ * - OAuth2 JWT authentication for all API endpoints
+ * - Method-level security with @PreAuthorize annotations
+ * - Custom JWT introspection validator for token revocation
+ */
 @Configuration
+@EnableMethodSecurity  // Enables @PreAuthorize, @PostAuthorize, @Secured
 public class SecurityConfig {
 
     @Autowired
