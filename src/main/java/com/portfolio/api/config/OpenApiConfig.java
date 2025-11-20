@@ -21,23 +21,45 @@ public class OpenApiConfig {
     public OpenAPI devOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API de Portfólio Dinâmico")
+                        .title("API de Portfólio Dinâmico - DEV")
                         .version("1.0.0")
                         .description("""
                                 Sistema de simulação de investimentos para produtos financeiros brasileiros.
 
-                                ## Ambiente: DESENVOLVIMENTO
+                                ## 🔐 Como usar esta API (Desenvolvimento)
 
-                                ### Autenticação OAuth2 Password Grant (DEV ONLY)
+                                ### 1️⃣ Clique no botão "Authorize" acima
 
-                                Clique em "Authorize" e entre com:
-                                - **Username (email):** joao.silva@example.com
-                                - **Password:** customer123
-                                - **Client credentials:** Pré-preenchidos automaticamente
+                                ### 2️⃣ No diálogo, selecione os scopes desejados:
+                                - ✅ **read** - Consultar dados (perfil de risco, investimentos)
+                                - ✅ **write** - Criar simulações
+                                - ✅ **openid** - OpenID Connect (recomendado)
+                                - ✅ **profile** - Informações do perfil do usuário
 
-                                **ADMIN user (multi-customer access):**
-                                - Email: admin@demo.local
-                                - Password: admin123
+                                💡 **Dica:** Selecione todos os scopes para acesso completo.
+
+                                ### 3️⃣ Entre com suas credenciais:
+
+                                **👤 CUSTOMER (acesso apenas aos próprios dados):**
+                                - Username: `joao.silva@example.com`
+                                - Password: `customer123`
+
+                                **🔧 ADMIN (acesso a todos os clientes - dev only):**
+                                - Username: `admin@demo.local`
+                                - Password: `admin123`
+
+                                ℹ️ Client ID e Secret são preenchidos automaticamente.
+
+                                ### 4️⃣ Clique em "Authorize" e comece a testar!
+
+                                ---
+
+                                ## 📋 Funcionalidades
+                                - Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
+                                - Perfilamento dinâmico de risco
+                                - Recomendação de produtos por perfil
+                                - Histórico de investimentos
+                                - Telemetria e métricas
                                 """)
                         .contact(new Contact()
                                 .name("Dynamic Portfolio API")
