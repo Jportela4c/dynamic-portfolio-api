@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.time.Instant;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Demo-only service for obtaining OFB OAuth2 tokens.
  *
- * NO CACHING - executes fresh OAuth2 PAR flow on every request.
+ * Tokens are cached lazily - generated on first request and reused until expiry.
  * NO CUSTOMER MAPPING - clientId comes from endpoint path parameter.
  * Mock server is the single source of truth for all data.
  */
@@ -33,15 +36,27 @@ public class DemoOFBAuthService {
     private final JWEDecryptionService jweDecryptionService;
     private final ObjectMapper objectMapper;
 
+    // Lazy token cache: clientId → TokenData
+    private final Map<String, TokenData> tokenCache = new ConcurrentHashMap<>();
+
     /**
      * Get OAuth2 access token for the given clientId.
+     * Tokens are cached and reused until expiry.
      *
      * @param clientId OAuth2 client identifier (e.g., "portfolio-api-conservative")
      * @return Access token for making OFB API calls
      * @throws Exception if OAuth2 flow fails
      */
     public String getTokenForClient(String clientId) throws Exception {
-        log.info("Executing OAuth2 PAR flow for client: {}", clientId);
+        // Check cache
+        TokenData cached = tokenCache.get(clientId);
+        if (cached != null && Instant.now().isBefore(cached.expiry)) {
+            log.debug("Using cached token for client: {}", clientId);
+            return cached.accessToken;
+        }
+
+        // Generate new token
+        log.info("Generating new OAuth2 token for client: {}", clientId);
 
         // Step 1: Pushed Authorization Request (PAR)
         String requestUri = pushAuthorizationRequest(clientId);
@@ -55,6 +70,10 @@ public class DemoOFBAuthService {
         // Step 4: Validate ID token
         JWTClaimsSet idTokenClaims = jweDecryptionService.decryptAndValidate(tokenResponse.idToken);
         log.debug("ID token validated for subject: {}", idTokenClaims.getSubject());
+
+        // Cache token with TTL
+        Instant expiry = Instant.now().plusSeconds(properties.getToken().getCacheTtlSeconds());
+        tokenCache.put(clientId, new TokenData(tokenResponse.accessToken, expiry));
 
         log.info("OAuth2 PAR flow completed for client: {}", clientId);
         return tokenResponse.accessToken;
@@ -97,4 +116,5 @@ public class DemoOFBAuthService {
     }
 
     private record TokenResponse(String accessToken, String idToken) {}
+    private record TokenData(String accessToken, Instant expiry) {}
 }
