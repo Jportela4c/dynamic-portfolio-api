@@ -66,10 +66,8 @@ logging:
   level:
     root: INFO
     com.portfolio.api: DEBUG
-    org.springframework.security: ERROR
+    org.springframework.security: INFO
     org.springframework.security.oauth2: INFO
-    org.springframework.security.web: ERROR
-    org.springframework.boot.actuate: ERROR
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
