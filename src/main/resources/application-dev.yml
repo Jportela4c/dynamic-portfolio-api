@@ -1,0 +1,21 @@
+# Development Profile Configuration
+# Enables ADMIN role and relaxed security for testing
+
+security:
+  admin:
+    # Enable ADMIN role with multi-customer access (demo only)
+    enabled: true
+
+# Dev-specific logging
+logging:
+  level:
+    root: INFO
+    com.portfolio.api: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+
+# OFB Provider Configuration (Demo)
+ofb:
+  provider:
+    # Use local mock server
+    base-url: http://localhost:8089

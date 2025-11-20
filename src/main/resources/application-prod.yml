@@ -1,0 +1,18 @@
+# Production Profile Configuration
+# Disables ADMIN role - all users must access only their own data
+
+security:
+  admin:
+    # Disable ADMIN role (OFB compliant - no privileged access)
+    enabled: false
+
+# Production logging
+logging:
+  level:
+    root: WARN
+    com.portfolio.api: INFO
+    org.springframework.security: WARN
+    org.springframework.security.oauth2: WARN
+
+# OFB Provider Configuration (Production)
+# Uses real OFB bank URLs (configured via environment variables)
