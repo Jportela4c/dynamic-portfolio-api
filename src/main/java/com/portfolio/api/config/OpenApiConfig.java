@@ -37,19 +37,19 @@ public class OpenApiConfig {
                                 - **openid** - OpenID Connect (recomendado)
                                 - **profile** - Informações do perfil do usuário
 
-                                **Dica:** Selecione todos os scopes para acesso completo.
+                                > **Dica:** Selecione todos os scopes para acesso completo.
 
                                 ### Passo 3: Entre com suas credenciais
 
                                 **CUSTOMER (acesso apenas aos próprios dados):**
-                                Username: `joao.silva@example.com`
-                                Password: `customer123`
+                                - Username: `joao.silva@example.com`
+                                - Password: `customer123`
 
                                 **ADMIN (acesso a todos os clientes - dev only):**
-                                Username: `admin@demo.local`
-                                Password: `admin123`
+                                - Username: `admin@demo.local`
+                                - Password: `admin123`
 
-                                **Nota:** Client ID e Secret são preenchidos automaticamente.
+                                > **Nota:** Client ID e Secret são preenchidos automaticamente.
 
                                 ### Passo 4: Clique em "Authorize" e comece a testar
 
@@ -70,21 +70,19 @@ public class OpenApiConfig {
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.OAUTH2)
                                 .description("""
-                                        OAuth2 Password Grant (DEV ONLY)
-
-                                        **Credenciais disponíveis para teste:**
+                                        **Credenciais para teste:**
 
                                         **CUSTOMER (acesso próprio apenas):**
-                                        Email: `joao.silva@example.com`
-                                        Password: `customer123`
-                                        Cliente ID: 1
+                                        - Email: `joao.silva@example.com`
+                                        - Password: `customer123`
+                                        - Cliente ID: 1
 
                                         **ADMIN (acesso multi-customer - dev only):**
-                                        Email: `admin@demo.local`
-                                        Password: `admin123`
-                                        Cliente ID: 999 (pode acessar qualquer cliente)
+                                        - Email: `admin@demo.local`
+                                        - Password: `admin123`
+                                        - Cliente ID: 999
 
-                                        **Nota:** Client credentials são pré-preenchidos automaticamente.
+                                        > Client ID e Secret são preenchidos automaticamente.
                                         """)
                                 .flows(new OAuthFlows()
                                         .password(new OAuthFlow()
