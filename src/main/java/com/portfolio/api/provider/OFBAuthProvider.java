@@ -11,9 +11,9 @@ public interface OFBAuthProvider {
     /**
      * Get authentication token for the specified customer.
      *
-     * @param customerId Customer identifier (e.g., "cliente-101")
+     * @param customerId Customer database ID
      * @return Bearer token for OFB API calls
      * @throws Exception if authentication fails
      */
-    String authenticateCustomer(String customerId) throws Exception;
+    String authenticateCustomer(Long customerId) throws Exception;
 }

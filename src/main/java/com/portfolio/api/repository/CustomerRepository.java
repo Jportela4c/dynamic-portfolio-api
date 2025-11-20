@@ -1,15 +1,15 @@
 package com.portfolio.api.repository;
 
-import com.portfolio.api.model.entity.Client;
+import com.portfolio.api.model.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    Optional<Client> findByCpf(String cpf);
+    Optional<Customer> findByCpf(String cpf);
 
     boolean existsByCpf(String cpf);
 }

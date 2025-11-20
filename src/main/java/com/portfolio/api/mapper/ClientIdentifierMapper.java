@@ -1,7 +1,7 @@
 package com.portfolio.api.mapper;
 
-import com.portfolio.api.model.entity.Client;
-import com.portfolio.api.repository.ClientRepository;
+import com.portfolio.api.model.entity.Customer;
+import com.portfolio.api.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,19 +13,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClientIdentifierMapper {
 
-    private final ClientRepository clientRepository;
+    private final CustomerRepository customerRepository;
 
     public Optional<String> getCpfForClient(Long clienteId) {
-        return clientRepository.findById(clienteId)
-                .map(Client::getCpf);
+        return customerRepository.findById(clienteId)
+                .map(Customer::getCpf);
     }
 
     public Optional<Long> getClientIdForCpf(String cpf) {
-        return clientRepository.findByCpf(cpf)
-                .map(Client::getId);
+        return customerRepository.findByCpf(cpf)
+                .map(Customer::getId);
     }
 
     public boolean clientExists(Long clienteId) {
-        return clientRepository.existsById(clienteId);
+        return customerRepository.existsById(clienteId);
     }
 }

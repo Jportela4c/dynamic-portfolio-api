@@ -95,10 +95,18 @@ public class OAuth2Resource {
             @FormParam("client_id")
             @Parameter(
                 description = "ID do client OAuth2 registrado",
-                example = "portfolio-api-client",
+                example = "portfolio-api",
                 required = true
             )
             String clientId,
+
+            @FormParam("cpf_hint")
+            @Parameter(
+                description = "CPF do cliente (11 dígitos) - Demo only parameter for mock server",
+                example = "12345678901",
+                required = true
+            )
+            String cpfHint,
 
             @FormParam("scope")
             @Parameter(
@@ -124,21 +132,29 @@ public class OAuth2Resource {
             )
             String responseType) {
 
-        log.info("PAR request - clientId: {}, scope: {}", clientId, scope);
+        log.info("PAR request - clientId: {}, cpfHint: {}***, scope: {}",
+                 clientId, cpfHint != null && cpfHint.length() >= 3 ? cpfHint.substring(0, 3) : "???", scope);
 
-        if (clientId == null || scope == null || redirectUri == null) {
+        if (clientId == null || cpfHint == null || scope == null || redirectUri == null) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(Map.of("error", "invalid_request"))
+                    .entity(Map.of("error", "invalid_request", "error_description", "Missing required parameters"))
                     .build();
         }
 
-        String requestUri = oauth2Service.createPushedAuthRequest(clientId, scope, redirectUri);
+        try {
+            String requestUri = oauth2Service.createPushedAuthRequest(clientId, cpfHint, scope, redirectUri);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("request_uri", requestUri);
-        response.put("expires_in", 90);
+            Map<String, Object> response = new HashMap<>();
+            response.put("request_uri", requestUri);
+            response.put("expires_in", 90);
 
-        return Response.ok(response).build();
+            return Response.ok(response).build();
+        } catch (IllegalArgumentException e) {
+            log.warn("PAR request failed: {}", e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of("error", "invalid_request", "error_description", e.getMessage()))
+                    .build();
+        }
     }
 
     @GET

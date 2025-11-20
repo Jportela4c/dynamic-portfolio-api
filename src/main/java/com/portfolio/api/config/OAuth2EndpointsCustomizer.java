@@ -36,7 +36,7 @@ public class OAuth2EndpointsCustomizer implements GlobalOpenApiCustomizer {
             operation.setSummary("Obter token de acesso OAuth2");
             operation.setDescription(
                 "Gera um token de acesso OAuth2 usando client credentials.\n\n" +
-                "**Autenticação:** Basic Auth com Client ID e Client Secret\n\n" +
+                "**Autenticação:** Basic Auth com Customer ID e Customer Secret\n\n" +
                 "**Exemplo de uso com curl:**\n" +
                 "```bash\n" +
                 "curl -X POST http://localhost:8080/oauth2/token \\\n" +
@@ -45,8 +45,8 @@ public class OAuth2EndpointsCustomizer implements GlobalOpenApiCustomizer {
                 "  -d 'grant_type=client_credentials&scope=read write'\n" +
                 "```\n\n" +
                 "**Credenciais disponíveis:**\n" +
-                "- Client ID: `portfolio-api-client`\n" +
-                "- Client Secret: `api-secret`\n" +
+                "- Customer ID: `portfolio-api-client`\n" +
+                "- Customer Secret: `api-secret`\n" +
                 "- Scopes: `read`, `write`"
             );
 
@@ -75,7 +75,7 @@ public class OAuth2EndpointsCustomizer implements GlobalOpenApiCustomizer {
                 }
                 if (responses.get("401") != null) {
                     responses.get("401").setDescription(
-                        "Credenciais inválidas - verifique o Client ID e Client Secret no header Authorization"
+                        "Credenciais inválidas - verifique o Customer ID e Customer Secret no header Authorization"
                     );
                 }
             }

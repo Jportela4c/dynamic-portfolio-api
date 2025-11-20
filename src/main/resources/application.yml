@@ -5,6 +5,8 @@ server:
 spring:
   application:
     name: dynamic-portfolio-api
+  profiles:
+    active: prod
   datasource:
     url: jdbc:sqlserver://${DB_HOST:localhost}:${DB_PORT:1433};databaseName=${DB_NAME:portfoliodb};encrypt=true;trustServerCertificate=true
     username: ${DB_USER:sa}

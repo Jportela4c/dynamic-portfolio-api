@@ -41,17 +41,10 @@ public class OAuth2Service {
     private final Map<String, String> authCodeStore = new ConcurrentHashMap<>();
 
     /**
-     * Demo customer mapping: client_id → customer_id
-     *
-     * Maps OAuth2 client IDs to test customer identifiers.
-     * The customer ID is embedded in JWT 'sub' claim.
+     * Valid client_id for this mock server.
+     * In production OFB, this would be validated against registered clients.
      */
-    private final Map<String, String> clientToCustomerMap = Map.of(
-        "portfolio-api-conservative", "cliente-101",
-        "portfolio-api-moderate", "cliente-102",
-        "portfolio-api-aggressive", "cliente-103",
-        "portfolio-api-client", "cliente-default"
-    );
+    private static final String VALID_CLIENT_ID = "portfolio-api";
 
     @PostConstruct
     public void init() {
@@ -68,11 +61,21 @@ public class OAuth2Service {
         }
     }
 
-    public String createPushedAuthRequest(String clientId, String scope, String redirectUri) {
+    public String createPushedAuthRequest(String clientId, String cpfHint, String scope, String redirectUri) {
+        // Validate client_id
+        if (!VALID_CLIENT_ID.equals(clientId)) {
+            throw new IllegalArgumentException("Invalid client_id: " + clientId);
+        }
+
+        // Validate CPF hint (demo only - in production, CPF comes from user login)
+        if (cpfHint == null || cpfHint.length() != 11) {
+            throw new IllegalArgumentException("Invalid cpf_hint: must be 11 digits");
+        }
+
         String requestUri = "urn:ietf:params:oauth:request_uri:" + UUID.randomUUID();
-        PushedAuthRequest par = new PushedAuthRequest(clientId, scope, redirectUri, Instant.now());
+        PushedAuthRequest par = new PushedAuthRequest(clientId, cpfHint, scope, redirectUri, Instant.now());
         parStore.put(requestUri, par);
-        log.debug("Created PAR: {}", requestUri);
+        log.debug("Created PAR for CPF: {}***, requestUri: {}", cpfHint.substring(0, 3), requestUri);
         return requestUri;
     }
 
@@ -98,19 +101,20 @@ public class OAuth2Service {
             throw new IllegalArgumentException("PAR not found for authorization code");
         }
 
-        // Map client_id to customer_id for demo purposes
-        String customerId = getCustomerIdForClient(par.getClientId());
+        // Use CPF from PAR request (provided as cpf_hint in demo)
+        String cpf = par.getCpfHint();
 
         Instant now = Instant.now();
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .issuer(issuer)
-                .subject(customerId)  // Customer ID in 'sub' claim
+                .subject(cpf)  // CPF as subject (OFB standard)
                 .audience(issuer)
                 .expirationTime(Date.from(now.plusSeconds(tokenExpirySeconds)))
                 .issueTime(Date.from(now))
                 .claim("scope", par.getScope())
                 .claim("client_id", par.getClientId())
-                .claim("consent_id", "consent-" + customerId)
+                .claim("cpf", cpf)  // MANDATORY OFB claim
+                .claim("consent_id", "consent-" + cpf)
                 .jwtID(UUID.randomUUID().toString())
                 .build();
 
@@ -120,18 +124,8 @@ public class OAuth2Service {
         );
         signedJWT.sign(signer);
 
-        log.debug("Created access token for client: {}, customer: {}", par.getClientId(), customerId);
+        log.debug("Created access token for client: {}, CPF: {}***", par.getClientId(), cpf.substring(0, 3));
         return signedJWT.serialize();
-    }
-
-    /**
-     * Maps OAuth2 client ID to customer ID.
-     *
-     * @param clientId OAuth2 client identifier
-     * @return Customer identifier for demo data
-     */
-    private String getCustomerIdForClient(String clientId) {
-        return clientToCustomerMap.getOrDefault(clientId, "cliente-default");
     }
 
     public String createIdToken(String clientId) throws JOSEException {
@@ -171,18 +165,21 @@ public class OAuth2Service {
 
     public static class PushedAuthRequest {
         private final String clientId;
+        private final String cpfHint;
         private final String scope;
         private final String redirectUri;
         private final Instant createdAt;
 
-        public PushedAuthRequest(String clientId, String scope, String redirectUri, Instant createdAt) {
+        public PushedAuthRequest(String clientId, String cpfHint, String scope, String redirectUri, Instant createdAt) {
             this.clientId = clientId;
+            this.cpfHint = cpfHint;
             this.scope = scope;
             this.redirectUri = redirectUri;
             this.createdAt = createdAt;
         }
 
         public String getClientId() { return clientId; }
+        public String getCpfHint() { return cpfHint; }
         public String getScope() { return scope; }
         public String getRedirectUri() { return redirectUri; }
         public Instant getCreatedAt() { return createdAt; }

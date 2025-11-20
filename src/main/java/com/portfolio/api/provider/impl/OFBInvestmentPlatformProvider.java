@@ -1,10 +1,13 @@
 package com.portfolio.api.provider.impl;
 
+import com.portfolio.api.model.entity.Customer;
 import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.provider.InvestmentPlatformProvider;
+import com.portfolio.api.provider.OFBAuthProvider;
 import com.portfolio.api.provider.dto.CustomerPortfolio;
 import com.portfolio.api.provider.dto.Investment;
 import com.portfolio.api.provider.dto.Position;
+import com.portfolio.api.repository.CustomerRepository;
 import com.portfolio.api.service.external.OFBInvestmentDataService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +27,16 @@ import java.util.stream.Collectors;
 public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider {
 
     private final OFBInvestmentDataService ofbInvestmentDataService;
+    private final OFBAuthProvider ofbAuthProvider;
+    private final CustomerRepository customerRepository;
 
     @Override
     public CustomerPortfolio getPortfolio(String cpf) {
         log.debug("Fetching portfolio for CPF: {}", maskCpf(cpf));
 
         try {
-            List<OFBInvestmentDataService.InvestmentData> investments = ofbInvestmentDataService.fetchInvestments();
+            String token = authenticateWithCpf(cpf);
+            List<OFBInvestmentDataService.InvestmentData> investments = ofbInvestmentDataService.fetchInvestments(token);
 
             BigDecimal totalInvestido = investments.stream()
                     .map(inv -> BigDecimal.valueOf(inv.getInvestedAmount()))
@@ -61,7 +67,8 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
         log.debug("Fetching investment history for CPF: {}", maskCpf(cpf));
 
         try {
-            List<OFBInvestmentDataService.InvestmentData> investments = ofbInvestmentDataService.fetchInvestments();
+            String token = authenticateWithCpf(cpf);
+            List<OFBInvestmentDataService.InvestmentData> investments = ofbInvestmentDataService.fetchInvestments(token);
 
             return investments.stream()
                     .map(this::mapToInvestment)
@@ -78,7 +85,8 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
         log.debug("Fetching current positions for CPF: {}", maskCpf(cpf));
 
         try {
-            List<OFBInvestmentDataService.InvestmentData> investments = ofbInvestmentDataService.fetchInvestments();
+            String token = authenticateWithCpf(cpf);
+            List<OFBInvestmentDataService.InvestmentData> investments = ofbInvestmentDataService.fetchInvestments(token);
 
             return investments.stream()
                     .map(this::mapToPosition)
@@ -131,6 +139,18 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
                 .dataVencimento(dataVencimento)
                 .liquidez("D+0")
                 .build();
+    }
+
+    private String authenticateWithCpf(String cpf) {
+        try {
+            Customer customer = customerRepository.findByCpf(cpf)
+                    .orElseThrow(() -> new IllegalArgumentException("Customer not found for CPF"));
+
+            return ofbAuthProvider.authenticateCustomer(customer.getId());
+        } catch (Exception e) {
+            log.error("Authentication failed for CPF: {}", maskCpf(cpf), e);
+            throw new RuntimeException("Failed to authenticate customer", e);
+        }
     }
 
     private String maskCpf(String cpf) {
