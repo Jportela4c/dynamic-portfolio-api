@@ -15,7 +15,7 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("portfolio-primary", "portfolio-fallback");
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager("portfolio-primary", "portfolio-fallback", "ofbTokens");
         cacheManager.setCaffeine(caffeineCacheBuilder());
         return cacheManager;
     }
