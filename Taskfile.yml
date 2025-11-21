@@ -4,6 +4,7 @@ vars:
   PROJECT_NAME: dynamic-portfolio-api
   DOCKER_MIN_VERSION: "20.10"
   DOCKER_COMPOSE_MIN_VERSION: "2.0"
+  SERVER_PORT: '{{.SERVER_PORT | default "8080"}}'
 
 tasks:
   default:
@@ -24,9 +25,8 @@ tasks:
       - task: install-tools
       - task: docker-up
       - |
-        PORT=${SERVER_PORT:-8080}
-        echo "✅ Setup complete! API is available at http://localhost:$PORT/api/v1"
-        echo "📖 Access API docs at http://localhost:$PORT/api/v1/swagger-ui.html"
+        echo "✅ Setup complete! API is available at http://localhost:{{.SERVER_PORT}}/api/v1"
+        echo "📖 Access API docs at http://localhost:{{.SERVER_PORT}}/api/v1/swagger-ui.html"
 
   check-dependencies:
     desc: Check if required dependencies are installed
@@ -80,6 +80,8 @@ tasks:
   docker-up:
     desc: Start all Docker containers
     silent: true
+    env:
+      SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🚀 Building application..."
       - docker compose build --pull || (echo "❌ Build failed! Check Docker is running." && exit 1)
@@ -154,6 +156,8 @@ tasks:
 
   rebuild-api:
     desc: Build JAR locally and rebuild Docker API container (optimized for Mac)
+    env:
+      SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🔨 Building JAR locally..."
       - ./mvnw clean package -DskipTests 2>&1 | grep -E "(Building|SUCCESS|ERROR|WARNING|Tests run)" | tail -20
@@ -162,11 +166,13 @@ tasks:
       - echo "🚀 Starting API container..."
       - docker compose up -d api
       - sleep 2
-      - echo "✅ API rebuilt and started - showing logs (Ctrl+C to exit):"
+      - echo "✅ API rebuilt and started on port {{.SERVER_PORT}} - showing logs (Ctrl+C to exit):"
       - docker logs portfolio-api --tail 100 -f 2>&1 | grep -v "GET /actuator/health"
 
   rebuild-all:
     desc: Rebuild both APIs (main + OFB mock) and restart all Docker services
+    env:
+      SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🛑 Stopping all containers..."
       - docker compose down
@@ -195,6 +201,8 @@ tasks:
   ensure-db-running:
     desc: Ensure database is running
     internal: true
+    env:
+      SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - |
         echo "🚀 Starting database services..."
@@ -211,7 +219,65 @@ tasks:
   health:
     desc: Check API health endpoint
     cmds:
-      - curl -s http://localhost:8080/api/v1/actuator/health | jq . || curl http://localhost:8080/api/v1/actuator/health
+      - curl -s http://localhost:{{.SERVER_PORT}}/api/v1/actuator/health | jq . || curl http://localhost:{{.SERVER_PORT}}/api/v1/actuator/health
+
+  token:
+    desc: Get OAuth2 token for testing (saves to /tmp/token.txt)
+    cmds:
+      - |
+        echo "🔑 Getting OAuth2 token for ADMIN user..."
+        TOKEN=$(curl -s -X POST "http://localhost:{{.SERVER_PORT}}/api/v1/oauth2/token" \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          -u "portfolio-web-app:webapp-secret" \
+          -d "grant_type=password&username=admin@demo.local&password=admin123&scope=read write openid profile" \
+          | jq -r '.access_token')
+        echo "$TOKEN" > /tmp/token.txt
+        echo "✅ Token saved to /tmp/token.txt"
+        echo "Token: $TOKEN"
+
+  token-customer:
+    desc: Get OAuth2 token for customer user (saves to /tmp/token.txt)
+    cmds:
+      - |
+        echo "🔑 Getting OAuth2 token for CUSTOMER user..."
+        TOKEN=$(curl -s -X POST "http://localhost:{{.SERVER_PORT}}/api/v1/oauth2/token" \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          -u "portfolio-web-app:webapp-secret" \
+          -d "grant_type=password&username=joao.silva@example.com&password=customer123&scope=read write openid profile" \
+          | jq -r '.access_token')
+        echo "$TOKEN" > /tmp/token.txt
+        echo "✅ Token saved to /tmp/token.txt"
+        echo "Token: $TOKEN"
+
+  test-endpoints:
+    desc: Test main API endpoints with saved token
+    cmds:
+      - |
+        if [ ! -f /tmp/token.txt ]; then
+          echo "❌ No token found. Run 'task token' first."
+          exit 1
+        fi
+        TOKEN=$(cat /tmp/token.txt)
+        echo "🧪 Testing /perfil-risco/1..."
+        curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:{{.SERVER_PORT}}/api/v1/perfil-risco/1" | jq .
+        echo ""
+        echo "🧪 Testing /investimentos/1..."
+        curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:{{.SERVER_PORT}}/api/v1/investimentos/1" | jq .
+
+  test-simulation:
+    desc: Test simulation endpoint with saved token
+    cmds:
+      - |
+        if [ ! -f /tmp/token.txt ]; then
+          echo "❌ No token found. Run 'task token' first."
+          exit 1
+        fi
+        TOKEN=$(cat /tmp/token.txt)
+        echo "🧪 Testing /simular-investimento..."
+        curl -s -X POST -H "Authorization: Bearer $TOKEN" \
+          -H "Content-Type: application/json" \
+          "http://localhost:{{.SERVER_PORT}}/api/v1/simular-investimento" \
+          -d '{"clienteId":1,"tipoInvestimento":"CDB","valor":10000,"prazo":12}' | jq .
 
   clean-build:
     desc: Clean Maven build artifacts
@@ -227,6 +293,8 @@ tasks:
   newman:docker-up:
     desc: Start all Docker containers for Newman tests
     silent: true
+    env:
+      SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🚀 Starting Docker containers..."
       - docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --wait --force-recreate || true
@@ -355,6 +423,13 @@ tasks:
         fi
         echo "✅ Newman found: $(newman --version)"
 
+  quick:
+    desc: Quick rebuild and test (stops containers, rebuilds, starts, gets token, tests endpoints)
+    cmds:
+      - task: rebuild-all
+      - task: token
+      - task: test-endpoints
+
   help:
     desc: Show detailed help information
     cmds:
@@ -363,29 +438,41 @@ tasks:
       - echo "═══════════════════════════════════════════════════════"
       - echo ""
       - echo "🚀 Quick Start:"
-      - echo "   task setup          - Complete project setup"
-      - echo "   task docker-up      - Start all services"
-      - echo "   task docker-down    - Stop all services"
+      - echo "   task setup             - Complete project setup"
+      - echo "   task quick             - Rebuild + test everything"
+      - echo "   task docker-up         - Start all services"
+      - echo "   task docker-down       - Stop all services"
       - echo ""
-      - echo "📋 Development:"
-      - echo "   task dev            - Run locally (needs DB)"
-      - echo "   task test           - Run unit tests"
-      - echo "   task build          - Build JAR"
+      - echo "🔨 Building:"
+      - echo "   task rebuild-all       - Rebuild both APIs + Docker"
+      - echo "   task rebuild-api       - Rebuild main API only"
+      - echo "   task build-local       - Build JAR locally"
+      - echo ""
+      - echo "🧪 Testing:"
+      - echo "   task token             - Get OAuth2 token (admin)"
+      - echo "   task token-customer    - Get OAuth2 token (customer)"
+      - echo "   task test-endpoints    - Test main endpoints"
+      - echo "   task test-simulation   - Test simulation endpoint"
+      - echo "   task test              - Run unit tests"
       - echo ""
       - echo "🧪 API Testing (Newman):"
-      - echo "   task newman:local   - Run API tests (local Docker)"
-      - echo "   task newman:fresh   - Run with fresh database"
-      - echo "   task newman:test    - Run against test env"
-      - echo "   task newman:ci      - Run in CI/CD mode"
-      - echo "   task newman:report  - Generate detailed report"
+      - echo "   task newman:local      - Run API tests (local Docker)"
+      - echo "   task newman:fresh      - Run with fresh database"
+      - echo "   task newman:test       - Run against test env"
+      - echo "   task newman:ci         - Run in CI/CD mode"
+      - echo "   task newman:report     - Generate detailed report"
       - echo ""
       - echo "🔍 Monitoring:"
-      - echo "   task status         - Container status"
-      - echo "   task logs           - All logs"
-      - echo "   task health         - API health check"
+      - echo "   task status            - Container status"
+      - echo "   task logs              - All logs"
+      - echo "   task logs-api          - API logs only"
+      - echo "   task health            - API health check"
       - echo ""
       - echo "🧹 Cleanup:"
-      - echo "   task docker-clean   - Remove all containers & volumes"
+      - echo "   task docker-clean      - Remove all containers & volumes"
+      - echo ""
+      - echo "⚙️  Configuration:"
+      - echo "   SERVER_PORT={{.SERVER_PORT}} (override with SERVER_PORT=8081 task ...)"
       - echo ""
       - echo "💡 Run 'task --list' to see all available tasks"
       - echo "═══════════════════════════════════════════════════════"
