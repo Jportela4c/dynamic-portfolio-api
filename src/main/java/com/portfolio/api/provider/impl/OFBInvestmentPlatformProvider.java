@@ -104,7 +104,7 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
         BigDecimal rentabilidade = valorAtual.subtract(valor);
 
         return Investment.builder()
-                .id(Long.valueOf(data.getInvestmentId().hashCode()))
+                .id((long) Math.abs(data.getInvestmentId().hashCode()))
                 .tipo(mapStringToTipoProduto(data.getType()))
                 .tipoOperacao("APLICACAO")
                 .valor(valor)

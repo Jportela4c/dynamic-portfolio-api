@@ -126,7 +126,15 @@ public class OFBInvestmentDto {
 
     // Convenience methods for mapper
     public BigDecimal getAmount() {
-        return issueUnitPrice != null ? issueUnitPrice.getAmount() : null;
+        // Bank/Credit Fixed Incomes: Use issueUnitPrice.amount from identification endpoint
+        if (issueUnitPrice != null && issueUnitPrice.getAmount() != null) {
+            return issueUnitPrice.getAmount();
+        }
+
+        // Funds and Treasury: OFB spec requires separate balance endpoints
+        // These investment types don't have amount in identification response
+        // TODO: Implement balance endpoints for complete data
+        return null;
     }
 
     public LocalDate getMaturityDate() {
@@ -149,10 +157,25 @@ public class OFBInvestmentDto {
      * Maps from different type fields depending on the investment category.
      */
     public String getType() {
+        // Bank/Credit Fixed Incomes: CDB, LCI, LCA, RDB
         if (investmentType != null) return investmentType;
-        if (anbimaCategory != null) return "FUND_" + anbimaCategory;
+
+        // Funds: RENDA_FIXA, ACOES, MULTIMERCADO, CAMBIAL (direct from ANBIMA category)
+        if (anbimaCategory != null) return anbimaCategory;
+
+        // Treasury Titles: Parse from productName
+        if (productName != null) {
+            if (productName.contains("Selic")) return "TESOURO_SELIC";
+            if (productName.contains("Prefixado")) return "TESOURO_PREFIXADO";
+            if (productName.contains("IPCA")) return "TESOURO_IPCA";
+            if (productName.contains("RendA+") || productName.contains("Renda+")) return "TESOURO_RENDA_MAIS";
+            if (productName.contains("Educa+")) return "TESOURO_EDUCA_MAIS";
+            if (productName.contains("Tesouro")) return "TESOURO_PREFIXADO"; // Default treasury type
+        }
+
+        // Variable Incomes: Stocks, ETFs (TODO: implement when available)
         if (ticker != null) return "VARIABLE_INCOME";
-        if (productName != null && productName.contains("Tesouro")) return "TREASURY";
+
         return "UNKNOWN";
     }
 }

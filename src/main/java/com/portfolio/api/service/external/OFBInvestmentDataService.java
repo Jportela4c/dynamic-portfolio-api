@@ -48,6 +48,7 @@ public class OFBInvestmentDataService {
                     accessToken,
                     auth -> bankFixedIncomesClient.getInvestments(auth),
                     (auth, id) -> bankFixedIncomesClient.getInvestmentDetail(auth, id),
+                    (auth, id) -> bankFixedIncomesClient.getInvestmentBalances(auth, id),
                     (auth, id) -> bankFixedIncomesClient.getInvestmentTransactions(auth, id),
                     "Bank Fixed Incomes"
             );
@@ -66,6 +67,7 @@ public class OFBInvestmentDataService {
                     accessToken,
                     auth -> creditFixedIncomesClient.getInvestments(auth),
                     (auth, id) -> creditFixedIncomesClient.getInvestmentDetail(auth, id),
+                    (auth, id) -> creditFixedIncomesClient.getInvestmentBalances(auth, id),
                     (auth, id) -> creditFixedIncomesClient.getInvestmentTransactions(auth, id),
                     "Credit Fixed Incomes"
             );
@@ -84,6 +86,7 @@ public class OFBInvestmentDataService {
                     accessToken,
                     auth -> fundsClient.getInvestments(auth),
                     (auth, id) -> fundsClient.getInvestmentDetail(auth, id),
+                    (auth, id) -> fundsClient.getInvestmentBalances(auth, id),
                     (auth, id) -> fundsClient.getInvestmentTransactions(auth, id),
                     "Funds"
             );
@@ -102,6 +105,7 @@ public class OFBInvestmentDataService {
                     accessToken,
                     auth -> treasuryTitlesClient.getInvestments(auth),
                     (auth, id) -> treasuryTitlesClient.getInvestmentDetail(auth, id),
+                    (auth, id) -> treasuryTitlesClient.getInvestmentBalances(auth, id),
                     (auth, id) -> treasuryTitlesClient.getInvestmentTransactions(auth, id),
                     "Treasury Titles"
             );
@@ -120,6 +124,7 @@ public class OFBInvestmentDataService {
                     accessToken,
                     auth -> variableIncomesClient.getInvestments(auth),
                     (auth, id) -> variableIncomesClient.getInvestmentDetail(auth, id),
+                    (auth, id) -> variableIncomesClient.getInvestmentBalances(auth, id),
                     (auth, id) -> variableIncomesClient.getInvestmentTransactions(auth, id),
                     "Variable Incomes"
             );
@@ -135,6 +140,7 @@ public class OFBInvestmentDataService {
             String accessToken,
             java.util.function.Function<String, String> listFunction,
             java.util.function.BiFunction<String, String, String> detailFunction,
+            java.util.function.BiFunction<String, String, String> balanceFunction,
             java.util.function.BiFunction<String, String, String> transactionsFunction,
             String typeName) throws Exception {
 
@@ -147,7 +153,7 @@ public class OFBInvestmentDataService {
 
         // Step 2: Fetch details for each investment
         List<InvestmentData> investments = investmentIds.stream()
-                .map(id -> fetchInvestmentDetail(accessToken, detailFunction, transactionsFunction, id))
+                .map(id -> fetchInvestmentDetail(accessToken, detailFunction, balanceFunction, transactionsFunction, id))
                 .filter(java.util.Objects::nonNull)
                 .toList();
 
@@ -177,6 +183,7 @@ public class OFBInvestmentDataService {
     private InvestmentData fetchInvestmentDetail(
             String accessToken,
             java.util.function.BiFunction<String, String, String> detailFunction,
+            java.util.function.BiFunction<String, String, String> balanceFunction,
             java.util.function.BiFunction<String, String, String> transactionsFunction,
             String investmentId) {
         try {
@@ -198,6 +205,13 @@ public class OFBInvestmentDataService {
             OFBInvestmentDto dto = objectMapper.convertValue(dataNode, OFBInvestmentDto.class);
             InvestmentData data = investmentMapper.toInvestmentData(dto);
 
+            // IMPORTANT: DETAILS response doesn't include investmentId (only in LIST response)
+            // We must set it manually from the parameter
+            data.setInvestmentId(investmentId);
+
+            // Fetch and enrich with balance data
+            enrichWithBalanceData(data, accessToken, balanceFunction, investmentId);
+
             // Fetch and enrich with transaction data
             enrichWithTransactionData(data, accessToken, transactionsFunction, investmentId);
 
@@ -206,6 +220,72 @@ public class OFBInvestmentDataService {
         } catch (Exception e) {
             log.error("Failed to fetch detail for investment: {}", investmentId, e);
             return null;
+        }
+    }
+
+    private void enrichWithBalanceData(
+            InvestmentData data,
+            String accessToken,
+            java.util.function.BiFunction<String, String, String> balanceFunction,
+            String investmentId) {
+        try {
+            log.debug("Fetching balance for investment: {}", investmentId);
+
+            // Call balance endpoint
+            String balanceJws = balanceFunction.apply("Bearer " + accessToken, investmentId);
+            String balancePayload = jwsVerificationService.verifyAndExtractPayload(balanceJws);
+
+            // Parse balance response
+            JsonNode root = objectMapper.readTree(balancePayload);
+            JsonNode balanceNode = root.get("data");
+
+            if (balanceNode == null) {
+                log.debug("No balance data for investment: {}", investmentId);
+                // Set defaults
+                data.setInvestedAmount(data.getInvestedAmount() != null ? data.getInvestedAmount() : 0.0);
+                data.setCurrentValue(data.getCurrentValue() != null ? data.getCurrentValue() : 0.0);
+                data.setProfitability(0.0);
+                return;
+            }
+
+            // Extract balance amounts based on investment type
+            // For all types: Use netAmount.amount for current value
+            JsonNode netAmountNode = balanceNode.get("netAmount");
+            if (netAmountNode != null && netAmountNode.get("amount") != null) {
+                double currentValue = netAmountNode.get("amount").asDouble();
+                data.setCurrentValue(currentValue);
+
+                // If investedAmount was already set from issueUnitPrice, use it
+                // Otherwise, calculate from grossAmount
+                if (data.getInvestedAmount() == null || data.getInvestedAmount() == 0.0) {
+                    JsonNode grossAmountNode = balanceNode.get("grossAmount");
+                    if (grossAmountNode != null && grossAmountNode.get("amount") != null) {
+                        data.setInvestedAmount(grossAmountNode.get("amount").asDouble());
+                    } else {
+                        // Fallback: assume invested = current (no profit)
+                        data.setInvestedAmount(currentValue);
+                    }
+                }
+
+                // Calculate profitability
+                double profitability = currentValue - data.getInvestedAmount();
+                data.setProfitability(profitability);
+
+                log.debug("Balance for {}: invested={}, current={}, profit={}",
+                    investmentId, data.getInvestedAmount(), currentValue, profitability);
+            } else {
+                // No netAmount - use defaults
+                data.setInvestedAmount(data.getInvestedAmount() != null ? data.getInvestedAmount() : 0.0);
+                data.setCurrentValue(data.getCurrentValue() != null ? data.getCurrentValue() : 0.0);
+                data.setProfitability(0.0);
+            }
+
+        } catch (Exception e) {
+            log.warn("Failed to fetch balance for investment {}: {}", investmentId, e.getMessage());
+            // Set safe defaults
+            data.setInvestedAmount(data.getInvestedAmount() != null ? data.getInvestedAmount() : 0.0);
+            data.setCurrentValue(data.getCurrentValue() != null ? data.getCurrentValue() : 0.0);
+            data.setProfitability(0.0);
         }
     }
 
