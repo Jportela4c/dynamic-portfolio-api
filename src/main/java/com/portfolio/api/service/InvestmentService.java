@@ -1,5 +1,6 @@
 package com.portfolio.api.service;
 
+import com.portfolio.api.exception.ServiceUnavailableException;
 import com.portfolio.api.mapper.ClientIdentifierMapper;
 import com.portfolio.api.model.dto.response.InvestmentResponse;
 import com.portfolio.api.provider.InvestmentPlatformProvider;
@@ -11,9 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +24,7 @@ public class InvestmentService {
     private final CustomerValidationService customerValidationService;
     private final ClientIdentifierMapper clientIdentifierMapper;
 
-    @CircuitBreaker(name = "ofbProvider", fallbackMethod = "getClientInvestmentsFallback")
+    @CircuitBreaker(name = "ofbProvider")
     @Retry(name = "ofbProvider")
     @Cacheable(value = "portfolio-primary", key = "#clienteId")
     public List<InvestmentResponse> getClientInvestments(Long clienteId) {
@@ -37,32 +35,23 @@ public class InvestmentService {
 
         log.debug("Fetching investments from provider for client: {}", clienteId);
 
-        List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
+        try {
+            List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
 
-        return investments.stream()
-                .map(inv -> InvestmentResponse.builder()
-                        .id(inv.getId())
-                        .tipo(inv.getTipo())
-                        .valor(inv.getValor())
-                        .rentabilidade(inv.getRentabilidade())
-                        .data(inv.getData())
-                        .build())
-                .collect(Collectors.toList());
-    }
-
-    @Cacheable(value = "portfolio-fallback", key = "#clienteId")
-    public List<InvestmentResponse> getClientInvestmentsFallback(Long clienteId, Exception ex) {
-        log.warn("Circuit breaker activated for client: {}. Returning fallback data. Error: {}",
-                clienteId, ex.getMessage());
-
-        return List.of(
-                InvestmentResponse.builder()
-                        .id(0L)
-                        .tipo(com.portfolio.api.model.enums.TipoProduto.UNKNOWN)
-                        .valor(BigDecimal.ZERO)
-                        .rentabilidade(BigDecimal.ZERO)
-                        .data(LocalDate.now())
-                        .build()
-        );
+            return investments.stream()
+                    .map(inv -> InvestmentResponse.builder()
+                            .id(inv.getId())
+                            .tipo(inv.getTipo())
+                            .valor(inv.getValor())
+                            .rentabilidade(inv.getRentabilidade())
+                            .data(inv.getData())
+                            .build())
+                    .collect(Collectors.toList());
+        } catch (Exception ex) {
+            log.error("Failed to fetch investments from OFB provider for client: {}", clienteId, ex);
+            throw new ServiceUnavailableException(
+                    "Serviço de investimentos temporariamente indisponível. Tente novamente em alguns instantes."
+            );
+        }
     }
 }

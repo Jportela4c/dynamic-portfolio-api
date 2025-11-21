@@ -2,6 +2,7 @@ package com.portfolio.api.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.portfolio.api.exception.ServiceUnavailableException;
 import com.portfolio.api.mapper.ClientIdentifierMapper;
 import com.portfolio.api.model.dto.response.RiskProfileResponse;
 import com.portfolio.api.model.entity.InvestmentDataCache;
@@ -83,26 +84,25 @@ public class RiskProfileService {
                 .build();
     }
 
-    @CircuitBreaker(name = "ofbProvider", fallbackMethod = "fetchInvestmentsFallback")
+    @CircuitBreaker(name = "ofbProvider")
     @Retry(name = "ofbProvider")
     @Cacheable(value = "portfolio-primary", key = "#cpf")
     private List<Investment> fetchInvestmentsWithResilience(String cpf) {
-        List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
+        try {
+            List<Investment> investments = investmentPlatformProvider.getInvestmentHistory(cpf);
+            updatePersistentCache(cpf, investments);
+            return investments;
+        } catch (Exception ex) {
+            log.error("Failed to fetch investments from OFB provider for CPF: {}", maskCpf(cpf), ex);
 
-        updatePersistentCache(cpf, investments);
-
-        return investments;
-    }
-
-    private List<Investment> fetchInvestmentsFallback(String cpf, Exception ex) {
-        log.warn("Provider unavailable, trying persistent cache for CPF: {}", maskCpf(cpf));
-
-        return cacheRepository.findValidCacheByCpf(cpf, LocalDateTime.now())
-                .map(this::deserializeInvestments)
-                .orElseGet(() -> {
-                    log.error("No cached data available for CPF: {}", maskCpf(cpf));
-                    return List.of();
-                });
+            // Try persistent cache as last resort
+            return cacheRepository.findValidCacheByCpf(cpf, LocalDateTime.now())
+                    .map(this::deserializeInvestments)
+                    .orElseThrow(() -> new ServiceUnavailableException(
+                            "Serviço de investimentos temporariamente indisponível. Tente novamente em alguns instantes.",
+                            ex
+                    ));
+        }
     }
 
     private void updatePersistentCache(String cpf, List<Investment> investments) {
