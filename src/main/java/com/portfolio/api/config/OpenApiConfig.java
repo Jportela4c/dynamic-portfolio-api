@@ -41,13 +41,57 @@ public class OpenApiConfig {
 
                                 ### Passo 3: Entre com suas credenciais
 
-                                **ADMIN (acesso a todos os clientes - dev only):**
-                                - Username: `admin@demo.local`
-                                - Password: `admin123`
+                                ## Credenciais de Teste
 
-                                **CUSTOMER (acesso apenas aos próprios dados):**
-                                - Username: `joao.silva@example.com`
-                                - Password: `customer123`
+                                ### ADMIN (Acesso Multi-Cliente - Dev Only)
+                                - **Email:** `admin@demo.local`
+                                - **Senha:** `admin123`
+                                - **Cliente ID:** 999
+                                - **Permissões:** Acesso a TODOS os clientes
+
+                                ---
+
+                                ### CLIENTES (Acesso Próprio Apenas)
+
+                                #### Cliente 1: João Silva (Perfil: CONSERVADOR)
+                                - **Email:** `joao.silva@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 1
+                                - **CPF:** 12345678901
+                                - **Investimentos:** 12 aplicações (R$ 85.000)
+                                - **Características:** Baixo volume, produtos de baixo risco (CDB, Tesouro Selic, LCI/LCA)
+
+                                #### Cliente 2: Maria Santos (Perfil: MODERADO)
+                                - **Email:** `maria.santos@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 2
+                                - **CPF:** 98765432109
+                                - **Investimentos:** 18 aplicações (R$ 156.000)
+                                - **Características:** Volume médio, mix de renda fixa e fundos conservadores
+
+                                #### Cliente 3: Pedro Costa (Perfil: AGRESSIVO)
+                                - **Email:** `pedro.costa@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 3
+                                - **CPF:** 11122233344
+                                - **Investimentos:** 20 aplicações (R$ 320.000)
+                                - **Características:** Alto volume, produtos de maior risco (ações, fundos multimercado)
+
+                                #### Cliente 4: Ana Oliveira (Perfil: CONSERVADOR)
+                                - **Email:** `ana.oliveira@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 4
+                                - **CPF:** 55566677788
+                                - **Investimentos:** 10 aplicações (R$ 42.000)
+                                - **Características:** Baixo volume, produtos seguros (Tesouro Direto, LCI)
+
+                                #### Cliente 5: Carlos Lima (Perfil: AGRESSIVO)
+                                - **Email:** `carlos.lima@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 5
+                                - **CPF:** 99988877766
+                                - **Investimentos:** 12 aplicações (R$ 510.000)
+                                - **Características:** Alto volume, produtos de alto risco (ações, debêntures)
 
                                 > **Nota:** Client ID e Secret são preenchidos automaticamente.
 
@@ -118,7 +162,8 @@ public class OpenApiConfig {
                                 ### Servidor Mock OFB:
                                 O projeto inclui um servidor mock completo com 72 investimentos e 436 transações geradas com dados realistas (json-schema-faker).
 
-                                **Swagger OFB Mock:** http://localhost:8089/q/swagger-ui
+                                - [Swagger UI OFB Mock](http://localhost:8089/q/swagger-ui)
+                                - [OpenAPI Spec OFB Mock](http://localhost:8089/q/openapi)
 
                                 ---
                                 """)
@@ -129,17 +174,17 @@ public class OpenApiConfig {
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.OAUTH2)
                                 .description("""
-                                        **Credenciais para teste:**
+                                        **Credenciais de Teste**
 
-                                        **ADMIN (acesso multi-customer - dev only):**
-                                        - Email: `admin@demo.local`
-                                        - Password: `admin123`
-                                        - Cliente ID: 999
+                                        **ADMIN:**
+                                        - Email: `admin@demo.local` | Senha: `admin123` | ID: 999
 
-                                        **CUSTOMER (acesso próprio apenas):**
-                                        - Email: `joao.silva@example.com`
-                                        - Password: `customer123`
-                                        - Cliente ID: 1
+                                        **CLIENTES:**
+                                        1. João Silva (CONSERVADOR): `joao.silva@example.com` | `customer123` | ID: 1
+                                        2. Maria Santos (MODERADO): `maria.santos@example.com` | `customer123` | ID: 2
+                                        3. Pedro Costa (AGRESSIVO): `pedro.costa@example.com` | `customer123` | ID: 3
+                                        4. Ana Oliveira (CONSERVADOR): `ana.oliveira@example.com` | `customer123` | ID: 4
+                                        5. Carlos Lima (AGRESSIVO): `carlos.lima@example.com` | `customer123` | ID: 5
 
                                         > Client ID e Secret são preenchidos automaticamente.
                                         """)

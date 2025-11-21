@@ -5,3 +5,10 @@
 security:
   admin:
     enabled: true  # Enable ADMIN role for testing
+
+# Flyway Configuration (Dev Only - Resilient Mode)
+spring:
+  flyway:
+    clean-disabled: false  # Allow clean command
+    clean-on-validation-error: true  # Clean DB on validation errors (dev only!)
+    baseline-on-migrate: true  # Create baseline on first migration
