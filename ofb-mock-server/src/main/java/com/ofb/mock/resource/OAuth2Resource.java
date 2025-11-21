@@ -228,11 +228,10 @@ public class OAuth2Resource {
         log.info("Mock: Auto-approving consent (simulating user approval)");
         String authCode = oauth2Service.createAuthorizationCode(requestUri);
 
-        // OAuth2 spec: redirect to redirect_uri with code parameter
-        String redirectLocation = par.getRedirectUri() + "?code=" + authCode;
-        log.debug("Redirecting to: {}", redirectLocation);
-
-        return Response.seeOther(URI.create(redirectLocation)).build();
+        // For server-to-server testing: return code directly as JSON
+        // Simulates the redirect being followed and callback being processed
+        // Production would redirect browser: 303 to redirect_uri?code=xyz
+        return Response.ok(Map.of("code", authCode)).build();
     }
 
     @POST
@@ -450,8 +449,7 @@ public class OAuth2Resource {
         Map<String, Object> jwks = new HashMap<>();
         jwks.put("keys", new Object[]{
                 oauth2Service.getSigningPublicKey().toJSONObject(),
-                oauth2Service.getEncryptionPublicKey().toJSONObject(),
-                jwsSigningService.getPublicJWK().toJSONObject()  // Add JWS signing key for OFB API responses
+                jwsSigningService.getPublicJWK().toJSONObject()  // JWS signing key for OFB API responses
         });
 
         return Response.ok(jwks).build();

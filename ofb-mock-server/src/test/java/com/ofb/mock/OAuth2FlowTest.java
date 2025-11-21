@@ -52,12 +52,11 @@ public class OAuth2FlowTest {
         given()
             .queryParam("request_uri", requestUri)
             .queryParam("client_id", VALID_CLIENT_ID)
-            .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
         .then()
-            .statusCode(303)
-            .header("Location", containsString("https://example.com/callback?code=CODE_"));
+            .statusCode(200)
+            .body("code", startsWith("CODE_"));
     }
 
     @Test
@@ -82,15 +81,13 @@ public class OAuth2FlowTest {
         Response authResponse = given()
             .queryParam("request_uri", requestUri)
             .queryParam("client_id", VALID_CLIENT_ID)
-            .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
         .then()
-            .statusCode(303)
+            .statusCode(200)
             .extract().response();
 
-        String location = authResponse.getHeader("Location");
-        String code = location.substring(location.indexOf("code=") + 5);
+        String code = authResponse.jsonPath().getString("code");
 
         // Step 3: Token exchange
         given()
