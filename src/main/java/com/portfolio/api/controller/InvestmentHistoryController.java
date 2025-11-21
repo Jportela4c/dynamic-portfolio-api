@@ -42,15 +42,14 @@ public class InvestmentHistoryController {
         @ApiResponse(responseCode = "403", description = "Acesso negado - usuário não autorizado a acessar dados deste cliente",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
-    // @PreAuthorize("@authorizationValidator.canAccessCustomer(authentication, #clienteId)")  // TEMP: Disabled for testing
+    @PreAuthorize("@authorizationValidator.canAccessCustomer(authentication, #clienteId)")
     @GetMapping("/investimentos/{clienteId}")
     public ResponseEntity<List<InvestmentResponse>> getInvestmentHistory(
         @Parameter(description = "ID do cliente", example = "123", required = true)
         @Positive(message = "Invalid customer ID")
         @PathVariable Long clienteId) {
 
-        // Authorization already validated by @PreAuthorize!
-        // If we reached here, access is permitted
+        // Authorization validated by @PreAuthorize
         List<InvestmentResponse> response = investmentService.getClientInvestments(clienteId);
         return ResponseEntity.ok(response);
     }

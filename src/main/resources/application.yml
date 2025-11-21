@@ -21,7 +21,6 @@ spring:
               authorization-grant-types:
                 - authorization_code
                 - refresh_token
-                - password  # TEMP: For testing only
               redirect-uris:
                 - http://localhost:3000/callback
                 - http://localhost:${SERVER_PORT:8080}/api/v1/authorized

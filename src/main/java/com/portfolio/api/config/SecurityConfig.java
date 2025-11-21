@@ -44,7 +44,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/default-ui.css", "/login.css", "/*.css", "/*.js").permitAll()
-                        .anyRequest().permitAll()  // TEMP: Disable auth for testing
+                        .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt.decoder(resourceServerJwtDecoder()))
