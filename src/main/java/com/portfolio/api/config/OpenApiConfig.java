@@ -182,15 +182,14 @@ public class OpenApiConfig {
                                 .description("""
                                         **Credenciais de Teste**
 
-                                        **ADMIN:**
-                                        - Email: `admin@demo.local` | Senha: `admin123` | ID: 999
-
-                                        **CLIENTES:**
-                                        1. João Silva (CONSERVADOR): `joao.silva@example.com` | `customer123` | ID: 1
-                                        2. Maria Santos (MODERADO): `maria.santos@example.com` | `customer123` | ID: 2
-                                        3. Pedro Costa (AGRESSIVO): `pedro.costa@example.com` | `customer123` | ID: 3
-                                        4. Ana Oliveira (CONSERVADOR): `ana.oliveira@example.com` | `customer123` | ID: 4
-                                        5. Carlos Lima (AGRESSIVO): `carlos.lima@example.com` | `customer123` | ID: 5
+                                        | Usuário | Email | Senha | Role | Cliente ID | Perfil de Risco |
+                                        |---------|-------|-------|------|------------|-----------------|
+                                        | João Silva | joao.silva@example.com | customer123 | CUSTOMER | 1 | Conservador |
+                                        | Maria Santos | maria.santos@example.com | customer123 | CUSTOMER | 2 | Moderado |
+                                        | Pedro Costa | pedro.costa@example.com | customer123 | CUSTOMER | 3 | Agressivo |
+                                        | Ana Oliveira | ana.oliveira@example.com | customer123 | CUSTOMER | 4 | Conservador |
+                                        | Carlos Lima | carlos.lima@example.com | customer123 | CUSTOMER | 5 | Agressivo |
+                                        | Administrador | admin@demo.local | admin123 | ADMIN | 999 | N/A |
 
                                         > Client ID e Secret são preenchidos automaticamente.
                                         """)
