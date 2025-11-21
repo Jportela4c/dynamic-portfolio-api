@@ -46,16 +46,14 @@ public class OpenApiConfig {
 
                                 </details>
 
-                                <details>
-                                <summary><strong>Credenciais de Teste</strong> - Admin + 5 clientes com diferentes perfis</summary>
-
                                 ### ADMIN (Acesso Multi-Cliente - Dev Only)
                                 - **Email:** `admin@demo.local`
                                 - **Senha:** `admin123`
                                 - **Cliente ID:** 999
                                 - **Permissões:** Acesso a TODOS os clientes
 
-                                ---
+                                <details>
+                                <summary><strong>Credenciais dos Clientes</strong> - 5 clientes com diferentes perfis</summary>
 
                                 ### CLIENTES (Acesso Próprio Apenas)
 
