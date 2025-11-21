@@ -4,14 +4,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-01-11",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 11.38456477540335,
+      "transactionQuantity": 9.290300367740544,
       "transactionGrossValue": {
-        "amount": "11384.56",
+        "amount": "9290.30",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -23,7 +23,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "11384.56",
+        "amount": "9290.30",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -34,14 +34,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2024-07-11",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 3.883671915971151,
+      "transactionQuantity": 4.08420496031549,
       "transactionGrossValue": {
-        "amount": "3883.67",
+        "amount": "4084.20",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -53,7 +53,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "3883.67",
+        "amount": "4084.20",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -64,14 +64,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-03-04",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 11.196620789064747,
+      "transactionQuantity": 10.914466636102803,
       "transactionGrossValue": {
-        "amount": "11196.62",
+        "amount": "10914.47",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -83,7 +83,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "11196.62",
+        "amount": "10914.47",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -94,14 +94,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2024-09-02",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 2.4867178884986028,
+      "transactionQuantity": 2.4112386825251293,
       "transactionGrossValue": {
-        "amount": "2486.72",
+        "amount": "2411.24",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -113,7 +113,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "2486.72",
+        "amount": "2411.24",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -124,14 +124,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-02-15",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 6.569267084505275,
+      "transactionQuantity": 11.380381760634599,
       "transactionGrossValue": {
-        "amount": "6569.27",
+        "amount": "11380.38",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -143,7 +143,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "6569.27",
+        "amount": "11380.38",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -154,14 +154,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-08-16",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 3.010912516890886,
+      "transactionQuantity": 4.294799634858198,
       "transactionGrossValue": {
-        "amount": "3010.91",
+        "amount": "4294.80",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -173,7 +173,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "3010.91",
+        "amount": "4294.80",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -184,14 +184,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-10-05",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 11.857760380128052,
+      "transactionQuantity": 14.457044331672055,
       "transactionGrossValue": {
-        "amount": "11857.76",
+        "amount": "14457.04",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -203,7 +203,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "11857.76",
+        "amount": "14457.04",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -214,14 +214,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-04-05",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 4.891193470363941,
+      "transactionQuantity": 3.072150927534929,
       "transactionGrossValue": {
-        "amount": "4891.19",
+        "amount": "3072.15",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -233,7 +233,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "4891.19",
+        "amount": "3072.15",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -244,14 +244,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-03-27",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 11.929980123927292,
+      "transactionQuantity": 12.60034707439299,
       "transactionGrossValue": {
-        "amount": "11929.98",
+        "amount": "12600.35",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -263,7 +263,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "11929.98",
+        "amount": "12600.35",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -274,14 +274,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-09-25",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 2.447016266863856,
+      "transactionQuantity": 2.9238559550615784,
       "transactionGrossValue": {
-        "amount": "2447.02",
+        "amount": "2923.86",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -293,7 +293,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "2447.02",
+        "amount": "2923.86",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -306,14 +306,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2023-12-02",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 47.94119015158209,
+      "transactionQuantity": 40.69365079935296,
       "transactionGrossValue": {
-        "amount": "47941.19",
+        "amount": "40693.65",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -325,7 +325,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "47941.19",
+        "amount": "40693.65",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -336,14 +336,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-05-17",
+      "transactionDate": "2024-03-02",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 21.79077523513418,
+      "transactionQuantity": 13.044113146038743,
       "transactionGrossValue": {
-        "amount": "21790.78",
+        "amount": "13044.11",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -355,7 +355,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "21790.78",
+        "amount": "13044.11",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -366,14 +366,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2024-06-01",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 19.552945326476973,
+      "transactionQuantity": 8.379011450770951,
       "transactionGrossValue": {
-        "amount": "19552.95",
+        "amount": "8379.01",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -385,7 +385,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "19552.95",
+        "amount": "8379.01",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -396,18 +396,18 @@
       "type": "SAIDA",
       "transactionType": "RESGATE",
       "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-11-15",
+      "transactionDate": "2024-08-31",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 21.544122245371543,
+      "transactionQuantity": 18.165180537861417,
       "transactionGrossValue": {
-        "amount": "21544.12",
+        "amount": "18165.18",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "386.73",
+        "amount": "326.08",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -415,7 +415,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "23091.05",
+        "amount": "19469.49",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -426,14 +426,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-01-15",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 38.69162375740465,
+      "transactionQuantity": 30.414312860499006,
       "transactionGrossValue": {
-        "amount": "38691.62",
+        "amount": "30414.31",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -445,7 +445,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "38691.62",
+        "amount": "30414.31",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -456,14 +456,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-05-17",
+      "transactionDate": "2025-04-16",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 14.63031172019787,
+      "transactionQuantity": 14.804515387733954,
       "transactionGrossValue": {
-        "amount": "14630.31",
+        "amount": "14804.52",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -475,7 +475,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "14630.31",
+        "amount": "14804.52",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -486,14 +486,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-07-16",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 8.736884045727777,
+      "transactionQuantity": 8.196689347433136,
       "transactionGrossValue": {
-        "amount": "8736.88",
+        "amount": "8196.69",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -505,7 +505,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "8736.88",
+        "amount": "8196.69",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -513,21 +513,21 @@
       "transactionId": "TX-TREASURY-726756-002-002"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-11-15",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2025-10-15",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 12.867056166370077,
+      "transactionQuantity": 8.514168588134908,
       "transactionGrossValue": {
-        "amount": "12867.06",
+        "amount": "8514.17",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "230.97",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -535,7 +535,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "13790.95",
+        "amount": "8514.17",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -546,14 +546,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-03-15",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 41.82646280344034,
+      "transactionQuantity": 10.478984685475856,
       "transactionGrossValue": {
-        "amount": "41826.46",
+        "amount": "10478.98",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -565,7 +565,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "41826.46",
+        "amount": "10478.98",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -576,14 +576,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-05-17",
+      "transactionDate": "2025-06-14",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 13.842697385575649,
+      "transactionQuantity": 3.0082056528403065,
       "transactionGrossValue": {
-        "amount": "13842.70",
+        "amount": "3008.21",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -595,7 +595,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "13842.70",
+        "amount": "3008.21",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -606,14 +606,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-09-13",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 15.68466855122086,
+      "transactionQuantity": 4.269751704061361,
       "transactionGrossValue": {
-        "amount": "15684.67",
+        "amount": "4269.75",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -625,7 +625,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "15684.67",
+        "amount": "4269.75",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -633,21 +633,21 @@
       "transactionId": "TX-TREASURY-726756-003-002"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-11-15",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2025-12-13",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 8.808865470950998,
+      "transactionQuantity": 2.375519812365466,
       "transactionGrossValue": {
-        "amount": "8808.87",
+        "amount": "2375.52",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "158.13",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -655,7 +655,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "9441.37",
+        "amount": "2375.52",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -668,14 +668,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-08-31",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 116.22689484919553,
+      "transactionQuantity": 73.74494749593097,
       "transactionGrossValue": {
-        "amount": "116226.89",
+        "amount": "73744.95",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -687,7 +687,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "116226.89",
+        "amount": "73744.95",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -698,14 +698,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-04-01",
+      "transactionDate": "2024-10-15",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 55.476486163995474,
+      "transactionQuantity": 30.63375210552979,
       "transactionGrossValue": {
-        "amount": "55476.49",
+        "amount": "30633.75",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -717,7 +717,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "55476.49",
+        "amount": "30633.75",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -728,14 +728,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-05-17",
+      "transactionDate": "2024-11-30",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 26.904482470930947,
+      "transactionQuantity": 28.203980656811943,
       "transactionGrossValue": {
-        "amount": "26904.48",
+        "amount": "28203.98",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -747,7 +747,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "26904.48",
+        "amount": "28203.98",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -758,14 +758,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-07-01",
+      "transactionDate": "2025-01-14",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 41.81249961386759,
+      "transactionQuantity": 27.122261762314785,
       "transactionGrossValue": {
-        "amount": "41812.50",
+        "amount": "27122.26",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -777,7 +777,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "41812.50",
+        "amount": "27122.26",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -788,14 +788,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-03-01",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 53.85533918187588,
+      "transactionQuantity": 17.753243266630005,
       "transactionGrossValue": {
-        "amount": "53855.34",
+        "amount": "17753.24",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -807,7 +807,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "53855.34",
+        "amount": "17753.24",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -815,21 +815,21 @@
       "transactionId": "TX-TREASURY-178816-001-004"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-10-01",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2025-04-16",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 57.94578960682631,
+      "transactionQuantity": 33.166530948893715,
       "transactionGrossValue": {
-        "amount": "57945.79",
+        "amount": "33166.53",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "868.71",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -837,7 +837,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "61420.63",
+        "amount": "33166.53",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -845,21 +845,21 @@
       "transactionId": "TX-TREASURY-178816-001-005"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-11-15",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2025-05-31",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 39.03459369313203,
+      "transactionQuantity": 36.73615586301893,
       "transactionGrossValue": {
-        "amount": "39034.59",
+        "amount": "36736.16",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "700.70",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -867,7 +867,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "41837.38",
+        "amount": "36736.16",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -878,14 +878,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-12-31",
+      "transactionDate": "2025-07-16",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 25.0750443308669,
+      "transactionQuantity": 21.458756697321768,
       "transactionGrossValue": {
-        "amount": "25075.04",
+        "amount": "21458.76",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -897,7 +897,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "25075.04",
+        "amount": "21458.76",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -908,14 +908,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-01-11",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 53.080350574582496,
+      "transactionQuantity": 53.701015325531465,
       "transactionGrossValue": {
-        "amount": "53080.35",
+        "amount": "53701.02",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -927,7 +927,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "53080.35",
+        "amount": "53701.02",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -938,14 +938,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-04-01",
+      "transactionDate": "2024-02-25",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 14.227977514173299,
+      "transactionQuantity": 22.2399581721068,
       "transactionGrossValue": {
-        "amount": "14227.98",
+        "amount": "22239.96",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -957,7 +957,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "14227.98",
+        "amount": "22239.96",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -968,14 +968,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-05-17",
+      "transactionDate": "2024-04-11",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 16.963961832376953,
+      "transactionQuantity": 16.591940852943885,
       "transactionGrossValue": {
-        "amount": "16963.96",
+        "amount": "16591.94",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -987,7 +987,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "16963.96",
+        "amount": "16591.94",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -998,14 +998,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-07-01",
+      "transactionDate": "2024-05-26",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 25.075375234265135,
+      "transactionQuantity": 25.181573919476552,
       "transactionGrossValue": {
-        "amount": "25075.38",
+        "amount": "25181.57",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1017,7 +1017,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "25075.38",
+        "amount": "25181.57",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1028,14 +1028,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2024-07-11",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 14.320310246481391,
+      "transactionQuantity": 22.947269296614547,
       "transactionGrossValue": {
-        "amount": "14320.31",
+        "amount": "22947.27",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1047,7 +1047,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "14320.31",
+        "amount": "22947.27",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1058,14 +1058,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-10-01",
+      "transactionDate": "2024-08-26",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 20.654985513902833,
+      "transactionQuantity": 22.00102824619214,
       "transactionGrossValue": {
-        "amount": "20654.99",
+        "amount": "22001.03",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1077,7 +1077,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "20654.99",
+        "amount": "22001.03",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1085,21 +1085,21 @@
       "transactionId": "TX-TREASURY-178816-002-005"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-11-15",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2024-10-10",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 14.385134133215114,
+      "transactionQuantity": 26.229178916061592,
       "transactionGrossValue": {
-        "amount": "14385.13",
+        "amount": "26229.18",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "258.22",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1107,7 +1107,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "15418.03",
+        "amount": "26229.18",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1118,14 +1118,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-12-31",
+      "transactionDate": "2024-11-25",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 21.59448073691996,
+      "transactionQuantity": 11.601617307471814,
       "transactionGrossValue": {
-        "amount": "21594.48",
+        "amount": "11601.62",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1137,7 +1137,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "21594.48",
+        "amount": "11601.62",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1150,14 +1150,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-02-14",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 10.473704587279322,
+      "transactionQuantity": 8.15637266925254,
       "transactionGrossValue": {
-        "amount": "10473.70",
+        "amount": "8156.37",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1169,7 +1169,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "10473.70",
+        "amount": "8156.37",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1180,14 +1180,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-04-14",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 10.764087065217623,
+      "transactionQuantity": 9.039362939472225,
       "transactionGrossValue": {
-        "amount": "10764.09",
+        "amount": "9039.36",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1199,7 +1199,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "10764.09",
+        "amount": "9039.36",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1210,14 +1210,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-05-10",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 11.970450495691239,
+      "transactionQuantity": 9.422020048695689,
       "transactionGrossValue": {
-        "amount": "11970.45",
+        "amount": "9422.02",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1229,7 +1229,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "11970.45",
+        "amount": "9422.02",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1240,14 +1240,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-04-30",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 13.495275939435283,
+      "transactionQuantity": 14.113869662629966,
       "transactionGrossValue": {
-        "amount": "13495.28",
+        "amount": "14113.87",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1259,7 +1259,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "13495.28",
+        "amount": "14113.87",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1270,14 +1270,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-05-09",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 11.61507339368815,
+      "transactionQuantity": 14.60440329151706,
       "transactionGrossValue": {
-        "amount": "11615.07",
+        "amount": "14604.40",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1289,7 +1289,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "11615.07",
+        "amount": "14604.40",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1302,14 +1302,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2024-11-26",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 122.47165455456742,
+      "transactionQuantity": 46.9369365939994,
       "transactionGrossValue": {
-        "amount": "122471.65",
+        "amount": "46936.94",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1321,7 +1321,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "122471.65",
+        "amount": "46936.94",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1332,14 +1332,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-03-23",
+      "transactionDate": "2025-01-01",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 57.603757524261034,
+      "transactionQuantity": 13.104663615603005,
       "transactionGrossValue": {
-        "amount": "57603.76",
+        "amount": "13104.66",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1351,7 +1351,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "57603.76",
+        "amount": "13104.66",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1362,14 +1362,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-04-29",
+      "transactionDate": "2025-02-07",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 49.61576371036432,
+      "transactionQuantity": 11.872874298470505,
       "transactionGrossValue": {
-        "amount": "49615.76",
+        "amount": "11872.87",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1381,7 +1381,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "49615.76",
+        "amount": "11872.87",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1392,14 +1392,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-06-04",
+      "transactionDate": "2025-03-15",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 41.47885935715263,
+      "transactionQuantity": 16.684986124946466,
       "transactionGrossValue": {
-        "amount": "41478.86",
+        "amount": "16684.99",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1411,7 +1411,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "41478.86",
+        "amount": "16684.99",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1422,14 +1422,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-07-11",
+      "transactionDate": "2025-04-21",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 59.1345883173511,
+      "transactionQuantity": 16.598703373827227,
       "transactionGrossValue": {
-        "amount": "59134.59",
+        "amount": "16598.70",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1441,7 +1441,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "59134.59",
+        "amount": "16598.70",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1452,14 +1452,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-05-27",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 24.94199243901485,
+      "transactionQuantity": 11.319442769836193,
       "transactionGrossValue": {
-        "amount": "24941.99",
+        "amount": "11319.44",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1471,7 +1471,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "24941.99",
+        "amount": "11319.44",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1479,21 +1479,21 @@
       "transactionId": "TX-TREASURY-143834-001-005"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-09-22",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2025-07-03",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 48.231576749647594,
+      "transactionQuantity": 18.04668091813385,
       "transactionGrossValue": {
-        "amount": "48231.58",
+        "amount": "18046.68",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "694.53",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1501,7 +1501,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "51009.72",
+        "amount": "18046.68",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1512,18 +1512,18 @@
       "type": "SAIDA",
       "transactionType": "RESGATE",
       "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-10-28",
+      "transactionDate": "2025-08-08",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 26.167481782803435,
+      "transactionQuantity": 17.520834415666016,
       "transactionGrossValue": {
-        "amount": "26167.48",
+        "amount": "17520.83",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "438.75",
+        "amount": "293.77",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1531,7 +1531,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "27922.50",
+        "amount": "18695.93",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1539,21 +1539,21 @@
       "transactionId": "TX-TREASURY-143834-001-007"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-12-04",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2025-09-14",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 52.98841648446005,
+      "transactionQuantity": 23.035681711589266,
       "transactionGrossValue": {
-        "amount": "52988.42",
+        "amount": "23035.68",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "1017.38",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1561,7 +1561,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "57057.93",
+        "amount": "23035.68",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1572,14 +1572,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2019-01-09",
+      "transactionDate": "2025-10-20",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 46.578190945977084,
+      "transactionQuantity": 23.092870936468934,
       "transactionGrossValue": {
-        "amount": "46578.19",
+        "amount": "23092.87",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1591,7 +1591,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "46578.19",
+        "amount": "23092.87",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1602,14 +1602,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aplicação inicial",
-      "transactionDate": "2018-02-15",
+      "transactionDate": "2025-04-11",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 90.9008813002905,
+      "transactionQuantity": 107.72861902729124,
       "transactionGrossValue": {
-        "amount": "90900.88",
+        "amount": "107728.62",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1621,7 +1621,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "90900.88",
+        "amount": "107728.62",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1632,14 +1632,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-03-23",
+      "transactionDate": "2025-05-17",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 36.349196597168934,
+      "transactionQuantity": 42.73749945100913,
       "transactionGrossValue": {
-        "amount": "36349.20",
+        "amount": "42737.50",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1651,7 +1651,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "36349.20",
+        "amount": "42737.50",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1662,14 +1662,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-04-29",
+      "transactionDate": "2025-06-23",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 41.276926182391804,
+      "transactionQuantity": 32.63614075684134,
       "transactionGrossValue": {
-        "amount": "41276.93",
+        "amount": "32636.14",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1681,7 +1681,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "41276.93",
+        "amount": "32636.14",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1692,14 +1692,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-06-04",
+      "transactionDate": "2025-07-29",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 36.85317295728434,
+      "transactionQuantity": 52.14356205860221,
       "transactionGrossValue": {
-        "amount": "36853.17",
+        "amount": "52143.56",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1711,7 +1711,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "36853.17",
+        "amount": "52143.56",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1722,14 +1722,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-07-11",
+      "transactionDate": "2025-09-04",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 29.210309433812576,
+      "transactionQuantity": 29.354926253437792,
       "transactionGrossValue": {
-        "amount": "29210.31",
+        "amount": "29354.93",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1741,7 +1741,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "29210.31",
+        "amount": "29354.93",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1752,14 +1752,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-08-16",
+      "transactionDate": "2025-10-10",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 19.653501780551142,
+      "transactionQuantity": 39.535458523888565,
       "transactionGrossValue": {
-        "amount": "19653.50",
+        "amount": "39535.46",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1771,7 +1771,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "19653.50",
+        "amount": "39535.46",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1779,21 +1779,21 @@
       "transactionId": "TX-TREASURY-143834-002-005"
     },
     {
-      "type": "ENTRADA",
-      "transactionType": "APLICACAO",
-      "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-09-22",
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2025-11-16",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 38.825702728785956,
+      "transactionQuantity": 32.14436639858808,
       "transactionGrossValue": {
-        "amount": "38825.70",
+        "amount": "32144.37",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "0.00",
+        "amount": "462.88",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1801,7 +1801,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "38825.70",
+        "amount": "33995.88",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1812,18 +1812,18 @@
       "type": "SAIDA",
       "transactionType": "RESGATE",
       "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2018-10-28",
+      "transactionDate": "2025-12-22",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 42.018542992491284,
+      "transactionQuantity": 42.52909939199634,
       "transactionGrossValue": {
-        "amount": "42018.54",
+        "amount": "42529.10",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "704.53",
+        "amount": "713.09",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1831,7 +1831,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "44836.66",
+        "amount": "45381.46",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1842,14 +1842,14 @@
       "type": "ENTRADA",
       "transactionType": "APLICACAO",
       "typeAdditionalInfo": "Aporte adicional",
-      "transactionDate": "2018-12-04",
+      "transactionDate": "2026-01-28",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 22.914922350605515,
+      "transactionQuantity": 43.46033580634471,
       "transactionGrossValue": {
-        "amount": "22914.92",
+        "amount": "43460.34",
         "currency": "BRL"
       },
       "incomeTax": {
@@ -1861,7 +1861,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "22914.92",
+        "amount": "43460.34",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
@@ -1869,21 +1869,21 @@
       "transactionId": "TX-TREASURY-143834-002-008"
     },
     {
-      "type": "SAIDA",
-      "transactionType": "RESGATE",
-      "typeAdditionalInfo": "Resgate parcial",
-      "transactionDate": "2019-01-09",
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2026-03-05",
       "transactionUnitPrice": {
         "amount": "1000.00",
         "currency": "BRL"
       },
-      "transactionQuantity": 25.95926330858476,
+      "transactionQuantity": 32.389144043970916,
       "transactionGrossValue": {
-        "amount": "25959.26",
+        "amount": "32389.14",
         "currency": "BRL"
       },
       "incomeTax": {
-        "amount": "559.87",
+        "amount": "0.00",
         "currency": "BRL"
       },
       "financialTransactionTax": {
@@ -1891,7 +1891,7 @@
         "currency": "BRL"
       },
       "transactionNetValue": {
-        "amount": "28198.73",
+        "amount": "32389.14",
         "currency": "BRL"
       },
       "remunerationTransactionRate": "0.120000",
