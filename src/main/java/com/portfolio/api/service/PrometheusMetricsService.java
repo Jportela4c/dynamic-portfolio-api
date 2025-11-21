@@ -28,13 +28,14 @@ public class PrometheusMetricsService {
         List<ServiceMetrics> servicos = new ArrayList<>();
 
         // Map endpoint URIs to service names matching THE SPEC
-        servicos.add(buildServiceMetrics("simular-investimento", "/api/v1/simular-investimento", "POST"));
-        servicos.add(buildServiceMetrics("perfil-risco", "/api/v1/perfil-risco/{clienteId}", "GET"));
-        servicos.add(buildServiceMetrics("produtos-recomendados", "/api/v1/produtos-recomendados/{perfil}", "GET"));
-        servicos.add(buildServiceMetrics("investimentos", "/api/v1/investimentos/{clienteId}", "GET"));
-        servicos.add(buildServiceMetrics("simulacoes", "/api/v1/simulacoes", "GET"));
-        servicos.add(buildServiceMetrics("simulacoes-agregadas", "/api/v1/simulacoes/por-produto-dia", "GET"));
-        servicos.add(buildServiceMetrics("telemetria", "/api/v1/telemetria", "GET"));
+        // Note: Spring Boot Actuator captures URIs WITHOUT context path
+        servicos.add(buildServiceMetrics("simular-investimento", "/simular-investimento", "POST"));
+        servicos.add(buildServiceMetrics("perfil-risco", "/perfil-risco/{clienteId}", "GET"));
+        servicos.add(buildServiceMetrics("produtos-recomendados", "/produtos-recomendados/{perfil}", "GET"));
+        servicos.add(buildServiceMetrics("investimentos", "/investimentos/{clienteId}", "GET"));
+        servicos.add(buildServiceMetrics("simulacoes", "/simulacoes", "GET"));
+        servicos.add(buildServiceMetrics("simulacoes-agregadas", "/simulacoes/por-produto-dia", "GET"));
+        servicos.add(buildServiceMetrics("telemetria", "/telemetria", "GET"));
 
         return TelemetryResponse.builder()
                 .servicos(servicos)

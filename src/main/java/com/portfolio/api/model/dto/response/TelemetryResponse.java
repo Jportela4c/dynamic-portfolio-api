@@ -28,13 +28,13 @@ public class TelemetryResponse {
     @Builder
     @Schema(description = "Métricas de um serviço específico")
     public static class ServiceMetrics {
-        @Schema(description = "Nome do serviço", example = "SimulationService")
+        @Schema(description = "Nome do endpoint conforme THE SPEC", example = "simular-investimento")
         private String nome;
 
-        @Schema(description = "Quantidade total de chamadas", example = "150")
+        @Schema(description = "Quantidade total de chamadas no período", example = "120")
         private Long quantidadeChamadas;
 
-        @Schema(description = "Tempo médio de resposta em milissegundos", example = "45")
+        @Schema(description = "Tempo médio de resposta em milissegundos", example = "250")
         private Long mediaTempoRespostaMs;
     }
 
