@@ -1,0 +1,34 @@
+{
+  "73677831148": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "LCI",
+      "investmentId": "LCI-73677831148-001"
+    }
+  ],
+  "96846726756": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "CDB",
+      "investmentId": "CDB-96846726756-001"
+    },
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "LCA",
+      "investmentId": "LCA-96846726756-002"
+    }
+  ],
+  "25791178816": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "CDB",
+      "investmentId": "CDB-25791178816-001"
+    }
+  ],
+  "74979890814": [],
+  "17418143834": []
+}

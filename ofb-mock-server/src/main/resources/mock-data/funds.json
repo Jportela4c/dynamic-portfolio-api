@@ -1,0 +1,28 @@
+{
+  "73677831148": [],
+  "96846726756": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "MULTIMERCADO",
+      "investmentId": "FUND-96846726756-001"
+    }
+  ],
+  "25791178816": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "ACOES",
+      "investmentId": "FUND-25791178816-001"
+    }
+  ],
+  "74979890814": [],
+  "17418143834": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "IMOBILIARIO",
+      "investmentId": "FUND-17418143834-001"
+    }
+  ]
+}

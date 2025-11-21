@@ -1,0 +1,21 @@
+{
+  "73677831148": [],
+  "96846726756": [],
+  "25791178816": [
+    {
+      "brandName": "Emissor XYZ S.A.",
+      "companyCnpj": "12345678000190",
+      "investmentType": "DEBENTURE",
+      "investmentId": "DEB-25791178816-001"
+    }
+  ],
+  "74979890814": [],
+  "17418143834": [
+    {
+      "brandName": "Securitizadora ABC",
+      "companyCnpj": "98765432000110",
+      "investmentType": "CRI",
+      "investmentId": "CRI-17418143834-001"
+    }
+  ]
+}

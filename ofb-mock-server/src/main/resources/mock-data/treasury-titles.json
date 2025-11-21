@@ -1,0 +1,35 @@
+{
+  "73677831148": [
+    {
+      "brandName": "Tesouro Nacional",
+      "companyCnpj": "00394460005887",
+      "investmentType": "TESOURO_SELIC",
+      "investmentId": "SELIC-73677831148-001"
+    }
+  ],
+  "96846726756": [
+    {
+      "brandName": "Tesouro Nacional",
+      "companyCnpj": "00394460005887",
+      "investmentType": "TESOURO_IPCA_COM_JUROS_SEMESTRAIS",
+      "investmentId": "IPCA-96846726756-001"
+    }
+  ],
+  "25791178816": [],
+  "74979890814": [
+    {
+      "brandName": "Tesouro Nacional",
+      "companyCnpj": "00394460005887",
+      "investmentType": "TESOURO_SELIC",
+      "investmentId": "SELIC-74979890814-001"
+    }
+  ],
+  "17418143834": [
+    {
+      "brandName": "Tesouro Nacional",
+      "companyCnpj": "00394460005887",
+      "investmentType": "TESOURO_PREFIXADO",
+      "investmentId": "PREFIXADO-17418143834-001"
+    }
+  ]
+}
