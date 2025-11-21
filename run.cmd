@@ -325,6 +325,30 @@ goto :java_ready
 :install_java
 echo [WARNING] Java 21 not found - installing automatically...
 
+REM Try SDKMAN first (if Git Bash is available)
+echo [INFO] Checking for Git Bash to use SDKMAN...
+set GIT_BASH_PATH=
+if exist "C:\Program Files\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe
+if exist "C:\Program Files (x86)\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files (x86)\Git\bin\bash.exe
+if exist "%PROGRAMFILES%\Git\bin\bash.exe" set GIT_BASH_PATH=%PROGRAMFILES%\Git\bin\bash.exe
+
+if not "%GIT_BASH_PATH%"=="" (
+    echo [INFO] Git Bash found - attempting SDKMAN installation...
+    "%GIT_BASH_PATH%" -c "curl -s 'https://get.sdkman.io' | bash && source ~/.sdkman/bin/sdkman-init.sh && sdk install java 21.0.8-amzn && sdk default java 21.0.8-amzn"
+
+    REM Check if SDKMAN Java 21 is now available
+    if exist "%USERPROFILE%\.sdkman\candidates\java\21.0.8-amzn\bin\java.exe" (
+        echo [OK] Java 21 installed via SDKMAN
+        set "JAVA_HOME=%USERPROFILE%\.sdkman\candidates\java\21.0.8-amzn"
+        set "PATH=%USERPROFILE%\.sdkman\candidates\java\21.0.8-amzn\bin;%PATH%"
+        goto :java_ready
+    ) else (
+        echo [WARNING] SDKMAN installation failed or incomplete - falling back to Chocolatey...
+    )
+)
+
+REM Fallback to Chocolatey
+echo [INFO] Installing via Chocolatey...
 REM Check if Chocolatey is installed
 set CHOCO_PATH=%ProgramData%\chocolatey\bin\choco.exe
 if not exist "%CHOCO_PATH%" (
