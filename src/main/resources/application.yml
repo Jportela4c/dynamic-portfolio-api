@@ -67,12 +67,14 @@ springdoc:
     defaultModelExpandDepth: 1
     displayRequestDuration: true
     tryItOutEnabled: true
-    filter: false  # Disable automatic filtering/searching
-    persistAuthorization: false  # Don't persist OAuth state across reloads
+    filter: false
+    persistAuthorization: false
     oauth:
       client-id: portfolio-web-app
-      client-secret: webapp-secret  # Plaintext - Spring encodes automatically
+      client-secret: webapp-secret
       use-basic-authentication-with-access-code-grant: true
+      additional-query-string-params:
+        prompt: login
   default-produces-media-type: application/json
   default-consumes-media-type: application/json
   show-oauth2-endpoints: true

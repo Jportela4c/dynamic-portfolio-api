@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.server.authorization.settings.ClientS
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 import java.security.KeyPair;
@@ -42,9 +43,11 @@ import java.util.UUID;
 public class AuthorizationServerConfig {
 
     private final PasswordEncoder passwordEncoder;
+    private final PromptLoginFilter promptLoginFilter;
 
-    public AuthorizationServerConfig(PasswordEncoder passwordEncoder) {
+    public AuthorizationServerConfig(PasswordEncoder passwordEncoder, PromptLoginFilter promptLoginFilter) {
         this.passwordEncoder = passwordEncoder;
+        this.promptLoginFilter = promptLoginFilter;
     }
 
     @Bean
@@ -78,6 +81,7 @@ public class AuthorizationServerConfig {
 
         http
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
+                .addFilterBefore(promptLoginFilter, UsernamePasswordAuthenticationFilter.class)
                 .with(authorizationServerConfigurer, (authorizationServer) ->
                         authorizationServer
                                 .oidc(Customizer.withDefaults())
