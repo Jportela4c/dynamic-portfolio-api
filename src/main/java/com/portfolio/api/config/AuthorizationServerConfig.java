@@ -48,6 +48,17 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
+    @Order(0)
+    public SecurityFilterChain loginSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/login", "/error")
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .formLogin(Customizer.withDefaults());
+
+        return http.build();
+    }
+
+    @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
@@ -62,7 +73,6 @@ public class AuthorizationServerConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize.anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
