@@ -1,6 +1,8 @@
 package com.portfolio.api.service.impl;
 
+import com.portfolio.api.model.entity.Customer;
 import com.portfolio.api.model.enums.UserRole;
+import com.portfolio.api.repository.CustomerRepository;
 import com.portfolio.api.service.AuthorizationValidator;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,12 @@ import org.springframework.stereotype.Service;
 @Service("authorizationValidator")
 @Profile("dev")
 public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
+
+    private final CustomerRepository customerRepository;
+
+    public DevAuthorizationValidatorImpl(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     @Override
     public boolean canAccessCustomer(Authentication authentication, Long customerId) {
@@ -56,9 +64,10 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
 
         // Handle form login authentication (UsernamePasswordAuthenticationToken)
         if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
-            // For form login, we need to extract from authorities or session
-            // For now, reject - form login users should use OAuth2 endpoints
-            return null;
+            // Lookup customer by email from database
+            String email = userDetails.getUsername();
+            Customer customer = customerRepository.findByEmail(email).orElse(null);
+            return customer != null ? customer.getId() : null;
         }
 
         return null;
@@ -73,6 +82,13 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
         // Handle JWT authentication
         if (authentication.getPrincipal() instanceof Jwt jwt) {
             return jwt.getClaim("cpf");
+        }
+
+        // Handle form login authentication
+        if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+            String email = userDetails.getUsername();
+            Customer customer = customerRepository.findByEmail(email).orElse(null);
+            return customer != null ? customer.getCpf() : null;
         }
 
         return null;
@@ -91,6 +107,13 @@ public class DevAuthorizationValidatorImpl implements AuthorizationValidator {
                 return null;
             }
             return UserRole.fromCode(roleCode);
+        }
+
+        // Handle form login authentication
+        if (authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+            String email = userDetails.getUsername();
+            Customer customer = customerRepository.findByEmail(email).orElse(null);
+            return customer != null ? customer.getRole() : null;
         }
 
         return null;
