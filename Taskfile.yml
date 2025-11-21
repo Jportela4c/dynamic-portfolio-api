@@ -86,8 +86,8 @@ tasks:
       - |
         if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ]; then
           echo "🔨 Building JARs locally (fast)..."
-          ./mvnw clean package -Dmaven.test.skip=true -q || (echo "❌ Local build failed!" && exit 1)
-          cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -Dmaven.test.skip=true -q && cd .. || (echo "❌ OFB build failed!" && exit 1)
+          ./mvnw clean package -Dmaven.test.skip=true -q 2>&1 | grep -v "Thanks for using OpenAPI Generator" | grep -v "opencollective" | grep -v "^#" || true
+          cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -Dmaven.test.skip=true -q 2>&1 | grep -v "Thanks for using OpenAPI Generator" | grep -v "opencollective" | grep -v "^#" && cd .. || (echo "❌ OFB build failed!" && exit 1)
           echo "🐳 Building Docker images (using pre-built JARs)..."
           docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . || (echo "❌ API Docker build failed!" && exit 1)
           docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server || (echo "❌ OFB Docker build failed!" && exit 1)
@@ -187,9 +187,9 @@ tasks:
       - echo "🛑 Stopping all containers..."
       - docker compose down
       - echo "🔨 Building main API JAR locally..."
-      - ./mvnw clean package -Dmaven.test.skip=true -q
+      - ./mvnw clean package -Dmaven.test.skip=true -q 2>&1 | grep -v "Thanks for using OpenAPI Generator" | grep -v "opencollective" | grep -v "^#" || true
       - echo "🔨 Building OFB mock server JAR..."
-      - cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -Dmaven.test.skip=true -q && cd ..
+      - cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -Dmaven.test.skip=true -q 2>&1 | grep -v "Thanks for using OpenAPI Generator" | grep -v "opencollective" | grep -v "^#" && cd ..
       - echo "🐳 Rebuilding Docker images (fast local build)..."
       - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
       - docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server
