@@ -64,7 +64,7 @@ public class AuthorizationServerConfig {
                         .permitAll()
                 )
                 .sessionManagement(session -> session
-                        .sessionFixation().newSession()
+                        .sessionFixation().migrateSession()  // Preserve OAuth2 state while protecting against session fixation
                 );
 
         return http.build();
