@@ -1,5 +1,4 @@
-#!/bin/bash
-# 2>/dev/null || goto :windows
+@goto :WINDOWS 2>nul
 
 # ============================================================================
 # UNIX/Linux/macOS SECTION (Bash)
@@ -210,20 +209,39 @@ exit 0
 # ============================================================================
 # WINDOWS SECTION (Batch)
 # ============================================================================
-:windows
+:WINDOWS
 @echo off
-setlocal
+setlocal EnableDelayedExpansion
 
 echo ===============================================================
 echo   Dynamic Portfolio API - Setup
 echo ===============================================================
 echo.
 
+REM Check if Docker is available (REQUIRED)
+where docker >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [ERROR] Docker is not installed or not in PATH
+    echo.
+    echo Please install Docker Desktop from:
+    echo   https://www.docker.com/products/docker-desktop
+    echo.
+    pause
+    exit /b 1
+)
+
+echo [OK] Docker found
+docker --version
+echo.
+
+REM Check if Task is installed
+set TASK_CMD=
 where task >nul 2>&1
 if %errorlevel% equ 0 (
     echo [OK] Task is already installed
     task --version
-    goto :complete
+    set TASK_CMD=task
+    goto :check_build_method
 )
 
 echo [INFO] Installing Task...
@@ -232,187 +250,97 @@ REM Try Chocolatey first
 where choco >nul 2>&1
 if %errorlevel% equ 0 (
     echo [INFO] Installing via Chocolatey...
-    choco install go-task -y >nul 2>&1
+    choco install go-task -y --no-progress
     if %errorlevel% equ 0 (
         echo [OK] Task installed via Chocolatey
-        goto :verify_task
+        REM Refresh PATH
+        call refreshenv >nul 2>&1
+        where task >nul 2>&1
+        if %errorlevel% equ 0 (
+            set TASK_CMD=task
+            goto :check_build_method
+        )
     )
 )
 
 REM Try direct download
 echo [INFO] Downloading Task directly...
 if not exist "%USERPROFILE%\bin" mkdir "%USERPROFILE%\bin"
-powershell -Command "Invoke-WebRequest -Uri 'https://github.com/go-task/task/releases/latest/download/task_windows_amd64.zip' -OutFile '%TEMP%\task.zip'; Expand-Archive -Path '%TEMP%\task.zip' -DestinationPath '%USERPROFILE%\bin' -Force; Remove-Item '%TEMP%\task.zip'" >nul 2>&1
+powershell -NoProfile -Command "try { Invoke-WebRequest -Uri 'https://github.com/go-task/task/releases/latest/download/task_windows_amd64.zip' -OutFile '%TEMP%\task.zip' -UseBasicParsing; Expand-Archive -Path '%TEMP%\task.zip' -DestinationPath '%USERPROFILE%\bin' -Force; Remove-Item '%TEMP%\task.zip' } catch { exit 1 }"
 if %errorlevel% equ 0 (
-    set "PATH=%USERPROFILE%\bin;%PATH%"
     echo [OK] Task installed to %USERPROFILE%\bin
-    goto :verify_task
+    set TASK_CMD=%USERPROFILE%\bin\task.exe
+    goto :check_build_method
 )
 
 echo.
-echo [WARNING] Automatic installation failed
+echo [ERROR] Task installation failed
 echo.
-echo Please install Task manually:
+echo Please install Task manually from:
+echo   https://taskfile.dev/installation/
 echo.
-echo Option 1 - Use Docker directly (no Task needed):
-echo   docker compose up -d
-echo.
-echo Option 2 - Install Chocolatey, then run:
-echo   choco install go-task
-echo.
-echo Option 3 - Download from:
-echo   https://github.com/go-task/task/releases
+echo Or use Chocolatey: choco install go-task
 echo.
 pause
 exit /b 1
 
-:verify_task
-where task >nul 2>&1
-if %errorlevel% neq 0 (
-    echo [ERROR] Task installed but not found in PATH
-    echo [INFO] Please restart your terminal or add %USERPROFILE%\bin to PATH
-    pause
-    exit /b 1
-)
-
-:complete
+:check_build_method
 echo.
-echo [OK] Setup complete! Building projects...
-echo.
+echo [INFO] Determining build method...
 
-REM Check Java installation and version - INSTALL AUTOMATICALLY IF MISSING
-echo [INFO] Checking Java installation...
-
-set NEEDS_JAVA_INSTALL=0
-
-REM Check if Java exists
-where java >nul 2>&1
-if %errorlevel% neq 0 (
-    set NEEDS_JAVA_INSTALL=1
-    goto :install_java
-)
-
-REM Check Java version - MUST BE EXACTLY VERSION 21
-for /f "tokens=3" %%g in ('java -version 2^>^&1 ^| findstr /i "version"') do (
-    set JAVA_VERSION_STRING=%%g
-)
-set JAVA_VERSION_STRING=%JAVA_VERSION_STRING:"=%
-for /f "tokens=1 delims=." %%a in ("%JAVA_VERSION_STRING%") do set JAVA_MAJOR=%%a
-
-if not "%JAVA_MAJOR%"=="21" (
-    echo [WARNING] Java %JAVA_MAJOR% detected, but Java 21 is REQUIRED - installing via Chocolatey
-    set NEEDS_JAVA_INSTALL=1
-    goto :install_java
-)
-
-echo [OK] Java 21 detected
-goto :java_ready
-
-:install_java
-echo [WARNING] Java 21 not found - installing automatically...
-
-REM Try SDKMAN first (if Git Bash is available)
-echo [INFO] Checking for Git Bash to use SDKMAN...
+REM Check for Git Bash (enables local Maven builds)
 set GIT_BASH_PATH=
 if exist "C:\Program Files\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe
 if exist "C:\Program Files (x86)\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files (x86)\Git\bin\bash.exe
 if exist "%PROGRAMFILES%\Git\bin\bash.exe" set GIT_BASH_PATH=%PROGRAMFILES%\Git\bin\bash.exe
 
 if not "%GIT_BASH_PATH%"=="" (
-    echo [INFO] Git Bash found - attempting SDKMAN installation...
-    "%GIT_BASH_PATH%" -c "curl -s 'https://get.sdkman.io' | bash && source ~/.sdkman/bin/sdkman-init.sh && sdk install java 21.0.8-amzn && sdk default java 21.0.8-amzn"
-
-    REM Check if SDKMAN Java 21 is now available
-    if exist "%USERPROFILE%\.sdkman\candidates\java\21.0.8-amzn\bin\java.exe" (
-        echo [OK] Java 21 installed via SDKMAN
-        set "JAVA_HOME=%USERPROFILE%\.sdkman\candidates\java\21.0.8-amzn"
-        set "PATH=%USERPROFILE%\.sdkman\candidates\java\21.0.8-amzn\bin;%PATH%"
-        goto :java_ready
+    REM Check if Java exists (for local Maven build)
+    where java >nul 2>&1
+    if %errorlevel% equ 0 (
+        echo [OK] Git Bash + Java found - using fast local Maven builds
+        echo.
+        echo [INFO] Starting Docker services via Task...
+        echo.
+        "%GIT_BASH_PATH%" -c "task run"
+        goto :done
     ) else (
-        echo [WARNING] SDKMAN installation failed or incomplete - falling back to Chocolatey...
+        echo [INFO] Git Bash found but Java missing - using Docker multi-stage build
     )
+) else (
+    echo [INFO] Git Bash not found - using Docker multi-stage build
 )
 
-REM Fallback to Chocolatey
-echo [INFO] Installing via Chocolatey...
-REM Check if Chocolatey is installed
-set CHOCO_PATH=%ProgramData%\chocolatey\bin\choco.exe
-if not exist "%CHOCO_PATH%" (
-    echo [INFO] Installing Chocolatey first...
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+REM Fallback: Use Docker multi-stage build (compiles inside Docker)
+echo [INFO] Building inside Docker containers ^(slower but no local tools needed^)
+echo.
+echo [INFO] Starting Docker services...
+echo.
 
-    if %errorlevel% neq 0 (
-        echo [ERROR] Chocolatey installation failed
-        echo.
-        echo Please install Java 21 manually from: https://adoptium.net/
-        echo.
-        pause
-        exit /b 1
-    )
-
-    echo [OK] Chocolatey installed
-
-    REM Update PATH for current session
-    set "PATH=%ProgramData%\chocolatey\bin;%PATH%"
-    set CHOCO_PATH=%ProgramData%\chocolatey\bin\choco.exe
-)
-
-REM Install Java 21 via Chocolatey
-echo [INFO] Installing Java 21 ^(this may take a few minutes^)...
-"%CHOCO_PATH%" install temurin21 -y --no-progress --force
-
+REM Call docker compose directly for multi-stage build
+docker compose build --pull
 if %errorlevel% neq 0 (
-    echo [ERROR] Java installation failed
     echo.
-    echo Please install Java 21 manually from: https://adoptium.net/
+    echo [ERROR] Docker build failed! Check output above.
     echo.
     pause
     exit /b 1
 )
 
-echo [OK] Java 21 installed successfully
-
-REM Update PATH to include Java (find the installed version)
-for /d %%i in ("C:\Program Files\Eclipse Adoptium\jdk-21*") do (
-    set "JAVA_HOME=%%i"
-    set "PATH=%%i\bin;%PATH%"
-)
-
-REM Verify installation
-where java >nul 2>&1
+docker compose up -d --wait
 if %errorlevel% neq 0 (
-    echo [WARNING] Java installed but not in PATH for this session
-    echo [INFO] Please open a NEW terminal window and run this script again
+    echo.
+    echo [ERROR] Container startup failed!
     echo.
     pause
     exit /b 1
 )
 
-echo [OK] Java ready for builds
-
-:java_ready
-
+:done
 echo.
-echo [INFO] Starting build and Docker services ^(Task will handle builds^)...
+echo [OK] Services started successfully!
 echo.
-
-REM Check if port 8080 is in use
-set PORT=8080
-:check_port
-netstat -an | findstr ":%PORT% " | findstr LISTEN >nul 2>&1
-if %errorlevel% equ 0 (
-    echo [WARNING] Port %PORT% is already in use
-    set /a PORT=%PORT%+1
-    echo [INFO] Trying port %PORT% instead...
-    goto :check_port
-)
-
-if not %PORT%==8080 (
-    echo [INFO] Using port %PORT% instead of 8080
-    set SERVER_PORT=%PORT%
-)
-
-REM Run task run to start everything
-task run
-
+echo API available at: http://localhost:8080/api/v1
+echo API docs at: http://localhost:8080/api/v1/swagger-ui.html
+echo.
 pause

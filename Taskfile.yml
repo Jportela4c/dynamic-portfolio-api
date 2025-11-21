@@ -85,15 +85,10 @@ tasks:
     cmds:
       - |
         if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ]; then
-          # Verify Java 21
-          JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -oE '[0-9]+' | head -n 1)
-          if [ "$JAVA_VERSION" != "21" ]; then
-            echo "❌ Java 21 required, but found Java $JAVA_VERSION"
-            exit 1
-          fi
-          echo "🔨 Building JARs locally..."
+          echo "🔨 Building main API JAR..."
           ./mvnw clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
-          cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
+          echo "🔨 Building OFB mock server JAR..."
+          cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
           echo "🐳 Building Docker images (using pre-built JARs)..."
           docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . || (echo "❌ API Docker build failed!" && exit 1)
           docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server || (echo "❌ OFB Docker build failed!" && exit 1)
@@ -107,12 +102,14 @@ tasks:
 
   docker-down:
     desc: Stop all Docker containers
+    silent: true
     cmds:
       - echo "🛑 Stopping Docker containers..."
       - docker compose down
 
   docker-clean:
     desc: Stop containers and remove volumes (clean slate)
+    silent: true
     cmds:
       - echo "🧹 Cleaning up containers and volumes..."
       - docker compose down -v
@@ -172,37 +169,32 @@ tasks:
 
   rebuild-api:
     desc: Build JAR locally and rebuild Docker API container (optimized for Mac)
+    silent: true
     env:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🔨 Building JAR locally..."
-      - ./mvnw clean package -Dmaven.test.skip=true 2>&1 | grep -E "(Building|SUCCESS|ERROR|WARNING|Tests run)" | tail -20
+      - ./mvnw clean package -Dmaven.test.skip=true
       - echo "🐳 Rebuilding Docker image (fast local build)..."
-      - docker build --no-cache -t dynamic-portfolio-api-api:latest -f Dockerfile.local . 2>&1 | grep -E "(Step|Successfully|ERROR|WARNING)" | tail -20
+      - docker build --no-cache -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
       - echo "🚀 Starting API container..."
       - docker compose up -d api
       - sleep 2
       - echo "✅ API rebuilt and started on port {{.SERVER_PORT}} - showing logs (Ctrl+C to exit):"
-      - docker logs portfolio-api --tail 100 -f 2>&1 | grep -v "GET /actuator/health"
+      - docker logs portfolio-api --tail 100 -f
 
   rebuild-all:
     desc: Rebuild both APIs (main + OFB mock) and restart all Docker services (fast local build)
+    silent: true
     env:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🛑 Stopping all containers..."
       - docker compose down
-      - |
-        # Verify Java 21
-        JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -oE '[0-9]+' | head -n 1)
-        if [ "$JAVA_VERSION" != "21" ]; then
-          echo "❌ Java 21 required, but found Java $JAVA_VERSION"
-          exit 1
-        fi
       - echo "🔨 Building main API JAR..."
       - ./mvnw clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
-      - echo "🔨 Building OFB mock server..."
-      - cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
+      - echo "🔨 Building OFB mock server JAR..."
+      - cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
       - echo "🐳 Rebuilding Docker images (fast local build)..."
       - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
       - docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server
