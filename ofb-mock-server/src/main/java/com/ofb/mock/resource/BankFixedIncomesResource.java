@@ -31,10 +31,12 @@ public class BankFixedIncomesResource {
         summary = "List bank fixed income investments",
         description = "Returns list of CDB, LCI, LCA, RDB investments (4 fields: brandName, companyCnpj, investmentType, investmentId)"
     )
-    public Response getInvestments(@HeaderParam("Authorization") String authorization) {
+    public Response getInvestments(
+            @HeaderParam("Authorization") String authorization,
+            @HeaderParam("x-customer-cpf") String fallbackCpf) { // TEMP: for testing with auth disabled
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments");
 
-        String cpf = JwtUtils.extractCpf(authorization);
+        String cpf = JwtUtils.extractCpf(authorization, fallbackCpf);
         if (cpf == null) {
             return Response.status(Response.Status.UNAUTHORIZED)
                 .entity(Map.of("error", "invalid_token"))
@@ -73,18 +75,19 @@ public class BankFixedIncomesResource {
     )
     public Response getInvestmentDetails(
             @PathParam("investmentId") String investmentId,
-            @HeaderParam("Authorization") String authorization) {
+            @HeaderParam("Authorization") String authorization,
+            @HeaderParam("x-customer-cpf") String fallbackCpf) { // TEMP: for testing with auth disabled
 
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}", investmentId);
 
-        String cpf = JwtUtils.extractCpf(authorization);
+        String cpf = JwtUtils.extractCpf(authorization, fallbackCpf);
         if (cpf == null) {
             return Response.status(Response.Status.UNAUTHORIZED)
                 .entity(Map.of("error", "invalid_token"))
                 .build();
         }
 
-        Map<String, Object> investment = mockDataService.getBankFixedIncomeDetails(cpf, investmentId);
+        IdentifyProduct investment = mockDataService.getBankFixedIncomeDetails(cpf, investmentId);
         if (investment == null) {
             return Response.status(Response.Status.NOT_FOUND)
                 .entity(Map.of("error", "investment_not_found"))
@@ -93,8 +96,7 @@ public class BankFixedIncomesResource {
 
         log.debug("Returning details for investment {} (CPF {})", investmentId, cpf);
 
-        // Return details structure (keep as Map for now - contains all 15+ fields)
-        // TODO: Convert to ResponseBankFixedIncomesProductIdentification when needed
+        // Return typed OFB model with all 15+ detail fields
         return Response.ok(Map.of("data", investment)).build();
     }
 
@@ -106,11 +108,12 @@ public class BankFixedIncomesResource {
     )
     public Response getInvestmentTransactions(
             @PathParam("investmentId") String investmentId,
-            @HeaderParam("Authorization") String authorization) {
+            @HeaderParam("Authorization") String authorization,
+            @HeaderParam("x-customer-cpf") String fallbackCpf) { // TEMP: for testing with auth disabled
 
         log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/transactions", investmentId);
 
-        String cpf = JwtUtils.extractCpf(authorization);
+        String cpf = JwtUtils.extractCpf(authorization, fallbackCpf);
         if (cpf == null) {
             return Response.status(Response.Status.UNAUTHORIZED)
                 .entity(Map.of("error", "invalid_token"))
@@ -128,5 +131,28 @@ public class BankFixedIncomesResource {
                 "totalPages", 1
             )
         )).build();
+    }
+
+    @GET
+    @Path("/investments/{investmentId}/balances")
+    @Operation(summary = "Get bank fixed income balance", description = "Returns current balance for a specific bank fixed income")
+    public Response getInvestmentBalances(
+            @PathParam("investmentId") String investmentId,
+            @HeaderParam("Authorization") String authorization,
+            @HeaderParam("x-customer-cpf") String fallbackCpf) {
+
+        log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/balances", investmentId);
+
+        String cpf = JwtUtils.extractCpf(authorization, fallbackCpf);
+        if (cpf == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
+        Map<String, Object> balanceData = mockDataService.generateBalanceData(cpf, investmentId);
+        log.debug("Returning balance for investment {} (CPF {})", investmentId, cpf);
+
+        return Response.ok(Map.of("data", balanceData)).build();
     }
 }

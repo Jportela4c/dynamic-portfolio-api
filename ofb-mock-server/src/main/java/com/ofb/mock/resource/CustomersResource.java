@@ -25,20 +25,24 @@ public class CustomersResource {
     @GET
     @Path("/personal/identifications")
     @Operation(summary = "Get personal customer identification", description = "Returns personal identification data")
-    public Response getPersonalIdentifications(@HeaderParam("Authorization") String authorization) {
+    public Response getPersonalIdentifications(
+            @HeaderParam("Authorization") String authorization,
+            @HeaderParam("x-customer-cpf") String fallbackCpf) { // TEMP: for testing with auth disabled
         log.info("OFB API: GET /open-banking/customers/v2/personal/identifications");
 
-        String cpf = JwtUtils.extractCpf(authorization);
+        // TEMP: Extract CPF from JWT with header fallback (easy rollback - just uncomment line below)
+        // String cpf = "96846726756"; // TEMP: hardcoded for testing
+        String cpf = JwtUtils.extractCpf(authorization, fallbackCpf);
         if (cpf == null) {
             return Response.status(Response.Status.UNAUTHORIZED)
-                .entity(Map.of("error", "invalid_token"))
+                .entity(Map.of("error", "missing_cpf"))
                 .build();
         }
 
         Object customer = mockDataService.getCustomerByCpf(cpf);
         if (customer == null) {
             return Response.status(Response.Status.NOT_FOUND)
-                .entity(Map.of("error", "customer_not_found"))
+                .entity(Map.of("error", "customer_not_found", "cpf", cpf))
                 .build();
         }
 

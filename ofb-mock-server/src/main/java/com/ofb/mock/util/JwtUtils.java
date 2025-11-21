@@ -35,16 +35,19 @@ public class JwtUtils {
     }
 
     /**
-     * Extracts CPF from Authorization header.
+     * Extracts CPF from Authorization header with fallback to x-customer-cpf header.
      * In OFB tokens, the CPF is in the 'sub' claim.
      *
+     * TEMP: Fallback parameter added for testing with auth disabled
+     *
      * @param authorizationHeader Authorization header value (e.g., "Bearer eyJ...")
-     * @return CPF from JWT 'sub' claim, or null if invalid
+     * @param fallbackCpf TEMP: Fallback CPF from x-customer-cpf header (for testing with auth disabled)
+     * @return CPF from JWT 'sub' claim, or fallback CPF if JWT is invalid
      */
-    public static String extractCpf(String authorizationHeader) {
+    public static String extractCpf(String authorizationHeader, String fallbackCpf) {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            log.warn("Invalid Authorization header format");
-            return null;
+            log.debug("No valid Authorization header, using fallback CPF: {}", fallbackCpf);
+            return fallbackCpf;
         }
 
         try {
@@ -54,8 +57,8 @@ public class JwtUtils {
             log.debug("Extracted CPF from token: {}", cpf);
             return cpf;
         } catch (Exception e) {
-            log.error("Failed to extract CPF from token", e);
-            return null;
+            log.debug("Failed to extract CPF from token, using fallback: {}", fallbackCpf);
+            return fallbackCpf;
         }
     }
 }
