@@ -44,7 +44,7 @@ class UserRoleTest {
             IllegalArgumentException.class,
             () -> UserRole.fromCode("INVALID")
         );
-        assertEquals("Invalid role code: INVALID", exception.getMessage());
+        assertEquals("Código de perfil inválido: INVALID", exception.getMessage());
     }
 
     @Test

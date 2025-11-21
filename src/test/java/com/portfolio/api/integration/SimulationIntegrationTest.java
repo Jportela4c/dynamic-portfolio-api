@@ -7,26 +7,27 @@ import com.portfolio.api.model.enums.TipoProduto;
 import com.portfolio.api.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import com.portfolio.api.config.TestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Import(TestConfig.class)
 @Transactional
-@WithMockUser(username = "testuser", roles = {"USER"})
 class SimulationIntegrationTest {
 
     @Autowired
@@ -40,7 +41,6 @@ class SimulationIntegrationTest {
 
     @BeforeEach
     void setUp() {
-
         Product cdb = new Product();
         cdb.setNome("CDB Test Product");
         cdb.setTipo(TipoProduto.CDB);
@@ -63,7 +63,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -82,14 +83,14 @@ class SimulationIntegrationTest {
         request.setTipoProduto(null);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    @WithAnonymousUser
     void shouldReturnUnauthorizedWithoutToken() throws Exception {
         SimulationRequest request = new SimulationRequest();
         request.setClienteId(123L);
@@ -98,6 +99,7 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isUnauthorized());
@@ -106,7 +108,7 @@ class SimulationIntegrationTest {
     @Test
     void shouldGetAllSimulations() throws Exception {
         mockMvc.perform(get("/simulacoes")
-                        )
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read"))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -114,7 +116,7 @@ class SimulationIntegrationTest {
     @Test
     void shouldGetDailyAggregations() throws Exception {
         mockMvc.perform(get("/simulacoes/por-produto-dia")
-                        )
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read"))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
@@ -122,7 +124,7 @@ class SimulationIntegrationTest {
     @Test
     void shouldGetTelemetry() throws Exception {
         mockMvc.perform(get("/telemetria")
-                        )
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read"))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.servicos").isArray())
                 .andExpect(jsonPath("$.periodo").exists());
@@ -139,7 +141,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
@@ -157,7 +160,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
@@ -175,11 +179,12 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("Product not available"));
+                .andExpect(jsonPath("$.message").value("Produto não disponível"));
     }
 
     @Test
@@ -192,7 +197,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -210,7 +216,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -227,7 +234,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.ACOES);  // No ACOES products in test DB
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound());
@@ -242,7 +250,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -257,7 +266,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -272,7 +282,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -287,7 +298,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(null);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -302,7 +314,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -317,7 +330,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -332,7 +346,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -347,7 +362,8 @@ class SimulationIntegrationTest {
         request.setTipoProduto(TipoProduto.CDB);
 
         mockMvc.perform(post("/simular-investimento")
-                        
+                        .with(jwt().jwt(j -> j.subject("testuser").claim("scope", "read write").claim("userId", 123L)))
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
