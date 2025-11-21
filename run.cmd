@@ -313,7 +313,9 @@ if %errorlevel% neq 0 (
     pause
     exit /b 1
 )
-goto :done
+echo.
+pause
+exit /b 0
 
 :docker_only_build
 echo.
@@ -342,13 +344,14 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:done
 echo.
 echo ===============================================================
 echo   SUCCESS - Services are running!
 echo ===============================================================
 echo.
-echo API available at: http://localhost:8080/api/v1
+echo API available at: http://localhost:8080/api/v1 (or next available port)
 echo API docs at: http://localhost:8080/api/v1/swagger-ui.html
+echo.
+echo Note: If port 8080 is in use, check 'docker ps' for the actual port mapping
 echo.
 pause
