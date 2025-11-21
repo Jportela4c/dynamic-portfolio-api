@@ -29,7 +29,98 @@ public class InvestmentSimulationController {
 
     @Operation(
         summary = "Simular investimento",
-        description = "Simula um investimento com base nos parâmetros fornecidos. Valida o produto contra o banco de dados e calcula os retornos esperados."
+        description = """
+            Simula um investimento financeiro validando o produto no banco de dados e calculando retornos esperados.
+
+            ## Algoritmo de Simulação - 5 Etapas
+
+            ### 1. Validação de Entrada
+            - **Parâmetros obrigatórios**: clienteId, valor, prazoMeses, tipoProduto
+            - **Validações**:
+              - clienteId > 0
+              - valor > 0 (positivo, não-nulo)
+              - prazoMeses: 1-360 meses
+              - tipoProduto: enum válido (CDB, LCI, LCA, TESOURO_DIRETO, FUNDO, DEBENTURE)
+
+            ### 2. Busca de Produto Compatível
+            - **Critérios de matching**:
+              1. **Tipo**: tipoProduto deve corresponder ao tipo do produto no banco
+              2. **Valor**: valor deve estar dentro do range [valorMinimo, valorMaximo] do produto
+              3. **Prazo**: prazoMeses deve estar dentro do range [prazoMinimo, prazoMaximo] do produto
+            - **Lógica**: `WHERE tipo = ? AND valor BETWEEN valorMinimo AND valorMaximo AND prazo BETWEEN prazoMinimo AND prazoMaximo`
+            - **Erro 404**: Se nenhum produto satisfaz os critérios
+
+            ### 3. Validação de Valor Mínimo
+            - **Regra**: `valor >= produto.valorMinimo`
+            - **Erro 400**: Se valor é menor que o mínimo permitido para o produto
+            - **Exemplo**: CDB pode exigir R$ 1.000,00 mínimo
+
+            ### 4. Cálculo de Juros Compostos
+            - **Fórmula matemática**:
+              ```
+              Valor Final = Valor Inicial × (1 + taxa_mensal)^meses
+
+              Onde:
+              - taxa_mensal = rentabilidade_anual / 12
+              - meses = prazoMeses
+              ```
+            - **Exemplo prático**:
+              ```
+              Investimento: R$ 10.000,00
+              Taxa anual: 12% (0.12)
+              Prazo: 12 meses
+
+              Taxa mensal = 0.12 / 12 = 0.01 (1% ao mês)
+              Valor Final = 10.000 × (1.01)^12 = R$ 11.268,25
+              Rentabilidade = R$ 1.268,25 (12.68%)
+              ```
+            - **Precisão**: Cálculo com 10 dígitos decimais, arredondamento para 2 casas (HALF_UP)
+
+            ### 5. Persistência e Resposta
+            - **Salva no banco**:
+              - clienteId, produtoId, produtoNome
+              - valorInvestido, valorFinal, prazoMeses
+              - dataSimulacao (timestamp atual)
+            - **Retorna**:
+              - **produtoValidado**: Produto encontrado (id, nome, tipo, rentabilidade, risco)
+              - **resultadoSimulacao**: Valores calculados (valorFinal, rentabilidadeEfetiva, prazoMeses)
+              - **dataSimulacao**: Timestamp da simulação
+
+            ## Produtos Disponíveis
+
+            | Tipo | Rentabilidade Típica | Risco | Exemplo |
+            |------|---------------------|-------|---------|
+            | CDB | 10-13% a.a. | Baixo-Médio | CDB Banco Pan 12% |
+            | LCI | 9-11% a.a. | Baixo | LCI Bradesco 10% |
+            | LCA | 9-11% a.a. | Baixo | LCA Santander 9.5% |
+            | TESOURO_DIRETO | 6-13% a.a. | Muito Baixo | Tesouro IPCA+ 2029 |
+            | FUNDO | 8-15% a.a. | Médio-Alto | Fundo DI XP |
+            | DEBENTURE | 12-16% a.a. | Alto | Debênture Light |
+
+            ## Exemplo de Resposta
+            ```json
+            {
+              "produtoValidado": {
+                "id": 123,
+                "nome": "CDB Banco Pan 120% CDI",
+                "tipo": "CDB",
+                "rentabilidade": 0.12,
+                "risco": "MEDIO"
+              },
+              "resultadoSimulacao": {
+                "valorFinal": 11268.25,
+                "rentabilidadeEfetiva": 0.12,
+                "prazoMeses": 12
+              },
+              "dataSimulacao": "2025-11-21T10:30:00"
+            }
+            ```
+
+            ## Erros Possíveis
+            - **400**: Dados inválidos (valor/prazo fora dos limites, campos obrigatórios ausentes)
+            - **404**: Nenhum produto encontrado para os critérios especificados
+            - **500**: Erro interno no cálculo ou persistência
+            """
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Simulação realizada com sucesso",
