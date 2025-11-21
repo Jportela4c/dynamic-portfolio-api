@@ -41,6 +41,7 @@ services:
       - FLYWAY_SCHEMAS=dbo
       - FLYWAY_BASELINE_ON_MIGRATE=true
       - FLYWAY_CLEAN_DISABLED=false
+      - FLYWAY_CLEAN_ON_VALIDATION_ERROR=true
     depends_on:
       sqlserver-init:
         condition: service_completed_successfully
