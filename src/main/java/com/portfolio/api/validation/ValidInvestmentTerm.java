@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = InvestmentTermValidator.class)
 public @interface ValidInvestmentTerm {
-    String message() default "Invalid request";
+    String message() default "Requisição inválida";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

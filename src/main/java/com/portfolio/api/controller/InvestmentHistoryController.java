@@ -46,7 +46,7 @@ public class InvestmentHistoryController {
     @GetMapping("/investimentos/{clienteId}")
     public ResponseEntity<List<InvestmentResponse>> getInvestmentHistory(
         @Parameter(description = "ID do cliente", example = "123", required = true)
-        @Positive(message = "Invalid customer ID")
+        @Positive(message = "ID do cliente inválido")
         @PathVariable Long clienteId) {
 
         // Authorization validated by @PreAuthorize

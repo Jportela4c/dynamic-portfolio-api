@@ -31,7 +31,7 @@ public class InvestmentService {
         customerValidationService.validateClientExists(clienteId);
 
         String cpf = clientIdentifierMapper.getCpfForClient(clienteId)
-                .orElseThrow(() -> new IllegalArgumentException("CPF not found for client: " + clienteId));
+                .orElseThrow(() -> new IllegalArgumentException("CPF não encontrado para cliente: " + clienteId));
 
         log.debug("Fetching investments from provider for client: {}", clienteId);
 

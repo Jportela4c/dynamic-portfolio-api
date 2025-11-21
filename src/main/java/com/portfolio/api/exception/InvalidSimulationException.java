@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class InvalidSimulationException extends ApiException {
 
-    private static final String MESSAGE = "Invalid request";
+    private static final String MESSAGE = "Requisição inválida";
 
     public InvalidSimulationException(String field) {
         super(HttpStatus.BAD_REQUEST, MESSAGE, field);

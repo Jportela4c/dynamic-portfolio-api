@@ -21,8 +21,8 @@ public class SimulationRequest {
     @Schema(description = "ID do cliente solicitante da simulação",
             example = "1",
             required = true)
-    @NotNull(message = "Invalid request")
-    @Positive(message = "Invalid request")
+    @NotNull(message = "Requisição inválida")
+    @Positive(message = "Requisição inválida")
     private Long clienteId;
 
     @Schema(description = "Valor a ser investido em reais (BRL). Deve ser positivo e maior que zero.",
@@ -44,6 +44,6 @@ public class SimulationRequest {
             example = "CDB",
             required = true,
             allowableValues = {"CDB", "LCI", "LCA", "TESOURO_DIRETO", "FUNDO", "DEBENTURE"})
-    @NotNull(message = "Invalid request")
+    @NotNull(message = "Requisição inválida")
     private TipoProduto tipoProduto;
 }

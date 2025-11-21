@@ -43,6 +43,6 @@ public enum UserRole {
                 return role;
             }
         }
-        throw new IllegalArgumentException("Invalid role code: " + code);
+        throw new IllegalArgumentException("Código de perfil inválido: " + code);
     }
 }

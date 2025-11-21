@@ -39,12 +39,12 @@ public class CustomerUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(
-                        "Customer not found with email: " + email));
+                        "Cliente não encontrado com email: " + email));
 
         // Check if customer account is active
         if (!customer.getAtivo()) {
             throw new UsernameNotFoundException(
-                    "Customer account is inactive: " + email);
+                    "Conta do cliente está inativa: " + email);
         }
 
         return User.builder()

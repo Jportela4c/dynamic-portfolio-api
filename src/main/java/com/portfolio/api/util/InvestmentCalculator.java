@@ -14,7 +14,7 @@ public class InvestmentCalculator {
             int monthsTerm
     ) {
         if (initialValue == null || annualRate == null || monthsTerm <= 0) {
-            throw new IllegalArgumentException("Invalid calculation parameters");
+            throw new IllegalArgumentException("Parâmetros de cálculo inválidos");
         }
 
         BigDecimal monthlyRate = annualRate.divide(
@@ -37,7 +37,7 @@ public class InvestmentCalculator {
     ) {
         if (initialValue == null || finalValue == null ||
                 initialValue.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Invalid values for return calculation");
+            throw new IllegalArgumentException("Valores inválidos para cálculo de retorno");
         }
 
         return finalValue.subtract(initialValue)

@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .message("Invalid customer ID")
+                .message("ID do cliente inválido")
                 .timestamp(LocalDateTime.now())
                 .build();
 
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .message("Invalid request")
+                .message("Requisição inválida")
                 .timestamp(LocalDateTime.now())
                 .build();
 
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
-                .message("Invalid request")
+                .message("Requisição inválida")
                 .timestamp(LocalDateTime.now())
                 .build();
 

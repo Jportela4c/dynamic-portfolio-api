@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class ProductNotFoundException extends ApiException {
 
-    private static final String MESSAGE = "Product not available";
+    private static final String MESSAGE = "Produto não disponível";
 
     public ProductNotFoundException(TipoProduto tipo, BigDecimal valor, Integer prazoMeses) {
         super(HttpStatus.NOT_FOUND, MESSAGE, new ProductContext(tipo, valor, prazoMeses));

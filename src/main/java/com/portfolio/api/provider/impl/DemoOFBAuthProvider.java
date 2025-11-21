@@ -30,7 +30,7 @@ public class DemoOFBAuthProvider implements OFBAuthProvider {
 
         Customer customer = customerRepository.findById(customerId)
             .orElseThrow(() -> new IllegalArgumentException(
-                "Customer not found: " + customerId
+                "Cliente não encontrado: " + customerId
             ));
 
         String cpf = customer.getCpf();

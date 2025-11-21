@@ -58,7 +58,7 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
 
         } catch (Exception e) {
             log.error("Error fetching portfolio from OFB provider for CPF: {}", maskCpf(cpf), e);
-            throw new RuntimeException("Failed to fetch portfolio from OFB provider", e);
+            throw new RuntimeException("Falha ao buscar portfólio do provedor OFB", e);
         }
     }
 
@@ -76,7 +76,7 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
 
         } catch (Exception e) {
             log.error("Error fetching investment history from OFB provider for CPF: {}", maskCpf(cpf), e);
-            throw new RuntimeException("Failed to fetch investment history from OFB provider", e);
+            throw new RuntimeException("Falha ao buscar histórico de investimentos do provedor OFB", e);
         }
     }
 
@@ -94,7 +94,7 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
 
         } catch (Exception e) {
             log.error("Error fetching positions from OFB provider for CPF: {}", maskCpf(cpf), e);
-            throw new RuntimeException("Failed to fetch positions from OFB provider", e);
+            throw new RuntimeException("Falha ao buscar posições do provedor OFB", e);
         }
     }
 
@@ -152,12 +152,12 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
     private String authenticateWithCpf(String cpf) {
         try {
             Customer customer = customerRepository.findByCpf(cpf)
-                    .orElseThrow(() -> new IllegalArgumentException("Customer not found for CPF"));
+                    .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado para o CPF"));
 
             return ofbAuthProvider.authenticateCustomer(customer.getId());
         } catch (Exception e) {
             log.error("Authentication failed for CPF: {}", maskCpf(cpf), e);
-            throw new RuntimeException("Failed to authenticate customer", e);
+            throw new RuntimeException("Falha ao autenticar cliente", e);
         }
     }
 

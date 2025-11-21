@@ -55,7 +55,7 @@ public class RiskProfileService {
         customerValidationService.validateClientExists(clienteId);
 
         String cpf = clientIdentifierMapper.getCpfForClient(clienteId)
-                .orElseThrow(() -> new IllegalArgumentException("CPF not found for clienteId: " + clienteId));
+                .orElseThrow(() -> new IllegalArgumentException("CPF não encontrado para clienteId: " + clienteId));
 
         List<Investment> investments = fetchInvestmentsWithResilience(cpf);
 

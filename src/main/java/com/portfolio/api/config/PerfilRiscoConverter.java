@@ -17,7 +17,7 @@ public class PerfilRiscoConverter implements Converter<String, PerfilRisco> {
             case "CONSERVADOR" -> PerfilRisco.CONSERVADOR;
             case "MODERADO" -> PerfilRisco.MODERADO;
             case "AGRESSIVO" -> PerfilRisco.AGRESSIVO;
-            default -> throw new IllegalArgumentException("Invalid risk profile: " + source);
+            default -> throw new IllegalArgumentException("Perfil de risco inválido: " + source);
         };
     }
 }
