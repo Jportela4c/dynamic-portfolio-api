@@ -14,6 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Mock data service that loads and manages OFB investment data.
+ *
+ * IMPORTANT: After regenerating mock data with flat structure matching OFB models,
+ * this service can deserialize JSON directly into generated OFB types using Jackson.
+ *
+ * The generated OFB models have @JsonProperty annotations that match the JSON field names.
+ */
 @Slf4j
 @ApplicationScoped
 public class MockDataService {
@@ -21,6 +29,8 @@ public class MockDataService {
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     private Map<String, Object> customers;
+    // TODO: After mvn compile generates models, change to:
+    // private Map<String, List<IdentifyProduct>> bankFixedIncomes;
     private Map<String, List<Map<String, Object>>> bankFixedIncomesRaw;
     private Map<String, List<Map<String, Object>>> treasuryTitlesRaw;
     private Map<String, List<Map<String, Object>>> fundsRaw;

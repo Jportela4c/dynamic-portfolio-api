@@ -1,0 +1,114 @@
+{
+  "73677831148": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "LCI",
+      "investmentId": "LCI-73677831148-001",
+      "issuerInstitutionCnpjNumber": "00360305000104",
+      "isinCode": "BRLCIXCTF001",
+      "remuneration": {
+        "preFixedRate": null,
+        "postFixedIndexerPercentage": 0.95,
+        "rateType": "LINEAR",
+        "ratePeriodicity": "MENSAL",
+        "calculation": "DIAS_CORRIDOS",
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "95% do CDI"
+      },
+      "issueUnitPrice": {
+        "amount": 10000.0,
+        "currency": "BRL"
+      },
+      "dueDate": "2026-12-31",
+      "issueDate": "2024-01-15",
+      "clearingCode": "CAIXA",
+      "purchaseDate": "2024-01-15",
+      "gracePeriodDate": null
+    }
+  ],
+  "96846726756": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "CDB",
+      "investmentId": "CDB-96846726756-001",
+      "issuerInstitutionCnpjNumber": "00360305000104",
+      "isinCode": "BRCDBXCTF002",
+      "remuneration": {
+        "preFixedRate": null,
+        "postFixedIndexerPercentage": 1.1,
+        "rateType": "LINEAR",
+        "ratePeriodicity": "MENSAL",
+        "calculation": "DIAS_CORRIDOS",
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "110% do CDI"
+      },
+      "issueUnitPrice": {
+        "amount": 20000.0,
+        "currency": "BRL"
+      },
+      "dueDate": "2026-06-30",
+      "issueDate": "2023-06-30",
+      "clearingCode": "CAIXA",
+      "purchaseDate": "2023-06-30",
+      "gracePeriodDate": null
+    },
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "LCA",
+      "investmentId": "LCA-96846726756-002",
+      "issuerInstitutionCnpjNumber": "00360305000104",
+      "isinCode": "BRLCAXCTF003",
+      "remuneration": {
+        "preFixedRate": null,
+        "postFixedIndexerPercentage": 1.0,
+        "rateType": "LINEAR",
+        "ratePeriodicity": "MENSAL",
+        "calculation": "DIAS_CORRIDOS",
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "100% do CDI"
+      },
+      "issueUnitPrice": {
+        "amount": 10000.0,
+        "currency": "BRL"
+      },
+      "dueDate": "2027-12-31",
+      "issueDate": "2024-01-01",
+      "clearingCode": "CAIXA",
+      "purchaseDate": "2024-01-01",
+      "gracePeriodDate": null
+    }
+  ],
+  "25791178816": [
+    {
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104",
+      "investmentType": "CDB",
+      "investmentId": "CDB-25791178816-001",
+      "issuerInstitutionCnpjNumber": "00360305000104",
+      "isinCode": "BRCDBXCTF004",
+      "remuneration": {
+        "preFixedRate": null,
+        "postFixedIndexerPercentage": 1.2,
+        "rateType": "LINEAR",
+        "ratePeriodicity": "MENSAL",
+        "calculation": "DIAS_CORRIDOS",
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "120% do CDI"
+      },
+      "issueUnitPrice": {
+        "amount": 20000.0,
+        "currency": "BRL"
+      },
+      "dueDate": "2028-12-31",
+      "issueDate": "2023-01-01",
+      "clearingCode": "CAIXA",
+      "purchaseDate": "2023-01-01",
+      "gracePeriodDate": null
+    }
+  ],
+  "74979890814": [],
+  "17418143834": []
+}
