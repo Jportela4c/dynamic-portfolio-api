@@ -2,14 +2,9 @@
 FROM maven:3.9-amazoncorretto-21-alpine AS builder
 WORKDIR /build
 
-# Copy pom.xml and download dependencies (cached layer)
+# Copy everything and build (skip tests)
 COPY pom.xml .
-RUN mvn dependency:go-offline -q
-
-# Copy source code and OpenAPI specs
 COPY src src
-
-# Build the Quarkus app
 RUN mvn clean package -Dmaven.test.skip=true -q
 
 # Stage 2: Runtime
