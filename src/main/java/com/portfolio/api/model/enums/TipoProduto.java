@@ -8,9 +8,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
  *
  * Maps to multiple OFB API specifications:
  * - Bank Fixed Incomes: CDB, RDB, LCI, LCA (EnumInvestmentType)
+ * - Credit Fixed Incomes: CRI, CRA (EnumInvestmentType)
  * - Funds: RENDA_FIXA, ACOES, MULTIMERCADO, CAMBIAL (anbimaCategory)
- * - Treasure Titles: TESOURO_SELIC, TESOURO_PREFIXADO, TESOURO_IPCA (derived from investmentName)
- * - Variable Incomes: Identified by ticker, not included here
+ * - Treasury Titles: TESOURO_SELIC, TESOURO_PREFIXADO, TESOURO_IPCA (derived from productName)
+ * - Variable Incomes: VARIABLE_INCOME (stocks, ETFs - identified by ticker)
  */
 @Schema(description = "Tipo de produto financeiro (OFB taxonomy)")
 public enum TipoProduto {
@@ -70,6 +71,20 @@ public enum TipoProduto {
     @JsonProperty("TESOURO_EDUCA_MAIS")
     TESOURO_EDUCA_MAIS,
 
+    // Credit Fixed Incomes - OFB Credit Fixed Incomes API
+    @Schema(description = "Certificado de Recebíveis Imobiliários")
+    @JsonProperty("CRI")
+    CRI,
+
+    @Schema(description = "Certificado de Recebíveis do Agronegócio")
+    @JsonProperty("CRA")
+    CRA,
+
+    // Variable Incomes - Stocks, ETFs
+    @Schema(description = "Renda Variável (Ações, ETFs)")
+    @JsonProperty("VARIABLE_INCOME")
+    VARIABLE_INCOME,
+
     // Additional types for compatibility
     @Schema(description = "Poupança")
     @JsonProperty("POUPANCA")
@@ -99,5 +114,19 @@ public enum TipoProduto {
     public boolean isTreasureTitle() {
         return this == TESOURO_SELIC || this == TESOURO_PREFIXADO || this == TESOURO_IPCA
                 || this == TESOURO_RENDA_MAIS || this == TESOURO_EDUCA_MAIS;
+    }
+
+    /**
+     * Checks if this product type is a credit fixed income (CRI, CRA).
+     */
+    public boolean isCreditFixedIncome() {
+        return this == CRI || this == CRA;
+    }
+
+    /**
+     * Checks if this product type is a variable income (stocks, ETFs).
+     */
+    public boolean isVariableIncome() {
+        return this == VARIABLE_INCOME;
     }
 }
