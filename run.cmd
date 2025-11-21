@@ -115,9 +115,11 @@ NEEDS_INSTALL=false
 
 if [ -f "$HOME/.sdkman/candidates/java/21.0.8-amzn/bin/java" ]; then
     # SDKMAN Java 21 exists - USE THIS
-    export JAVA_HOME="$HOME/.sdkman/candidates/java/21.0.8-amzn"
-    JAVA_CMD="$JAVA_HOME/bin/java"
     source "$HOME/.sdkman/bin/sdkman-init.sh" 2>/dev/null || true
+    # Force use of Java 21 (in case SDKMAN default is different)
+    export JAVA_HOME="$HOME/.sdkman/candidates/java/21.0.8-amzn"
+    export PATH="$JAVA_HOME/bin:$PATH"
+    JAVA_CMD="$JAVA_HOME/bin/java"
     print_success "Found SDKMAN Java 21"
 elif [ -n "$JAVA_HOME" ] && [ -x "$JAVA_HOME/bin/java" ]; then
     # JAVA_HOME is set - check if it's Java 21
@@ -167,11 +169,24 @@ fi
 
 print_success "Java ready for builds"
 
+# Ensure JAVA_HOME is set for Maven builds
+if [ -z "$JAVA_HOME" ]; then
+    if [ -f "$HOME/.sdkman/candidates/java/21.0.8-amzn/bin/java" ]; then
+        export JAVA_HOME="$HOME/.sdkman/candidates/java/21.0.8-amzn"
+    fi
+fi
+
+# Verify JAVA_HOME before building
+print_info "Using Java: $JAVA_HOME"
+$JAVA_HOME/bin/java -version
+
 # Build both Maven projects before Docker
 print_info "Building main API..."
 if [ -f "./mvnw" ]; then
-    ./mvnw clean package -DskipTests -q || {
+    JAVA_HOME="$JAVA_HOME" ./mvnw clean package -DskipTests -q || {
         print_error "Main API build failed"
+        print_error "Java version being used:"
+        $JAVA_HOME/bin/java -version
         exit 1
     }
     print_success "Main API build complete"
@@ -182,7 +197,7 @@ fi
 
 print_info "Building OFB mock server..."
 if [ -f "ofb-mock-server/pom.xml" ]; then
-    (cd ofb-mock-server && JAVA_HOME=${JAVA_HOME:-$HOME/.sdkman/candidates/java/21.0.8-amzn} ../mvnw clean package -DskipTests -q) || {
+    (cd ofb-mock-server && JAVA_HOME="$JAVA_HOME" ../mvnw clean package -DskipTests -q) || {
         print_error "OFB mock server build failed"
         exit 1
     }
