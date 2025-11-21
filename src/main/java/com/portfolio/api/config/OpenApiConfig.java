@@ -199,8 +199,7 @@ public class OpenApiConfig {
                                         ### ADMIN (Acesso a todos os clientes)
 
                                         ```
-                                        Email: admin@demo.local
-                                        Senha: admin123
+                                        ID 999 │ admin@demo.local │ admin123 │ Multi-Cliente
                                         ```
 
                                         ---
