@@ -40,7 +40,7 @@ public class InvestmentHistoryController {
 
             ### Campos de cada investimento:
             - **id**: Identificador único do investimento
-            - **tipo**: Tipo do produto (CDB, LCI, LCA, TESOURO_DIRETO, FUNDO, DEBENTURE, ACAO, etc.)
+            - **tipo**: Tipo do produto (CDB, LCI, LCA, TESOURO_SELIC, RENDA_FIXA, ACOES, FII, CRI, etc.)
             - **emissor**: Instituição financeira emissora
             - **valorInvestido**: Valor originalmente aplicado
             - **valor**: Valor atual (após rendimentos e impostos)

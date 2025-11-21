@@ -43,7 +43,7 @@ public class SimulationRequest {
     @Schema(description = "Tipo de produto financeiro para simulação",
             example = "CDB",
             required = true,
-            allowableValues = {"CDB", "LCI", "LCA", "TESOURO_DIRETO", "FUNDO", "DEBENTURE"})
+            allowableValues = {"CDB", "RDB", "LCI", "LCA", "RENDA_FIXA", "ACOES", "MULTIMERCADO", "CAMBIAL", "FII", "TESOURO_SELIC", "TESOURO_PREFIXADO", "TESOURO_IPCA", "CRI", "CRA", "VARIABLE_INCOME"})
     @NotNull(message = "Requisição inválida")
     private TipoProduto tipoProduto;
 }

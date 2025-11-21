@@ -42,7 +42,7 @@ public class InvestmentSimulationController {
               - clienteId > 0
               - valor > 0 (positivo, não-nulo)
               - prazoMeses: 1-360 meses
-              - tipoProduto: enum válido (CDB, LCI, LCA, TESOURO_DIRETO, FUNDO, DEBENTURE)
+              - tipoProduto: enum válido (CDB, LCI, LCA, TESOURO_SELIC, RENDA_FIXA, CRI)
 
             ### 2. Busca de Produto Compatível
             - **Critérios de matching**:
@@ -98,9 +98,9 @@ public class InvestmentSimulationController {
             | CDB | 10-13% a.a. | Baixo-Médio | CDB Banco Pan 12% |
             | LCI | 9-11% a.a. | Baixo | LCI Bradesco 10% |
             | LCA | 9-11% a.a. | Baixo | LCA Santander 9.5% |
-            | TESOURO_DIRETO | 6-13% a.a. | Muito Baixo | Tesouro IPCA+ 2029 |
-            | FUNDO | 8-15% a.a. | Médio-Alto | Fundo DI XP |
-            | DEBENTURE | 12-16% a.a. | Alto | Debênture Light |
+            | TESOURO_SELIC | 6-13% a.a. | Muito Baixo | Tesouro Selic 2029 |
+            | RENDA_FIXA | 8-15% a.a. | Médio | Fundo DI XP |
+            | CRI | 12-16% a.a. | Alto | CRI Light Energia |
 
             </details>
 
@@ -204,7 +204,7 @@ public class InvestmentSimulationController {
                               "clienteId": 1,
                               "valor": 5000.00,
                               "prazoMeses": 6,
-                              "tipoProduto": "TESOURO_DIRETO"
+                              "tipoProduto": "TESOURO_SELIC"
                             }
                             """
                     ),
@@ -217,7 +217,7 @@ public class InvestmentSimulationController {
                               "clienteId": 1,
                               "valor": 100000.00,
                               "prazoMeses": 120,
-                              "tipoProduto": "TESOURO_DIRETO"
+                              "tipoProduto": "TESOURO_SELIC"
                             }
                             """
                     ),
@@ -230,7 +230,7 @@ public class InvestmentSimulationController {
                               "clienteId": 1,
                               "valor": 15000.00,
                               "prazoMeses": 12,
-                              "tipoProduto": "FUNDO"
+                              "tipoProduto": "RENDA_FIXA"
                             }
                             """
                     ),
