@@ -25,7 +25,29 @@ public class TelemetryController {
 
     @Operation(
         summary = "Consultar telemetria dos serviços",
-        description = "Retorna métricas de performance dos serviços, incluindo quantidade de chamadas e tempo médio de resposta"
+        description = """
+            Retorna métricas de performance dos serviços, incluindo quantidade de chamadas e tempo médio de resposta.
+
+            <details>
+            <summary><strong>Métricas Coletadas</strong> - Prometheus/Micrometer</summary>
+
+            ### Serviços Monitorados:
+            - **simular-investimento**: POST /simular-investimento
+            - **perfil-risco**: GET /perfil-risco/{clienteId}
+            - **investimentos**: GET /investimentos/{clienteId}
+            - **simulacoes**: GET /simulacoes
+            - **produtos-recomendados**: GET /produtos-recomendados/{perfil}
+
+            ### Métricas por Serviço:
+            - **quantidadeChamadas**: Total de requisições no período
+            - **mediaTempoRespostaMs**: Latência média em milissegundos
+
+            ### Fonte:
+            - Dados coletados via Micrometer/Prometheus
+            - Período configurável (padrão: últimos 30 dias)
+
+            </details>
+            """
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Telemetria obtida com sucesso",

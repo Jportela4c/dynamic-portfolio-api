@@ -32,7 +32,27 @@ public class InvestmentHistoryController {
 
     @Operation(
         summary = "Consultar histórico de investimentos",
-        description = "Retorna o histórico completo de investimentos realizados por um cliente"
+        description = """
+            Retorna o histórico completo de investimentos realizados por um cliente via Open Finance Brasil.
+
+            <details>
+            <summary><strong>Dados Retornados</strong> - Campos e origem dos dados</summary>
+
+            ### Campos de cada investimento:
+            - **id**: Identificador único do investimento
+            - **tipo**: Tipo do produto (CDB, LCI, LCA, TESOURO_DIRETO, FUNDO, DEBENTURE, ACAO, etc.)
+            - **emissor**: Instituição financeira emissora
+            - **valorInvestido**: Valor originalmente aplicado
+            - **valor**: Valor atual (após rendimentos e impostos)
+            - **rentabilidade**: Lucro/prejuízo = valor - valorInvestido
+            - **dataVencimento**: Data de vencimento (se aplicável)
+
+            ### Fonte de dados:
+            - Dados obtidos em tempo real via **Open Finance Brasil (OFB)**
+            - Consolidação de 5 categorias: Bank Fixed Incomes, Credit Fixed Incomes, Funds, Treasury Titles, Variable Incomes
+
+            </details>
+            """
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Histórico encontrado com sucesso",

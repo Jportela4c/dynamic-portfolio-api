@@ -28,7 +28,26 @@ public class SimulationController {
 
     @Operation(
         summary = "Listar simulações do usuário",
-        description = "Retorna o histórico de simulações do cliente autenticado"
+        description = """
+            Retorna o histórico de simulações realizadas pelo cliente autenticado.
+
+            <details>
+            <summary><strong>Dados Retornados</strong> - Histórico de simulações</summary>
+
+            ### Campos de cada simulação:
+            - **id**: Identificador único da simulação
+            - **produtoNome**: Nome do produto simulado
+            - **tipoProduto**: Tipo (CDB, LCI, LCA, etc.)
+            - **valorInvestido**: Valor inicial da simulação
+            - **valorFinal**: Valor calculado ao final do prazo
+            - **prazoMeses**: Prazo em meses
+            - **dataSimulacao**: Data/hora da simulação
+
+            ### Ordenação:
+            - Mais recentes primeiro (ORDER BY dataSimulacao DESC)
+
+            </details>
+            """
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Simulações encontradas com sucesso",
@@ -42,7 +61,26 @@ public class SimulationController {
 
     @Operation(
         summary = "Agregação diária de simulações",
-        description = "Retorna agregação de simulações por produto e dia para o cliente autenticado"
+        description = """
+            Retorna agregação de simulações por produto e dia para o cliente autenticado.
+
+            <details>
+            <summary><strong>Formato da Agregação</strong> - Agrupamento por produto e data</summary>
+
+            ### Campos de cada agregação:
+            - **data**: Data das simulações (formato: YYYY-MM-DD)
+            - **tipoProduto**: Tipo do produto (CDB, LCI, etc.)
+            - **quantidadeSimulacoes**: Total de simulações naquele dia/produto
+            - **valorTotalSimulado**: Soma dos valores simulados
+            - **valorMedioSimulado**: Média dos valores simulados
+
+            ### Uso:
+            - Dashboard de análise de comportamento
+            - Identificação de padrões de simulação
+            - Relatórios gerenciais
+
+            </details>
+            """
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Agregações encontradas com sucesso",

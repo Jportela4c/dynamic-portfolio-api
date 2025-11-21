@@ -31,7 +31,27 @@ public class ProductRecommendationController {
 
     @Operation(
         summary = "Consultar produtos recomendados",
-        description = "Retorna produtos de investimento recomendados para um perfil de risco específico"
+        description = """
+            Retorna produtos de investimento recomendados para um perfil de risco específico.
+
+            <details>
+            <summary><strong>Lógica de Recomendação</strong> - Mapeamento perfil → produtos</summary>
+
+            ### Perfis e Produtos Recomendados:
+
+            | Perfil | Produtos Típicos | Rentabilidade | Risco |
+            |--------|-----------------|---------------|-------|
+            | **Conservador** | CDB, LCI, LCA, Tesouro Selic | 9-12% a.a. | Baixo |
+            | **Moderado** | Fundos DI, Tesouro IPCA+, Debêntures | 10-14% a.a. | Médio |
+            | **Agressivo** | Ações, Fundos Multimercado, BDRs | 12-20% a.a. | Alto |
+
+            ### Critérios de Seleção:
+            - Produtos filtrados por `risco <= perfil.riscoMaximo`
+            - Ordenados por rentabilidade (maior primeiro)
+            - Limite de 10 produtos por consulta
+
+            </details>
+            """
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Produtos encontrados com sucesso",
