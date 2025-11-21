@@ -8,7 +8,7 @@ vars:
   DOCKER_MIN_VERSION: "20.10"
   DOCKER_COMPOSE_MIN_VERSION: "2.0"
   SERVER_PORT: '{{.SERVER_PORT | default "8080"}}'
-  MVNW: '{{if eq OS "windows"}}mvnw.cmd{{else}}./mvnw{{end}}'
+  MVNW: '{{if eq OS "windows"}}./mvnw.cmd{{else}}./mvnw{{end}}'
 
 tasks:
   default:
