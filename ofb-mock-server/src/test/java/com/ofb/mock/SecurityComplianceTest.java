@@ -22,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @QuarkusTest
 public class SecurityComplianceTest {
 
+    private static final String VALID_CLIENT_ID = "portfolio-api";
+
     /**
      * OFB Requirement: All ID tokens MUST be encrypted with JWE
      */
@@ -30,10 +32,11 @@ public class SecurityComplianceTest {
         // Complete OAuth2 flow
         Response parResponse = given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -44,7 +47,7 @@ public class SecurityComplianceTest {
 
         Response authResponse = given()
             .queryParam("request_uri", requestUri)
-            .queryParam("client_id", "test-client")
+            .queryParam("client_id", VALID_CLIENT_ID)
             .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
@@ -60,7 +63,7 @@ public class SecurityComplianceTest {
             .formParam("grant_type", "authorization_code")
             .formParam("code", code)
             .formParam("redirect_uri", "https://example.com/callback")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
         .when()
             .post("/oauth2/token")
         .then()
@@ -91,10 +94,11 @@ public class SecurityComplianceTest {
         // Complete OAuth2 flow
         Response parResponse = given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -105,7 +109,7 @@ public class SecurityComplianceTest {
 
         Response authResponse = given()
             .queryParam("request_uri", requestUri)
-            .queryParam("client_id", "test-client")
+            .queryParam("client_id", VALID_CLIENT_ID)
             .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
@@ -121,7 +125,7 @@ public class SecurityComplianceTest {
             .formParam("grant_type", "authorization_code")
             .formParam("code", code)
             .formParam("redirect_uri", "https://example.com/callback")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
         .when()
             .post("/oauth2/token")
         .then()
@@ -165,10 +169,11 @@ public class SecurityComplianceTest {
     public void testPARRequestUriFormat() {
         Response response = given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -207,7 +212,7 @@ public class SecurityComplianceTest {
         // Missing scope
         given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("redirect_uri", "https://example.com/callback")
         .when()
             .post("/oauth2/par")
@@ -226,7 +231,7 @@ public class SecurityComplianceTest {
             .formParam("grant_type", "authorization_code")
             .formParam("code", "INVALID_CODE_12345")
             .formParam("redirect_uri", "https://example.com/callback")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
         .when()
             .post("/oauth2/token")
         .then()
@@ -242,10 +247,11 @@ public class SecurityComplianceTest {
         // Get valid code
         Response parResponse = given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -256,7 +262,7 @@ public class SecurityComplianceTest {
 
         Response authResponse = given()
             .queryParam("request_uri", requestUri)
-            .queryParam("client_id", "test-client")
+            .queryParam("client_id", VALID_CLIENT_ID)
             .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
@@ -273,7 +279,7 @@ public class SecurityComplianceTest {
             .formParam("grant_type", "authorization_code")
             .formParam("code", code)
             .formParam("redirect_uri", "https://example.com/callback")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
         .when()
             .post("/oauth2/token")
         .then()
@@ -285,7 +291,7 @@ public class SecurityComplianceTest {
             .formParam("grant_type", "authorization_code")
             .formParam("code", code)
             .formParam("redirect_uri", "https://example.com/callback")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
         .when()
             .post("/oauth2/token")
         .then()
@@ -311,8 +317,8 @@ public class SecurityComplianceTest {
         JWKSet jwkSet = JWKSet.parse(jwksResponse.asString());
 
         // Verify we have signing keys available
-        assertTrue(jwkSet.getKeys().size() >= 2,
-            "JWKS must contain at least 2 keys (signing + encryption)");
+        assertTrue(jwkSet.getKeys().size() >= 3,
+            "JWKS must contain at least 3 keys (signing + encryption + JWS response signing)");
     }
 
     /**

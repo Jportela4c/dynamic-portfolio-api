@@ -169,10 +169,18 @@ public class OAuth2Service {
         );
         signedJWT.sign(signer);
 
-        // For mock/testing: return JWS only (not encrypted)
-        // In production OFB: would be nested JWE(JWS) for FAPI compliance
-        log.debug("Created signed ID token for client: {}", clientId);
-        return signedJWT.serialize();
+        // OFB requirement: Encrypt ID token with JWE (nested JWE(JWS))
+        JWEObject jweObject = new JWEObject(
+                new JWEHeader.Builder(JWEAlgorithm.RSA_OAEP, EncryptionMethod.A256GCM)
+                        .keyID(jweKeyId)
+                        .contentType("JWT")
+                        .build(),
+                new Payload(signedJWT)
+        );
+        jweObject.encrypt(encrypter);
+
+        log.debug("Created encrypted ID token (JWE) for client: {}", clientId);
+        return jweObject.serialize();
     }
 
     public RSAKey getSigningKey() {

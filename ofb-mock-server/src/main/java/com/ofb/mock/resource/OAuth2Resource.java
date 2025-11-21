@@ -188,19 +188,15 @@ public class OAuth2Resource {
 
             ## Formato da Resposta
 
-            Em produção, o navegador seria redirecionado para `redirect_uri?code=ABC123`.
+            Redireciona para `redirect_uri?code=ABC123` com status HTTP 303 (See Other).
 
-            Este mock retorna o código diretamente como JSON para facilitar testes server-to-server.
+            Este comportamento está conforme a especificação OAuth2 RFC 6749.
             """
     )
     @APIResponses({
         @APIResponse(
-            responseCode = "200",
-            description = "Código de autorização gerado",
-            content = @Content(
-                mediaType = MediaType.APPLICATION_JSON,
-                examples = @ExampleObject(value = "{\"code\":\"ABC123XYZ\"}")
-            )
+            responseCode = "303",
+            description = "Redirecionamento para redirect_uri com código de autorização"
         ),
         @APIResponse(responseCode = "400", description = "request_uri inválido ou expirado")
     })
@@ -232,10 +228,11 @@ public class OAuth2Resource {
         log.info("Mock: Auto-approving consent (simulating user approval)");
         String authCode = oauth2Service.createAuthorizationCode(requestUri);
 
-        // For server-to-server testing: return code directly as JSON
-        // Simulates the redirect being followed and callback being processed
-        // Production would redirect browser: 303 to redirect_uri?code=xyz
-        return Response.ok(Map.of("code", authCode)).build();
+        // OAuth2 spec: redirect to redirect_uri with code parameter
+        String redirectLocation = par.getRedirectUri() + "?code=" + authCode;
+        log.debug("Redirecting to: {}", redirectLocation);
+
+        return Response.seeOther(URI.create(redirectLocation)).build();
     }
 
     @POST

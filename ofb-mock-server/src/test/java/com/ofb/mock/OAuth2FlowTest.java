@@ -11,14 +11,17 @@ import static org.hamcrest.CoreMatchers.*;
 @QuarkusTest
 public class OAuth2FlowTest {
 
+    private static final String VALID_CLIENT_ID = "portfolio-api";
+
     @Test
     public void testPushedAuthorizationRequest() {
         given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -32,10 +35,11 @@ public class OAuth2FlowTest {
         // First create PAR
         Response parResponse = given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -47,7 +51,7 @@ public class OAuth2FlowTest {
         // Then authorize
         given()
             .queryParam("request_uri", requestUri)
-            .queryParam("client_id", "test-client")
+            .queryParam("client_id", VALID_CLIENT_ID)
             .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
@@ -61,10 +65,11 @@ public class OAuth2FlowTest {
         // Step 1: PAR
         Response parResponse = given()
             .contentType("application/x-www-form-urlencoded")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
             .formParam("scope", "investments:read")
             .formParam("redirect_uri", "https://example.com/callback")
             .formParam("response_type", "code")
+            .formParam("cpf_hint", "12345678901")
         .when()
             .post("/oauth2/par")
         .then()
@@ -76,7 +81,7 @@ public class OAuth2FlowTest {
         // Step 2: Authorize
         Response authResponse = given()
             .queryParam("request_uri", requestUri)
-            .queryParam("client_id", "test-client")
+            .queryParam("client_id", VALID_CLIENT_ID)
             .redirects().follow(false)
         .when()
             .get("/oauth2/authorize")
@@ -93,7 +98,7 @@ public class OAuth2FlowTest {
             .formParam("grant_type", "authorization_code")
             .formParam("code", code)
             .formParam("redirect_uri", "https://example.com/callback")
-            .formParam("client_id", "test-client")
+            .formParam("client_id", VALID_CLIENT_ID)
         .when()
             .post("/oauth2/token")
         .then()
@@ -126,6 +131,6 @@ public class OAuth2FlowTest {
         .then()
             .statusCode(200)
             .body("keys", notNullValue())
-            .body("keys.size()", equalTo(2));
+            .body("keys.size()", equalTo(3));
     }
 }
