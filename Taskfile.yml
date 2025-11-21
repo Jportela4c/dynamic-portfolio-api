@@ -1,10 +1,14 @@
 version: '3'
 
+set:
+  - pipefail
+
 vars:
   PROJECT_NAME: dynamic-portfolio-api
   DOCKER_MIN_VERSION: "20.10"
   DOCKER_COMPOSE_MIN_VERSION: "2.0"
   SERVER_PORT: '{{.SERVER_PORT | default "8080"}}'
+  MVNW: '{{if eq OS "windows"}}mvnw.cmd{{else}}./mvnw{{end}}'
 
 tasks:
   default:
@@ -84,11 +88,11 @@ tasks:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - |
-        if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ]; then
+        if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ] || [ -x ./mvnw.cmd ]; then
           echo "🔨 Building main API JAR..."
-          ./mvnw clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
+          {{.MVNW}} clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
           echo "🔨 Building OFB mock server JAR..."
-          cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
+          cd ofb-mock-server && {{.MVNW}} clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
           echo "🐳 Building Docker images (using pre-built JARs)..."
           docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . || (echo "❌ API Docker build failed!" && exit 1)
           docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server || (echo "❌ OFB Docker build failed!" && exit 1)
@@ -165,7 +169,7 @@ tasks:
   build-local:
     desc: Build JAR locally with Maven Wrapper (fast on Mac)
     cmds:
-      - ./mvnw clean package -Dmaven.test.skip=true
+      - '{{.MVNW}} clean package -Dmaven.test.skip=true'
 
   rebuild-api:
     desc: Build JAR locally and rebuild Docker API container (optimized for Mac)
@@ -174,7 +178,7 @@ tasks:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🔨 Building JAR locally..."
-      - ./mvnw clean package -Dmaven.test.skip=true
+      - '{{.MVNW}} clean package -Dmaven.test.skip=true'
       - echo "🐳 Rebuilding Docker image (fast local build)..."
       - docker build --no-cache -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
       - echo "🚀 Starting API container..."
@@ -192,9 +196,9 @@ tasks:
       - echo "🛑 Stopping all containers..."
       - docker compose down
       - echo "🔨 Building main API JAR..."
-      - ./mvnw clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
+      - '{{.MVNW}} clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)'
       - echo "🔨 Building OFB mock server JAR..."
-      - cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
+      - cd ofb-mock-server && {{.MVNW}} clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
       - echo "🐳 Rebuilding Docker images (fast local build)..."
       - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
       - docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server
