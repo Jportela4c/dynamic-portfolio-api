@@ -68,6 +68,7 @@ springdoc:
     displayRequestDuration: true
     tryItOutEnabled: true
     filter: false  # Disable automatic filtering/searching
+    persistAuthorization: false  # Don't persist OAuth state across reloads
     oauth:
       client-id: portfolio-web-app
       client-secret: webapp-secret  # Plaintext - Spring encodes automatically

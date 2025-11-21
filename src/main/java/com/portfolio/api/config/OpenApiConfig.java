@@ -100,6 +100,13 @@ public class OpenApiConfig {
 
                                 ### Passo 4: Clique em "Authorize" e comece a testar
 
+                                ### Para trocar de usuário ou re-autenticar:
+                                1. Clique no cadeado (lock icon)
+                                2. Clique **"Logout"** no dialog do Swagger
+                                3. Depois clique **"Authorize"** novamente
+
+                                > **Importante:** Apenas fechar o dialog NÃO limpa a sessão do Swagger!
+
                                 ---
 
                                 ## Endpoints da API (conforme especificação)
