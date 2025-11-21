@@ -39,7 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain resourceServerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/oauth2/**", "/.well-known/**").permitAll()
+                        .requestMatchers("/login", "/oauth2/**", "/.well-known/**").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
