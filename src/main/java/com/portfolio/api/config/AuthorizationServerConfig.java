@@ -62,6 +62,7 @@ public class AuthorizationServerConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize.anyRequest().authenticated()
                 )
+                .formLogin(Customizer.withDefaults())
                 .exceptionHandling((exceptions) -> exceptions
                         .defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
