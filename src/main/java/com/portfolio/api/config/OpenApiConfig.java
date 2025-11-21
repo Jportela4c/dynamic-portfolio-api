@@ -26,83 +26,120 @@ public class OpenApiConfig {
                         .description("""
                                 Sistema de simulação de investimentos para produtos financeiros brasileiros.
 
-                                ## Quick Start
+                                <details>
+                                <summary><strong>Como usar esta API (Desenvolvimento)</strong> - Passo a passo para autenticação</summary>
 
-                                1. Clique em **Authorize** acima
-                                2. Selecione todos os scopes
-                                3. Login: `joao.silva@example.com` / `customer123`
-                                4. Teste os endpoints!
+                                ### Passo 1: Clique no botão "Authorize" acima
 
-                                ---
+                                ### Passo 2: Selecione os scopes desejados
+
+                                - **read** - Consultar dados (perfil de risco, investimentos)
+                                - **write** - Criar simulações
+                                - **openid** - OpenID Connect (recomendado)
+                                - **profile** - Informações do perfil do usuário
+
+                                > **Dica:** Selecione todos os scopes para acesso completo.
+
+                                ### Passo 3: Entre com suas credenciais
+
+                                ### Passo 4: Clique em "Authorize" e comece a testar
+
+                                </details>
 
                                 <details>
                                 <summary><strong>Credenciais de Teste</strong> - Admin + 5 clientes com diferentes perfis</summary>
 
-                                ### ADMIN (Dev Only)
-                                | Email | Senha | ID |
-                                |-------|-------|-----|
-                                | `admin@demo.local` | `admin123` | 999 |
+                                ### ADMIN (Acesso Multi-Cliente - Dev Only)
+                                - **Email:** `admin@demo.local`
+                                - **Senha:** `admin123`
+                                - **Cliente ID:** 999
+                                - **Permissões:** Acesso a TODOS os clientes
 
-                                ### CLIENTES
+                                ---
 
-                                | ID | Email | Senha | Perfil |
-                                |----|-------|-------|--------|
-                                | 1 | `joao.silva@example.com` | `customer123` | Conservador |
-                                | 2 | `maria.santos@example.com` | `customer123` | Moderado |
-                                | 3 | `pedro.costa@example.com` | `customer123` | Agressivo |
-                                | 4 | `ana.oliveira@example.com` | `customer123` | Conservador |
-                                | 5 | `carlos.lima@example.com` | `customer123` | Agressivo |
+                                ### CLIENTES (Acesso Próprio Apenas)
 
-                                > Client ID e Secret preenchidos automaticamente.
+                                #### Cliente 1: João Silva (Perfil: CONSERVADOR)
+                                - **Email:** `joao.silva@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 1
+                                - **CPF:** 12345678901
+                                - **Investimentos:** 12 aplicações (R$ 85.000)
+                                - **Características:** Baixo volume, produtos de baixo risco (CDB, Tesouro Selic, LCI/LCA)
 
-                                </details>
+                                #### Cliente 2: Maria Santos (Perfil: MODERADO)
+                                - **Email:** `maria.santos@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 2
+                                - **CPF:** 98765432109
+                                - **Investimentos:** 18 aplicações (R$ 156.000)
+                                - **Características:** Volume médio, mix de renda fixa e fundos conservadores
 
-                                <details>
-                                <summary><strong>Detalhes dos Clientes</strong> - CPF, qtd investimentos, patrimônio</summary>
+                                #### Cliente 3: Pedro Costa (Perfil: AGRESSIVO)
+                                - **Email:** `pedro.costa@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 3
+                                - **CPF:** 11122233344
+                                - **Investimentos:** 20 aplicações (R$ 320.000)
+                                - **Características:** Alto volume, produtos de maior risco (ações, fundos multimercado)
 
-                                | Cliente | CPF | Investimentos | Patrimônio |
-                                |---------|-----|---------------|------------|
-                                | João Silva | 12345678901 | 12 apps | R$ 85k |
-                                | Maria Santos | 98765432109 | 18 apps | R$ 156k |
-                                | Pedro Costa | 11122233344 | 20 apps | R$ 320k |
-                                | Ana Oliveira | 55566677788 | 10 apps | R$ 42k |
-                                | Carlos Lima | 99988877766 | 12 apps | R$ 510k |
+                                #### Cliente 4: Ana Oliveira (Perfil: CONSERVADOR)
+                                - **Email:** `ana.oliveira@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 4
+                                - **CPF:** 55566677788
+                                - **Investimentos:** 10 aplicações (R$ 42.000)
+                                - **Características:** Baixo volume, produtos seguros (Tesouro Direto, LCI)
 
-                                </details>
+                                #### Cliente 5: Carlos Lima (Perfil: AGRESSIVO)
+                                - **Email:** `carlos.lima@example.com`
+                                - **Senha:** `customer123`
+                                - **Cliente ID:** 5
+                                - **CPF:** 99988877766
+                                - **Investimentos:** 12 aplicações (R$ 510.000)
+                                - **Características:** Alto volume, produtos de alto risco (ações, debêntures)
 
-                                <details>
-                                <summary><strong>Como trocar de usuário</strong> - Logout e re-autenticação</summary>
-
-                                1. Clique no cadeado
-                                2. Clique **"Logout"**
-                                3. Clique **"Authorize"** novamente
-
-                                > Apenas fechar o dialog NÃO limpa a sessão!
-
-                                </details>
-
-                                <details>
-                                <summary><strong>Endpoints da API</strong> - Simulação, Histórico, Perfil, Telemetria</summary>
-
-                                ### Simulação
-                                - `POST /simular-investimento` - Simular investimento
-
-                                ### Histórico
-                                - `GET /simulacoes` - Listar simulações
-                                - `GET /simulacoes/por-produto-dia` - Agregação diária
-                                - `GET /investimentos/{clienteId}` - Investimentos OFB
-
-                                ### Perfil de Risco
-                                - `GET /perfil-risco/{clienteId}` - Perfil dinâmico
-                                - `GET /produtos-recomendados/{perfil}` - Recomendações
-
-                                ### Telemetria
-                                - `GET /telemetria` - Métricas de performance
+                                > **Nota:** Client ID e Secret são preenchidos automaticamente.
 
                                 </details>
 
                                 <details>
-                                <summary><strong>Funcionalidades do Sistema</strong> - Simulação, Perfil de Risco, OFB...</summary>
+                                <summary><strong>Para trocar de usuário ou re-autenticar</strong> - Logout e re-login</summary>
+
+                                1. Clique no cadeado (lock icon)
+                                2. Clique **"Logout"** no dialog do Swagger
+                                3. Depois clique **"Authorize"** novamente
+
+                                > **Importante:** Apenas fechar o dialog NÃO limpa a sessão do Swagger!
+
+                                </details>
+
+                                ---
+
+                                <details>
+                                <summary><strong>Endpoints da API</strong> - Simulação, Histórico, Perfil de Risco, Telemetria</summary>
+
+                                ## Endpoints da API (conforme especificação)
+
+                                ### 1. Simulação de Investimentos
+                                - **POST /simular-investimento** - Simular investimento com valor, prazo e tipo
+
+                                ### 2. Histórico
+                                - **GET /simulacoes** - Listar todas as simulações realizadas
+                                - **GET /simulacoes/por-produto-dia** - Agregação diária por produto
+                                - **GET /investimentos/{clienteId}** - Histórico de investimentos do cliente (via OFB)
+
+                                ### 3. Perfil de Risco
+                                - **GET /perfil-risco/{clienteId}** - Perfil de risco dinâmico do cliente
+                                - **GET /produtos-recomendados/{perfil}** - Produtos recomendados por perfil
+
+                                ### 4. Telemetria
+                                - **GET /telemetria** - Métricas de volume e performance dos serviços
+
+                                </details>
+
+                                <details>
+                                <summary><strong>Funcionalidades</strong> - Simulação, Perfilamento, Recomendação, OFB</summary>
 
                                 - Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
                                 - Perfilamento dinâmico de risco baseado em comportamento real
@@ -113,20 +150,42 @@ public class OpenApiConfig {
                                 </details>
 
                                 <details>
-                                <summary><strong>Integração Open Finance Brasil</strong> - 5 categorias, mock server...</summary>
+                                <summary><strong>Integração Open Finance Brasil (OFB)</strong> - 5 categorias, dados retornados, exemplo</summary>
 
-                                ### Categorias de Investimentos OFB
+                                Esta API integra com o padrão Open Finance Brasil para buscar dados reais de investimentos:
+
+                                ### 5 Categorias de Investimentos OFB:
                                 - **Bank Fixed Incomes** - CDB, LCI, LCA, RDB
                                 - **Credit Fixed Incomes** - Debêntures, CRI, CRA
-                                - **Funds** - Fundos RF, Ações, Multimercado
+                                - **Funds** - Fundos de Renda Fixa, Ações, Multimercado
                                 - **Treasury Titles** - Tesouro Selic, IPCA+, Prefixado
                                 - **Variable Incomes** - Ações, BDRs, ETFs
 
-                                ### Servidor Mock OFB
-                                72 investimentos + 436 transações (json-schema-faker)
+                                ### Dados Retornados:
+                                - **valor** - Valor atual do investimento (netAmount após impostos)
+                                - **valorInvestido** - Valor originalmente investido
+                                - **rentabilidade** - Lucro/prejuízo = valor - valorInvestido
+                                - **emissor** - Instituição emissora
+                                - **dataVencimento** - Data de vencimento (se aplicável)
 
-                                - [Swagger UI OFB](http://localhost:8089/q/swagger-ui)
-                                - [OpenAPI Spec](http://localhost:8089/q/openapi)
+                                ### Exemplo de Resposta:
+                                ```json
+                                {
+                                  "id": 123456,
+                                  "tipo": "LCA",
+                                  "emissor": "Banco XYZ",
+                                  "valorInvestido": 15814.95,
+                                  "valor": 20116.19,
+                                  "rentabilidade": 4301.24,
+                                  "dataVencimento": "2025-12-31"
+                                }
+                                ```
+
+                                ### Servidor Mock OFB:
+                                O projeto inclui um servidor mock completo com 72 investimentos e 436 transações geradas com dados realistas (json-schema-faker).
+
+                                - [Swagger UI OFB Mock](http://localhost:8089/q/swagger-ui)
+                                - [OpenAPI Spec OFB Mock](http://localhost:8089/q/openapi)
 
                                 </details>
 
@@ -141,10 +200,8 @@ public class OpenApiConfig {
                                 .description("""
                                         OAuth2 Authorization Code Flow
 
-                                        **Quick:** `joao.silva@example.com` / `customer123`
-
                                         <details>
-                                        <summary><strong>Todas as Credenciais</strong> - 5 clientes + admin</summary>
+                                        <summary><strong>Credenciais de Teste</strong> - Clientes e Admin</summary>
 
                                         #### CLIENTES
 
@@ -164,7 +221,7 @@ public class OpenApiConfig {
 
                                         </details>
 
-                                        *Client ID/Secret preenchidos automaticamente*
+                                        *Client ID e Secret são preenchidos automaticamente*
                                         """)
                                 .flows(new OAuthFlows()
                                         .authorizationCode(new OAuthFlow()
