@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,8 +27,8 @@ public class SimulationController {
     }
 
     @Operation(
-        summary = "Listar todas as simulações",
-        description = "Retorna o histórico completo de todas as simulações realizadas"
+        summary = "Listar simulações do usuário",
+        description = "Retorna o histórico de simulações do cliente autenticado"
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Simulações encontradas com sucesso",
@@ -41,7 +42,7 @@ public class SimulationController {
 
     @Operation(
         summary = "Agregação diária de simulações",
-        description = "Retorna agregação de simulações por produto e dia, incluindo quantidade e média de valor final"
+        description = "Retorna agregação de simulações por produto e dia para o cliente autenticado"
     )
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Agregações encontradas com sucesso",

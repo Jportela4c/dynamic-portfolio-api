@@ -45,7 +45,7 @@ public class InvestmentHistoryController {
     @PreAuthorize("@authorizationValidator.canAccessCustomer(authentication, #clienteId)")
     @GetMapping("/investimentos/{clienteId}")
     public ResponseEntity<List<InvestmentResponse>> getInvestmentHistory(
-        @Parameter(description = "ID do cliente", example = "123", required = true)
+        @Parameter(description = "ID do cliente", example = "1", required = true)
         @Positive(message = "ID do cliente inválido")
         @PathVariable Long clienteId) {
 

@@ -131,7 +131,7 @@ public class RiskProfileController {
     @PreAuthorize("@authorizationValidator.canAccessCustomer(authentication, #clienteId)")
     @GetMapping("/perfil-risco/{clienteId}")
     public ResponseEntity<RiskProfileResponse> getRiskProfile(
-        @Parameter(description = "ID do cliente", example = "123", required = true)
+        @Parameter(description = "ID do cliente", example = "1", required = true)
         @PathVariable Long clienteId) {
 
         // Authorization already validated by @PreAuthorize!

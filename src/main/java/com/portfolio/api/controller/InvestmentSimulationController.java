@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -127,9 +128,12 @@ public class InvestmentSimulationController {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = SimulationResponse.class))),
         @ApiResponse(responseCode = "400", description = "Dados inválidos na requisição",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ValidationErrorResponse.class))),
+        @ApiResponse(responseCode = "403", description = "Acesso negado - usuário não autorizado a simular para este cliente",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class))),
         @ApiResponse(responseCode = "404", description = "Produto não encontrado para os parâmetros informados",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = com.portfolio.api.model.dto.response.ErrorResponse.class)))
     })
+    @PreAuthorize("@authorizationValidator.canAccessCustomer(authentication, #request.clienteId)")
     @PostMapping("/simular-investimento")
     public ResponseEntity<SimulationResponse> simulateInvestment(
         @io.swagger.v3.oas.annotations.parameters.RequestBody(
