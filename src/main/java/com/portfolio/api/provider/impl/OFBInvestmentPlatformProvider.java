@@ -111,6 +111,9 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
                 .rentabilidade(rentabilidade.setScale(2, RoundingMode.HALF_UP))
                 .data(LocalDate.now())
                 .nomeProduto(data.getIssuerName() != null ? data.getIssuerName() : data.getType())
+                .transactionCount(data.getTransactionCount())
+                .firstTransactionDate(data.getFirstTransactionDate())
+                .lastTransactionDate(data.getLastTransactionDate())
                 .build();
     }
 

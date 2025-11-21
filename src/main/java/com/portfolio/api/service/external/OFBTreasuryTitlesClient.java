@@ -15,4 +15,9 @@ public interface OFBTreasuryTitlesClient {
     String getInvestmentDetail(
             @RequestHeader("Authorization") String authorization,
             @PathVariable("investmentId") String investmentId);
+
+    @GetExchange("/investments/{investmentId}/transactions")
+    String getInvestmentTransactions(
+            @RequestHeader("Authorization") String authorization,
+            @PathVariable("investmentId") String investmentId);
 }

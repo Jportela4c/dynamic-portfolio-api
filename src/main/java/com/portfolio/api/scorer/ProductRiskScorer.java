@@ -7,6 +7,17 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Calculates product risk score based on investment type preferences.
+ * <p>
+ * THE SPEC Requirement: "Preferência por liquidez ou rentabilidade"
+ * - Analyzes actual product choices (not simulations)
+ * - Uses weighted average based on investment amounts
+ * <p>
+ * Implementation based on improvement plan (04-risk-engine-improvement-plan.md)
+ * Risk levels based on ANBIMA Product Classification
+ * Reference: https://www.anbima.com.br/en_us/informar/classificacao-de-fundos.htm
+ */
 @Component
 public class ProductRiskScorer {
 

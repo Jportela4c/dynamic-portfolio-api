@@ -30,12 +30,13 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RiskProfileService {
 
+    // Factor weights based on improvement plan (04-risk-engine-improvement-plan.md)
     private static final Map<String, Double> FACTOR_WEIGHTS = Map.of(
-            "amount", 0.25,
-            "frequency", 0.20,
-            "product_risk", 0.30,
-            "liquidity", 0.15,
-            "horizon", 0.10
+            "amount", 0.25,          // Investment Volume
+            "frequency", 0.20,       // Transaction Frequency
+            "product_risk", 0.30,    // Product Risk Preference (THE SPEC: "Preferência por liquidez ou rentabilidade")
+            "liquidity", 0.15,       // Liquidity Preference
+            "horizon", 0.10          // Investment Horizon
     );
 
     private final AmountScorer amountCalculator;
@@ -60,7 +61,7 @@ public class RiskProfileService {
         int amountScore = amountCalculator.calculateAmountScore(investments);
         int frequencyScore = frequencyCalculator.calculateFrequencyScore(investments);
         int productRiskScore = productRiskCalculator.calculateProductRiskScore(investments);
-        int liquidityScore = liquidityCalculator.calculateLiquidityScore(clienteId);
+        int liquidityScore = liquidityCalculator.calculateLiquidityScore(investments);
         int horizonScore = horizonCalculator.calculateHorizonScore(investments);
 
         int totalScore = (int) Math.round(

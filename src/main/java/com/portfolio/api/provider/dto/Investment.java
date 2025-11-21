@@ -25,4 +25,9 @@ public class Investment {
     private BigDecimal rentabilidade;
     private LocalDate data;
     private String nomeProduto;
+
+    // Transaction frequency data (THE SPEC requirement: "Frequência de movimentações")
+    private Integer transactionCount;
+    private LocalDate firstTransactionDate;
+    private LocalDate lastTransactionDate;
 }
