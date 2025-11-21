@@ -89,11 +89,6 @@ tasks:
     cmds:
       - |
         BUILD_SUCCESS=false
-
-        # Generate SSL certificates for OFB mock server
-        echo "🔐 Generating SSL certificates..."
-        cd ofb-mock-server && bash generate-certs.sh && cd .. || echo "⚠️  Certificate generation failed, will try without certs"
-
         if [ -x ./mvnw ] || [ -x ./mvnw.cmd ]; then
           echo "🔨 Building main API JAR..."
           if {{.MVNW}} clean package -Dmaven.test.skip=true; then
@@ -212,11 +207,6 @@ tasks:
       - docker compose down
       - |
         BUILD_SUCCESS=false
-
-        # Generate SSL certificates for OFB mock server
-        echo "🔐 Generating SSL certificates..."
-        cd ofb-mock-server && bash generate-certs.sh && cd .. || echo "⚠️  Certificate generation failed, will try without certs"
-
         echo "🔨 Building main API JAR..."
         if {{.MVNW}} clean package -Dmaven.test.skip=true; then
           echo "🔨 Building OFB mock server JAR..."
