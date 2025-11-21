@@ -78,13 +78,23 @@ tasks:
         fi
 
   docker-up:
-    desc: Start all Docker containers
+    desc: Start all Docker containers (builds locally if Maven available, otherwise Docker builds)
     silent: true
     env:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
-      - echo "🚀 Building application..."
-      - docker compose build --pull || (echo "❌ Build failed! Check Docker is running." && exit 1)
+      - |
+        if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ]; then
+          echo "🔨 Building JARs locally (fast)..."
+          ./mvnw clean package -Dmaven.test.skip=true -q || (echo "❌ Local build failed!" && exit 1)
+          cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -Dmaven.test.skip=true -q && cd .. || (echo "❌ OFB build failed!" && exit 1)
+          echo "🐳 Building Docker images (using pre-built JARs)..."
+          docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . || (echo "❌ API Docker build failed!" && exit 1)
+          docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server || (echo "❌ OFB Docker build failed!" && exit 1)
+        else
+          echo "🐳 Building application (multi-stage, compiles inside Docker)..."
+          docker compose build --pull || (echo "❌ Build failed! Check Docker is running." && exit 1)
+        fi
       - echo "🚀 Starting Docker containers..."
       - docker compose up -d --wait --force-recreate || (echo "❌ Container startup failed! Showing logs:" && docker compose logs --tail=50 && exit 1)
       - echo "✅ All services are running"
@@ -152,7 +162,7 @@ tasks:
   build-local:
     desc: Build JAR locally with Maven Wrapper (fast on Mac)
     cmds:
-      - ./mvnw clean package -DskipTests
+      - ./mvnw clean package -Dmaven.test.skip=true
 
   rebuild-api:
     desc: Build JAR locally and rebuild Docker API container (optimized for Mac)
@@ -160,9 +170,9 @@ tasks:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🔨 Building JAR locally..."
-      - ./mvnw clean package -DskipTests 2>&1 | grep -E "(Building|SUCCESS|ERROR|WARNING|Tests run)" | tail -20
-      - echo "🐳 Rebuilding Docker image..."
-      - docker compose build --no-cache api 2>&1 | grep -E "(Step|Successfully|ERROR|WARNING)" | tail -20
+      - ./mvnw clean package -Dmaven.test.skip=true 2>&1 | grep -E "(Building|SUCCESS|ERROR|WARNING|Tests run)" | tail -20
+      - echo "🐳 Rebuilding Docker image (fast local build)..."
+      - docker build --no-cache -t dynamic-portfolio-api-api:latest -f Dockerfile.local . 2>&1 | grep -E "(Step|Successfully|ERROR|WARNING)" | tail -20
       - echo "🚀 Starting API container..."
       - docker compose up -d api
       - sleep 2
@@ -170,18 +180,19 @@ tasks:
       - docker logs portfolio-api --tail 100 -f 2>&1 | grep -v "GET /actuator/health"
 
   rebuild-all:
-    desc: Rebuild both APIs (main + OFB mock) and restart all Docker services
+    desc: Rebuild both APIs (main + OFB mock) and restart all Docker services (fast local build)
     env:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - echo "🛑 Stopping all containers..."
       - docker compose down
       - echo "🔨 Building main API JAR locally..."
-      - ./mvnw clean package -DskipTests -q
+      - ./mvnw clean package -Dmaven.test.skip=true -q
       - echo "🔨 Building OFB mock server JAR..."
-      - cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -DskipTests -q && cd ..
-      - echo "🐳 Rebuilding all Docker images..."
-      - docker compose build
+      - cd ofb-mock-server && JAVA_HOME=/Users/victor/.sdkman/candidates/java/21.0.8-amzn ../mvnw clean package -Dmaven.test.skip=true -q && cd ..
+      - echo "🐳 Rebuilding Docker images (fast local build)..."
+      - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
+      - docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server
       - echo "🚀 Starting all services..."
       - docker compose up -d --wait
       - echo "✅ All services rebuilt and started successfully!"

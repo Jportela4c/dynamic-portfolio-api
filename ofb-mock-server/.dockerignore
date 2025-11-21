@@ -1,6 +1,6 @@
 # Build artifacts (will be built inside Docker)
 target/
-!target/*.jar
+!target/quarkus-app/
 
 # IDE
 .idea/
@@ -15,15 +15,9 @@ target/
 # Docker
 Dockerfile*
 .dockerignore
-docker-compose*.yml
 
 # Docs
 *.md
-local-docs/
-
-# Test data
-postman/
-monitoring/
 
 # OS
 .DS_Store

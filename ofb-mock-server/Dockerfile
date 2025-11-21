@@ -1,11 +1,30 @@
+# Stage 1: Build
+FROM amazoncorretto:21-alpine AS builder
+WORKDIR /build
+
+# Copy Maven wrapper and pom.xml
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+
+# Download dependencies (cached layer)
+RUN ./mvnw dependency:go-offline -q
+
+# Copy source code and OpenAPI specs
+COPY src src
+
+# Build the Quarkus app
+RUN ./mvnw clean package -DskipTests -q
+
+# Stage 2: Runtime
 FROM amazoncorretto:21-alpine
 WORKDIR /app
 
-# Copy pre-built JAR from local build (mvnw clean package)
-COPY target/quarkus-app/lib/ ./lib/
-COPY target/quarkus-app/*.jar ./
-COPY target/quarkus-app/app/ ./app/
-COPY target/quarkus-app/quarkus/ ./quarkus/
+# Copy Quarkus app from builder stage
+COPY --from=builder /build/target/quarkus-app/lib/ ./lib/
+COPY --from=builder /build/target/quarkus-app/*.jar ./
+COPY --from=builder /build/target/quarkus-app/app/ ./app/
+COPY --from=builder /build/target/quarkus-app/quarkus/ ./quarkus/
 
 EXPOSE 8089 8443
 

@@ -47,7 +47,10 @@ services:
       - ./src/main/resources/db/migration:/flyway/sql
 
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile  # Multi-stage build (compiles inside Docker, foolproof)
+      # For fast local builds: task rebuild-api (uses Dockerfile.local)
     container_name: portfolio-api
     depends_on:
       flyway:
@@ -77,7 +80,10 @@ services:
       start_period: 10s
 
   ofb-mock-server:
-    build: ./ofb-mock-server
+    build:
+      context: ./ofb-mock-server
+      dockerfile: Dockerfile  # Multi-stage build (compiles inside Docker, foolproof)
+      # For fast local builds: task rebuild-all (uses Dockerfile.local)
     container_name: ofb-mock-server
     environment:
       - OAUTH_ISSUER=https://ofb-mock-server:8443
