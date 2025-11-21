@@ -1,21 +1,77 @@
 {
   "73677831148": [],
   "96846726756": [],
+  "74979890814": [],
   "25791178816": [
     {
       "brandName": "Emissor XYZ S.A.",
       "companyCnpj": "12345678000190",
       "investmentType": "DEBENTURE",
-      "investmentId": "DEB-25791178816-001"
+      "investmentId": "DEB-25791178816-001",
+      "details": {
+        "issuerInstitutionCnpjNumber": "12345678000190",
+        "issuerInstitutionName": "XYZ INFRAESTRUTURA S.A.",
+        "isinCode": "BRXYZD000001",
+        "dueDate": "2030-12-15",
+        "issueDate": "2023-12-15",
+        "purchaseDate": "2023-12-20",
+        "purchaseValue": {
+          "amount": 50000.0,
+          "currency": "BRL"
+        },
+        "grossAmount": {
+          "amount": 56800.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 55780.0,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 1020.0,
+          "currency": "BRL"
+        },
+        "quantity": 50,
+        "indexer": "IPCA",
+        "rate": 0.06,
+        "indexerAdditionalInfo": "IPCA + 6,00% a.a."
+      }
     }
   ],
-  "74979890814": [],
   "17418143834": [
     {
       "brandName": "Securitizadora ABC",
       "companyCnpj": "98765432000110",
       "investmentType": "CRI",
-      "investmentId": "CRI-17418143834-001"
+      "investmentId": "CRI-17418143834-001",
+      "details": {
+        "issuerInstitutionCnpjNumber": "98765432000110",
+        "issuerInstitutionName": "ABC SECURITIZADORA",
+        "isinCode": "BRABCCRI0001",
+        "dueDate": "2032-06-30",
+        "issueDate": "2022-06-30",
+        "purchaseDate": "2022-07-10",
+        "purchaseValue": {
+          "amount": 100000.0,
+          "currency": "BRL"
+        },
+        "grossAmount": {
+          "amount": 121000.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 121000.0,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 0.0,
+          "currency": "BRL"
+        },
+        "quantity": 100,
+        "indexer": "IPCA",
+        "rate": 0.07,
+        "indexerAdditionalInfo": "IPCA + 7,00% a.a."
+      }
     }
   ]
 }

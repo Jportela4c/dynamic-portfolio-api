@@ -5,7 +5,33 @@
       "brandName": "Banco CAIXA",
       "companyCnpj": "00360305000104",
       "investmentType": "MULTIMERCADO",
-      "investmentId": "FUND-96846726756-001"
+      "investmentId": "FUND-96846726756-001",
+      "details": {
+        "cnpjNumber": "12345678000190",
+        "issuerInstitutionName": "CAIXA FIC MULTIMERCADO",
+        "purchaseDate": "2023-04-10",
+        "quantity": 9523.81,
+        "grossAmount": {
+          "amount": 11840.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 11562.0,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 278.0,
+          "currency": "BRL"
+        },
+        "quotaGrossValue": {
+          "amount": 1.243,
+          "currency": "BRL"
+        },
+        "quotaNetValue": {
+          "amount": 1.214,
+          "currency": "BRL"
+        }
+      }
     }
   ],
   "25791178816": [
@@ -13,7 +39,33 @@
       "brandName": "Banco CAIXA",
       "companyCnpj": "00360305000104",
       "investmentType": "ACOES",
-      "investmentId": "FUND-25791178816-001"
+      "investmentId": "FUND-25791178816-001",
+      "details": {
+        "cnpjNumber": "98765432000110",
+        "issuerInstitutionName": "CAIXA FIC AÇÕES",
+        "purchaseDate": "2022-06-15",
+        "quantity": 14285.71,
+        "grossAmount": {
+          "amount": 38571.43,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 37795.71,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 775.72,
+          "currency": "BRL"
+        },
+        "quotaGrossValue": {
+          "amount": 2.7,
+          "currency": "BRL"
+        },
+        "quotaNetValue": {
+          "amount": 2.646,
+          "currency": "BRL"
+        }
+      }
     }
   ],
   "74979890814": [],
@@ -22,7 +74,33 @@
       "brandName": "Banco CAIXA",
       "companyCnpj": "00360305000104",
       "investmentType": "IMOBILIARIO",
-      "investmentId": "FUND-17418143834-001"
+      "investmentId": "FUND-17418143834-001",
+      "details": {
+        "cnpjNumber": "11223344000155",
+        "issuerInstitutionName": "CAIXA FII LOGÍSTICA",
+        "purchaseDate": "2021-03-20",
+        "quantity": 5000,
+        "grossAmount": {
+          "amount": 58500.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 58500.0,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 0.0,
+          "currency": "BRL"
+        },
+        "quotaGrossValue": {
+          "amount": 11.7,
+          "currency": "BRL"
+        },
+        "quotaNetValue": {
+          "amount": 11.7,
+          "currency": "BRL"
+        }
+      }
     }
   ]
 }

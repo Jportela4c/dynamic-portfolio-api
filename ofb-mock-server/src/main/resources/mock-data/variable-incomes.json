@@ -1,21 +1,79 @@
 {
   "73677831148": [],
   "96846726756": [],
+  "74979890814": [],
   "25791178816": [
     {
       "brandName": "Corretora CAIXA",
       "companyCnpj": "00360305000104",
       "investmentType": "ACAO",
-      "investmentId": "PETR4-25791178816-001"
+      "investmentId": "PETR4-25791178816-001",
+      "details": {
+        "brokerCnpjNumber": "00360305000104",
+        "brokerName": "CAIXA CORRETORA",
+        "ticker": "PETR4",
+        "companyName": "PETROBRAS PN",
+        "isinCode": "BRPETRACNPR6",
+        "purchaseDate": "2023-02-10",
+        "quantity": 500,
+        "purchaseUnitPrice": {
+          "amount": 30.0,
+          "currency": "BRL"
+        },
+        "currentUnitPrice": {
+          "amount": 38.5,
+          "currency": "BRL"
+        },
+        "grossAmount": {
+          "amount": 19250.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 18981.5,
+          "currency": "BRL"
+        },
+        "tradingTax": {
+          "amount": 268.5,
+          "currency": "BRL"
+        }
+      }
     }
   ],
-  "74979890814": [],
   "17418143834": [
     {
       "brandName": "Corretora CAIXA",
       "companyCnpj": "00360305000104",
       "investmentType": "ETF",
-      "investmentId": "BOVA11-17418143834-001"
+      "investmentId": "BOVA11-17418143834-001",
+      "details": {
+        "brokerCnpjNumber": "00360305000104",
+        "brokerName": "CAIXA CORRETORA",
+        "ticker": "BOVA11",
+        "companyName": "ISHARES IBOVESPA",
+        "isinCode": "BRBOVASPNBR8",
+        "purchaseDate": "2021-08-15",
+        "quantity": 250,
+        "purchaseUnitPrice": {
+          "amount": 120.0,
+          "currency": "BRL"
+        },
+        "currentUnitPrice": {
+          "amount": 134.8,
+          "currency": "BRL"
+        },
+        "grossAmount": {
+          "amount": 33700.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 33190.0,
+          "currency": "BRL"
+        },
+        "tradingTax": {
+          "amount": 510.0,
+          "currency": "BRL"
+        }
+      }
     }
   ]
 }

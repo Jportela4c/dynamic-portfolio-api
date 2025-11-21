@@ -4,7 +4,33 @@
       "brandName": "Tesouro Nacional",
       "companyCnpj": "00394460005887",
       "investmentType": "TESOURO_SELIC",
-      "investmentId": "SELIC-73677831148-001"
+      "investmentId": "SELIC-73677831148-001",
+      "details": {
+        "isinCode": "BRTSELSCTF9",
+        "dueDate": "2026-03-01",
+        "issueDate": "2021-03-01",
+        "purchaseDate": "2024-06-15",
+        "purchaseUnitPrice": {
+          "amount": 15234.56,
+          "currency": "BRL"
+        },
+        "quantity": 0.328,
+        "grossAmount": {
+          "amount": 5176.93,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 5150.34,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 26.59,
+          "currency": "BRL"
+        },
+        "indexer": "SELIC",
+        "rate": 0.0,
+        "indexerAdditionalInfo": "Taxa Selic"
+      }
     }
   ],
   "96846726756": [
@@ -12,7 +38,33 @@
       "brandName": "Tesouro Nacional",
       "companyCnpj": "00394460005887",
       "investmentType": "TESOURO_IPCA_COM_JUROS_SEMESTRAIS",
-      "investmentId": "IPCA-96846726756-001"
+      "investmentId": "IPCA-96846726756-001",
+      "details": {
+        "isinCode": "BRTSTNICTF1",
+        "dueDate": "2029-08-15",
+        "issueDate": "2019-08-15",
+        "purchaseDate": "2023-08-20",
+        "purchaseUnitPrice": {
+          "amount": 3245.78,
+          "currency": "BRL"
+        },
+        "quantity": 4.62,
+        "grossAmount": {
+          "amount": 15995.5,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 15846.12,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 149.38,
+          "currency": "BRL"
+        },
+        "indexer": "IPCA",
+        "rate": 0.055,
+        "indexerAdditionalInfo": "IPCA + 5,50% a.a."
+      }
     }
   ],
   "25791178816": [],
@@ -21,7 +73,33 @@
       "brandName": "Tesouro Nacional",
       "companyCnpj": "00394460005887",
       "investmentType": "TESOURO_SELIC",
-      "investmentId": "SELIC-74979890814-001"
+      "investmentId": "SELIC-74979890814-001",
+      "details": {
+        "isinCode": "BRTSELSCTF9",
+        "dueDate": "2025-09-01",
+        "issueDate": "2020-09-01",
+        "purchaseDate": "2024-11-10",
+        "purchaseUnitPrice": {
+          "amount": 15430.22,
+          "currency": "BRL"
+        },
+        "quantity": 0.13,
+        "grossAmount": {
+          "amount": 2055.93,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 2047.04,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 8.89,
+          "currency": "BRL"
+        },
+        "indexer": "SELIC",
+        "rate": 0.0,
+        "indexerAdditionalInfo": "Taxa Selic"
+      }
     }
   ],
   "17418143834": [
@@ -29,7 +107,34 @@
       "brandName": "Tesouro Nacional",
       "companyCnpj": "00394460005887",
       "investmentType": "TESOURO_PREFIXADO",
-      "investmentId": "PREFIXADO-17418143834-001"
+      "investmentId": "PREFIXADO-17418143834-001",
+      "details": {
+        "isinCode": "BRTSTLCTF0",
+        "dueDate": "2030-01-01",
+        "issueDate": "2020-01-01",
+        "purchaseDate": "2022-05-10",
+        "purchaseUnitPrice": {
+          "amount": 756.89,
+          "currency": "BRL"
+        },
+        "quantity": 26.42,
+        "grossAmount": {
+          "amount": 23150.0,
+          "currency": "BRL"
+        },
+        "netAmount": {
+          "amount": 22676.0,
+          "currency": "BRL"
+        },
+        "incomeTax": {
+          "amount": 474.0,
+          "currency": "BRL"
+        },
+        "preFixedRate": 0.115,
+        "indexer": "PRE_FIXADO",
+        "rate": 0.115,
+        "indexerAdditionalInfo": "11,50% a.a."
+      }
     }
   ]
 }

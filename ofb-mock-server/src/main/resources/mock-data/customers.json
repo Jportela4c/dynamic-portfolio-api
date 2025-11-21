@@ -1,0 +1,182 @@
+{
+  "73677831148": {
+    "cpf": "73677831148",
+    "customerId": 1,
+    "nome": "Elza Milena Stefany Teixeira",
+    "email": "elzamilenastefanyteixeira-81@br.inter.net",
+    "birthDate": "1985-03-15",
+    "updateDateTime": "2025-11-20T22:31:00.975539Z",
+    "civilName": "Elza Milena Stefany Teixeira",
+    "addresses": [
+      {
+        "isMain": true,
+        "address": "Rua Ormando Chisto, 395",
+        "additionalInfo": "Loja B",
+        "districtName": "São Judas Tadeu",
+        "townName": "Colatina",
+        "countrySubDivision": "ES",
+        "postCode": "29700650",
+        "country": "Brasil",
+        "countryCode": "BRA"
+      }
+    ],
+    "phones": [
+      {
+        "isMain": true,
+        "type": "MOVEL",
+        "countryCallingCode": "55",
+        "number": "2729875132"
+      }
+    ],
+    "emails": [
+      {
+        "isMain": true,
+        "email": "elzamilenastefanyteixeira-81@br.inter.net"
+      }
+    ]
+  },
+  "96846726756": {
+    "cpf": "96846726756",
+    "customerId": 2,
+    "nome": "Kamilly Stefany Sara Fernandes",
+    "email": "kamilly.fernandes@email.com",
+    "birthDate": "1990-06-20",
+    "updateDateTime": "2025-11-20T22:31:00.975561Z",
+    "civilName": "Kamilly Stefany Sara Fernandes",
+    "addresses": [
+      {
+        "isMain": true,
+        "address": "Rua Ormando Chisto, 395",
+        "additionalInfo": "Apt 102",
+        "districtName": "São Judas Tadeu",
+        "townName": "Colatina",
+        "countrySubDivision": "ES",
+        "postCode": "29700650",
+        "country": "Brasil",
+        "countryCode": "BRA"
+      }
+    ],
+    "phones": [
+      {
+        "isMain": true,
+        "type": "MOVEL",
+        "countryCallingCode": "55",
+        "number": "2729875133"
+      }
+    ],
+    "emails": [
+      {
+        "isMain": true,
+        "email": "kamilly.fernandes@email.com"
+      }
+    ]
+  },
+  "25791178816": {
+    "cpf": "25791178816",
+    "customerId": 3,
+    "nome": "Yago Ricardo Vicente Silva",
+    "email": "yyagoricardovicentesilva@parkhotel.com.br",
+    "birthDate": "1988-11-10",
+    "updateDateTime": "2025-11-20T22:31:00.975564Z",
+    "civilName": "Yago Ricardo Vicente Silva",
+    "addresses": [
+      {
+        "isMain": true,
+        "address": "Estrada Campos dos Goitacazes, 732",
+        "additionalInfo": "",
+        "districtName": "Vila Cosmopolita",
+        "townName": "São Paulo",
+        "countrySubDivision": "SP",
+        "postCode": "08421010",
+        "country": "Brasil",
+        "countryCode": "BRA"
+      }
+    ],
+    "phones": [
+      {
+        "isMain": true,
+        "type": "MOVEL",
+        "countryCallingCode": "55",
+        "number": "11991959218"
+      }
+    ],
+    "emails": [
+      {
+        "isMain": true,
+        "email": "yyagoricardovicentesilva@parkhotel.com.br"
+      }
+    ]
+  },
+  "74979890814": {
+    "cpf": "74979890814",
+    "customerId": 4,
+    "nome": "Enrico Felipe Ruan Moraes",
+    "email": "eenricofeliperuanmoraes@kaynak.com.br",
+    "birthDate": "1995-04-25",
+    "updateDateTime": "2025-11-20T22:31:00.975566Z",
+    "civilName": "Enrico Felipe Ruan Moraes",
+    "addresses": [
+      {
+        "isMain": true,
+        "address": "Rua José Garcia Rodrigues, 441",
+        "additionalInfo": "",
+        "districtName": "Vila Albertina",
+        "townName": "São Paulo",
+        "countrySubDivision": "SP",
+        "postCode": "02730010",
+        "country": "Brasil",
+        "countryCode": "BRA"
+      }
+    ],
+    "phones": [
+      {
+        "isMain": true,
+        "type": "MOVEL",
+        "countryCallingCode": "55",
+        "number": "11984006254"
+      }
+    ],
+    "emails": [
+      {
+        "isMain": true,
+        "email": "eenricofeliperuanmoraes@kaynak.com.br"
+      }
+    ]
+  },
+  "17418143834": {
+    "cpf": "17418143834",
+    "customerId": 5,
+    "nome": "Cauê Mateus Benedito Rocha",
+    "email": "cauemateusbeneditorocha_@ligananet.com.br",
+    "birthDate": "1982-09-15",
+    "updateDateTime": "2025-11-20T22:31:00.975567Z",
+    "civilName": "Cauê Mateus Benedito Rocha",
+    "addresses": [
+      {
+        "isMain": true,
+        "address": "Rua Quatorze, 866",
+        "additionalInfo": "",
+        "districtName": "Outeiro das Paineiras",
+        "townName": "Campo Limpo Paulista",
+        "countrySubDivision": "SP",
+        "postCode": "13238743",
+        "country": "Brasil",
+        "countryCode": "BRA"
+      }
+    ],
+    "phones": [
+      {
+        "isMain": true,
+        "type": "MOVEL",
+        "countryCallingCode": "55",
+        "number": "1138064133"
+      }
+    ],
+    "emails": [
+      {
+        "isMain": true,
+        "email": "cauemateusbeneditorocha_@ligananet.com.br"
+      }
+    ]
+  }
+}
