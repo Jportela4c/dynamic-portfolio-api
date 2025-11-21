@@ -103,6 +103,20 @@ public class MockDataService {
             .orElse(null);
     }
 
+    /**
+     * Returns all raw investment data for a CPF (used by main API for risk profiling).
+     * Combines all 6 investment types with complete details.
+     */
+    public List<Map<String, Object>> getAllInvestmentsByCpf(String cpf) {
+        List<Map<String, Object>> allInvestments = new java.util.ArrayList<>();
+        allInvestments.addAll(bankFixedIncomesRaw.getOrDefault(cpf, Collections.emptyList()));
+        allInvestments.addAll(treasuryTitlesRaw.getOrDefault(cpf, Collections.emptyList()));
+        allInvestments.addAll(fundsRaw.getOrDefault(cpf, Collections.emptyList()));
+        allInvestments.addAll(creditFixedIncomesRaw.getOrDefault(cpf, Collections.emptyList()));
+        allInvestments.addAll(variableIncomesRaw.getOrDefault(cpf, Collections.emptyList()));
+        return allInvestments;
+    }
+
     public List<Map<String, Object>> getTreasuryTitlesByCpf(String cpf) {
         return treasuryTitlesRaw.getOrDefault(cpf, Collections.emptyList());
     }
