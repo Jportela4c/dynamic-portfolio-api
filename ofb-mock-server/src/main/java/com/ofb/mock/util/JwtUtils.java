@@ -33,4 +33,29 @@ public class JwtUtils {
             return null;
         }
     }
+
+    /**
+     * Extracts CPF from Authorization header.
+     * In OFB tokens, the CPF is in the 'sub' claim.
+     *
+     * @param authorizationHeader Authorization header value (e.g., "Bearer eyJ...")
+     * @return CPF from JWT 'sub' claim, or null if invalid
+     */
+    public static String extractCpf(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            log.warn("Invalid Authorization header format");
+            return null;
+        }
+
+        try {
+            String token = authorizationHeader.substring(7); // Remove "Bearer "
+            JWT jwt = JWTParser.parse(token);
+            String cpf = jwt.getJWTClaimsSet().getSubject(); // In OFB, sub = CPF
+            log.debug("Extracted CPF from token: {}", cpf);
+            return cpf;
+        } catch (Exception e) {
+            log.error("Failed to extract CPF from token", e);
+            return null;
+        }
+    }
 }

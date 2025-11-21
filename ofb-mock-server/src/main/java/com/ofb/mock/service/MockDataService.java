@@ -1,112 +1,121 @@
 package com.ofb.mock.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.ofb.mock.model.Customer;
-import com.ofb.mock.model.Investment;
-import com.ofb.mock.model.MockData;
-import com.ofb.mock.model.Transaction;
+import com.ofb.api.model.bankfixedincome.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @ApplicationScoped
 public class MockDataService {
 
-    @ConfigProperty(name = "mock.data.file")
-    String mockDataFile;
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-    private MockData mockData;
+    private Map<String, Object> customers;
+    private Map<String, List<Map<String, Object>>> bankFixedIncomesRaw;
+    private Map<String, List<Map<String, Object>>> treasuryTitlesRaw;
+    private Map<String, List<Map<String, Object>>> fundsRaw;
+    private Map<String, List<Map<String, Object>>> creditFixedIncomesRaw;
+    private Map<String, List<Map<String, Object>>> variableIncomesRaw;
 
     @PostConstruct
     public void loadMockData() {
         try {
-            log.info("Loading mock data from: {}", mockDataFile);
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule());
+            log.info("Loading comprehensive OFB mock data...");
 
-            InputStream is = getClass().getClassLoader().getResourceAsStream(mockDataFile);
-            if (is == null) {
-                throw new RuntimeException("Mock data file not found: " + mockDataFile);
-            }
+            customers = loadJsonFile("mock-data/customers.json");
+            bankFixedIncomesRaw = loadJsonFileAsList("mock-data/bank-fixed-incomes.json");
+            treasuryTitlesRaw = loadJsonFileAsList("mock-data/treasury-titles.json");
+            fundsRaw = loadJsonFileAsList("mock-data/funds.json");
+            creditFixedIncomesRaw = loadJsonFileAsList("mock-data/credit-fixed-incomes.json");
+            variableIncomesRaw = loadJsonFileAsList("mock-data/variable-incomes.json");
 
-            mockData = mapper.readValue(is, MockData.class);
-            log.info("Mock data loaded successfully. CPFs: {}", mockData.getCustomers().keySet());
+            log.info("Mock data loaded successfully. CPFs: {}", customers.keySet());
+            log.info("Bank fixed incomes: {} customers", bankFixedIncomesRaw.size());
+            log.info("Treasury titles: {} customers", treasuryTitlesRaw.size());
+            log.info("Funds: {} customers", fundsRaw.size());
+            log.info("Credit fixed incomes: {} customers", creditFixedIncomesRaw.size());
+            log.info("Variable incomes: {} customers", variableIncomesRaw.size());
         } catch (Exception e) {
             log.error("Failed to load mock data", e);
             throw new RuntimeException("Failed to load mock data", e);
         }
     }
 
-    public List<Investment> getInvestmentsByCpf(String cpf) {
-        return mockData.getInvestments().getOrDefault(cpf, Collections.emptyList());
+    private Map<String, Object> loadJsonFile(String path) throws Exception {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+        if (is == null) {
+            throw new RuntimeException("Mock data file not found: " + path);
+        }
+        return mapper.readValue(is, new TypeReference<>() {});
     }
 
-    public Customer getCustomerByCpf(String cpf) {
-        return mockData.getCustomers().get(cpf);
+    private Map<String, List<Map<String, Object>>> loadJsonFileAsList(String path) throws Exception {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(path);
+        if (is == null) {
+            throw new RuntimeException("Mock data file not found: " + path);
+        }
+        return mapper.readValue(is, new TypeReference<>() {});
     }
 
-    public List<Transaction> getTransactionsByCpf(String cpf) {
-        return mockData.getTransactions().getOrDefault(cpf, Collections.emptyList());
+    public Object getCustomerByCpf(String cpf) {
+        return customers.get(cpf);
     }
 
     public boolean customerExists(String cpf) {
-        return mockData.getCustomers().containsKey(cpf);
-    }
-
-    public List<Investment> getAllInvestments() {
-        return mockData.getInvestments().values().stream()
-                .flatMap(List::stream)
-                .toList();
-    }
-
-    public Investment getInvestmentById(String investmentId) {
-        return getAllInvestments().stream()
-                .filter(inv -> inv.getInvestmentId().equals(investmentId))
-                .findFirst()
-                .orElse(null);
+        return customers.containsKey(cpf);
     }
 
     /**
-     * Gets investments by customer ID (from JWT 'sub' claim).
-     * Maps customer ID to CPF for demo data lookup.
-     *
-     * @param customerId Customer identifier from JWT token
-     * @return List of customer investments
+     * Returns bank fixed income investments for LIST endpoint (4 fields only).
+     * Extracts: brandName, companyCnpj, investmentType, investmentId
      */
-    public List<Investment> getInvestmentsByCustomerId(String customerId) {
-        // Map customer ID to CPF for existing mock data
-        String cpf = mapCustomerIdToCpf(customerId);
-        return getInvestmentsByCpf(cpf);
+    public List<ResponseBankFixedIncomesProductListDataInner> getBankFixedIncomesList(String cpf) {
+        List<Map<String, Object>> raw = bankFixedIncomesRaw.getOrDefault(cpf, Collections.emptyList());
+
+        return raw.stream().map(investment -> {
+            ResponseBankFixedIncomesProductListDataInner item = new ResponseBankFixedIncomesProductListDataInner();
+            item.setBrandName((String) investment.get("brandName"));
+            item.setCompanyCnpj((String) investment.get("companyCnpj"));
+            item.setInvestmentType(EnumInvestmentType.fromValue((String) investment.get("investmentType")));
+            item.setInvestmentId((String) investment.get("investmentId"));
+            return item;
+        }).collect(Collectors.toList());
     }
 
     /**
-     * Gets transactions by customer ID (from JWT 'sub' claim).
-     *
-     * @param customerId Customer identifier from JWT token
-     * @return List of customer transactions
+     * Returns complete investment details (15+ fields) for a specific investment ID.
      */
-    public List<Transaction> getTransactionsByCustomerId(String customerId) {
-        String cpf = mapCustomerIdToCpf(customerId);
-        return getTransactionsByCpf(cpf);
+    public Map<String, Object> getBankFixedIncomeDetails(String cpf, String investmentId) {
+        List<Map<String, Object>> investments = bankFixedIncomesRaw.getOrDefault(cpf, Collections.emptyList());
+        return investments.stream()
+            .filter(inv -> investmentId.equals(inv.get("investmentId")))
+            .findFirst()
+            .orElse(null);
     }
 
-    /**
-     * Maps customer ID to CPF for demo data access.
-     * This allows JWT tokens to use customer IDs while mock data uses CPFs.
-     */
-    private String mapCustomerIdToCpf(String customerId) {
-        return switch (customerId) {
-            case "cliente-101" -> "12345678901";  // Conservative customer
-            case "cliente-102" -> "98765432100";  // Moderate customer
-            case "cliente-103" -> "11122233344";  // Aggressive customer
-            default -> "12345678901";  // Default to conservative
-        };
+    public List<Map<String, Object>> getTreasuryTitlesByCpf(String cpf) {
+        return treasuryTitlesRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getFundsByCpf(String cpf) {
+        return fundsRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getCreditFixedIncomesByCpf(String cpf) {
+        return creditFixedIncomesRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getVariableIncomesByCpf(String cpf) {
+        return variableIncomesRaw.getOrDefault(cpf, Collections.emptyList());
     }
 }
