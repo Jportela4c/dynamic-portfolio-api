@@ -198,22 +198,23 @@ public class OpenApiConfig {
                                 .description("""
                                         ### ADMIN (Acesso a todos os clientes)
 
-                                        | Email | Senha |
-                                        |-------|-------|
-                                        | `admin@demo.local` | `admin123` |
+                                        ```
+                                        Email: admin@demo.local
+                                        Senha: admin123
+                                        ```
 
                                         ---
 
                                         <details>
                                         <summary><strong>Clientes de Teste</strong> (5 perfis diferentes)</summary>
 
-                                        | ID | Email | Senha | Perfil |
-                                        |----|-------|-------|--------|
-                                        | 1 | `joao.silva@example.com` | `customer123` | Conservador |
-                                        | 2 | `maria.santos@example.com` | `customer123` | Moderado |
-                                        | 3 | `pedro.costa@example.com` | `customer123` | Agressivo |
-                                        | 4 | `ana.oliveira@example.com` | `customer123` | Conservador |
-                                        | 5 | `carlos.lima@example.com` | `customer123` | Agressivo |
+                                        ```
+                                        ID 1 │ joao.silva@example.com    │ customer123 │ Conservador
+                                        ID 2 │ maria.santos@example.com  │ customer123 │ Moderado
+                                        ID 3 │ pedro.costa@example.com   │ customer123 │ Agressivo
+                                        ID 4 │ ana.oliveira@example.com  │ customer123 │ Conservador
+                                        ID 5 │ carlos.lima@example.com   │ customer123 │ Agressivo
+                                        ```
 
                                         </details>
 
