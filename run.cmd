@@ -183,7 +183,7 @@ $JAVA_HOME/bin/java -version
 # Build both Maven projects before Docker
 print_info "Building main API..."
 if [ -f "./mvnw" ]; then
-    JAVA_HOME="$JAVA_HOME" ./mvnw clean package -DskipTests -q || {
+    JAVA_HOME="$JAVA_HOME" ./mvnw clean package -Dmaven.test.skip=true -q || {
         print_error "Main API build failed"
         print_error "Java version being used:"
         $JAVA_HOME/bin/java -version
@@ -197,7 +197,7 @@ fi
 
 print_info "Building OFB mock server..."
 if [ -f "ofb-mock-server/pom.xml" ]; then
-    (cd ofb-mock-server && JAVA_HOME="$JAVA_HOME" ../mvnw clean package -DskipTests -q) || {
+    (cd ofb-mock-server && JAVA_HOME="$JAVA_HOME" ../mvnw clean package -Dmaven.test.skip=true -q) || {
         print_error "OFB mock server build failed"
         exit 1
     }
@@ -424,7 +424,7 @@ echo [OK] Java ready for builds
 REM Build main API
 echo [INFO] Building main API...
 if exist "mvnw.cmd" (
-    call mvnw.cmd clean package -DskipTests -q
+    call mvnw.cmd clean package -Dmaven.test.skip=true -q
     if %errorlevel% neq 0 (
         echo [ERROR] Main API build failed
         pause
@@ -441,7 +441,7 @@ REM Build OFB mock server
 echo [INFO] Building OFB mock server...
 if exist "ofb-mock-server\pom.xml" (
     cd ofb-mock-server
-    call ..\mvnw.cmd clean package -DskipTests -q
+    call ..\mvnw.cmd clean package -Dmaven.test.skip=true -q
     if %errorlevel% neq 0 (
         cd ..
         echo [ERROR] OFB mock server build failed

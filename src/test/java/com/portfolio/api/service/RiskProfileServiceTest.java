@@ -72,7 +72,7 @@ class RiskProfileServiceTest {
         when(amountCalculator.calculateAmountScore(conservativeInvestments)).thenReturn(20);
         when(frequencyCalculator.calculateFrequencyScore(conservativeInvestments)).thenReturn(10);
         when(productRiskCalculator.calculateProductRiskScore(conservativeInvestments)).thenReturn(20);
-        when(liquidityCalculator.calculateLiquidityScore(clienteId)).thenReturn(10);
+        when(liquidityCalculator.calculateLiquidityScore(conservativeInvestments)).thenReturn(10);
         when(horizonCalculator.calculateHorizonScore(conservativeInvestments)).thenReturn(10);
 
         RiskProfileResponse response = service.calculateRiskProfile(clienteId);
@@ -93,7 +93,7 @@ class RiskProfileServiceTest {
         when(amountCalculator.calculateAmountScore(moderateInvestments)).thenReturn(50);
         when(frequencyCalculator.calculateFrequencyScore(moderateInvestments)).thenReturn(50);
         when(productRiskCalculator.calculateProductRiskScore(moderateInvestments)).thenReturn(45);
-        when(liquidityCalculator.calculateLiquidityScore(clienteId)).thenReturn(45);
+        when(liquidityCalculator.calculateLiquidityScore(moderateInvestments)).thenReturn(45);
         when(horizonCalculator.calculateHorizonScore(moderateInvestments)).thenReturn(40);
 
         RiskProfileResponse response = service.calculateRiskProfile(clienteId);
@@ -114,7 +114,7 @@ class RiskProfileServiceTest {
         when(amountCalculator.calculateAmountScore(aggressiveInvestments)).thenReturn(90);
         when(frequencyCalculator.calculateFrequencyScore(aggressiveInvestments)).thenReturn(100);
         when(productRiskCalculator.calculateProductRiskScore(aggressiveInvestments)).thenReturn(90);
-        when(liquidityCalculator.calculateLiquidityScore(clienteId)).thenReturn(100);
+        when(liquidityCalculator.calculateLiquidityScore(aggressiveInvestments)).thenReturn(100);
         when(horizonCalculator.calculateHorizonScore(aggressiveInvestments)).thenReturn(90);
 
         RiskProfileResponse response = service.calculateRiskProfile(clienteId);
