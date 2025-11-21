@@ -48,13 +48,29 @@ public class SecurityConfig {
                         .jwt(jwt -> jwt.decoder(resourceServerJwtDecoder()))
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(401);
-                            response.setContentType("application/json");
-                            response.getWriter().write("{\"error\":\"Unauthorized\",\"message\":\"Valid JWT token required\"}");
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write("""
+                                {
+                                  "timestamp": "%s",
+                                  "status": 401,
+                                  "error": "Unauthorized",
+                                  "message": "Authentication required. Please provide a valid JWT token in the Authorization header.",
+                                  "path": "%s"
+                                }
+                                """.formatted(java.time.Instant.now(), request.getRequestURI()));
                         })
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             response.setStatus(403);
-                            response.setContentType("application/json");
-                            response.getWriter().write("{\"error\":\"Forbidden\",\"message\":\"Access denied\"}");
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.getWriter().write("""
+                                {
+                                  "timestamp": "%s",
+                                  "status": 403,
+                                  "error": "Forbidden",
+                                  "message": "Access denied. You do not have permission to access this resource.",
+                                  "path": "%s"
+                                }
+                                """.formatted(java.time.Instant.now(), request.getRequestURI()));
                         })
                 );
 
