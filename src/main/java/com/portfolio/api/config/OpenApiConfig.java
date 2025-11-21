@@ -180,25 +180,23 @@ public class OpenApiConfig {
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.OAUTH2)
                                 .description("""
-                                        **Credenciais de Teste**
+                                        ### Credenciais de Teste
 
-                                        **CLIENTES:**
+                                        #### CLIENTES
 
-                                        | ID | Email | Senha |
-                                        |----|-------|-------|
-                                        | 1 | joao.silva@example.com | customer123 |
-                                        | 2 | maria.santos@example.com | customer123 |
-                                        | 3 | pedro.costa@example.com | customer123 |
-                                        | 4 | ana.oliveira@example.com | customer123 |
-                                        | 5 | carlos.lima@example.com | customer123 |
+                                        **ID 1** - joao.silva@example.com / customer123
+                                        **ID 2** - maria.santos@example.com / customer123
+                                        **ID 3** - pedro.costa@example.com / customer123
+                                        **ID 4** - ana.oliveira@example.com / customer123
+                                        **ID 5** - carlos.lima@example.com / customer123
 
-                                        **ADMIN:**
+                                        #### ADMIN
 
-                                        | ID | Email | Senha |
-                                        |----|-------|-------|
-                                        | 999 | admin@demo.local | admin123 |
+                                        **ID 999** - admin@demo.local / admin123
 
-                                        > Client ID e Secret são preenchidos automaticamente.
+                                        ---
+
+                                        *Client ID e Secret são preenchidos automaticamente.*
                                         """)
                                 .flows(new OAuthFlows()
                                         .authorizationCode(new OAuthFlow()
