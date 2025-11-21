@@ -108,13 +108,18 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
         BigDecimal rentabilidade = valorAtual.subtract(valor)
                 .divide(valor, 4, RoundingMode.HALF_UP);
 
+        // Use lastTransactionDate as the investment date (most recent activity)
+        LocalDate investmentDate = data.getLastTransactionDate() != null
+                ? data.getLastTransactionDate()
+                : data.getFirstTransactionDate();
+
         return Investment.builder()
                 .id((long) Math.abs(data.getInvestmentId().hashCode()))
                 .tipo(mapStringToTipoProduto(data.getType()))
                 .tipoOperacao("APLICACAO")
                 .valor(valor)
                 .rentabilidade(rentabilidade)
-                .data(LocalDate.now())
+                .data(investmentDate != null ? investmentDate : LocalDate.now())
                 .nomeProduto(data.getIssuerName() != null ? data.getIssuerName() : data.getType())
                 .transactionCount(data.getTransactionCount())
                 .firstTransactionDate(data.getFirstTransactionDate())
