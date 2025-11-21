@@ -225,6 +225,22 @@ echo   Dynamic Portfolio API - Setup
 echo ===============================================================
 echo.
 
+REM Check if port 8080 is in use and find alternative if needed
+set SERVER_PORT=8080
+:check_port
+netstat -an | findstr ":%SERVER_PORT% " | findstr "LISTENING" >nul 2>&1
+if %errorlevel% equ 0 (
+    echo [WARNING] Port %SERVER_PORT% is already in use
+    set /a SERVER_PORT+=1
+    echo [INFO] Trying port %SERVER_PORT% instead...
+    goto :check_port
+)
+
+if %SERVER_PORT% neq 8080 (
+    echo [INFO] Using port %SERVER_PORT% instead of 8080
+    echo.
+)
+
 REM Check if Docker is available (REQUIRED)
 where docker >nul 2>&1
 if %errorlevel% neq 0 (
@@ -305,7 +321,7 @@ goto :docker_only_build
 echo.
 echo [INFO] Starting Docker services via Task...
 echo.
-"%GIT_BASH_PATH%" -c "task run"
+"%GIT_BASH_PATH%" -c "export SERVER_PORT=%SERVER_PORT% && task run"
 if %errorlevel% neq 0 (
     echo.
     echo [ERROR] Build failed! Check output above.
@@ -322,6 +338,7 @@ echo.
 echo [INFO] Building inside Docker containers (slower but no local tools needed)
 echo.
 
+set SERVER_PORT=%SERVER_PORT%
 docker compose build --pull
 if %errorlevel% neq 0 (
     echo.
@@ -349,9 +366,7 @@ echo ===============================================================
 echo   SUCCESS - Services are running!
 echo ===============================================================
 echo.
-echo API available at: http://localhost:8080/api/v1 (or next available port)
-echo API docs at: http://localhost:8080/api/v1/swagger-ui.html
-echo.
-echo Note: If port 8080 is in use, check 'docker ps' for the actual port mapping
+echo API available at: http://localhost:%SERVER_PORT%/api/v1
+echo API docs at: http://localhost:%SERVER_PORT%/api/v1/swagger-ui.html
 echo.
 pause
