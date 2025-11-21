@@ -60,8 +60,11 @@ public class AuthorizationServerConfig {
                         .logoutSuccessUrl("/login?logout")
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
+                        .deleteCookies("JSESSIONID", "SESSION")
                         .permitAll()
+                )
+                .sessionManagement(session -> session
+                        .sessionFixation().newSession()
                 );
 
         return http.build();
@@ -131,8 +134,9 @@ public class AuthorizationServerConfig {
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
+        String hostPort = System.getenv().getOrDefault("HOST_PORT", "8080");
         return AuthorizationServerSettings.builder()
-                .issuer("http://localhost:8080")
+                .issuer("http://localhost:" + hostPort)
                 .build();
     }
 }
