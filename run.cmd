@@ -176,38 +176,9 @@ if [ -z "$JAVA_HOME" ]; then
     fi
 fi
 
-# Verify JAVA_HOME before building
-print_info "Using Java: $JAVA_HOME"
-$JAVA_HOME/bin/java -version
-
-# Build both Maven projects before Docker
-print_info "Building main API..."
-if [ -f "./mvnw" ]; then
-    JAVA_HOME="$JAVA_HOME" ./mvnw clean package -Dmaven.test.skip=true -q || {
-        print_error "Main API build failed"
-        print_error "Java version being used:"
-        $JAVA_HOME/bin/java -version
-        exit 1
-    }
-    print_success "Main API build complete"
-else
-    print_error "Maven wrapper (mvnw) not found"
-    exit 1
-fi
-
-print_info "Building OFB mock server..."
-if [ -f "ofb-mock-server/pom.xml" ]; then
-    (cd ofb-mock-server && JAVA_HOME="$JAVA_HOME" ../mvnw clean package -Dmaven.test.skip=true -q) || {
-        print_error "OFB mock server build failed"
-        exit 1
-    }
-    print_success "OFB mock server build complete"
-else
-    print_warning "OFB mock server not found, skipping..."
-fi
-
+print_success "Java ready for builds"
 echo ""
-print_success "All builds complete! Starting Docker services..."
+print_info "Starting build and Docker services (Task will handle builds)..."
 echo ""
 
 # Check if port 8080 is in use and find alternative if needed
@@ -421,41 +392,8 @@ echo [OK] Java ready for builds
 
 :java_ready
 
-REM Build main API
-echo [INFO] Building main API...
-if exist "mvnw.cmd" (
-    call mvnw.cmd clean package -Dmaven.test.skip=true -q
-    if %errorlevel% neq 0 (
-        echo [ERROR] Main API build failed
-        pause
-        exit /b 1
-    )
-    echo [OK] Main API build complete
-) else (
-    echo [ERROR] Maven wrapper ^(mvnw.cmd^) not found
-    pause
-    exit /b 1
-)
-
-REM Build OFB mock server
-echo [INFO] Building OFB mock server...
-if exist "ofb-mock-server\pom.xml" (
-    cd ofb-mock-server
-    call ..\mvnw.cmd clean package -Dmaven.test.skip=true -q
-    if %errorlevel% neq 0 (
-        cd ..
-        echo [ERROR] OFB mock server build failed
-        pause
-        exit /b 1
-    )
-    cd ..
-    echo [OK] OFB mock server build complete
-) else (
-    echo [WARNING] OFB mock server not found, skipping...
-)
-
 echo.
-echo [OK] All builds complete! Starting Docker services...
+echo [INFO] Starting build and Docker services ^(Task will handle builds^)...
 echo.
 
 REM Check if port 8080 is in use
