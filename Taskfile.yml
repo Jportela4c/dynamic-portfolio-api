@@ -88,7 +88,7 @@ tasks:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - |
-        if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ] || [ -x ./mvnw.cmd ]; then
+        if [ -x ./mvnw ] || [ -x ./mvnw.cmd ]; then
           echo "🔨 Building main API JAR..."
           {{.MVNW}} clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
           echo "🔨 Building OFB mock server JAR..."
