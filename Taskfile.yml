@@ -88,14 +88,24 @@ tasks:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
       - |
+        BUILD_SUCCESS=false
         if [ -x ./mvnw ] || [ -x ./mvnw.cmd ]; then
           echo "🔨 Building main API JAR..."
-          {{.MVNW}} clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
-          echo "🔨 Building OFB mock server JAR..."
-          cd ofb-mock-server && {{.MVNW}} clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
-          echo "🐳 Building Docker images (using pre-built JARs)..."
-          docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . || (echo "❌ API Docker build failed!" && exit 1)
-          docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server || (echo "❌ OFB Docker build failed!" && exit 1)
+          if {{.MVNW}} clean package -Dmaven.test.skip=true; then
+            echo "🔨 Building OFB mock server JAR..."
+            if cd ofb-mock-server && {{.MVNW}} clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd ..; then
+              echo "🐳 Building Docker images (using pre-built JARs)..."
+              if docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . && docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server; then
+                BUILD_SUCCESS=true
+              fi
+            fi
+          fi
+
+          if [ "$BUILD_SUCCESS" = false ]; then
+            echo "⚠️  Local build failed - falling back to Docker multi-stage build"
+            echo "🐳 Building application (compiles inside Docker)..."
+            docker compose build --pull || (echo "❌ Docker build also failed!" && exit 1)
+          fi
         else
           echo "🐳 Building application (multi-stage, compiles inside Docker)..."
           docker compose build --pull || (echo "❌ Build failed! Check Docker is running." && exit 1)
@@ -195,13 +205,24 @@ tasks:
     cmds:
       - echo "🛑 Stopping all containers..."
       - docker compose down
-      - echo "🔨 Building main API JAR..."
-      - '{{.MVNW}} clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)'
-      - echo "🔨 Building OFB mock server JAR..."
-      - cd ofb-mock-server && {{.MVNW}} clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
-      - echo "🐳 Rebuilding Docker images (fast local build)..."
-      - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
-      - docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server
+      - |
+        BUILD_SUCCESS=false
+        echo "🔨 Building main API JAR..."
+        if {{.MVNW}} clean package -Dmaven.test.skip=true; then
+          echo "🔨 Building OFB mock server JAR..."
+          if cd ofb-mock-server && {{.MVNW}} clean package -Dmaven.test.skip=true -Dorg.slf4j.simpleLogger.defaultLogLevel=error -Dorg.slf4j.simpleLogger.log.org.openapitools=off && cd ..; then
+            echo "🐳 Rebuilding Docker images (fast local build)..."
+            if docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . && docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server; then
+              BUILD_SUCCESS=true
+            fi
+          fi
+        fi
+
+        if [ "$BUILD_SUCCESS" = false ]; then
+          echo "⚠️  Local build failed - falling back to Docker multi-stage build"
+          echo "🐳 Building application (compiles inside Docker)..."
+          docker compose build --pull || (echo "❌ Docker build also failed!" && exit 1)
+        fi
       - echo "🚀 Starting all services..."
       - docker compose up -d --wait
       - echo "✅ All services rebuilt and started successfully!"
