@@ -41,4 +41,29 @@ public class TreasuryTitlesResource {
 
         return Response.ok(Map.of("data", investments)).build();
     }
+
+    @GET
+    @Path("/investments/{investmentId}/transactions")
+    @Operation(summary = "Get treasury title transactions", description = "Returns transaction history for a specific treasury title")
+    public Response getInvestmentTransactions(
+            @PathParam("investmentId") String investmentId,
+            @HeaderParam("Authorization") String authorization) {
+
+        log.info("OFB API: GET /open-banking/treasure-titles/v1/investments/{}/transactions", investmentId);
+
+        String cpf = JwtUtils.extractCpf(authorization);
+        if (cpf == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
+        List<Map<String, Object>> transactions = mockDataService.getTransactionsByInvestmentId(cpf, investmentId);
+        log.debug("Returning {} transactions for investment {} (CPF {})", transactions.size(), investmentId, cpf);
+
+        return Response.ok(Map.of(
+            "data", transactions,
+            "meta", Map.of("totalRecords", transactions.size(), "totalPages", 1)
+        )).build();
+    }
 }

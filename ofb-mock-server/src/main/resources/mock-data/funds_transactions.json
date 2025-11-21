@@ -1,0 +1,2290 @@
+{
+  "73677831148": [],
+  "96846726756": [
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 47.73775864246314,
+      "transactionGrossValue": {
+        "amount": "47737.76",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "47737.76",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-001-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 9.888287165521522,
+      "transactionGrossValue": {
+        "amount": "9888.29",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "9888.29",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-001-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 19.318734233259978,
+      "transactionGrossValue": {
+        "amount": "19318.73",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "19318.73",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-001-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 21.014766799421796,
+      "transactionGrossValue": {
+        "amount": "21014.77",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21014.77",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-001-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.856399317920689,
+      "transactionGrossValue": {
+        "amount": "14856.40",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14856.40",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-002-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 5.128667805247996,
+      "transactionGrossValue": {
+        "amount": "5128.67",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "5128.67",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-002-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 6.431239429384925,
+      "transactionGrossValue": {
+        "amount": "6431.24",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "6431.24",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-002-002"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 3.4084471433592585,
+      "transactionGrossValue": {
+        "amount": "3408.45",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "61.18",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "3653.18",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-002-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 23.519652215744063,
+      "transactionGrossValue": {
+        "amount": "23519.65",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "23519.65",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-003-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 7.992376428575605,
+      "transactionGrossValue": {
+        "amount": "7992.38",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "7992.38",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-003-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 7.0812454217123335,
+      "transactionGrossValue": {
+        "amount": "7081.25",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "7081.25",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-003-002"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 7.052220910308378,
+      "transactionGrossValue": {
+        "amount": "7052.22",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "126.59",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "7558.59",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-726756-003-003"
+    }
+  ],
+  "25791178816": [
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 46.420265265305844,
+      "transactionGrossValue": {
+        "amount": "46420.27",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "46420.27",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.22106635825839,
+      "transactionGrossValue": {
+        "amount": "20221.07",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "20221.07",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.54168868783649,
+      "transactionGrossValue": {
+        "amount": "10541.69",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "10541.69",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 17.38819705385203,
+      "transactionGrossValue": {
+        "amount": "17388.20",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "17388.20",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.36766799815242,
+      "transactionGrossValue": {
+        "amount": "14367.67",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14367.67",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 19.006508906443575,
+      "transactionGrossValue": {
+        "amount": "19006.51",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "19006.51",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 15.12158056345965,
+      "transactionGrossValue": {
+        "amount": "15121.58",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "15121.58",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.239783147076999,
+      "transactionGrossValue": {
+        "amount": "14239.78",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14239.78",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-001-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 95.18650698809826,
+      "transactionGrossValue": {
+        "amount": "95186.51",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "95186.51",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 43.793323814241255,
+      "transactionGrossValue": {
+        "amount": "43793.32",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "43793.32",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 33.805615817458296,
+      "transactionGrossValue": {
+        "amount": "33805.62",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "33805.62",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 36.07711241857226,
+      "transactionGrossValue": {
+        "amount": "36077.11",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "36077.11",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 32.9772106999885,
+      "transactionGrossValue": {
+        "amount": "32977.21",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "32977.21",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 28.51852574069451,
+      "transactionGrossValue": {
+        "amount": "28518.53",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "28518.53",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 33.6460713997907,
+      "transactionGrossValue": {
+        "amount": "33646.07",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "603.97",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "36061.95",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 46.891329796144426,
+      "transactionGrossValue": {
+        "amount": "46891.33",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "983.56",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "50825.58",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-002-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 68.64031418075906,
+      "transactionGrossValue": {
+        "amount": "68640.31",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "68640.31",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 31.289517180974624,
+      "transactionGrossValue": {
+        "amount": "31289.52",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "31289.52",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 33.431600204217986,
+      "transactionGrossValue": {
+        "amount": "33431.60",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "33431.60",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.083988891873027,
+      "transactionGrossValue": {
+        "amount": "20083.99",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "20083.99",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 33.818508734223485,
+      "transactionGrossValue": {
+        "amount": "33818.51",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "33818.51",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-004"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.5553305506775,
+      "transactionGrossValue": {
+        "amount": "14555.33",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "218.21",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "15428.17",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 27.62498931687653,
+      "transactionGrossValue": {
+        "amount": "27624.99",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "495.89",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "29608.54",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 23.093975784447082,
+      "transactionGrossValue": {
+        "amount": "23093.98",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "23093.98",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-178816-003-007"
+    }
+  ],
+  "74979890814": [],
+  "17418143834": [
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 51.88076254267848,
+      "transactionGrossValue": {
+        "amount": "51880.76",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "51880.76",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 18.27965982300687,
+      "transactionGrossValue": {
+        "amount": "18279.66",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "18279.66",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.653604138260887,
+      "transactionGrossValue": {
+        "amount": "12653.60",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "12653.60",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.77354429540207,
+      "transactionGrossValue": {
+        "amount": "25773.54",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25773.54",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 18.901585530420576,
+      "transactionGrossValue": {
+        "amount": "18901.59",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "18901.59",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.462004564384143,
+      "transactionGrossValue": {
+        "amount": "10462.00",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "10462.00",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.285474466094946,
+      "transactionGrossValue": {
+        "amount": "20285.47",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "292.11",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21453.92",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 21.43464160767892,
+      "transactionGrossValue": {
+        "amount": "21434.64",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21434.64",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-007"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 13.683857138105145,
+      "transactionGrossValue": {
+        "amount": "13683.86",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "262.73",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14734.78",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-008"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 23.735830681697607,
+      "transactionGrossValue": {
+        "amount": "23735.83",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "23735.83",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-001-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 34.55928569156148,
+      "transactionGrossValue": {
+        "amount": "34559.29",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "34559.29",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 16.162926388796546,
+      "transactionGrossValue": {
+        "amount": "16162.93",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "16162.93",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 9.591538583900254,
+      "transactionGrossValue": {
+        "amount": "9591.54",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "9591.54",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 7.954920381405432,
+      "transactionGrossValue": {
+        "amount": "7954.92",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "7954.92",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 9.343464805695453,
+      "transactionGrossValue": {
+        "amount": "9343.46",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "9343.46",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.711934417104946,
+      "transactionGrossValue": {
+        "amount": "10711.93",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "10711.93",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 16.266260077449378,
+      "transactionGrossValue": {
+        "amount": "16266.26",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "16266.26",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.701685611828726,
+      "transactionGrossValue": {
+        "amount": "10701.69",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "179.44",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "11419.43",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-007"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.043167069747078,
+      "transactionGrossValue": {
+        "amount": "12043.17",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "231.23",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "12968.08",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-008"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.841092608574042,
+      "transactionGrossValue": {
+        "amount": "10841.09",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "233.81",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "11776.34",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-002-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 64.9197851154782,
+      "transactionGrossValue": {
+        "amount": "64919.79",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "64919.79",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.992489928126822,
+      "transactionGrossValue": {
+        "amount": "25992.49",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25992.49",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 22.54382055367346,
+      "transactionGrossValue": {
+        "amount": "22543.82",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "22543.82",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 29.235066510007645,
+      "transactionGrossValue": {
+        "amount": "29235.07",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "29235.07",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 31.14857376412587,
+      "transactionGrossValue": {
+        "amount": "31148.57",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "31148.57",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 13.223662735978497,
+      "transactionGrossValue": {
+        "amount": "13223.66",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "13223.66",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 15.99355310912101,
+      "transactionGrossValue": {
+        "amount": "15993.55",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "230.31",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "16914.78",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 30.079249186778853,
+      "transactionGrossValue": {
+        "amount": "30079.25",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "504.34",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "32096.62",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.35534154411742,
+      "transactionGrossValue": {
+        "amount": "25355.34",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25355.34",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-008"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 31.779742336941958,
+      "transactionGrossValue": {
+        "amount": "31779.74",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "31779.74",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-003-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 116.90634314484305,
+      "transactionGrossValue": {
+        "amount": "116906.34",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "116906.34",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 49.556920022311644,
+      "transactionGrossValue": {
+        "amount": "49556.92",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "49556.92",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.43322107136506,
+      "transactionGrossValue": {
+        "amount": "25433.22",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25433.22",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 58.02553818031693,
+      "transactionGrossValue": {
+        "amount": "58025.54",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "58025.54",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 23.753974408398115,
+      "transactionGrossValue": {
+        "amount": "23753.97",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "23753.97",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 49.50465323818735,
+      "transactionGrossValue": {
+        "amount": "49504.65",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "49504.65",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 52.11386591165208,
+      "transactionGrossValue": {
+        "amount": "52113.87",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "750.44",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "55115.62",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 37.48878089787157,
+      "transactionGrossValue": {
+        "amount": "37488.78",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "628.58",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "40003.10",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 55.03369821465588,
+      "transactionGrossValue": {
+        "amount": "55033.70",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "55033.70",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-008"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 38.791687785734986,
+      "transactionGrossValue": {
+        "amount": "38791.69",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "836.63",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "42138.19",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-FUND-143834-004-009"
+    }
+  ]
+}

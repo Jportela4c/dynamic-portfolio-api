@@ -1,0 +1,3009 @@
+{
+  "73677831148": [],
+  "96846726756": [],
+  "25791178816": [
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 80.67838841054606,
+      "transactionGrossValue": {
+        "amount": "80678.39",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "80678.39",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 35.5920426939707,
+      "transactionGrossValue": {
+        "amount": "35592.04",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "35592.04",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 26.494294876811328,
+      "transactionGrossValue": {
+        "amount": "26494.29",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "26494.29",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 33.92031472926703,
+      "transactionGrossValue": {
+        "amount": "33920.31",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "33920.31",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 39.43410414351948,
+      "transactionGrossValue": {
+        "amount": "39434.10",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "39434.10",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 34.23055583279268,
+      "transactionGrossValue": {
+        "amount": "34230.56",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "34230.56",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 30.200529567454907,
+      "transactionGrossValue": {
+        "amount": "30200.53",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "30200.53",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 22.50004858107301,
+      "transactionGrossValue": {
+        "amount": "22500.05",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "22500.05",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-001-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 113.81455784812033,
+      "transactionGrossValue": {
+        "amount": "113814.56",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "113814.56",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 56.8034995286162,
+      "transactionGrossValue": {
+        "amount": "56803.50",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "56803.50",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 55.69560347530613,
+      "transactionGrossValue": {
+        "amount": "55695.60",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "55695.60",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 32.86573390991389,
+      "transactionGrossValue": {
+        "amount": "32865.73",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "32865.73",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 47.4787967168916,
+      "transactionGrossValue": {
+        "amount": "47478.80",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "47478.80",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-004"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 53.29766077908464,
+      "transactionGrossValue": {
+        "amount": "53297.66",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "799.03",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "56493.77",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 35.169425525176656,
+      "transactionGrossValue": {
+        "amount": "35169.43",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "35169.43",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 34.97441323249132,
+      "transactionGrossValue": {
+        "amount": "34974.41",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "733.60",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "37908.81",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-002-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 30.030738720068967,
+      "transactionGrossValue": {
+        "amount": "30030.74",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "30030.74",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.449711911227393,
+      "transactionGrossValue": {
+        "amount": "14449.71",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14449.71",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.372323580656875,
+      "transactionGrossValue": {
+        "amount": "12372.32",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "12372.32",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 6.672931416947922,
+      "transactionGrossValue": {
+        "amount": "6672.93",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "6672.93",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.984925540781722,
+      "transactionGrossValue": {
+        "amount": "14984.93",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14984.93",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.541170790412625,
+      "transactionGrossValue": {
+        "amount": "10541.17",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "10541.17",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 13.239887318630664,
+      "transactionGrossValue": {
+        "amount": "13239.89",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "237.67",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14190.55",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.499946986397198,
+      "transactionGrossValue": {
+        "amount": "14499.95",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14499.95",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-003-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 65.20561254201262,
+      "transactionGrossValue": {
+        "amount": "65205.61",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "65205.61",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 27.61062690666034,
+      "transactionGrossValue": {
+        "amount": "27610.63",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "27610.63",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 18.30883324518606,
+      "transactionGrossValue": {
+        "amount": "18308.83",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "18308.83",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 17.74789843706229,
+      "transactionGrossValue": {
+        "amount": "17747.90",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "17747.90",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 23.546284064032697,
+      "transactionGrossValue": {
+        "amount": "23546.28",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "23546.28",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 26.755187348378087,
+      "transactionGrossValue": {
+        "amount": "26755.19",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "26755.19",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.89137191007842,
+      "transactionGrossValue": {
+        "amount": "20891.37",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "20891.37",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 26.668567991117506,
+      "transactionGrossValue": {
+        "amount": "26668.57",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "559.38",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "28906.10",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-004-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 34.00319346425609,
+      "transactionGrossValue": {
+        "amount": "34003.19",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "34003.19",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 11.787385238558622,
+      "transactionGrossValue": {
+        "amount": "11787.39",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "11787.39",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.647056836343292,
+      "transactionGrossValue": {
+        "amount": "14647.06",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14647.06",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.178759015255201,
+      "transactionGrossValue": {
+        "amount": "12178.76",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "12178.76",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 10.558940288184205,
+      "transactionGrossValue": {
+        "amount": "10558.94",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "10558.94",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-004"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-17",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.54448962335859,
+      "transactionGrossValue": {
+        "amount": "12544.49",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "188.06",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "13296.75",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 6.840183917978447,
+      "transactionGrossValue": {
+        "amount": "6840.18",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "122.79",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "7331.33",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-16",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 7.573058792560777,
+      "transactionGrossValue": {
+        "amount": "7573.06",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "7573.06",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-178816-005-007"
+    }
+  ],
+  "74979890814": [],
+  "17418143834": [
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 119.13074389285897,
+      "transactionGrossValue": {
+        "amount": "119130.74",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "119130.74",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 41.89267594740026,
+      "transactionGrossValue": {
+        "amount": "41892.68",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "41892.68",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 37.21178956248842,
+      "transactionGrossValue": {
+        "amount": "37211.79",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "37211.79",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 38.82011476938215,
+      "transactionGrossValue": {
+        "amount": "38820.11",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "38820.11",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 26.9977840308797,
+      "transactionGrossValue": {
+        "amount": "26997.78",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "26997.78",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 49.995950257046815,
+      "transactionGrossValue": {
+        "amount": "49995.95",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "49995.95",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-005"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 32.64254112474082,
+      "transactionGrossValue": {
+        "amount": "32642.54",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "470.05",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "34522.75",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 56.26511135295349,
+      "transactionGrossValue": {
+        "amount": "56265.11",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "943.40",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "60038.73",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 53.14229247313801,
+      "transactionGrossValue": {
+        "amount": "53142.29",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "53142.29",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-008"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 50.17452243851897,
+      "transactionGrossValue": {
+        "amount": "50174.52",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "1082.12",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "54503.00",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-001-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 78.43494985039412,
+      "transactionGrossValue": {
+        "amount": "78434.95",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "78434.95",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 28.434150307190926,
+      "transactionGrossValue": {
+        "amount": "28434.15",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "28434.15",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 17.718641462629908,
+      "transactionGrossValue": {
+        "amount": "17718.64",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "17718.64",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 35.492340930644566,
+      "transactionGrossValue": {
+        "amount": "35492.34",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "35492.34",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 21.729966245989846,
+      "transactionGrossValue": {
+        "amount": "21729.97",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21729.97",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 21.435029444233244,
+      "transactionGrossValue": {
+        "amount": "21435.03",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21435.03",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 36.531331246217476,
+      "transactionGrossValue": {
+        "amount": "36531.33",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "36531.33",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 32.505619296814004,
+      "transactionGrossValue": {
+        "amount": "32505.62",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "32505.62",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 26.566407309578953,
+      "transactionGrossValue": {
+        "amount": "26566.41",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "26566.41",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-008"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 17.685113172585,
+      "transactionGrossValue": {
+        "amount": "17685.11",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "17685.11",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-002-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 69.1743544076884,
+      "transactionGrossValue": {
+        "amount": "69174.35",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "69174.35",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.762514677823958,
+      "transactionGrossValue": {
+        "amount": "20762.51",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "20762.51",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.176203289023976,
+      "transactionGrossValue": {
+        "amount": "14176.20",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14176.20",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 27.140741337758943,
+      "transactionGrossValue": {
+        "amount": "27140.74",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "27140.74",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.015142772706305,
+      "transactionGrossValue": {
+        "amount": "25015.14",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25015.14",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 32.44021327094402,
+      "transactionGrossValue": {
+        "amount": "32440.21",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "32440.21",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 31.75776814541662,
+      "transactionGrossValue": {
+        "amount": "31757.77",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "31757.77",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.21346661531532,
+      "transactionGrossValue": {
+        "amount": "20213.47",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "338.92",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21569.15",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-007"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 29.99348943742908,
+      "transactionGrossValue": {
+        "amount": "29993.49",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "575.87",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "32296.99",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-008"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 15.940479952739091,
+      "transactionGrossValue": {
+        "amount": "15940.48",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "15940.48",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-003-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 53.96557866251361,
+      "transactionGrossValue": {
+        "amount": "53965.58",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "53965.58",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 14.509579118573665,
+      "transactionGrossValue": {
+        "amount": "14509.58",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "14509.58",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 26.653250658547375,
+      "transactionGrossValue": {
+        "amount": "26653.25",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "26653.25",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.958203889939933,
+      "transactionGrossValue": {
+        "amount": "12958.20",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "12958.20",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.272015794993774,
+      "transactionGrossValue": {
+        "amount": "25272.02",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25272.02",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 22.15956670218449,
+      "transactionGrossValue": {
+        "amount": "22159.57",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "22159.57",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 21.193989794110905,
+      "transactionGrossValue": {
+        "amount": "21193.99",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21193.99",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 17.96704218101975,
+      "transactionGrossValue": {
+        "amount": "17967.04",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "301.26",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "19172.06",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-007"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 18.538706374600125,
+      "transactionGrossValue": {
+        "amount": "18538.71",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "355.94",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "19962.48",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-008"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 12.430499007821892,
+      "transactionGrossValue": {
+        "amount": "12430.50",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "268.09",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "13502.86",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-004-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 115.11019123198673,
+      "transactionGrossValue": {
+        "amount": "115110.19",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "115110.19",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 27.078459832336854,
+      "transactionGrossValue": {
+        "amount": "27078.46",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "27078.46",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 52.607523820977846,
+      "transactionGrossValue": {
+        "amount": "52607.52",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "52607.52",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 48.94553921284613,
+      "transactionGrossValue": {
+        "amount": "48945.54",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "48945.54",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 33.69410923910299,
+      "transactionGrossValue": {
+        "amount": "33694.11",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "33694.11",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 25.720376331759468,
+      "transactionGrossValue": {
+        "amount": "25720.38",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "25720.38",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 40.75549756176962,
+      "transactionGrossValue": {
+        "amount": "40755.50",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "40755.50",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-006"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 54.660052210285656,
+      "transactionGrossValue": {
+        "amount": "54660.05",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "916.49",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "58326.02",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 30.008492691328975,
+      "transactionGrossValue": {
+        "amount": "30008.49",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "30008.49",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-008"
+    },
+    {
+      "type": "SAIDA",
+      "transactionType": "RESGATE",
+      "typeAdditionalInfo": "Resgate parcial",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 32.245080013190034,
+      "transactionGrossValue": {
+        "amount": "32245.08",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "695.43",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "35026.81",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-005-009"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aplicação inicial",
+      "transactionDate": "2023-01-01",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 55.334900936741526,
+      "transactionGrossValue": {
+        "amount": "55334.90",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "55334.90",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-PURCHASE"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-02-06",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 23.118698648706875,
+      "transactionGrossValue": {
+        "amount": "23118.70",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "23118.70",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-001"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-03-15",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 17.310650830992422,
+      "transactionGrossValue": {
+        "amount": "17310.65",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "17310.65",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-002"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-04-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 16.2755778691392,
+      "transactionGrossValue": {
+        "amount": "16275.58",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "16275.58",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-003"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-05-27",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 21.769812138943188,
+      "transactionGrossValue": {
+        "amount": "21769.81",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "21769.81",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-004"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-07-02",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 13.792853475226059,
+      "transactionGrossValue": {
+        "amount": "13792.85",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "13792.85",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-005"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-08-08",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 19.564921767134564,
+      "transactionGrossValue": {
+        "amount": "19564.92",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "19564.92",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-006"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-09-13",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 22.2425618769765,
+      "transactionGrossValue": {
+        "amount": "22242.56",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "22242.56",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-007"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-10-20",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 20.351982697349268,
+      "transactionGrossValue": {
+        "amount": "20351.98",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "20351.98",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-008"
+    },
+    {
+      "type": "ENTRADA",
+      "transactionType": "APLICACAO",
+      "typeAdditionalInfo": "Aporte adicional",
+      "transactionDate": "2023-11-25",
+      "transactionUnitPrice": {
+        "amount": "1000.00",
+        "currency": "BRL"
+      },
+      "transactionQuantity": 11.49912701163778,
+      "transactionGrossValue": {
+        "amount": "11499.13",
+        "currency": "BRL"
+      },
+      "incomeTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "financialTransactionTax": {
+        "amount": "0.00",
+        "currency": "BRL"
+      },
+      "transactionNetValue": {
+        "amount": "11499.13",
+        "currency": "BRL"
+      },
+      "remunerationTransactionRate": "0.120000",
+      "indexerPercentage": "1.000000",
+      "transactionId": "TX-VARIABLE-143834-006-009"
+    }
+  ]
+}

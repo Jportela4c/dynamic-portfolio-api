@@ -1,7 +1,6 @@
 package com.portfolio.api.config;
 
-import com.portfolio.api.service.external.OFBInvestmentClient;
-import com.portfolio.api.service.external.OFBOAuth2Client;
+import com.portfolio.api.service.external.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -35,11 +34,43 @@ public class OFBRestTemplateConfig {
     private final ResourceLoader resourceLoader;
 
     @Bean
-    public OFBInvestmentClient ofbInvestmentClient(RestClient ofbRestClient) {
-        log.info("Creating OFB Investment HTTP Interface client");
+    public OFBBankFixedIncomesClient ofbBankFixedIncomesClient(RestClient ofbRestClient) {
+        log.info("Creating OFB Bank Fixed Incomes HTTP Interface client");
         RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
-        return factory.createClient(OFBInvestmentClient.class);
+        return factory.createClient(OFBBankFixedIncomesClient.class);
+    }
+
+    @Bean
+    public OFBCreditFixedIncomesClient ofbCreditFixedIncomesClient(RestClient ofbRestClient) {
+        log.info("Creating OFB Credit Fixed Incomes HTTP Interface client");
+        RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(OFBCreditFixedIncomesClient.class);
+    }
+
+    @Bean
+    public OFBFundsClient ofbFundsClient(RestClient ofbRestClient) {
+        log.info("Creating OFB Funds HTTP Interface client");
+        RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(OFBFundsClient.class);
+    }
+
+    @Bean
+    public OFBTreasuryTitlesClient ofbTreasuryTitlesClient(RestClient ofbRestClient) {
+        log.info("Creating OFB Treasury Titles HTTP Interface client");
+        RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(OFBTreasuryTitlesClient.class);
+    }
+
+    @Bean
+    public OFBVariableIncomesClient ofbVariableIncomesClient(RestClient ofbRestClient) {
+        log.info("Creating OFB Variable Incomes HTTP Interface client");
+        RestClientAdapter adapter = RestClientAdapter.create(ofbRestClient);
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
+        return factory.createClient(OFBVariableIncomesClient.class);
     }
 
     @Bean

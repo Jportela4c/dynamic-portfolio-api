@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class BankFixedIncomesResource {
 
         // Add links (mock)
         BankFixedIncomeProductListLinks links = new BankFixedIncomeProductListLinks();
-        links.setSelf("https://localhost:8089/open-banking/bank-fixed-incomes/v1/investments");
+        links.setSelf(URI.create("https://localhost:8089/open-banking/bank-fixed-incomes/v1/investments"));
         response.setLinks(links);
 
         // Add meta (mock)
@@ -95,5 +96,37 @@ public class BankFixedIncomesResource {
         // Return details structure (keep as Map for now - contains all 15+ fields)
         // TODO: Convert to ResponseBankFixedIncomesProductIdentification when needed
         return Response.ok(Map.of("data", investment)).build();
+    }
+
+    @GET
+    @Path("/investments/{investmentId}/transactions")
+    @Operation(
+        summary = "Get investment transactions",
+        description = "Returns transaction history for a specific bank fixed income investment"
+    )
+    public Response getInvestmentTransactions(
+            @PathParam("investmentId") String investmentId,
+            @HeaderParam("Authorization") String authorization) {
+
+        log.info("OFB API: GET /open-banking/bank-fixed-incomes/v1/investments/{}/transactions", investmentId);
+
+        String cpf = JwtUtils.extractCpf(authorization);
+        if (cpf == null) {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                .entity(Map.of("error", "invalid_token"))
+                .build();
+        }
+
+        List<Map<String, Object>> transactions = mockDataService.getTransactionsByInvestmentId(cpf, investmentId);
+
+        log.debug("Returning {} transactions for investment {} (CPF {})", transactions.size(), investmentId, cpf);
+
+        return Response.ok(Map.of(
+            "data", transactions,
+            "meta", Map.of(
+                "totalRecords", transactions.size(),
+                "totalPages", 1
+            )
+        )).build();
     }
 }

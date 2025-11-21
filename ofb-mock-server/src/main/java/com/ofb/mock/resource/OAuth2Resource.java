@@ -1,5 +1,6 @@
 package com.ofb.mock.resource;
 
+import com.ofb.mock.security.JWSSigningService;
 import com.ofb.mock.security.OAuth2Service;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -29,6 +30,9 @@ public class OAuth2Resource {
 
     @Inject
     OAuth2Service oauth2Service;
+
+    @Inject
+    JWSSigningService jwsSigningService;
 
     @ConfigProperty(name = "oauth.issuer", defaultValue = "https://localhost:8443")
     String issuer;
@@ -449,7 +453,8 @@ public class OAuth2Resource {
         Map<String, Object> jwks = new HashMap<>();
         jwks.put("keys", new Object[]{
                 oauth2Service.getSigningPublicKey().toJSONObject(),
-                oauth2Service.getEncryptionPublicKey().toJSONObject()
+                oauth2Service.getEncryptionPublicKey().toJSONObject(),
+                jwsSigningService.getPublicJWK().toJSONObject()  // Add JWS signing key for OFB API responses
         });
 
         return Response.ok(jwks).build();

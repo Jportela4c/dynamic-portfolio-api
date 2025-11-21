@@ -1,26 +1,11 @@
-FROM maven:3.9-amazoncorretto-21-alpine AS builder
-WORKDIR /app
-
-# Copy everything and download only runtime dependencies (no sources, no javadoc)
-COPY . .
-RUN --mount=type=cache,target=/root/.m2 \
-    mvn clean package -DskipTests \
-    -Dmaven.artifact.threads=50 \
-    -Dhttp.maxConnections=50 \
-    -Dmaven.wagon.http.pool=true \
-    -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    -Dmaven.wagon.http.retryHandler.count=3 \
-    -Ddownload.plugin.skip.sources=true \
-    -Ddownload.plugin.skip.javadoc=true \
-    -Dmaven.javadoc.skip=true \
-    -T 1C
-
 FROM amazoncorretto:21-alpine
 WORKDIR /app
-COPY --from=builder /app/target/quarkus-app/lib/ ./lib/
-COPY --from=builder /app/target/quarkus-app/*.jar ./
-COPY --from=builder /app/target/quarkus-app/app/ ./app/
-COPY --from=builder /app/target/quarkus-app/quarkus/ ./quarkus/
+
+# Copy pre-built JAR from local build (mvnw clean package)
+COPY target/quarkus-app/lib/ ./lib/
+COPY target/quarkus-app/*.jar ./
+COPY target/quarkus-app/app/ ./app/
+COPY target/quarkus-app/quarkus/ ./quarkus/
 
 EXPOSE 8089 8443
 

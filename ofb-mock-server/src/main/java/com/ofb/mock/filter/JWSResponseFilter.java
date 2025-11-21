@@ -1,38 +1,56 @@
 package com.ofb.mock.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ofb.mock.security.JWSSigningService;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerResponseContext;
-import jakarta.ws.rs.container.ContainerResponseFilter;
-import jakarta.ws.rs.ext.Provider;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
+import org.jboss.resteasy.reactive.server.ServerResponseFilter;
 
 @Slf4j
-@Provider
-public class JWSResponseFilter implements ContainerResponseFilter {
+@ApplicationScoped
+public class JWSResponseFilter {
 
     @Inject
     JWSSigningService jwsSigningService;
 
-    @Override
-    public void filter(ContainerRequestContext requestContext,
-                       ContainerResponseContext responseContext) throws IOException {
+    @Inject
+    ObjectMapper objectMapper;
 
-        // Only sign successful API responses (not OAuth2 endpoints)
-        if (responseContext.getStatus() == 200 &&
-            requestContext.getUriInfo().getPath().startsWith("api/")) {
+    @ServerResponseFilter
+    public void filter(ContainerRequestContext requestContext,
+                       ContainerResponseContext responseContext) {
+
+        String path = requestContext.getUriInfo().getPath();
+        int status = responseContext.getStatus();
+        log.info("JWSResponseFilter invoked - path: {}, status: {}", path, status);
+
+        // Only sign successful OFB API responses (not OAuth2 endpoints)
+        if (status == 200 && path.startsWith("/open-banking/")) {
 
             Object entity = responseContext.getEntity();
+            log.info("Entity type: {}", entity != null ? entity.getClass().getName() : "null");
+
             if (entity != null) {
-                String payload = entity.toString();
-                String signed = jwsSigningService.signPayload(payload);
-                responseContext.setEntity(signed);
-                responseContext.getHeaders().putSingle("Content-Type", "application/jose");
-                log.debug("Response signed with JWS for path: {}", requestContext.getUriInfo().getPath());
+                try {
+                    // Serialize entity to JSON
+                    String jsonPayload = objectMapper.writeValueAsString(entity);
+                    log.debug("JSON payload ({} bytes): {}", jsonPayload.length(),
+                        jsonPayload.substring(0, Math.min(200, jsonPayload.length())));
+
+                    // Sign the JSON payload
+                    String signed = jwsSigningService.signPayload(jsonPayload);
+                    responseContext.setEntity(signed);
+                    responseContext.getHeaders().putSingle("Content-Type", "application/jose");
+                    log.info("Response signed with JWS for path: {}", path);
+                } catch (Exception e) {
+                    log.error("Failed to sign response", e);
+                }
             }
+        } else {
+            log.info("Filter skipped - path: {}, status: {}", path, status);
         }
     }
 }

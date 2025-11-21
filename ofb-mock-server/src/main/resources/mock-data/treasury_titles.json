@@ -1,0 +1,352 @@
+{
+  "73677831148": [
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-831148-001",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-831148-002",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-831148-003",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-831148-004",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-831148-005",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    }
+  ],
+  "96846726756": [
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-726756-001",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-726756-002",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-726756-003",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    }
+  ],
+  "25791178816": [
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-178816-001",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-178816-002",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    }
+  ],
+  "74979890814": [
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-890814-001",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-890814-002",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-890814-003",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-890814-004",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-890814-005",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    }
+  ],
+  "17418143834": [
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-143834-001",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    },
+    {
+      "isinCode": "BRCST4CTF001",
+      "productName": "Tesouro Selic 2025",
+      "remuneration": {
+        "indexer": "CDI",
+        "indexerAdditionalInfo": "Dólar",
+        "preFixedRate": "0.300000",
+        "postFixedIndexerPercentage": "1.100000",
+        "ratePeriodicity": "DIARIO",
+        "calculation": "DIAS_CORRIDOS"
+      },
+      "dueDate": "2018-02-15",
+      "purchaseDate": "2018-02-15",
+      "voucherPaymentIndicator": "SIM",
+      "voucherPaymentPeriodicity": "MENSAL",
+      "voucherPaymentPeriodicityAdditionalInfo": "Diária",
+      "investmentId": "TREASURY-143834-002",
+      "brandName": "Banco CAIXA",
+      "companyCnpj": "00360305000104"
+    }
+  ]
+}

@@ -86,9 +86,8 @@ public class AuthorizationServerConfig {
     }
 
     /**
-     * OAuth2 client configuration moved to profile-specific classes:
-     * - OAuth2ClientConfigDev: Includes PASSWORD grant (dev only)
-     * - OAuth2ClientConfigProd: Secure grants only (default)
+     * OAuth2 client configuration is in application.yml
+     * Spring Boot auto-configuration loads from: spring.security.oauth2.authorizationserver.client.*
      */
 
     @Bean

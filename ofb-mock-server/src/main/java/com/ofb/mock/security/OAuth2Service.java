@@ -7,16 +7,19 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import io.quarkus.runtime.Startup;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
+@Startup
 @ApplicationScoped
 public class OAuth2Service {
 
@@ -54,10 +57,31 @@ public class OAuth2Service {
             encryptionKey = new RSAKeyGenerator(2048).keyID(jweKeyId).generate();
             signer = new RSASSASigner(signingKey);
             encrypter = new RSAEncrypter(encryptionKey);
+
+            // Export public key for SmallRye JWT validation
+            exportPublicKeyForJWTValidation();
+
             log.info("OAuth2 service initialized successfully");
         } catch (Exception e) {
             log.error("Failed to initialize OAuth2 service", e);
             throw new RuntimeException("Failed to initialize OAuth2 service", e);
+        }
+    }
+
+    private void exportPublicKeyForJWTValidation() {
+        try {
+            // Get public key in PEM format
+            RSAPublicKey publicKey = signingKey.toRSAPublicKey();
+            String pemPublicKey = "-----BEGIN PUBLIC KEY-----\n" +
+                Base64.getMimeEncoder(64, new byte[]{'\n'}).encodeToString(publicKey.getEncoded()) +
+                "\n-----END PUBLIC KEY-----\n";
+
+            // Set as system property for SmallRye JWT
+            System.setProperty("mp.jwt.verify.publickey", pemPublicKey);
+
+            log.info("Configured SmallRye JWT with generated public key");
+        } catch (Exception e) {
+            log.warn("Failed to configure JWT public key (will fallback to manual validation): {}", e.getMessage());
         }
     }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ofb.api.model.bankfixedincome.*;
+import io.quarkus.runtime.Startup;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  * The generated OFB models have @JsonProperty annotations that match the JSON field names.
  */
 @Slf4j
+@Startup
 @ApplicationScoped
 public class MockDataService {
 
@@ -37,17 +39,31 @@ public class MockDataService {
     private Map<String, List<Map<String, Object>>> creditFixedIncomesRaw;
     private Map<String, List<Map<String, Object>>> variableIncomesRaw;
 
+    // Transaction data for each investment type
+    private Map<String, List<Map<String, Object>>> bankFixedTransactionsRaw;
+    private Map<String, List<Map<String, Object>>> treasuryTransactionsRaw;
+    private Map<String, List<Map<String, Object>>> fundsTransactionsRaw;
+    private Map<String, List<Map<String, Object>>> creditFixedTransactionsRaw;
+    private Map<String, List<Map<String, Object>>> variableTransactionsRaw;
+
     @PostConstruct
     public void loadMockData() {
         try {
             log.info("Loading comprehensive OFB mock data...");
 
             customers = loadJsonFile("mock-data/customers.json");
-            bankFixedIncomesRaw = loadJsonFileAsList("mock-data/bank-fixed-incomes.json");
-            treasuryTitlesRaw = loadJsonFileAsList("mock-data/treasury-titles.json");
+            bankFixedIncomesRaw = loadJsonFileAsList("mock-data/bank_fixed_incomes.json");
+            treasuryTitlesRaw = loadJsonFileAsList("mock-data/treasury_titles.json");
             fundsRaw = loadJsonFileAsList("mock-data/funds.json");
-            creditFixedIncomesRaw = loadJsonFileAsList("mock-data/credit-fixed-incomes.json");
-            variableIncomesRaw = loadJsonFileAsList("mock-data/variable-incomes.json");
+            creditFixedIncomesRaw = loadJsonFileAsList("mock-data/credit_fixed_incomes.json");
+            variableIncomesRaw = loadJsonFileAsList("mock-data/variable_incomes.json");
+
+            // Load transaction data
+            bankFixedTransactionsRaw = loadJsonFileAsList("mock-data/bank_fixed_incomes_transactions.json");
+            treasuryTransactionsRaw = loadJsonFileAsList("mock-data/treasury_titles_transactions.json");
+            fundsTransactionsRaw = loadJsonFileAsList("mock-data/funds_transactions.json");
+            creditFixedTransactionsRaw = loadJsonFileAsList("mock-data/credit_fixed_incomes_transactions.json");
+            variableTransactionsRaw = loadJsonFileAsList("mock-data/variable_incomes_transactions.json");
 
             log.info("Mock data loaded successfully. CPFs: {}", customers.keySet());
             log.info("Bank fixed incomes: {} customers", bankFixedIncomesRaw.size());
@@ -55,6 +71,13 @@ public class MockDataService {
             log.info("Funds: {} customers", fundsRaw.size());
             log.info("Credit fixed incomes: {} customers", creditFixedIncomesRaw.size());
             log.info("Variable incomes: {} customers", variableIncomesRaw.size());
+
+            int totalTransactions = bankFixedTransactionsRaw.values().stream().mapToInt(List::size).sum()
+                + treasuryTransactionsRaw.values().stream().mapToInt(List::size).sum()
+                + fundsTransactionsRaw.values().stream().mapToInt(List::size).sum()
+                + creditFixedTransactionsRaw.values().stream().mapToInt(List::size).sum()
+                + variableTransactionsRaw.values().stream().mapToInt(List::size).sum();
+            log.info("Total transactions loaded: {}", totalTransactions);
         } catch (Exception e) {
             log.error("Failed to load mock data", e);
             throw new RuntimeException("Failed to load mock data", e);
@@ -141,5 +164,70 @@ public class MockDataService {
 
     public List<Map<String, Object>> getVariableIncomesByCpf(String cpf) {
         return variableIncomesRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    /**
+     * Returns all transactions for a specific investment across all types.
+     * Used for risk profiling based on transaction frequency.
+     */
+    public List<Map<String, Object>> getTransactionsByInvestmentId(String cpf, String investmentId) {
+        List<Map<String, Object>> allTransactions = new java.util.ArrayList<>();
+
+        // Search in all transaction types
+        allTransactions.addAll(filterTransactionsByInvestmentId(
+            bankFixedTransactionsRaw.getOrDefault(cpf, Collections.emptyList()), investmentId));
+        allTransactions.addAll(filterTransactionsByInvestmentId(
+            treasuryTransactionsRaw.getOrDefault(cpf, Collections.emptyList()), investmentId));
+        allTransactions.addAll(filterTransactionsByInvestmentId(
+            fundsTransactionsRaw.getOrDefault(cpf, Collections.emptyList()), investmentId));
+        allTransactions.addAll(filterTransactionsByInvestmentId(
+            creditFixedTransactionsRaw.getOrDefault(cpf, Collections.emptyList()), investmentId));
+        allTransactions.addAll(filterTransactionsByInvestmentId(
+            variableTransactionsRaw.getOrDefault(cpf, Collections.emptyList()), investmentId));
+
+        return allTransactions;
+    }
+
+    /**
+     * Returns all transactions for a customer (used for risk profiling).
+     * Transaction frequency determines risk profile per THE SPEC.
+     */
+    public List<Map<String, Object>> getAllTransactionsByCpf(String cpf) {
+        List<Map<String, Object>> allTransactions = new java.util.ArrayList<>();
+        allTransactions.addAll(bankFixedTransactionsRaw.getOrDefault(cpf, Collections.emptyList()));
+        allTransactions.addAll(treasuryTransactionsRaw.getOrDefault(cpf, Collections.emptyList()));
+        allTransactions.addAll(fundsTransactionsRaw.getOrDefault(cpf, Collections.emptyList()));
+        allTransactions.addAll(creditFixedTransactionsRaw.getOrDefault(cpf, Collections.emptyList()));
+        allTransactions.addAll(variableTransactionsRaw.getOrDefault(cpf, Collections.emptyList()));
+        return allTransactions;
+    }
+
+    public List<Map<String, Object>> getBankFixedTransactions(String cpf) {
+        return bankFixedTransactionsRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getTreasuryTransactions(String cpf) {
+        return treasuryTransactionsRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getFundsTransactions(String cpf) {
+        return fundsTransactionsRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getCreditFixedTransactions(String cpf) {
+        return creditFixedTransactionsRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    public List<Map<String, Object>> getVariableTransactions(String cpf) {
+        return variableTransactionsRaw.getOrDefault(cpf, Collections.emptyList());
+    }
+
+    private List<Map<String, Object>> filterTransactionsByInvestmentId(List<Map<String, Object>> transactions, String investmentId) {
+        return transactions.stream()
+            .filter(tx -> {
+                String txId = (String) tx.get("transactionId");
+                return txId != null && txId.startsWith("TX-" + investmentId);
+            })
+            .collect(Collectors.toList());
     }
 }

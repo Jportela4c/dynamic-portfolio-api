@@ -138,20 +138,24 @@ task help          # Ver todos os comandos disponíveis
 
 **Como autenticar no Swagger para testar endpoints protegidos:**
 
-1. No Swagger, encontre o endpoint `POST /oauth2/token`
-2. Clique em "Try it out"
-3. Preencha os campos:
-   - **grant_type**: `client_credentials`
-   - **scope**: `read write`
-4. Em "Authorization", use:
-   - **Username**: `portfolio-api-client`
-   - **Password**: `api-secret`
-5. Clique em "Execute"
-6. Copie o valor do campo `access_token` que aparece na resposta
-7. Clique no botão **"Authorize"** no topo da página
-8. Cole o token no campo (apenas o token, sem "Bearer")
-9. Clique em "Authorize" e depois "Close"
-10. Agora você pode testar todos os endpoints protegidos!
+A API usa **OAuth2 Authorization Code Flow** com login de usuário.
+
+1. Abra o Swagger UI: http://localhost:8080/api/v1/swagger-ui/index.html
+2. Clique no botão **"Authorize"** (cadeado verde no topo da página)
+3. Na janela que abrir, preencha:
+   - **client_id**: `portfolio-web-app`
+   - **client_secret**: `webapp-secret`
+   - Marque os escopos: `read`, `write`, `openid`, `profile`
+4. Clique em **"Authorize"**
+5. Você será redirecionado para a página de login
+6. Faça login com uma das credenciais abaixo:
+   - **Cliente**: `joao.silva@example.com` / `customer123`
+   - **Admin**: `admin@demo.local` / `admin123`
+7. Após o login, você será redirecionado de volta ao Swagger
+8. O botão "Authorize" agora mostra **"Logout"** - você está autenticado!
+9. Agora você pode testar todos os endpoints protegidos!
+
+**Nota:** O token JWT é gerado automaticamente após o login e renovado automaticamente quando expira.
 
 ---
 
@@ -163,33 +167,30 @@ task help          # Ver todos os comandos disponíveis
 - ✅ macOS
 - ✅ Linux
 
-**Passo 1: Pegar um access token OAuth2**
+**⚠️ IMPORTANTE:** A autenticação via linha de comando é **mais complexa** porque requer OAuth2 Authorization Code Flow com login no navegador. **Recomendamos usar o Swagger UI para testes** (muito mais fácil).
 
-```bash
-curl -X POST http://localhost:8080/api/v1/oauth2/token \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -u "portfolio-api-client:api-secret" \
-  -d "grant_type=client_credentials&scope=read write"
-```
+**Se você realmente precisa usar curl:**
 
-**Resposta:**
-```json
-{
-  "access_token": "eyJraWQiOiI...",
-  "token_type": "Bearer",
-  "expires_in": 3599,
-  "scope": "read write"
-}
-```
+O fluxo completo envolve:
+1. Iniciar o fluxo OAuth2 (`/oauth2/authorize`)
+2. Fazer login no navegador
+3. Capturar o código de autorização do redirect
+4. Trocar o código por um access token
 
-Copie o valor do `access_token`.
+**Alternativa simples (apenas para testes):** Use o token gerado pelo Swagger:
 
-**Passo 2: Usar o token para chamar os endpoints**
+1. Autentique-se no Swagger UI (veja instruções acima)
+2. Abra o Developer Tools do navegador (F12)
+3. Vá em Application → Local Storage → http://localhost:8080
+4. Copie o valor do token OAuth2
+5. Use o token nos comandos curl abaixo
+
+**Passo: Usar o token para chamar os endpoints**
 
 Substitua `SEU_TOKEN_AQUI` pelo token que você copiou:
 
 ```bash
-curl -X GET http://localhost:8080/api/v1/perfil-risco/123 -H "Authorization: Bearer SEU_TOKEN_AQUI"
+curl -X GET http://localhost:8080/api/v1/perfil-risco/1 -H "Authorization: Bearer SEU_TOKEN_AQUI"
 ```
 
 ---
@@ -583,10 +584,22 @@ mvn clean install
 
 ## Credenciais OAuth2
 
-**Client ID:** `portfolio-api-client`
-**Client Secret:** `api-secret`
-**Grant Type:** `client_credentials`
-**Scopes:** `read write`
+### Cliente Web (Swagger UI)
+**Client ID:** `portfolio-web-app`
+**Client Secret:** `webapp-secret`
+**Grant Type:** `authorization_code`, `refresh_token`
+**Scopes:** `openid`, `profile`, `read`, `write`
+
+### Credenciais de Login
+**Cliente Regular:**
+- Email: `joao.silva@example.com`
+- Senha: `customer123`
+- Perfil: CUSTOMER (acesso apenas aos próprios dados)
+
+**Administrador:**
+- Email: `admin@demo.local`
+- Senha: `admin123`
+- Perfil: ADMIN (acesso a todos os dados - apenas dev)
 
 ---
 
