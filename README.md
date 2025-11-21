@@ -198,10 +198,14 @@ Autenticação **padrão indústria** para aplicações web seguras.
 
 **Credenciais de Teste:**
 
-| Usuário | Email | Senha | Role | Acesso |
-|---------|-------|-------|------|--------|
-| Cliente 1 | joao.silva@example.com | customer123 | CUSTOMER | Próprios dados (clienteId=1) |
-| Administrador | admin@demo.local | admin123 | ADMIN | Todos os clientes (dev only) |
+| Usuário | Email | Senha | Role | Cliente ID | Perfil de Risco |
+|---------|-------|-------|------|------------|-----------------|
+| João Silva | joao.silva@example.com | customer123 | CUSTOMER | 1 | Conservador |
+| Maria Santos | maria.santos@example.com | customer123 | CUSTOMER | 2 | Moderado |
+| Pedro Costa | pedro.costa@example.com | customer123 | CUSTOMER | 3 | Agressivo |
+| Ana Oliveira | ana.oliveira@example.com | customer123 | CUSTOMER | 4 | Conservador |
+| Carlos Lima | carlos.lima@example.com | customer123 | CUSTOMER | 5 | Agressivo |
+| Administrador | admin@demo.local | admin123 | ADMIN | 999 | N/A (acesso a todos os clientes) |
 
 ### 2. Autenticação OFB (Backend → Bancos)
 
