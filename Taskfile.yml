@@ -19,6 +19,7 @@ tasks:
 
   setup:
     desc: Complete project setup (checks dependencies, installs tools, starts services)
+    silent: true
     cmds:
       - task: check-dependencies
       - task: install-tools
@@ -29,6 +30,7 @@ tasks:
 
   check-dependencies:
     desc: Check if required dependencies are installed
+    silent: true
     cmds:
       - task: check-docker
       - task: check-docker-compose
@@ -36,6 +38,7 @@ tasks:
 
   check-docker:
     desc: Verify Docker is installed and version is sufficient
+    silent: true
     cmds:
       - |
         if ! command -v docker >/dev/null 2>&1; then
@@ -47,6 +50,7 @@ tasks:
 
   check-docker-compose:
     desc: Verify Docker Compose is installed
+    silent: true
     cmds:
       - |
         if ! docker compose version >/dev/null 2>&1; then
@@ -58,6 +62,7 @@ tasks:
 
   install-tools:
     desc: Install optional development tools (Java, Maven) via SDKMAN
+    silent: true
     cmds:
       - |
         # Source SDKMAN if it exists (use bash for compatibility)
@@ -74,6 +79,7 @@ tasks:
 
   docker-up:
     desc: Start all Docker containers (builds locally if Maven available, otherwise Docker builds)
+    silent: true
     env:
       SERVER_PORT: '{{.SERVER_PORT}}'
     cmds:
