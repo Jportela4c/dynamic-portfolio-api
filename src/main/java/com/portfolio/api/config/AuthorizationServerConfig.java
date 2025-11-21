@@ -53,6 +53,7 @@ public class AuthorizationServerConfig {
         http
                 .securityMatcher("/login", "/logout", "/error", "/*.css", "/*.js")
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .csrf(csrf -> csrf.disable())  // Disable CSRF for login form (API uses JWT)
                 .formLogin(Customizer.withDefaults());
 
         return http.build();
