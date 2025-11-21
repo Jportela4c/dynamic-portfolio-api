@@ -51,7 +51,7 @@ public class AuthorizationServerConfig {
     @Order(0)
     public SecurityFilterChain loginSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/login", "/error")
+                .securityMatcher("/login", "/logout", "/error", "/*.css", "/*.js")
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults());
 
