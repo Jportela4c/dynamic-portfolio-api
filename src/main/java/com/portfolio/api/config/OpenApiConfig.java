@@ -41,7 +41,8 @@ public class OpenApiConfig {
 
                                 ### Passo 3: Entre com suas credenciais
 
-                                ## Credenciais de Teste
+                                <details>
+                                <summary><strong>Credenciais de Teste (clique para expandir)</strong></summary>
 
                                 ### ADMIN (Acesso Multi-Cliente - Dev Only)
                                 - **Email:** `admin@demo.local`
@@ -95,6 +96,8 @@ public class OpenApiConfig {
 
                                 > **Nota:** Client ID e Secret são preenchidos automaticamente.
 
+                                </details>
+
                                 ### Passo 4: Clique em "Authorize" e comece a testar
 
                                 ---
@@ -128,7 +131,8 @@ public class OpenApiConfig {
 
                                 ---
 
-                                ## Integração Open Finance Brasil (OFB)
+                                <details>
+                                <summary><strong>Integração Open Finance Brasil (OFB)</strong></summary>
 
                                 Esta API integra com o padrão Open Finance Brasil para buscar dados reais de investimentos:
 
@@ -164,6 +168,8 @@ public class OpenApiConfig {
 
                                 - [Swagger UI OFB Mock](http://localhost:8089/q/swagger-ui)
                                 - [OpenAPI Spec OFB Mock](http://localhost:8089/q/openapi)
+
+                                </details>
 
                                 ---
                                 """)

@@ -66,6 +66,7 @@ springdoc:
     defaultModelExpandDepth: 1
     displayRequestDuration: true
     tryItOutEnabled: true
+    filter: false  # Disable automatic filtering/searching
     oauth:
       client-id: portfolio-web-app
       client-secret: webapp-secret  # Plaintext - Spring encodes automatically
