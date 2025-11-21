@@ -33,7 +33,8 @@ public class InvestmentSimulationController {
         description = """
             Simula um investimento financeiro validando o produto no banco de dados e calculando retornos esperados.
 
-            ## Algoritmo de Simulação - 5 Etapas
+            <details>
+            <summary><strong>Algoritmo de Simulação - 5 Etapas</strong> - Validação, busca, cálculo de juros compostos</summary>
 
             ### 1. Validação de Entrada
             - **Parâmetros obrigatórios**: clienteId, valor, prazoMeses, tipoProduto
@@ -87,7 +88,10 @@ public class InvestmentSimulationController {
               - **resultadoSimulacao**: Valores calculados (valorFinal, rentabilidadeEfetiva, prazoMeses)
               - **dataSimulacao**: Timestamp da simulação
 
-            ## Produtos Disponíveis
+            </details>
+
+            <details>
+            <summary><strong>Produtos Disponíveis</strong> - CDB, LCI, LCA, Tesouro, Fundos, Debêntures</summary>
 
             | Tipo | Rentabilidade Típica | Risco | Exemplo |
             |------|---------------------|-------|---------|
@@ -98,7 +102,11 @@ public class InvestmentSimulationController {
             | FUNDO | 8-15% a.a. | Médio-Alto | Fundo DI XP |
             | DEBENTURE | 12-16% a.a. | Alto | Debênture Light |
 
-            ## Exemplo de Resposta
+            </details>
+
+            <details>
+            <summary><strong>Exemplo de Resposta</strong> - JSON de retorno da simulação</summary>
+
             ```json
             {
               "produtoValidado": {
@@ -117,10 +125,16 @@ public class InvestmentSimulationController {
             }
             ```
 
-            ## Erros Possíveis
+            </details>
+
+            <details>
+            <summary><strong>Erros Possíveis</strong> - 400, 404, 500</summary>
+
             - **400**: Dados inválidos (valor/prazo fora dos limites, campos obrigatórios ausentes)
             - **404**: Nenhum produto encontrado para os critérios especificados
             - **500**: Erro interno no cálculo ou persistência
+
+            </details>
             """
     )
     @ApiResponses(value = {

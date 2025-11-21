@@ -33,7 +33,8 @@ public class RiskProfileController {
         description = """
             Calcula o perfil de risco do cliente baseado em comportamento real de investimentos (Open Finance Brasil).
 
-            ## Algoritmo de Classificação de Risco - 5 Fatores
+            <details>
+            <summary><strong>Algoritmo de Classificação de Risco - 5 Fatores</strong> - Volume, Frequência, Produto, Liquidez, Horizonte</summary>
 
             O sistema analisa 5 dimensões do comportamento do investidor, cada uma contribuindo com um peso específico
             para a pontuação final (0-100):
@@ -86,6 +87,11 @@ public class RiskProfileController {
               - > 24 meses: Score 90 (Longo prazo)
             - **Lógica**: Longo prazo permite maior exposição a volatilidade
 
+            </details>
+
+            <details>
+            <summary><strong>Fórmula Final e Classificação</strong> - Cálculo do score e perfis</summary>
+
             ## Fórmula Final
             ```
             Score Total = (AmountScore × 0.25) +
@@ -99,6 +105,11 @@ public class RiskProfileController {
             - **0-40**: Conservador - Baixo risco, foco em segurança e liquidez
             - **41-70**: Moderado - Equilíbrio entre segurança e rentabilidade
             - **71-100**: Agressivo - Alto risco, foco em rentabilidade máxima
+
+            </details>
+
+            <details>
+            <summary><strong>Fonte de Dados e Exemplo</strong> - OFB, resposta JSON</summary>
 
             ## Fonte de Dados
             - Investimentos e transações obtidos via **Open Finance Brasil (OFB)**
@@ -114,6 +125,8 @@ public class RiskProfileController {
               "descricao": "Perfil equilibrado entre segurança e rentabilidade."
             }
             ```
+
+            </details>
             """
     )
     @ApiResponses(value = {
