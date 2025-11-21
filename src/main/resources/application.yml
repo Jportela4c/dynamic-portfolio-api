@@ -98,6 +98,7 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG
     org.springframework.security.oauth2.server.authorization: DEBUG
+    org.springframework.web.servlet.resource.ResourceHttpRequestHandler: ERROR
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
