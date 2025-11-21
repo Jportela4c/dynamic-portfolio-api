@@ -41,13 +41,13 @@ public class OpenApiConfig {
 
                                 ### Passo 3: Entre com suas credenciais
 
-                                **CUSTOMER (acesso apenas aos próprios dados):**
-                                - Username: `joao.silva@example.com`
-                                - Password: `customer123`
-
                                 **ADMIN (acesso a todos os clientes - dev only):**
                                 - Username: `admin@demo.local`
                                 - Password: `admin123`
+
+                                **CUSTOMER (acesso apenas aos próprios dados):**
+                                - Username: `joao.silva@example.com`
+                                - Password: `customer123`
 
                                 > **Nota:** Client ID e Secret são preenchidos automaticamente.
 
@@ -131,15 +131,15 @@ public class OpenApiConfig {
                                 .description("""
                                         **Credenciais para teste:**
 
-                                        **CUSTOMER (acesso próprio apenas):**
-                                        - Email: `joao.silva@example.com`
-                                        - Password: `customer123`
-                                        - Cliente ID: 1
-
                                         **ADMIN (acesso multi-customer - dev only):**
                                         - Email: `admin@demo.local`
                                         - Password: `admin123`
                                         - Cliente ID: 999
+
+                                        **CUSTOMER (acesso próprio apenas):**
+                                        - Email: `joao.silva@example.com`
+                                        - Password: `customer123`
+                                        - Cliente ID: 1
 
                                         > Client ID e Secret são preenchidos automaticamente.
                                         """)
