@@ -101,14 +101,19 @@ public class OFBInvestmentPlatformProvider implements InvestmentPlatformProvider
     private Investment mapToInvestment(OFBInvestmentDataService.InvestmentData data) {
         BigDecimal valor = BigDecimal.valueOf(data.getInvestedAmount()).setScale(2, RoundingMode.HALF_UP);
         BigDecimal valorAtual = BigDecimal.valueOf(data.getCurrentValue()).setScale(2, RoundingMode.HALF_UP);
-        BigDecimal rentabilidade = valorAtual.subtract(valor);
+
+        // Calculate profitability as rate (per THE SPEC requirement)
+        // rentabilidade = (valorAtual - valor) / valor
+        // Example: (24417.43 - 20116.19) / 20116.19 = 0.2138 (21.38%)
+        BigDecimal rentabilidade = valorAtual.subtract(valor)
+                .divide(valor, 4, RoundingMode.HALF_UP);
 
         return Investment.builder()
                 .id((long) Math.abs(data.getInvestmentId().hashCode()))
                 .tipo(mapStringToTipoProduto(data.getType()))
                 .tipoOperacao("APLICACAO")
                 .valor(valor)
-                .rentabilidade(rentabilidade.setScale(2, RoundingMode.HALF_UP))
+                .rentabilidade(rentabilidade)
                 .data(LocalDate.now())
                 .nomeProduto(data.getIssuerName() != null ? data.getIssuerName() : data.getType())
                 .transactionCount(data.getTransactionCount())

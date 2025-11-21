@@ -14,21 +14,27 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Histórico de investimento do cliente")
+@Schema(description = "Investimento do cliente integrado via Open Finance Brasil")
 public class InvestmentResponse {
 
-    @Schema(description = "ID do investimento", example = "1")
+    @Schema(description = "ID do investimento", example = "123456")
     private Long id;
 
-    @Schema(description = "Tipo de produto financeiro", example = "CDB")
+    @Schema(description = "Tipo de produto financeiro (via OFB)",
+            example = "LCA",
+            allowableValues = {"CDB", "LCI", "LCA", "RDB", "DEBENTURE", "CRI", "CRA",
+                              "RENDA_FIXA", "ACOES", "MULTIMERCADO", "CAMBIAL",
+                              "TESOURO_SELIC", "TESOURO_IPCA", "TESOURO_PREFIXADO",
+                              "VARIABLE_INCOME"})
     private TipoProduto tipo;
 
-    @Schema(description = "Valor investido", example = "5000.00")
+    @Schema(description = "Valor investido originalmente (em BRL)", example = "15814.95")
     private BigDecimal valor;
 
-    @Schema(description = "Taxa de rentabilidade", example = "0.12")
+    @Schema(description = "Taxa de rentabilidade do investimento (percentual). Calculado como: (valorAtual - valorInvestido) / valorInvestido. Exemplo: 0.2138 = 21.38% de retorno",
+            example = "0.2138")
     private BigDecimal rentabilidade;
 
-    @Schema(description = "Data do investimento", example = "2025-01-15")
+    @Schema(description = "Data da última atualização", example = "2025-01-18")
     private LocalDate data;
 }

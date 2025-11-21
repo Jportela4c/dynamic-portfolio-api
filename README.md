@@ -39,9 +39,177 @@ O mock implementa:
 
 ---
 
+## 🔗 Integração Open Finance Brasil (OFB)
+
+Este projeto implementa uma integração completa com APIs do Open Finance Brasil para buscar dados reais de investimentos de múltiplas instituições financeiras.
+
+### Arquitetura de Integração
+
+```
+┌──────────────────┐         ┌──────────────────┐         ┌──────────────────┐
+│   API Clients    │ OAuth2  │  Portfolio API   │ OAuth2  │  OFB Banks       │
+│  (Web/Mobile)    │────────▶│  (Spring Boot)   │────────▶│  (Mock Server)   │
+└──────────────────┘         └──────────────────┘         └──────────────────┘
+      clienteId                   CPF-based                 Investment Data
+      (Long)                      Authentication            (5 asset types)
+```
+
+**Duas camadas OAuth2 independentes:**
+1. **Clientes → API Principal**: Autentica usuários, valida acesso por `clienteId`
+2. **API Principal → Bancos OFB**: Consentimento do cliente, tokens com escopo de CPF
+
+### Fluxo OAuth2 com OFB
+
+**Passo 1: Pushed Authorization Request (PAR)**
+```bash
+POST /oauth2/par
+{
+  "client_id": "portfolio-api-client",
+  "scope": "investments:read",
+  "redirect_uri": "http://localhost:8080/callback"
+}
+# Retorna: request_uri (válido por 90 segundos)
+```
+
+**Passo 2: Autorização (Mock: auto-aprovado)**
+```bash
+GET /oauth2/authorize?request_uri=urn:ietf:params:oauth:request_uri:xyz
+# Mock: Simula consentimento do usuário
+# Produção: Mostraria página de login e consentimento
+# Retorna: authorization_code
+```
+
+**Passo 3: Trocar código por access token**
+```bash
+POST /oauth2/token
+{
+  "grant_type": "authorization_code",
+  "code": "CODE_xyz",
+  "client_id": "portfolio-api-client",
+  "client_secret": "..."
+}
+# Retorna: access_token (JWT) + id_token (JWE criptografado)
+```
+
+### Criptografia JWE/JWS
+
+**ID Token (JWE com JWS aninhado):**
+```
+JWE {                         ← Criptografado com chave pública do cliente
+  payload: JWS {              ← Assinado com chave privada do servidor
+    cpf: "12345678901",
+    sub: "cliente-id",
+    exp: ...
+  }
+}
+```
+
+**Processo de decriptação:**
+1. API recebe JWE do OFB
+2. Decripta com sua chave privada (client.p12)
+3. Extrai JWT assinado (JWS) interno
+4. Valida assinatura contra JWKS do servidor
+5. Extrai claims (CPF, sub, exp)
+
+### APIs de Investimentos Implementadas
+
+A integração busca dados de **5 categorias de investimentos OFB**:
+
+| Categoria | Endpoint Base | Tipos de Produtos |
+|-----------|--------------|-------------------|
+| **Bank Fixed Incomes** | `/bank-fixed-incomes/v1` | CDB, LCI, LCA, RDB |
+| **Credit Fixed Incomes** | `/credit-fixed-incomes/v1` | Debêntures, CRI, CRA |
+| **Funds** | `/funds/v1` | RENDA_FIXA, ACOES, MULTIMERCADO |
+| **Treasury Titles** | `/treasury-titles/v1` | TESOURO_SELIC, IPCA, PREFIXADO |
+| **Variable Incomes** | `/variable-incomes/v1` | Ações, BDRs, ETFs |
+
+**Para cada investimento, a API chama 4 endpoints OFB:**
+
+1. **GET /investments** - Lista IDs dos investimentos
+2. **GET /investments/{id}** - Detalhes do investimento
+3. **GET /investments/{id}/balances** - Saldo atual (netAmount, grossAmount)
+4. **GET /investments/{id}/transactions** - Histórico de transações
+
+### Cálculo de Rentabilidade
+
+A rentabilidade é calculada a partir dos dados de balanço OFB:
+
+```
+rentabilidade = valorAtual - valorInvestido
+
+Onde:
+- valorAtual = netAmount.amount (do endpoint /balances)
+- valorInvestido = grossAmount.amount - profitabilityGrossValue
+```
+
+**Exemplo real:**
+```json
+{
+  "id": 123456,
+  "tipo": "LCA",
+  "valor": 15814.95,
+  "rentabilidade": 0.2720,
+  "data": "2025-01-15"
+}
+```
+
+Onde:
+- `valor`: Valor investido (R$ 15.814,95)
+- `rentabilidade`: Taxa de retorno (0.2720 = 27,20%)
+- `data`: Data de atualização (formato: YYYY-MM-DD)
+
+**Impostos considerados:**
+- `taxProvisions.incomeTax` - Provisão de IR sobre o lucro
+- Valor líquido (`netAmount`) já descontado de impostos
+
+### Testando a Integração OFB
+
+**1. Verificar servidor mock está rodando:**
+```bash
+curl http://localhost:8089/q/health
+```
+
+**2. Buscar investimentos de um cliente:**
+```bash
+# Obter token OAuth2 (veja seção "Como Testar a API")
+TOKEN="seu_token_aqui"
+
+# Consultar histórico (clienteId 1 = CPF 12345678901)
+curl http://localhost:8080/api/v1/investimentos/1 \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+**Resposta esperada:**
+```json
+[
+  {
+    "id": 123456,
+    "tipo": "LCA",
+    "emissor": "Banco Exemplo",
+    "valorInvestido": 15000.00,
+    "valor": 18500.00,
+    "rentabilidade": 3500.00,
+    "dataVencimento": "2025-12-31"
+  },
+  ...
+]
+```
+
+### Dados Mock Gerados
+
+O servidor mock usa `json-schema-faker` para gerar dados realistas:
+- **72 investimentos** distribuídos entre as 5 categorias
+- **436 transações** com impostos brasileiros (IR calculado)
+- Valores consistentes entre endpoints (details/balances/transactions)
+- CPF-based filtering (cada cliente vê apenas seus investimentos)
+
+---
+
 ## Índice
 
 - [Início Rápido](#-início-rápido-um-único-comando)
+- [Servidor Mock OFB](#-servidor-mock-ofb)
+- [Integração Open Finance Brasil](#-integração-open-finance-brasil-ofb)
 - [Como Testar a API](#como-testar-a-api)
 - [Como Rodar a Aplicação](#como-rodar-a-aplicação)
 - [Funcionalidades](#funcionalidades)
