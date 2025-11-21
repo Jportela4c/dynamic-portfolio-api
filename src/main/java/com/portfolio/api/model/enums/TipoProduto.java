@@ -34,31 +34,19 @@ public enum TipoProduto {
     LCA,
 
     // Funds - OFB anbimaCategory
-    @Schema(description = "Fundo de Renda Fixa (ANBIMA classification)")
+    @Schema(description = "Fundo de Renda Fixa")
     @JsonProperty("RENDA_FIXA")
     RENDA_FIXA,
 
-    @Schema(description = "Fundo de Renda Fixa (DB legacy name)")
-    @JsonProperty("FUNDO_RENDA_FIXA")
-    FUNDO_RENDA_FIXA,
-
-    @Schema(description = "Fundo de Ações (ANBIMA classification)")
+    @Schema(description = "Fundo de Ações")
     @JsonProperty("ACOES")
     ACOES,
 
-    @Schema(description = "Fundo de Ações (DB legacy name)")
-    @JsonProperty("FUNDO_ACOES")
-    FUNDO_ACOES,
-
-    @Schema(description = "Fundo Multimercado (ANBIMA classification)")
+    @Schema(description = "Fundo Multimercado")
     @JsonProperty("MULTIMERCADO")
     MULTIMERCADO,
 
-    @Schema(description = "Fundo Multimercado (DB legacy name)")
-    @JsonProperty("FUNDO_MULTIMERCADO")
-    FUNDO_MULTIMERCADO,
-
-    @Schema(description = "Fundo Cambial (ANBIMA classification)")
+    @Schema(description = "Fundo Cambial")
     @JsonProperty("CAMBIAL")
     CAMBIAL,
 
@@ -121,10 +109,7 @@ public enum TipoProduto {
      * Checks if this product type is a fund.
      */
     public boolean isFund() {
-        return this == RENDA_FIXA || this == FUNDO_RENDA_FIXA
-                || this == ACOES || this == FUNDO_ACOES
-                || this == MULTIMERCADO || this == FUNDO_MULTIMERCADO
-                || this == CAMBIAL || this == FII;
+        return this == RENDA_FIXA || this == ACOES || this == MULTIMERCADO || this == CAMBIAL || this == FII;
     }
 
     /**
