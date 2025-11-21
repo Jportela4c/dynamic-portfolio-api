@@ -1,14 +1,17 @@
 window.onload = function() {
-  // Fix for OAuth2 Authorization Code flow logout/re-login issue
-  // See: https://github.com/swagger-api/swagger-ui/issues/6034
-  const ClearAuthCodePlugin = function() {
+  // Plugin to call server logout when Swagger UI logout is clicked
+  const ServerLogoutPlugin = function() {
     return {
       statePlugins: {
         auth: {
           wrapActions: {
-            authorizeOauth2: (oriAction, system) => (payload) => {
-              // Clear the old authorization code before new authorization
-              payload.auth.code = "";
+            logout: (oriAction, system) => (payload) => {
+              // Call server logout endpoint to invalidate session
+              fetch("/api/v1/logout", {
+                method: "POST",
+                credentials: "include"
+              }).catch(() => {});
+              // Then do the original Swagger UI logout
               return oriAction(payload);
             }
           }
@@ -27,7 +30,7 @@ window.onload = function() {
     ],
     plugins: [
       SwaggerUIBundle.plugins.DownloadUrl,
-      ClearAuthCodePlugin
+      ServerLogoutPlugin
     ],
     layout: "StandaloneLayout",
     configUrl: "/api/v1/v3/api-docs/swagger-config"
