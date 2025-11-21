@@ -38,6 +38,7 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain resourceServerSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configure(http))  // Enable CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/logout", "/error", "/oauth2/**", "/.well-known/**").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll()
