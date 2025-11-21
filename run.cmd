@@ -210,6 +210,27 @@ echo ""
 print_success "All builds complete! Starting Docker services..."
 echo ""
 
+# Check if port 8080 is in use and find alternative if needed
+PORT=8080
+if command -v lsof &> /dev/null; then
+    while lsof -i :$PORT &> /dev/null; do
+        print_warning "Port $PORT is already in use"
+        PORT=$((PORT + 1))
+        print_info "Trying port $PORT instead..."
+    done
+elif command -v netstat &> /dev/null; then
+    while netstat -an | grep ":$PORT " | grep LISTEN &> /dev/null; do
+        print_warning "Port $PORT is already in use"
+        PORT=$((PORT + 1))
+        print_info "Trying port $PORT instead..."
+    done
+fi
+
+if [ $PORT -ne 8080 ]; then
+    print_info "Using port $PORT instead of 8080"
+    export SERVER_PORT=$PORT
+fi
+
 # Run task run to start everything
 task run
 
@@ -436,6 +457,22 @@ if exist "ofb-mock-server\pom.xml" (
 echo.
 echo [OK] All builds complete! Starting Docker services...
 echo.
+
+REM Check if port 8080 is in use
+set PORT=8080
+:check_port
+netstat -an | findstr ":%PORT% " | findstr LISTEN >nul 2>&1
+if %errorlevel% equ 0 (
+    echo [WARNING] Port %PORT% is already in use
+    set /a PORT=%PORT%+1
+    echo [INFO] Trying port %PORT% instead...
+    goto :check_port
+)
+
+if not %PORT%==8080 (
+    echo [INFO] Using port %PORT% instead of 8080
+    set SERVER_PORT=%PORT%
+)
 
 REM Run task run to start everything
 task run
