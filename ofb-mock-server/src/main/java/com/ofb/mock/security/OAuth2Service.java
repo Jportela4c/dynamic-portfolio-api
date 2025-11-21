@@ -13,6 +13,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import java.io.FileInputStream;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
 import java.util.*;
@@ -36,7 +39,6 @@ public class OAuth2Service {
     String jweKeyId;
 
     private RSAKey signingKey;
-    private RSAKey encryptionKey;
     private JWSSigner signer;
     private JWEEncrypter encrypter;
 
@@ -54,9 +56,11 @@ public class OAuth2Service {
         try {
             log.info("Initializing OAuth2 service");
             signingKey = new RSAKeyGenerator(2048).keyID(signingKeyId).generate();
-            encryptionKey = new RSAKeyGenerator(2048).keyID(jweKeyId).generate();
             signer = new RSASSASigner(signingKey);
-            encrypter = new RSAEncrypter(encryptionKey);
+
+            // Load client's public key from certificate for JWE encryption
+            RSAPublicKey clientPublicKey = loadClientPublicKey();
+            encrypter = new RSAEncrypter(clientPublicKey);
 
             // Export public key for SmallRye JWT validation
             exportPublicKeyForJWTValidation();
@@ -65,6 +69,18 @@ public class OAuth2Service {
         } catch (Exception e) {
             log.error("Failed to initialize OAuth2 service", e);
             throw new RuntimeException("Failed to initialize OAuth2 service", e);
+        }
+    }
+
+    private RSAPublicKey loadClientPublicKey() throws Exception {
+        log.info("Loading client public key from certificate: /app-certs/client.crt");
+
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        try (FileInputStream fis = new FileInputStream("/app-certs/client.crt")) {
+            X509Certificate cert = (X509Certificate) cf.generateCertificate(fis);
+            RSAPublicKey publicKey = (RSAPublicKey) cert.getPublicKey();
+            log.info("Client public key loaded successfully");
+            return publicKey;
         }
     }
 
@@ -189,10 +205,6 @@ public class OAuth2Service {
 
     public RSAKey getSigningPublicKey() {
         return signingKey.toPublicJWK();
-    }
-
-    public RSAKey getEncryptionPublicKey() {
-        return encryptionKey.toPublicJWK();
     }
 
     public static class PushedAuthRequest {

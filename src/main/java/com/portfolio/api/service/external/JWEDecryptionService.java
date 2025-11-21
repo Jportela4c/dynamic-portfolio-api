@@ -3,105 +3,78 @@ package com.portfolio.api.service.external;
 import com.nimbusds.jose.JWEDecrypter;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.crypto.RSADecrypter;
-import com.nimbusds.jose.jwk.JWK;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.EncryptedJWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.portfolio.api.config.OFBProviderProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.interfaces.RSAPrivateKey;
 import java.time.Instant;
 import java.util.Date;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class JWEDecryptionService {
 
-    private final OFBOAuth2Client oAuth2Client;
     private final OFBProviderProperties properties;
+    private final ResourceLoader resourceLoader;
 
-    private final Map<String, RSAKey> jwkCache = new ConcurrentHashMap<>();
-    private Instant jwkCacheExpiry = Instant.MIN;
+    private RSAPrivateKey privateKey;
 
     public JWTClaimsSet decryptAndValidate(String jweToken) throws Exception {
         log.debug("Decrypting JWE token");
 
-        try {
-            EncryptedJWT encryptedJWT = EncryptedJWT.parse(jweToken);
-            String keyId = encryptedJWT.getHeader().getKeyID();
-
-            RSAKey rsaKey = getEncryptionKey(keyId);
-
-            // Try to extract private key from the RSA key for decryption
-            if (!rsaKey.isPrivate()) {
-                log.warn("JWKS key {} is public only - falling back to JWS verification", keyId);
-                // Token might be JWS inside JWE - try alternative approach
-                throw new IllegalStateException("Cannot decrypt with public key - need private key");
-            }
-
-            JWEDecrypter decrypter = new RSADecrypter(rsaKey);
-            encryptedJWT.decrypt(decrypter);
-
-            JWTClaimsSet claims = encryptedJWT.getJWTClaimsSet();
-            if (claims == null) {
-                throw new SecurityException("JWE decryption failed - no claims found");
-            }
-            validateClaims(claims);
-
-            log.debug("JWE token decrypted and validated successfully");
-            return claims;
-        } catch (Exception e) {
-            log.warn("JWE decryption failed, treating as plain JWS: {}", e.getMessage());
-            // Fallback: treat as JWS (signed only, not encrypted)
-            return parseAsJWS(jweToken);
+        if (privateKey == null) {
+            loadPrivateKey();
         }
-    }
 
-    private JWTClaimsSet parseAsJWS(String token) throws Exception {
-        log.debug("Parsing token as JWS");
-        com.nimbusds.jwt.SignedJWT signedJWT = com.nimbusds.jwt.SignedJWT.parse(token);
+        // Parse and decrypt JWE
+        EncryptedJWT encryptedJWT = EncryptedJWT.parse(jweToken);
+        JWEDecrypter decrypter = new RSADecrypter(privateKey);
+        encryptedJWT.decrypt(decrypter);
+
+        // Payload is a nested JWS (signed JWT)
+        String signedJwtString = encryptedJWT.getPayload().toString();
+        com.nimbusds.jwt.SignedJWT signedJWT = com.nimbusds.jwt.SignedJWT.parse(signedJwtString);
+
+        // Extract claims from the inner signed JWT
         JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
+        if (claims == null) {
+            throw new SecurityException("JWE decryption failed - no claims found");
+        }
         validateClaims(claims);
-        log.debug("JWS token parsed successfully");
+
+        log.debug("JWE token decrypted and validated successfully");
         return claims;
     }
 
-    private RSAKey getEncryptionKey(String keyId) throws Exception {
-        // Check cache
-        if (Instant.now().isBefore(jwkCacheExpiry) && jwkCache.containsKey(keyId)) {
-            log.debug("Using cached JWK for encryption key ID: {}", keyId);
-            return jwkCache.get(keyId);
+    private void loadPrivateKey() throws Exception {
+        log.debug("Loading private key from keystore: {}", properties.getKeystore().getPath());
+
+        KeyStore keyStore = KeyStore.getInstance("PKCS12");
+        Resource keystoreResource = resourceLoader.getResource(properties.getKeystore().getPath());
+
+        try (InputStream keystoreStream = keystoreResource.getInputStream()) {
+            keyStore.load(keystoreStream, properties.getKeystore().getPassword().toCharArray());
         }
 
-        // Fetch JWKS from OFB provider
-        log.debug("Fetching JWKS from OFB provider for decryption");
-        String jwksResponse = oAuth2Client.getJwks();
+        String alias = keyStore.aliases().nextElement();
+        PrivateKey key = (PrivateKey) keyStore.getKey(alias, properties.getKeystore().getPassword().toCharArray());
 
-        JWKSet jwkSet = JWKSet.parse(jwksResponse);
-
-        // Cache all keys
-        jwkCache.clear();
-        for (JWK jwk : jwkSet.getKeys()) {
-            if (jwk instanceof RSAKey) {
-                jwkCache.put(jwk.getKeyID(), (RSAKey) jwk);
-            }
+        if (!(key instanceof RSAPrivateKey)) {
+            throw new IllegalStateException("Keystore does not contain RSA private key");
         }
 
-        jwkCacheExpiry = Instant.now().plusSeconds(properties.getJwks().getCacheTtlSeconds());
-        log.debug("Cached {} JWKs for decryption, expires at {}", jwkCache.size(), jwkCacheExpiry);
-
-        RSAKey key = jwkCache.get(keyId);
-        if (key == null) {
-            throw new SecurityException("Encryption key ID not found in JWKS: " + keyId);
-        }
-
-        return key;
+        this.privateKey = (RSAPrivateKey) key;
+        log.debug("Private key loaded successfully");
     }
 
     private void validateClaims(JWTClaimsSet claims) throws Exception {
