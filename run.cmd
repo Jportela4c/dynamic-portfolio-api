@@ -6,6 +6,10 @@
 
 set -e
 
+# Change to script directory (not caller directory)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd "$SCRIPT_DIR"
+
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -212,6 +216,9 @@ exit 0
 :WINDOWS
 @echo off
 setlocal EnableDelayedExpansion
+
+REM Change to script directory (not caller directory)
+cd /d "%~dp0"
 
 echo ===============================================================
 echo   Dynamic Portfolio API - Setup
