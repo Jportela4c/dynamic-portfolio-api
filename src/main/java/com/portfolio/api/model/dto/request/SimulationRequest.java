@@ -15,23 +15,35 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Requisição para simulação de investimento")
+@Schema(description = "Requisição para simulação de investimento. Use os exemplos no Swagger UI para facilitar o teste.")
 public class SimulationRequest {
 
-    @Schema(description = "ID do cliente", example = "123", required = true)
+    @Schema(description = "ID do cliente solicitante da simulação",
+            example = "1",
+            required = true)
     @NotNull(message = "Invalid request")
     @Positive(message = "Invalid request")
     private Long clienteId;
 
-    @Schema(description = "Valor do investimento em reais", example = "10000.00", required = true)
+    @Schema(description = "Valor a ser investido em reais (BRL). Deve ser positivo e maior que zero.",
+            example = "10000.00",
+            required = true,
+            minimum = "0.01")
     @ValidInvestmentValue
     private BigDecimal valor;
 
-    @Schema(description = "Prazo do investimento em meses", example = "12", required = true, minimum = "1")
+    @Schema(description = "Prazo do investimento em meses. Valores típicos: 6, 12, 18, 24, 36, 120 meses.",
+            example = "12",
+            required = true,
+            minimum = "1",
+            maximum = "360")
     @ValidInvestmentTerm
     private Integer prazoMeses;
 
-    @Schema(description = "Tipo de produto financeiro", example = "CDB", required = true)
+    @Schema(description = "Tipo de produto financeiro para simulação",
+            example = "CDB",
+            required = true,
+            allowableValues = {"CDB", "LCI", "LCA", "TESOURO_DIRETO", "FUNDO", "DEBENTURE"})
     @NotNull(message = "Invalid request")
     private TipoProduto tipoProduto;
 }
