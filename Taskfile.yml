@@ -79,7 +79,13 @@ tasks:
     cmds:
       - |
         if command -v mvn >/dev/null 2>&1 || [ -x ./mvnw ]; then
-          echo "🔨 Building JARs locally (fast)..."
+          # Verify Java 21
+          JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -oE '[0-9]+' | head -n 1)
+          if [ "$JAVA_VERSION" != "21" ]; then
+            echo "❌ Java 21 required, but found Java $JAVA_VERSION"
+            exit 1
+          fi
+          echo "🔨 Building JARs locally..."
           ./mvnw clean package -Dmaven.test.skip=true -q || (echo "❌ Main API build failed!" && exit 1)
           cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -q && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
           echo "🐳 Building Docker images (using pre-built JARs)..."
@@ -180,9 +186,16 @@ tasks:
     cmds:
       - echo "🛑 Stopping all containers..."
       - docker compose down
-      - echo "🔨 Building main API JAR locally..."
+      - |
+        # Verify Java 21
+        JAVA_VERSION=$(java -version 2>&1 | head -n 1 | grep -oE '[0-9]+' | head -n 1)
+        if [ "$JAVA_VERSION" != "21" ]; then
+          echo "❌ Java 21 required, but found Java $JAVA_VERSION"
+          exit 1
+        fi
+      - echo "🔨 Building main API JAR..."
       - ./mvnw clean package -Dmaven.test.skip=true -q || (echo "❌ Main API build failed!" && exit 1)
-      - echo "🔨 Building OFB mock server JAR..."
+      - echo "🔨 Building OFB mock server..."
       - cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -q && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
       - echo "🐳 Rebuilding Docker images (fast local build)..."
       - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
