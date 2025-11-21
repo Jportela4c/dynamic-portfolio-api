@@ -76,11 +76,11 @@ public class OpenApiConfig {
 
                                 ## Funcionalidades
 
-                                - ✅ Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
-                                - ✅ Perfilamento dinâmico de risco baseado em comportamento real
-                                - ✅ Recomendação de produtos por perfil
-                                - ✅ Histórico de investimentos via **Open Finance Brasil**
-                                - ✅ Telemetria e métricas de performance
+                                - Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
+                                - Perfilamento dinâmico de risco baseado em comportamento real
+                                - Recomendação de produtos por perfil
+                                - Histórico de investimentos via **Open Finance Brasil**
+                                - Telemetria e métricas de performance
 
                                 ---
 
