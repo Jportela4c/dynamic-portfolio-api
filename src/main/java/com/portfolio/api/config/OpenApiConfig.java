@@ -196,30 +196,28 @@ public class OpenApiConfig {
                         .addSecuritySchemes("bearerAuth", new SecurityScheme()
                                 .type(SecurityScheme.Type.OAUTH2)
                                 .description("""
-                                        OAuth2 Authorization Code Flow
+                                        ### ADMIN (Acesso a todos os clientes)
+
+                                        | Email | Senha |
+                                        |-------|-------|
+                                        | `admin@demo.local` | `admin123` |
+
+                                        ---
 
                                         <details>
-                                        <summary><strong>Credenciais de Teste</strong> - Clientes e Admin</summary>
+                                        <summary><strong>Clientes de Teste</strong> (5 perfis diferentes)</summary>
 
-                                        #### CLIENTES
-
-                                        ```
-                                        ID 1  │ joao.silva@example.com    │ customer123  │ Conservador
-                                        ID 2  │ maria.santos@example.com  │ customer123  │ Moderado
-                                        ID 3  │ pedro.costa@example.com   │ customer123  │ Agressivo
-                                        ID 4  │ ana.oliveira@example.com  │ customer123  │ Conservador
-                                        ID 5  │ carlos.lima@example.com   │ customer123  │ Agressivo
-                                        ```
-
-                                        #### ADMIN
-
-                                        ```
-                                        ID 999  │ admin@demo.local  │ admin123
-                                        ```
+                                        | ID | Email | Senha | Perfil |
+                                        |----|-------|-------|--------|
+                                        | 1 | `joao.silva@example.com` | `customer123` | Conservador |
+                                        | 2 | `maria.santos@example.com` | `customer123` | Moderado |
+                                        | 3 | `pedro.costa@example.com` | `customer123` | Agressivo |
+                                        | 4 | `ana.oliveira@example.com` | `customer123` | Conservador |
+                                        | 5 | `carlos.lima@example.com` | `customer123` | Agressivo |
 
                                         </details>
 
-                                        *Client ID e Secret são preenchidos automaticamente*
+                                        *Client ID e Secret preenchidos automaticamente*
                                         """)
                                 .flows(new OAuthFlows()
                                         .authorizationCode(new OAuthFlow()
