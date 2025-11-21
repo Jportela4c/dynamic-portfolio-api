@@ -1,20 +1,16 @@
 # Stage 1: Build
-FROM amazoncorretto:21-alpine AS builder
+FROM maven:3.9-amazoncorretto-21-alpine AS builder
 WORKDIR /build
 
-# Copy Maven wrapper and pom.xml
-COPY mvnw .
-COPY .mvn .mvn
+# Copy pom.xml and download dependencies (cached layer)
 COPY pom.xml .
-
-# Make mvnw executable and download dependencies (cached layer)
-RUN chmod +x mvnw && ./mvnw dependency:go-offline -q
+RUN mvn dependency:go-offline -q
 
 # Copy source code and OpenAPI specs
 COPY src src
 
 # Build the Quarkus app
-RUN ./mvnw clean package -DskipTests -q
+RUN mvn clean package -Dmaven.test.skip=true -q
 
 # Stage 2: Runtime
 FROM amazoncorretto:21-alpine
