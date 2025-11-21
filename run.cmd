@@ -234,32 +234,49 @@ echo [OK] Docker found
 docker --version
 echo.
 
+REM Check for Git Bash (determines build method)
+set GIT_BASH_PATH=
+if exist "C:\Program Files\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe
+if exist "C:\Program Files (x86)\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files (x86)\Git\bin\bash.exe
+if exist "%PROGRAMFILES%\Git\bin\bash.exe" set GIT_BASH_PATH=%PROGRAMFILES%\Git\bin\bash.exe
+
+if "%GIT_BASH_PATH%"=="" (
+    echo [INFO] Git Bash not found - will use Docker multi-stage build
+    goto :docker_only_build
+)
+
+REM Git Bash available - check if Java exists for local Maven builds
+where java >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [INFO] Git Bash found but Java missing - will use Docker multi-stage build
+    goto :docker_only_build
+)
+
+REM Git Bash + Java available - use Task for fast local builds
+echo [OK] Git Bash + Java found - will use fast local Maven builds
+echo.
+
 REM Check if Task is installed
-set TASK_CMD=
 where task >nul 2>&1
 if %errorlevel% equ 0 (
     echo [OK] Task is already installed
     task --version
-    set TASK_CMD=task
-    goto :check_build_method
+    goto :run_with_task
 )
 
 echo [INFO] Installing Task...
 
-REM Try Chocolatey first
+REM Try Chocolatey if available
 where choco >nul 2>&1
 if %errorlevel% equ 0 (
     echo [INFO] Installing via Chocolatey...
     choco install go-task -y --no-progress
     if %errorlevel% equ 0 (
         echo [OK] Task installed via Chocolatey
-        REM Refresh PATH
-        call refreshenv >nul 2>&1
-        where task >nul 2>&1
-        if %errorlevel% equ 0 (
-            set TASK_CMD=task
-            goto :check_build_method
-        )
+        echo [INFO] Please restart your terminal and run this script again
+        echo.
+        pause
+        exit /b 0
     )
 )
 
@@ -269,55 +286,33 @@ if not exist "%USERPROFILE%\bin" mkdir "%USERPROFILE%\bin"
 powershell -NoProfile -Command "try { Invoke-WebRequest -Uri 'https://github.com/go-task/task/releases/latest/download/task_windows_amd64.zip' -OutFile '%TEMP%\task.zip' -UseBasicParsing; Expand-Archive -Path '%TEMP%\task.zip' -DestinationPath '%USERPROFILE%\bin' -Force; Remove-Item '%TEMP%\task.zip' } catch { exit 1 }"
 if %errorlevel% equ 0 (
     echo [OK] Task installed to %USERPROFILE%\bin
-    set TASK_CMD=%USERPROFILE%\bin\task.exe
-    goto :check_build_method
+    set "PATH=%USERPROFILE%\bin;%PATH%"
+    goto :run_with_task
 )
 
 echo.
-echo [ERROR] Task installation failed
-echo.
-echo Please install Task manually from:
-echo   https://taskfile.dev/installation/
-echo.
-echo Or use Chocolatey: choco install go-task
-echo.
-pause
-exit /b 1
+echo [WARNING] Task installation failed - falling back to Docker build
+goto :docker_only_build
 
-:check_build_method
+:run_with_task
 echo.
-echo [INFO] Determining build method...
-
-REM Check for Git Bash (enables local Maven builds)
-set GIT_BASH_PATH=
-if exist "C:\Program Files\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe
-if exist "C:\Program Files (x86)\Git\bin\bash.exe" set GIT_BASH_PATH=C:\Program Files (x86)\Git\bin\bash.exe
-if exist "%PROGRAMFILES%\Git\bin\bash.exe" set GIT_BASH_PATH=%PROGRAMFILES%\Git\bin\bash.exe
-
-if not "%GIT_BASH_PATH%"=="" (
-    REM Check if Java exists (for local Maven build)
-    where java >nul 2>&1
-    if %errorlevel% equ 0 (
-        echo [OK] Git Bash + Java found - using fast local Maven builds
-        echo.
-        echo [INFO] Starting Docker services via Task...
-        echo.
-        "%GIT_BASH_PATH%" -c "task run"
-        goto :done
-    ) else (
-        echo [INFO] Git Bash found but Java missing - using Docker multi-stage build
-    )
-) else (
-    echo [INFO] Git Bash not found - using Docker multi-stage build
+echo [INFO] Starting Docker services via Task...
+echo.
+"%GIT_BASH_PATH%" -c "task run"
+if %errorlevel% neq 0 (
+    echo.
+    echo [ERROR] Build failed! Check output above.
+    echo.
+    pause
+    exit /b 1
 )
+goto :done
 
-REM Fallback: Use Docker multi-stage build (compiles inside Docker)
-echo [INFO] Building inside Docker containers ^(slower but no local tools needed^)
+:docker_only_build
 echo.
-echo [INFO] Starting Docker services...
+echo [INFO] Building inside Docker containers (slower but no local tools needed)
 echo.
 
-REM Call docker compose directly for multi-stage build
 docker compose build --pull
 if %errorlevel% neq 0 (
     echo.
@@ -326,6 +321,10 @@ if %errorlevel% neq 0 (
     pause
     exit /b 1
 )
+
+echo.
+echo [INFO] Starting containers...
+echo.
 
 docker compose up -d --wait
 if %errorlevel% neq 0 (
@@ -338,7 +337,9 @@ if %errorlevel% neq 0 (
 
 :done
 echo.
-echo [OK] Services started successfully!
+echo ===============================================================
+echo   SUCCESS - Services are running!
+echo ===============================================================
 echo.
 echo API available at: http://localhost:8080/api/v1
 echo API docs at: http://localhost:8080/api/v1/swagger-ui.html
