@@ -61,7 +61,7 @@ public class OpenApiConfig {
                                 - **Email:** `joao.silva@example.com`
                                 - **Senha:** `customer123`
                                 - **Cliente ID:** 1
-                                - **CPF:** 12345678901
+                                - **CPF:** 73677831148
                                 - **Investimentos:** 12 aplicações (R$ 85.000)
                                 - **Características:** Baixo volume, produtos de baixo risco (CDB, Tesouro Selic, LCI/LCA)
 
@@ -69,7 +69,7 @@ public class OpenApiConfig {
                                 - **Email:** `maria.santos@example.com`
                                 - **Senha:** `customer123`
                                 - **Cliente ID:** 2
-                                - **CPF:** 98765432109
+                                - **CPF:** 96846726756
                                 - **Investimentos:** 18 aplicações (R$ 156.000)
                                 - **Características:** Volume médio, mix de renda fixa e fundos conservadores
 
@@ -77,7 +77,7 @@ public class OpenApiConfig {
                                 - **Email:** `pedro.costa@example.com`
                                 - **Senha:** `customer123`
                                 - **Cliente ID:** 3
-                                - **CPF:** 11122233344
+                                - **CPF:** 17418143834
                                 - **Investimentos:** 20 aplicações (R$ 320.000)
                                 - **Características:** Alto volume, produtos de maior risco (ações, fundos multimercado)
 
@@ -85,7 +85,7 @@ public class OpenApiConfig {
                                 - **Email:** `ana.oliveira@example.com`
                                 - **Senha:** `customer123`
                                 - **Cliente ID:** 4
-                                - **CPF:** 55566677788
+                                - **CPF:** 25791178816
                                 - **Investimentos:** 10 aplicações (R$ 42.000)
                                 - **Características:** Baixo volume, produtos seguros (Tesouro Direto, LCI)
 
@@ -93,7 +93,7 @@ public class OpenApiConfig {
                                 - **Email:** `carlos.lima@example.com`
                                 - **Senha:** `customer123`
                                 - **Cliente ID:** 5
-                                - **CPF:** 99988877766
+                                - **CPF:** 74979890814
                                 - **Investimentos:** 12 aplicações (R$ 510.000)
                                 - **Características:** Alto volume, produtos de alto risco (ações, debêntures)
 
