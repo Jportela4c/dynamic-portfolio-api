@@ -92,8 +92,8 @@ tasks:
             exit 1
           fi
           echo "🔨 Building JARs locally..."
-          ./mvnw clean package -Dmaven.test.skip=true -q || (echo "❌ Main API build failed!" && exit 1)
-          cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -q && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
+          ./mvnw clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
+          cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
           echo "🐳 Building Docker images (using pre-built JARs)..."
           docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local . || (echo "❌ API Docker build failed!" && exit 1)
           docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server || (echo "❌ OFB Docker build failed!" && exit 1)
@@ -200,9 +200,9 @@ tasks:
           exit 1
         fi
       - echo "🔨 Building main API JAR..."
-      - ./mvnw clean package -Dmaven.test.skip=true -q || (echo "❌ Main API build failed!" && exit 1)
+      - ./mvnw clean package -Dmaven.test.skip=true || (echo "❌ Main API build failed!" && exit 1)
       - echo "🔨 Building OFB mock server..."
-      - cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true -q && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
+      - cd ofb-mock-server && ../mvnw clean package -Dmaven.test.skip=true && cd .. || (echo "❌ OFB build failed!" && cd .. && exit 1)
       - echo "🐳 Rebuilding Docker images (fast local build)..."
       - docker build -t dynamic-portfolio-api-api:latest -f Dockerfile.local .
       - docker build -t dynamic-portfolio-api-ofb-mock-server:latest -f ofb-mock-server/Dockerfile.local ofb-mock-server
