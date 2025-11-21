@@ -34,9 +34,4 @@ bin/
 .DS_Store
 Thumbs.db
 
-# Certificates (generated at runtime)
-*.p12
-*.jks
-*.cer
-*.pem
-!src/main/resources/certs/.gitkeep
+# Certificates are committed for mock server (not generated at runtime)

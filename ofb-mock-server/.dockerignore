@@ -23,5 +23,4 @@ Dockerfile*
 .DS_Store
 Thumbs.db
 
-# Certificates (mounted via volumes)
-src/main/resources/certs/
+# Certificates are copied (committed for mock server)
