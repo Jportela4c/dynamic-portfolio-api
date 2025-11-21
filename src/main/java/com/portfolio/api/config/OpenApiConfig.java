@@ -182,14 +182,21 @@ public class OpenApiConfig {
                                 .description("""
                                         **Credenciais de Teste**
 
-                                        | Usuário | Email | Senha | Role | Cliente ID | Perfil de Risco |
-                                        |---------|-------|-------|------|------------|-----------------|
-                                        | João Silva | joao.silva@example.com | customer123 | CUSTOMER | 1 | Conservador |
-                                        | Maria Santos | maria.santos@example.com | customer123 | CUSTOMER | 2 | Moderado |
-                                        | Pedro Costa | pedro.costa@example.com | customer123 | CUSTOMER | 3 | Agressivo |
-                                        | Ana Oliveira | ana.oliveira@example.com | customer123 | CUSTOMER | 4 | Conservador |
-                                        | Carlos Lima | carlos.lima@example.com | customer123 | CUSTOMER | 5 | Agressivo |
-                                        | Administrador | admin@demo.local | admin123 | ADMIN | 999 | N/A |
+                                        **CLIENTES:**
+
+                                        | ID | Email | Senha |
+                                        |----|-------|-------|
+                                        | 1 | joao.silva@example.com | customer123 |
+                                        | 2 | maria.santos@example.com | customer123 |
+                                        | 3 | pedro.costa@example.com | customer123 |
+                                        | 4 | ana.oliveira@example.com | customer123 |
+                                        | 5 | carlos.lima@example.com | customer123 |
+
+                                        **ADMIN:**
+
+                                        | ID | Email | Senha |
+                                        |----|-------|-------|
+                                        | 999 | admin@demo.local | admin123 |
 
                                         > Client ID e Secret são preenchidos automaticamente.
                                         """)
