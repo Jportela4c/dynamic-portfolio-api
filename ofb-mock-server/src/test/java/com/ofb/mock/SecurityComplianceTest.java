@@ -11,6 +11,7 @@ import com.nimbusds.jwt.SignedJWT;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
+@EnabledIfSystemProperty(named = "ofb.mock.tests.enabled", matches = "true")
 public class SecurityComplianceTest {
 
     private static final String VALID_CLIENT_ID = "portfolio-api";

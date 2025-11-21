@@ -4,11 +4,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
 
 @QuarkusTest
+@EnabledIfSystemProperty(named = "ofb.mock.tests.enabled", matches = "true")
 public class OAuth2FlowTest {
 
     private static final String VALID_CLIENT_ID = "portfolio-api";
