@@ -55,13 +55,72 @@ public class OpenApiConfig {
 
                                 ---
 
+                                ## Endpoints da API (conforme especificação)
+
+                                ### 1. Simulação de Investimentos
+                                - **POST /simular-investimento** - Simular investimento com valor, prazo e tipo
+
+                                ### 2. Histórico
+                                - **GET /simulacoes** - Listar todas as simulações realizadas
+                                - **GET /simulacoes/por-produto-dia** - Agregação diária por produto
+                                - **GET /investimentos/{clienteId}** - Histórico de investimentos do cliente (via OFB)
+
+                                ### 3. Perfil de Risco
+                                - **GET /perfil-risco/{clienteId}** - Perfil de risco dinâmico do cliente
+                                - **GET /produtos-recomendados/{perfil}** - Produtos recomendados por perfil
+
+                                ### 4. Telemetria
+                                - **GET /telemetria** - Métricas de volume e performance dos serviços
+
+                                ---
+
                                 ## Funcionalidades
 
-                                - Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
-                                - Perfilamento dinâmico de risco
-                                - Recomendação de produtos por perfil
-                                - Histórico de investimentos
-                                - Telemetria e métricas
+                                - ✅ Simulação de investimentos (CDB, LCI, LCA, Tesouro Direto, Fundos)
+                                - ✅ Perfilamento dinâmico de risco baseado em comportamento real
+                                - ✅ Recomendação de produtos por perfil
+                                - ✅ Histórico de investimentos via **Open Finance Brasil**
+                                - ✅ Telemetria e métricas de performance
+
+                                ---
+
+                                ## Integração Open Finance Brasil (OFB)
+
+                                Esta API integra com o padrão Open Finance Brasil para buscar dados reais de investimentos:
+
+                                ### 5 Categorias de Investimentos OFB:
+                                - **Bank Fixed Incomes** - CDB, LCI, LCA, RDB
+                                - **Credit Fixed Incomes** - Debêntures, CRI, CRA
+                                - **Funds** - Fundos de Renda Fixa, Ações, Multimercado
+                                - **Treasury Titles** - Tesouro Selic, IPCA+, Prefixado
+                                - **Variable Incomes** - Ações, BDRs, ETFs
+
+                                ### Dados Retornados:
+                                - **valor** - Valor atual do investimento (netAmount após impostos)
+                                - **valorInvestido** - Valor originalmente investido
+                                - **rentabilidade** - Lucro/prejuízo = valor - valorInvestido
+                                - **emissor** - Instituição emissora
+                                - **dataVencimento** - Data de vencimento (se aplicável)
+
+                                ### Exemplo de Resposta:
+                                ```json
+                                {
+                                  "id": 123456,
+                                  "tipo": "LCA",
+                                  "emissor": "Banco XYZ",
+                                  "valorInvestido": 15814.95,
+                                  "valor": 20116.19,
+                                  "rentabilidade": 4301.24,
+                                  "dataVencimento": "2025-12-31"
+                                }
+                                ```
+
+                                ### Servidor Mock OFB:
+                                O projeto inclui um servidor mock completo com 72 investimentos e 436 transações geradas com dados realistas (json-schema-faker).
+
+                                **Swagger OFB Mock:** http://localhost:8089/q/swagger-ui
+
+                                ---
                                 """)
                         .contact(new Contact()
                                 .name("Dynamic Portfolio API")
